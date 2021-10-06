@@ -1,0 +1,28 @@
+{
+  "name": "typeorm-react-auth-boilerplate",
+  "version": "1.0.0",
+  "description": "Typeorm + React + GraphQL fullstack authentication boilerplate",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "**/typeorm",
+      "**/typeorm/**"
+    ]
+  },
+  "scripts": {
+    "start": "npx concurrently \"cd client && yarn \" \"\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/timthedev07/typeorm-react-auth-boilerplate.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/timthedev07/typeorm-react-auth-boilerplate/issues"
+  },
+  "homepage": "https://github.com/timthedev07/typeorm-react-auth-boilerplate#readme"
+}

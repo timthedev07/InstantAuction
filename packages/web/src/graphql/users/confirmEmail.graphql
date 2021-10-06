@@ -1,0 +1,9 @@
+mutation ConfirmEmail($token: String!) {
+  confirmUser(token: $token) {
+    accessToken
+    user {
+      id
+      email
+    }
+  }
+}

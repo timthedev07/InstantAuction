@@ -1,0 +1,97 @@
+const adjective1 = [
+  "legitimate",
+  "brave",
+  "random",
+  "brainwashing",
+  "cheerful",
+  "warm",
+  "bright",
+  "determined",
+  "cool",
+  "fantastic",
+  "legit",
+  "interactive",
+  "legendary",
+  "strong",
+  "united",
+  "not-so",
+  "satisfying",
+  "dynamic",
+  "fearless",
+  "faithful",
+  "optimistic",
+  "patient",
+  "confident",
+  "ambitious",
+];
+const adjective2 = [
+  "honorable",
+  "awesome",
+  "deep_fried",
+  "amazing",
+  "diligent",
+  "patient",
+  "polite",
+  "energetic",
+];
+const noun = [
+  "salmon",
+  "keyboard",
+  "sunshine",
+  "drumstick",
+  "introvert",
+  "entrepreneur",
+  "man",
+  "shepherd",
+  "socks",
+  "facebook",
+  "CEO",
+  "guy",
+  "cake",
+  "dude",
+  "burrito",
+  "paella",
+  "pizza",
+  "dumplings",
+  "pepsi",
+  "meme",
+  "sushi",
+  "book",
+  "mathematician",
+  "linguist",
+  "whisper",
+  "iPhone",
+  "iPad",
+  "PC",
+  "franchise",
+  "NonSense",
+  "city",
+  "IronMan",
+  "WarMachine",
+  "CaptainAmerica",
+  "Thor",
+  "StarLord",
+  "Groot",
+  "SpiderMan",
+  "Falcon",
+  "ScarletWitch",
+  "Thanos",
+  "DrStrange",
+  "WinterSoldier",
+  "Hawkeye",
+  "Avengers",
+  "utility",
+  "sushi",
+];
+
+const words = { adjective1, adjective2, noun } as any;
+const order = ["adjective1", "adjective2", "noun"];
+
+export const randSlug = () => {
+  const selected = order.map((partOfSpeech) => {
+    const choices = words[partOfSpeech];
+    return choices[Math.floor(Math.random() * choices.length)];
+  });
+
+  return selected.join("-");
+};

@@ -12,6 +12,7 @@
 - Install and configure tailwind ✅
 - Configure Typeorm to connect to the database ✅
 - Set up Apollo GraphQL on Next.js frontend ✅
+- Configure React Native
 - Set up Apollo Graphql on React Native
 - Configure scripts
 

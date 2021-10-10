@@ -4,7 +4,7 @@ import { Layout } from "../components/layout";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { BACKEND } from "shared";
 
-const client = new ApolloClient({
+export const client = new ApolloClient({
   uri: BACKEND,
   cache: new InMemoryCache(),
 });

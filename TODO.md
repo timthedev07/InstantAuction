@@ -16,7 +16,10 @@
 
 ## Server side
 
-- User Resolvers(for this project we'll just use Google and Discord auth)
+1. Express session(I would use session for auth this time)
+
+- Setup redis if needed.
+- User Resolvers
   - Register resolver
   - Login resolver
   - Logout resolver
@@ -28,5 +31,8 @@
     - Show transaction count
     - Show reputation
     - Show a list of transactions
-- Express session(I would use session for auth this time)
-- Setup redis if needed.
+- Transaction Resolvers:
+  - Create transaction
+  - Delete transaction
+  - Get transaction info
+  - Update transaction details

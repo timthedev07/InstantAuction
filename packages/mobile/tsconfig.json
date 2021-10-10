@@ -4,7 +4,11 @@
     "target": "es2017",
     "module": "commonjs",
     "jsx": "react-native",
-    "lib": ["es6", "esnext.asynciterable", "es2017"],
+    "lib": [
+      "es6",
+      "esnext.asynciterable",
+      "es2017"
+    ],
     "strict": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
@@ -18,5 +22,6 @@
     "baseUrl": ".",
     "allowSyntheticDefaultImports": true,
     "removeComments": true
-  }
+  },
+  "extends": "expo/tsconfig.base"
 }

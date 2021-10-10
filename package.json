@@ -1,7 +1,7 @@
 {
-  "name": "typeorm-react-auth-boilerplate",
+  "name": "instant-auction",
   "version": "1.0.0",
-  "description": "Typeorm + React + GraphQL fullstack authentication boilerplate",
+  "description": "Modern auction platform for trading goods.",
   "private": true,
   "workspaces": {
     "packages": [
@@ -12,16 +12,15 @@
     ]
   },
   "scripts": {
-    "start": "npx concurrently \"cd client && yarn \" \"\""
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/timthedev07/typeorm-react-auth-boilerplate.git"
+    "url": "git+https://github.com/timthedev07/InstantAuction.git"
   },
   "author": "",
-  "license": "MIT",
+  "license": "GPL-3.0-or-later",
   "bugs": {
-    "url": "https://github.com/timthedev07/typeorm-react-auth-boilerplate/issues"
+    "url": "https://github.com/timthedev07/InstantAuction/issues"
   },
-  "homepage": "https://github.com/timthedev07/typeorm-react-auth-boilerplate#readme"
+  "homepage": "https://github.com/timthedev07/InstantAuction#readme"
 }

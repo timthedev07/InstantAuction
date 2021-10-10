@@ -9,7 +9,9 @@
     ],
     "nohoist": [
       "**/typeorm",
-      "**/typeorm/**"
+      "**/typeorm/**",
+      "**/expo",
+      "**/expo/**"
     ]
   },
   "scripts": {

@@ -5,7 +5,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { BACKEND } from "shared";
 
 export const client = new ApolloClient({
-  uri: BACKEND,
+  uri: `${BACKEND}/graphql`,
   cache: new InMemoryCache(),
 });
 

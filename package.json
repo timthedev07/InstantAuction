@@ -8,8 +8,7 @@
       "packages/*"
     ],
     "nohoist": [
-      "**/typeorm",
-      "**/typeorm/**"
+      "**"
     ]
   },
   "scripts": {

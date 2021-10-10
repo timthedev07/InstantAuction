@@ -9,5 +9,5 @@ generates:
       - "typescript-react-apollo"
     config:
       withHOC: false
-      withComponent: true
-      withHooks: false
+      withComponent: false
+      withHooks: true

@@ -18,8 +18,7 @@
 
 ## Server side
 
-1. Express session(I would use session for auth this time)
-
+- Express session(I would use session for auth this time)
 - Setup redis if needed.
 - User Resolvers
   - Register resolver

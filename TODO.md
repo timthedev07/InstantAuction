@@ -29,3 +29,4 @@
     - Show reputation
     - Show a list of transactions
 - Express session(I would use session for auth this time)
+- Setup redis if needed.

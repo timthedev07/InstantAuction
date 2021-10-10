@@ -33,6 +33,7 @@
     - Show reputation
     - Show a list of transactions
 - Transaction Entity
+  - Auto generated id 
   - Date started
   - Status(closed, succeeded, open)
   - Seller

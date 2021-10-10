@@ -13,7 +13,7 @@ export class User extends BaseEntity {
   email: string;
 
   @Field(() => String)
-  @Column({ type: "varchar", length: "35", unique: true })
+  @Column({ type: "varchar", length: "45", unique: true })
   username: string;
 
   @Field(() => String, { nullable: true })
@@ -23,4 +23,8 @@ export class User extends BaseEntity {
   @Field(() => String)
   @Column("text")
   avatarUrl: string;
+
+  @Field(() => Int)
+  @Column({ type: "number", default: 0 })
+  transactionCount: number;
 }

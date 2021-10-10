@@ -15,7 +15,7 @@ module.exports = {
   password: production
     ? process.env.HP_PASSWORD
     : process.env.POSTGRES_PASSWORD,
-  database: production ? process.env.HP_DATABASE : "your-doge-primary",
+  database: production ? process.env.HP_DATABASE : "InstantAuction.local",
   entities: [`${basedir}/entity/**/*.${fileType}`],
   migrations: [`${basedir}/migrations/**/*.${fileType}`],
   subscribers: [`${basedir}/subscriber/**/*.${fileType}`],

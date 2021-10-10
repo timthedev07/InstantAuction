@@ -12,7 +12,9 @@
       "**/typeorm/**"
     ]
   },
-  "scripts": {},
+  "scripts": {
+    "dev": "concurrently \"cd packages/web && yarn dev\" \"cd packages/server && yarn dev\""
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/timthedev07/InstantAuction.git"

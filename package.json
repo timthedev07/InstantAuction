@@ -1,7 +1,7 @@
 {
   "name": "instant-auction",
   "version": "1.0.0",
-  "description": "Modern auction platform for trading goods.",
+  "description": "A modern auction platform for trading goods.",
   "private": true,
   "workspaces": {
     "packages": [
@@ -11,8 +11,7 @@
       "**"
     ]
   },
-  "scripts": {
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/timthedev07/InstantAuction.git"

@@ -7,3 +7,7 @@ generates:
       - "typescript"
       - "typescript-operations"
       - "typescript-react-apollo"
+    config:
+      withHOC: false
+      withComponent: true
+      withHooks: false

@@ -29,13 +29,10 @@ export const Layout: FC = ({ children }) => {
   return (
     <>
       <Head>
-        <title>Tim&apos;s Website</title>
+        <title>{metadata.title}</title>
         <meta name="title" content={metadata.title} />
         <meta name="description" content={metadata.title} />
-        <meta
-          name="keywords"
-          content="portfolio, website, coding, programming, faang"
-        />
+        <meta name="keywords" content="auction, platform, trade" />
         <meta name="robots" content="index, follow" />
         <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="language" content="English" />
@@ -44,7 +41,7 @@ export const Layout: FC = ({ children }) => {
         <meta property="og:type" content="website" />
         <meta property="og:title" content={metadata.title} />
         <meta property="og:site_name" content={metadata.title} />
-        <meta property="og:url" content="https://timthedev07.github.io/" />
+        <meta property="og:url" content="https://instantauction.vercel.app" />
         <meta property="og:image" content={metadata.image} />
         <meta property="og:description" content={metadata.description} />
         <meta name="twitter:card" content="summary_large_image" />
@@ -68,7 +65,7 @@ export const Layout: FC = ({ children }) => {
             className={`${
               windowSize <= BREAK_POINT ? "block" : "hidden"
             } bg-transparent h-5`}
-          ></div>
+          />
         </main>
         {/* {windowSize <= BREAK_POINT ? <BottomNav /> : null} */}
       </div>

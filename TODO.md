@@ -5,6 +5,7 @@
 - Design Logo
 - Color palette (black and white?)
 - README
+- Marketing(further details are going to be discussed)
 
 ## Setup tasks
 
@@ -31,7 +32,14 @@
     - Show transaction count
     - Show reputation
     - Show a list of transactions
-- Transaction Resolvers:
+- Transaction Entity
+  - Date started
+  - Status(closed, succeeded, open)
+  - Seller
+  - Current highest bidder
+  - Current highest bid
+
+- Transaction Resolvers
   - Create transaction
   - Delete transaction
   - Get transaction info

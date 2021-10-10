@@ -5,7 +5,6 @@ import cors from "cors";
 import { ApolloServer } from "apollo-server-express";
 import { UserResolver } from "./resolvers/UserResolvers";
 import { buildSchema } from "type-graphql";
-import { router as AuthRouter } from "./routes/AuthRoute";
 import cookieParser from "cookie-parser";
 import { createConnection } from "typeorm";
 import { FRONTEND, PLAYGROUND } from "shared";
@@ -23,7 +22,6 @@ const HOSTNAME = process.env.HOST || "0.0.0.0";
       origin: [FRONTEND, PLAYGROUND],
     })
   );
-  app.use("/auth", AuthRouter);
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({ resolvers: [UserResolver] }),

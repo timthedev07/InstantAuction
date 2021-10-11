@@ -1,13 +1,8 @@
 // import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { Layout } from "../components/layout";
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
-import { BACKEND } from "shared";
-
-export const client = new ApolloClient({
-  uri: `${BACKEND}/graphql`,
-  cache: new InMemoryCache(),
-});
+import {  ApolloProvider } from "@apollo/client";
+import {client} from "shared"
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (

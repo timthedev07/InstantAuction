@@ -9,6 +9,7 @@
     ],
     "nohoist": [
       "**/typeorm",
+      "**/typeorm/**",
       "**/expo",
       "**/expo",
       "**/expo**"

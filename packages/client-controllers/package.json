@@ -1,5 +1,5 @@
 {
-  "name": "shared",
+  "name": "client-controllers",
   "version": "1.0.6",
   "main": "src/index.ts",
   "license": "MIT",

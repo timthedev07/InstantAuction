@@ -1,0 +1,27 @@
+{
+  "name": "shared",
+  "version": "1.0.6",
+  "main": "src/index.ts",
+  "license": "MIT",
+  "dependencies": {
+    "@apollo/client": "^3.4.16",
+    "cross-env": "7.0.3",
+    "graphql": "^15.6.1",
+    "react": "^17.0.2",
+    "typescript": "^4.3.5",
+    "shared": ">=1.0.0"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "2.2.0",
+    "@graphql-codegen/typescript": "2.2.2",
+    "@graphql-codegen/typescript-operations": "2.1.6",
+    "@graphql-codegen/typescript-react-apollo": "3.1.4",
+    "@types/node": "^16.10.3",
+    "@types/react": "^17.0.27",
+    "graphql-code-generator": "^0.18.2"
+  },
+  "scripts": {
+    "build": "tsc",
+    "gen": "graphql-codegen --config codegen.yml"
+  }
+}

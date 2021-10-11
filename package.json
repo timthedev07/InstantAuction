@@ -17,7 +17,8 @@
     ]
   },
   "scripts": {
-    "dev": "concurrently \"cd packages/web && yarn dev\" \"cd packages/server && yarn dev\""
+    "dev": "concurrently \"cd packages/web && yarn dev\" \"cd packages/server && yarn dev\"",
+    "dev:mobile": "concurrently \"cd packages/mobile && yarn start\" \"cd packages/server && yarn dev\""
   },
   "repository": {
     "type": "git",

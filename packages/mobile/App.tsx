@@ -6,12 +6,13 @@ import { ApolloProvider } from "@apollo/client";
 import { client } from "client-controllers";
 
 const Content = () => {
-  const {data, loading} = useHelloQuery();
+  const {data, loading, error} = useHelloQuery();
+
   return (
     <View style={styles.container}>
-        <Text>{loading ? "Loading" : data?.hello || "No data form the API"}</Text>
-        <StatusBar style="auto" />
-      </View>
+      <Text>{loading ? "Loading" : error ? JSON.stringify(error) : data?.hello || "No data form the API"}</Text>
+      <StatusBar style="auto" />
+    </View>
   )
 }
 

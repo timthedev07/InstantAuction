@@ -13,7 +13,9 @@
       "**/expo",
       "**/expo/**",
       "**/expo**",
-      "**/expo**/**"
+      "**/expo**/**",
+      "**/client-controllers",
+      "**/client-controllers/**"
     ]
   },
   "scripts": {

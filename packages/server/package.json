@@ -1,7 +1,7 @@
 {
-  "name": "shibe",
-  "version": "0.0.1",
-  "description": "Homework manager.",
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Backend server for InstantAuction.",
   "license": "GPL-3.0-or-later",
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",

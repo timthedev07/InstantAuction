@@ -19,9 +19,8 @@
 
 ## Server side
 
-- Express session(I would use session for auth this time)
-- Setup redis if needed.
 - User Resolvers
+
   - Register resolver
   - Login resolver
   - Logout resolver
@@ -33,6 +32,9 @@
     - Show transaction count
     - Show reputation
     - Show a list of transactions
+
+- Express session(I would use session for auth this time)
+- Setup redis if needed.
 - Transaction Entity
 
   - Auto generated id
@@ -43,6 +45,7 @@
   - Current highest bid
 
 - Transaction Resolvers
+
   - Create transaction
   - Delete transaction
   - Get transaction info

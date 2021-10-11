@@ -1,11 +1,9 @@
 const path = require("path");
-const clientControllersDirName = "client-controllers";
-const paths = [
-  {
-    name: clientControllersDirName,
-    path: path.resolve(__dirname, `../${clientControllersDirName}`),
-  },
-];
+const monorepoPackages = ["client-controllers", "shared"];
+const paths = monorepoPackages.map((each) => ({
+  name: each,
+  path: path.resolve(__dirname, `../${each}`),
+}));
 
 /** @type {import('next').NextConfig} */
 module.exports = () => {
@@ -13,7 +11,9 @@ module.exports = () => {
     webpack(config, { defaultLoaders }) {
       config.module.rules.push({
         test: /\.(ts|tsx)$/,
-        include: [path.resolve(__dirname, `../${clientControllersDirName}`)],
+        include: monorepoPackages.map((each) =>
+          path.resolve(__dirname, `../${each}`)
+        ),
         use: [defaultLoaders.babel],
       });
 

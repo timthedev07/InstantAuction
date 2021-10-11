@@ -1,12 +1,12 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import {useHelloQuery} from "client-controllers"
+import { useHelloQuery } from "client-controllers"
 import { ApolloProvider } from "@apollo/client";
 import { client } from "client-controllers";
 
 const Content = () => {
-  const {data, loading, error} = useHelloQuery();
+  const { data, loading, error } = useHelloQuery();
 
   return (
     <View style={styles.container}>

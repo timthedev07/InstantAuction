@@ -12,7 +12,7 @@
 - Install and configure tailwind ✅
 - Configure Typeorm to connect to the database ✅
 - Set up Apollo GraphQL on Next.js frontend ✅
-- Configure React Native
+- Configure React Native ✅
 - Set up Apollo Graphql on React Native
 - Configure scripts
 
@@ -33,7 +33,8 @@
     - Show reputation
     - Show a list of transactions
 - Transaction Entity
-  - Auto generated id 
+
+  - Auto generated id
   - Date started
   - Status(closed, succeeded, open)
   - Seller
@@ -46,8 +47,13 @@
   - Get transaction info
   - Update transaction details
 
+## Client-side
+
+- Write graphqls
+- Generate hooks
 
 ## Client-side.web
+
 - OAuth
   - Google Auth
     - Create a project in google cloud console
@@ -58,3 +64,20 @@
     - Create a project in discord developers site
     - Grab credentials
     - Create or get a sign in button
+- Pages(do these in order)
+  - Register Page
+  - Login Page
+  - Items Page(no algorithm needed, just display a list of items for now)
+  - Account Page
+  - User Profile Page
+  - Landing Page
+
+## Client-side.mobile
+
+- Add navigation
+- Pages(do these in order)
+  - Register Page
+  - Login Page
+  - Home Page(list of items)
+  - Account page
+  - User profile page

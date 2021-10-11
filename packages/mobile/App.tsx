@@ -5,14 +5,21 @@ import {useHelloQuery} from "client-controllers"
 import { ApolloProvider } from "@apollo/client";
 import { client } from "client-controllers";
 
-export default function App() {
+const Content = () => {
   const {data, loading} = useHelloQuery();
   return (
-    <ApolloProvider client={client}>
-      <View style={styles.container}>
+    <View style={styles.container}>
         <Text>{loading ? "Loading" : data?.hello || "No data form the API"}</Text>
         <StatusBar style="auto" />
       </View>
+  )
+}
+
+export default function App() {
+
+  return (
+    <ApolloProvider client={client}>
+      <Content />
     </ApolloProvider>
   );
 }

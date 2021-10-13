@@ -48,6 +48,7 @@ const HOSTNAME = process.env.HOST || "0.0.0.0";
       },
       secret: sessionSecret,
       resave: false,
+      saveUninitialized: false,
     })
   );
 

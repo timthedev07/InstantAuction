@@ -1,0 +1,11 @@
+query Me {
+  me {
+    id
+    email
+    username
+    provider
+    avatarUrl
+    transactionCount
+    reputation
+  }
+}

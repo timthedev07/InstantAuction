@@ -27,14 +27,14 @@
   - Delete account resolver
   - Update credentials resolver
   - Get Profile Resolver
-    - Show avatar
-    - Show username
-    - Show transaction count
-    - Show reputation
+    - Show avatar ✅
+    - Show username ✅
+    - Show transaction count ✅
+    - Show reputation ✅
     - Show a list of transactions
 
-- Express session(I would use session for auth this time)
-- Setup redis if needed.
+- Express session(I would use session for auth this time) ✅
+- Setup redis if needed. ✅
 - Transaction Entity
 
   - Auto generated id

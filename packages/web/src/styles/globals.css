@@ -1,3 +1,47 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.oauth-buttons-wrapper {
+  height: auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.oauth-button {
+  height: 50px;
+  width: 300px;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+  color: white;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  padding-right: 20px;
+  padding-left: 20px;
+  margin-top: 6px;
+  margin-bottom: 6px;
+  font-family: "Roboto Regular";
+}
+
+.oauth-button.oauth-button-google {
+  background-color: #4285f4;
+}
+
+.oauth-button.oauth-button-facebook {
+  background-color: rgb(32, 107, 206);
+}
+
+.oauth-button.oauth-button-discord {
+  background-color: rgb(96, 99, 239);
+}
+
+.oauth-button .oauth-button__icon {
+  width: 18px;
+  height: 18px;
+  margin-left: auto;
+}

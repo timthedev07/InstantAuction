@@ -29,7 +29,7 @@ export class UserResolver {
   }
 
   @Query(() => User)
-  async me(@Ctx() { req }: NetworkingContext) {
+  async getProfile(@Ctx() { req }: NetworkingContext) {
     const userId = req.session.userId;
 
     if (!userId) {

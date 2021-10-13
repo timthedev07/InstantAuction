@@ -36,6 +36,7 @@ const HOSTNAME = process.env.HOST || "0.0.0.0";
   const RedisStore = connectRedis(session);
   app.use(
     session({
+      name: "lid",
       store: new RedisStore({
         client: redisClient,
         disableTouch: true,

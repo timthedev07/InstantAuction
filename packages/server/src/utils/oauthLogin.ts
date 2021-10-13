@@ -16,7 +16,8 @@ export const loginOAuth = (
   // TODO: Implement login logic with session
   const session = request.session;
 
-  session.userId;
+  console.log({ userId: session.userId });
+  response;
 
   return {
     user,

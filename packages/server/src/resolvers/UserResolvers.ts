@@ -8,6 +8,7 @@ import {
   Query,
   Resolver,
 } from "type-graphql";
+import { notAuthenticatedErrorMessage } from "../constants/errorMessages";
 import { User } from "../entity/User";
 import { GoogleUser } from "../modules/googleUser";
 import { NetworkingContext } from "../types/NetworkingContext";
@@ -22,14 +23,34 @@ export class OAuthResponse {
 @Resolver()
 export class UserResolver {
   @Query(() => String)
-  hello() {
+  hello(@Ctx() { req }: NetworkingContext) {
+    req.session.userId = 1;
     return "Hello from your backend";
+  }
+
+  @Query(() => User)
+  async me(@Ctx() { req }: NetworkingContext) {
+    const userId = req.session.userId;
+
+    if (!userId) {
+      throw new Error(notAuthenticatedErrorMessage);
+    }
+
+    try {
+      const user = await User.findOne({ where: { id: userId } });
+      if (!user) {
+        throw new Error(notAuthenticatedErrorMessage);
+      }
+      return user;
+    } catch (err) {
+      throw new Error(notAuthenticatedErrorMessage);
+    }
   }
 
   @Mutation(() => OAuthResponse)
   async googleOAuth(
     @Args() userData: GoogleUser,
-    @Ctx() { res: response }: NetworkingContext
+    @Ctx() { res, req }: NetworkingContext
   ): Promise<OAuthResponse> {
     const email = userData.email;
 
@@ -41,7 +62,7 @@ export class UserResolver {
 
     if (user) {
       if (user.provider === "google") {
-        return loginOAuth(user, response);
+        return loginOAuth(user, req, res);
       } else {
         throw new Error("Email already linked with another account.");
       }
@@ -57,6 +78,6 @@ export class UserResolver {
 
     user = await User.findOne({ where: { email } });
 
-    return loginOAuth(user!, response);
+    return loginOAuth(user!, req, res);
   }
 }

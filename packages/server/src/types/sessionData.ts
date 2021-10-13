@@ -1,3 +1,0 @@
-interface SessionData {
-  userId: number;
-}

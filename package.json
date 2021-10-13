@@ -12,7 +12,8 @@
       "**/typeorm/**",
       "**/expo",
       "**/expo",
-      "**/expo**"
+      "**/expo**",
+      "**/types/"
     ]
   },
   "scripts": {

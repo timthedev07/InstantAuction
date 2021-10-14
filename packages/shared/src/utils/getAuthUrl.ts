@@ -1,6 +1,9 @@
 import { stringify } from "query-string";
 
-export const getGoogleAuthUrl = (clientId: string) => {
+export const getGoogleAuthUrl = (clientId: string | undefined | null) => {
+  if (!clientId) {
+    throw new Error("Falsy value provided for `clientId`");
+  }
   const params = stringify({
     client_id: clientId,
     redirect_uri: "https://www.example.com/authenticate/google",

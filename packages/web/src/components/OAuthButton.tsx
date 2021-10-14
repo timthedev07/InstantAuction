@@ -4,11 +4,13 @@ import { capitalize } from "shared";
 
 interface OAuthButtonProps {
   provider: "google" | "discord" | "facebook";
-  href: string;
+  href: string | null | undefined;
 }
 
 export const OAuthButton: React.FC<OAuthButtonProps> = ({ provider, href }) => {
-  return (
+  return !href ? (
+    <button>No href provided</button>
+  ) : (
     <Link href={href} passHref>
       <a>
         <button className={`oauth-button oauth-button-${provider}`}>

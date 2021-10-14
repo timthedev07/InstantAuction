@@ -1,6 +1,7 @@
 import { NextPage } from "next";
 import { useHelloQuery, useMeQuery } from "client-controllers";
 import { OAuthButton } from "../components/OAuthButton";
+import { getGoogleAuthUrl } from "shared";
 
 const Landing: NextPage = () => {
   const { data: testData, loading: testLoading } = useHelloQuery();
@@ -17,7 +18,10 @@ const Landing: NextPage = () => {
           ? JSON.stringify(error, null, 2)
           : JSON.stringify(data, null, 2)}
       </pre>
-      <OAuthButton provider="google" href="https://www.google.com" />
+      <OAuthButton
+        provider="google"
+        href={getGoogleAuthUrl(process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID)}
+      />
     </>
   );
 };

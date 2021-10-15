@@ -22,7 +22,7 @@ const getAccessTokenFromCode = async (code: string) => {
   }
 };
 
-export const getGoogleUserInfo = async (code: string): Promise<GoogleUser | {}> => {
+export const getGoogleUserInfo = async (code: string): Promise<GoogleUser> => {
   const accessToken: string = await getAccessTokenFromCode(code);
 
   try {
@@ -35,6 +35,7 @@ export const getGoogleUserInfo = async (code: string): Promise<GoogleUser | {}> 
     });
     return data as GoogleUser;
   } catch (err) {
-    return {};
+    console.log(err)
+    throw new Error("Error getting Google user info.")
   }
 };

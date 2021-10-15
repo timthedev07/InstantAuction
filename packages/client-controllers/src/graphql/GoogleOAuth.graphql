@@ -1,0 +1,13 @@
+mutation GoogleOAuth($code: String!) {
+  googleOAuth(code: $code) {
+    user {
+      id
+      email
+      username
+      provider
+      avatarUrl
+      transactionCount
+      reputation
+    }
+  }
+}

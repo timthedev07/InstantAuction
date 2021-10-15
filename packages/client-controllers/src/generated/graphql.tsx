@@ -21,15 +21,7 @@ export type Mutation = {
 
 
 export type MutationGoogleOAuthArgs = {
-  email: Scalars['String'];
-  family_name: Scalars['String'];
-  given_name: Scalars['String'];
-  hd?: Maybe<Scalars['String']>;
-  id: Scalars['String'];
-  locale: Scalars['String'];
-  name: Scalars['String'];
-  picture?: Maybe<Scalars['String']>;
-  verified_email: Scalars['Boolean'];
+  code: Scalars['String'];
 };
 
 export type OAuthResponse = {
@@ -54,6 +46,13 @@ export type User = {
   username: Scalars['String'];
 };
 
+export type GoogleOAuthMutationVariables = Exact<{
+  code: Scalars['String'];
+}>;
+
+
+export type GoogleOAuthMutation = { __typename?: 'Mutation', googleOAuth: { __typename?: 'OAuthResponse', user?: { __typename?: 'User', id: number, email: string, username: string, provider?: string | null | undefined, avatarUrl: string, transactionCount: number, reputation: number } | null | undefined } };
+
 export type GetProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -65,6 +64,47 @@ export type HelloQueryVariables = Exact<{ [key: string]: never; }>;
 export type HelloQuery = { __typename?: 'Query', hello: string };
 
 
+export const GoogleOAuthDocument = gql`
+    mutation GoogleOAuth($code: String!) {
+  googleOAuth(code: $code) {
+    user {
+      id
+      email
+      username
+      provider
+      avatarUrl
+      transactionCount
+      reputation
+    }
+  }
+}
+    `;
+export type GoogleOAuthMutationFn = Apollo.MutationFunction<GoogleOAuthMutation, GoogleOAuthMutationVariables>;
+
+/**
+ * __useGoogleOAuthMutation__
+ *
+ * To run a mutation, you first call `useGoogleOAuthMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useGoogleOAuthMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [googleOAuthMutation, { data, loading, error }] = useGoogleOAuthMutation({
+ *   variables: {
+ *      code: // value for 'code'
+ *   },
+ * });
+ */
+export function useGoogleOAuthMutation(baseOptions?: Apollo.MutationHookOptions<GoogleOAuthMutation, GoogleOAuthMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<GoogleOAuthMutation, GoogleOAuthMutationVariables>(GoogleOAuthDocument, options);
+      }
+export type GoogleOAuthMutationHookResult = ReturnType<typeof useGoogleOAuthMutation>;
+export type GoogleOAuthMutationResult = Apollo.MutationResult<GoogleOAuthMutation>;
+export type GoogleOAuthMutationOptions = Apollo.BaseMutationOptions<GoogleOAuthMutation, GoogleOAuthMutationVariables>;
 export const GetProfileDocument = gql`
     query GetProfile {
   getProfile {

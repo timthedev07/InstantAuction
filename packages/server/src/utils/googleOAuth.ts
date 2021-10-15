@@ -10,7 +10,7 @@ const getAccessTokenFromCode = async (code: string) => {
       data: {
         client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
         client_secret: process.env.GOOGLE_CLIENT_SECRET || "",
-        redirect_uri: `${FRONTEND}/auth/oauth/google`,
+        redirect_uri: `${FRONTEND}/auth/google`,
         grant_type: "authorization_code",
         code,
       },
@@ -18,6 +18,7 @@ const getAccessTokenFromCode = async (code: string) => {
 
     return (data as any)?.access_token || "";
   } catch (err) {
+    console.log("something unexpected happened at function getAccessTokenFromCode")
     return "";
   }
 };
@@ -35,7 +36,7 @@ export const getGoogleUserInfo = async (code: string): Promise<GoogleUser> => {
     });
     return data as GoogleUser;
   } catch (err) {
-    console.log(err)
+    console.log("something unexpected happened at function getGoogleUserInfo")
     throw new Error("Error getting Google user info.")
   }
 };

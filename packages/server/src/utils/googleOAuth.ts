@@ -1,5 +1,6 @@
 import { FRONTEND } from "shared";
 import axios from "axios";
+import { GoogleUser } from "../modules/googleUser";
 
 const getAccessTokenFromCode = async (code: string) => {
   try {
@@ -21,7 +22,7 @@ const getAccessTokenFromCode = async (code: string) => {
   }
 };
 
-export const getGoogleUserInfo = async (code: string) => {
+export const getGoogleUserInfo = async (code: string): Promise<GoogleUser | {}> => {
   const accessToken: string = await getAccessTokenFromCode(code);
 
   try {
@@ -32,7 +33,7 @@ export const getGoogleUserInfo = async (code: string) => {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-    return data;
+    return data as GoogleUser;
   } catch (err) {
     return {};
   }

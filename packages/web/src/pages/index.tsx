@@ -1,11 +1,11 @@
 import { NextPage } from "next";
-import { useHelloQuery, useMeQuery } from "client-controllers";
+import { useHelloQuery, useGetProfileQuery } from "client-controllers";
 import { OAuthButton } from "../components/OAuthButton";
 import { getGoogleAuthUrl } from "shared";
 
 const Landing: NextPage = () => {
   const { data: testData, loading: testLoading } = useHelloQuery();
-  const { data, loading, error } = useMeQuery();
+  const { data, loading, error } = useGetProfileQuery();
   return (
     <>
       <h1 className="text-3xl">

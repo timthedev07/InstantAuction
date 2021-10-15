@@ -34,7 +34,6 @@
 
 - User Resolvers
 
-  - Register resolver
   - Login resolver
   - Logout resolver
   - Delete account resolver
@@ -72,7 +71,6 @@
 ## Client-side.web
 
 - Pages(do these in order)
-  - Register Page
   - Login Page
   - Items Page(no algorithm needed, just display a list of items for now)
   - Account Page

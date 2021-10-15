@@ -79,6 +79,8 @@
   - User Profile Page
   - Landing Page
 
+**Note: Finish building the web interface before moving on to native.**
+
 ## Client-side.mobile
 
 - Add navigation

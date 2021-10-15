@@ -25,7 +25,7 @@ export class OAuthResponse {
 export class UserResolver {
   @Query(() => String)
   hello(@Ctx() { req }: NetworkingContext) {
-    req.session.userId = 1;
+    req;
     return "Hello from your backend";
   }
 
@@ -72,7 +72,7 @@ export class UserResolver {
     let user: User | undefined = await User.findOne({ where: { email } });
 
     if (user) {
-      if (user.provider === "google") {
+      if (user.provider === "Google") {
         return loginOAuth(user, req, res);
       } else {
         throw new Error("Email already linked with another account.");
@@ -84,6 +84,7 @@ export class UserResolver {
         email,
         avatarUrl: userData.picture || undefined,
         provider: "Google",
+        username: userData.given_name,
       });
     } catch (err) {}
 

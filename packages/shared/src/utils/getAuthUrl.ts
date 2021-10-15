@@ -1,5 +1,5 @@
 import { stringify } from "query-string";
-import { FRONTEND } from "src";
+import { FRONTEND } from "../constants/servers";
 
 export const getGoogleAuthUrl = (clientId: string | undefined | null) => {
   if (!clientId) {

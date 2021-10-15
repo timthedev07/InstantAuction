@@ -1,5 +1,5 @@
-query Me {
-  me {
+query GetProfile {
+  getProfile {
     id
     email
     username

@@ -1,4 +1,5 @@
 import { stringify } from "query-string";
+import { FRONTEND } from "src";
 
 export const getGoogleAuthUrl = (clientId: string | undefined | null) => {
   if (!clientId) {
@@ -6,7 +7,7 @@ export const getGoogleAuthUrl = (clientId: string | undefined | null) => {
   }
   const params = stringify({
     client_id: clientId,
-    redirect_uri: "https://www.example.com/authenticate/google",
+    redirect_uri: `${FRONTEND}/auth/google`,
     scope: [
       "https://www.googleapis.com/auth/userinfo.email",
       "https://www.googleapis.com/auth/userinfo.profile",

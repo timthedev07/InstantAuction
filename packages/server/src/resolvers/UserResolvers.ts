@@ -12,6 +12,7 @@ import { notAuthenticatedErrorMessage } from "../constants/errorMessages";
 import { User } from "../entity/User";
 import { GoogleUser } from "../modules/googleUser";
 import { NetworkingContext } from "../types/NetworkingContext";
+import { getGoogleUserInfo } from "../utils/googleOAuth";
 import { loginOAuth } from "../utils/oauthLogin";
 
 @ObjectType()
@@ -49,10 +50,20 @@ export class UserResolver {
 
   @Mutation(() => OAuthResponse)
   async googleOAuth(
-    @Args() userData: GoogleUser,
+    @Args() code: string,
     @Ctx() { res, req }: NetworkingContext
   ): Promise<OAuthResponse> {
-    const email = userData.email;
+    let userData: GoogleUser;
+    let email = "";
+
+    try {
+      userData = await getGoogleUserInfo(code);
+      email = userData.email;
+    } catch (err) {
+      return {
+        user: null,
+      };
+    }
 
     if (!email || !email.length || !validateEmailWithRegex(email)) {
       throw new Error("Invalid email.");

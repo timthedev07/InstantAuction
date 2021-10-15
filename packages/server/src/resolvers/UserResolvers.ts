@@ -1,6 +1,6 @@
 import { validateEmailWithRegex } from "shared";
 import {
-  Args,
+  Arg,
   Ctx,
   Field,
   Mutation,
@@ -50,7 +50,7 @@ export class UserResolver {
 
   @Mutation(() => OAuthResponse)
   async googleOAuth(
-    @Args() code: string,
+    @Arg("code") code: string,
     @Ctx() { res, req }: NetworkingContext
   ): Promise<OAuthResponse> {
     let userData: GoogleUser;

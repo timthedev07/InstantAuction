@@ -77,6 +77,10 @@
   - Account Page
   - User Profile Page
   - Landing Page
+- Components
+  - Item component
+  - Logout button
+  - New Item Form(using Formik)
 
 **Note: Finish building the web interface before moving on to native.**
 

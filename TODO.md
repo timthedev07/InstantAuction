@@ -37,7 +37,7 @@
 
   - Login resolver ✅
   - Logout resolver ✅
-  - Delete account resolver
+  - Delete account resolver ✅
   - Update credentials resolver
   - Get Profile Resolver
     - Show avatar ✅

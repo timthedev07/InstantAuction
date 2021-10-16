@@ -6,6 +6,7 @@ import { DiscordUser } from "../modules/discordUser";
 
 const API_ENDPOINT = "https://discord.com/api/v8";
 const CLIENT_ID = process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID;
+const CLIENT_SECRET = process.env.DISCORD_CLIENT_SECRET;
 
 /**
  * Get access token from the discord api with the given code.
@@ -14,17 +15,19 @@ const CLIENT_ID = process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID;
  * @returns Object
  */
 export const exchangeCode = async (
-  code: string,
-  clientSecret: string
+  code: string
 ): Promise<DiscordAccessTokenResponse | null> => {
   if (!CLIENT_ID) {
     throw new Error("Unexpected falsy discord clientId");
+  }
+  if (!CLIENT_SECRET) {
+    throw new Error("Unexpected falsy discord clientSecret");
   }
 
   try {
     const requestData = {
       client_id: CLIENT_ID,
-      client_secret: clientSecret,
+      client_secret: CLIENT_SECRET,
       grant_type: "authorization_code",
       code: code,
       redirect_uri: FRONTEND + "/auth/discord",
@@ -85,9 +88,9 @@ export const getDiscordUserInfoWithAccessToken = async (
   return data as DiscordUser;
 };
 
-export const getDiscordUserInfo = async (code: string, clientSecret: string) => {
+export const getDiscordUserInfo = async (code: string) => {
   try {
-    const discordCodeResponse = await exchangeCode(code, clientSecret);
+    const discordCodeResponse = await exchangeCode(code);
     const accessToken = discordCodeResponse?.access_token;
 
     if (!accessToken) {

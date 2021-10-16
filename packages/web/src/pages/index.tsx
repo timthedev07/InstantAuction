@@ -20,7 +20,7 @@ const Landing: NextPage = () => {
         {loading
           ? "loading..."
           : error
-          ? JSON.stringify(error, null, 2)
+          ? JSON.stringify(error.message, null, 2)
           : JSON.stringify(data, null, 2)}
       </pre>
       <button onClick={() => logout()}>Logout</button>

@@ -1,14 +1,5 @@
 import { validateEmailWithRegex } from "shared";
-import {
-  Arg,
-  Ctx,
-  Field,
-  Mutation,
-  ObjectType,
-  Query,
-  Resolver,
-} from "type-graphql";
-import { notAuthenticatedErrorMessage } from "../constants/errorMessages";
+import { Arg, Ctx, Field, Mutation, ObjectType, Resolver } from "type-graphql";
 import { User } from "../entity/User";
 import { DiscordUser } from "../modules/discordUser";
 import { GoogleUser } from "../modules/googleUser";
@@ -25,25 +16,6 @@ export class OAuthResponse {
 
 @Resolver()
 export class UserResolver {
-  @Query(() => User)
-  async getProfile(@Ctx() { req }: NetworkingContext) {
-    const userId = req.session.userId;
-
-    if (!userId) {
-      throw new Error(notAuthenticatedErrorMessage);
-    }
-
-    try {
-      const user = await User.findOne({ where: { id: userId } });
-      if (!user) {
-        throw new Error(notAuthenticatedErrorMessage);
-      }
-      return user;
-    } catch (err) {
-      throw new Error(notAuthenticatedErrorMessage);
-    }
-  }
-
   @Mutation(() => OAuthResponse)
   async googleOAuth(
     @Arg("code") code: string,

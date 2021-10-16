@@ -1,4 +1,4 @@
-import { Ctx, Mutation, Resolver, UseMiddleware } from "type-graphql";
+import { Arg, Ctx, Mutation, Resolver, UseMiddleware } from "type-graphql";
 import { User } from "../../entity/User";
 import { NetworkingContext } from "../../types/NetworkingContext";
 import { isAuth } from "../../utils/isAuthMiddleware";
@@ -7,8 +7,21 @@ import { isAuth } from "../../utils/isAuthMiddleware";
 export class DeleteAccountResolver {
   @Mutation(() => Boolean)
   @UseMiddleware(isAuth)
-  async deleteAccount(@Ctx() { req }: NetworkingContext): Promise<boolean> {
+  async deleteAccount(
+    @Arg("email") email: string,
+    @Ctx() { req }: NetworkingContext
+  ): Promise<boolean> {
     const userId = req.session.userId;
+
+    const user = await User.findOne({ where: { id: userId } });
+
+    if (!user) {
+      throw new Error("User does not exist");
+    }
+
+    if (user.email !== email) {
+      throw new Error("Incorrect email");
+    }
 
     try {
       await User.delete({ id: userId });

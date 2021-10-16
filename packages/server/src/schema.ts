@@ -1,5 +1,5 @@
 import { buildSchema } from "type-graphql";
-import { HelloResolver } from "./resolvers/Hello";
+import { TmpResolvers } from "./resolvers/Tmp";
 import { MeResolver } from "./resolvers/users/Me";
 import { LogoutResolver } from "./resolvers/users/Logout";
 import { OAuthResolver } from "./resolvers/users/OAuth";
@@ -8,7 +8,7 @@ import { DeleteAccountResolver } from "./resolvers/users/DeleteAccount";
 export const createSchema = () =>
   buildSchema({
     resolvers: [
-      HelloResolver,
+      TmpResolvers,
       MeResolver,
       OAuthResolver,
       LogoutResolver,

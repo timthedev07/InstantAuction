@@ -1,9 +1,11 @@
-import { Ctx, Query, Resolver } from "type-graphql";
+import { Ctx, Query, Resolver, UseMiddleware } from "type-graphql";
 import { User } from "../../entity/User";
 import { NetworkingContext } from "../../types/NetworkingContext";
+import { isAuth } from "../../utils/isAuthMiddleware";
 @Resolver()
 export class MeResolver {
   @Query(() => User, { nullable: true })
+  @UseMiddleware(isAuth)
   async me(@Ctx() { req }: NetworkingContext) {
     const userId = req.session.userId;
 

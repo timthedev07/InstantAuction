@@ -25,11 +25,6 @@ export class OAuthResponse {
 
 @Resolver()
 export class UserResolver {
-  @Query(() => String)
-  hello() {
-    return "Hello from your backend";
-  }
-
   @Query(() => User)
   async getProfile(@Ctx() { req }: NetworkingContext) {
     const userId = req.session.userId;

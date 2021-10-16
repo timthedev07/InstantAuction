@@ -1,0 +1,13 @@
+mutation DiscordOAuth($code: String!) {
+  discordOAuth(code: $code) {
+    user {
+      id
+      email
+      username
+      provider
+      avatarUrl
+      transactionCount
+      reputation
+    }
+  }
+}

@@ -1,0 +1,3 @@
+mutation DeleteAccount($email: String!) {
+  deleteAccount(email: $email)
+}

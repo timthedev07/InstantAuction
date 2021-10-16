@@ -83,7 +83,7 @@ export class OAuthResolver {
     let user: User | undefined = await User.findOne({ where: { email } });
 
     if (user) {
-      if (user.provider === "Google") {
+      if (user.provider === "Discord") {
         return loginOAuth(user, req, res);
       } else {
         throw new Error("Email already linked with another account.");
@@ -94,7 +94,7 @@ export class OAuthResolver {
       await User.insert({
         email,
         avatarUrl: userData.avatar || undefined,
-        provider: "Google",
+        provider: "Discord",
         username: userData.username,
       });
     } catch (err) {}

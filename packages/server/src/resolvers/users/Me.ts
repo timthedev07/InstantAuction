@@ -3,9 +3,9 @@ import { notAuthenticatedErrorMessage } from "../../constants/errorMessages";
 import { User } from "../../entity/User";
 import { NetworkingContext } from "../../types/NetworkingContext";
 @Resolver()
-export class GetProfileResolver {
+export class MeResolver {
   @Query(() => User)
-  async getProfile(@Ctx() { req }: NetworkingContext) {
+  async me(@Ctx() { req }: NetworkingContext) {
     const userId = req.session.userId;
 
     if (!userId) {

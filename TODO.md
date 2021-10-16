@@ -20,14 +20,15 @@
 ## Auth
 
 - OAuth
-  - Google Auth
-    - Create a project in google cloud console
-    - Grab credentials
-    - See [this](https://medium.com/authpack/easy-google-auth-with-node-js-99ac40b97f4c) article for more instructions
-    - Create sign in button component(probably not, there is already an existing button in one of my previous projects)
+  - Google Auth ✅
+    - Create a project in google cloud console ✅
+    - Grab credentials ✅
+    - See [this](https://medium.com/authpack/easy-google-auth-with-node-js-99ac40b97f4c) article for more instructions ✅
+    - Create sign in button component(probably not, there is already an existing button in one of my previous projects) ✅
   - Discord Auth
-    - Create a project in discord developers site
-    - Grab credentials
+    - Create a project in discord developers site ✅
+    - Grab credentials ✅
+    - Complete token handling logic
     - Create or get a sign in button
 
 ## Server side

@@ -3,7 +3,7 @@ import React from "react";
 import { capitalize } from "shared";
 
 interface OAuthButtonProps {
-  provider: "google" | "discord" | "facebook";
+  provider: "google" | "discord";
   href: string | null | undefined;
 }
 

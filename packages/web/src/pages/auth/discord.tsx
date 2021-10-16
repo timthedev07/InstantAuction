@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 const Discord: NextPage = () => {
   const [state, setState] = useState<{}>();
-  const [googleOAuth] = useDiscordOAuthMutation();
+  const [discordOAuth] = useDiscordOAuthMutation();
   const {push} = useRouter();
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const Discord: NextPage = () => {
         // TODO: handle error here
       }
 
-      const response = await googleOAuth({
+      const response = await discordOAuth({
         variables: {
           code,
         },

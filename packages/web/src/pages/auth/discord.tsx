@@ -19,16 +19,17 @@ const Discord: NextPage = () => {
       const response = await googleOAuth({
         variables: {
           code,
-        }, update: (store, { data }) => {
-            if (!data?.discordOAuth) return;
-            store.writeQuery<MeQuery>({
-              query: MeDocument,
-              data: {
-                __typename: "Query",
-                me: data.discordOAuth.user,
-              },
-            });
-          },
+        },
+        update: (store, { data }) => {
+          if (!data?.discordOAuth) return;
+          store.writeQuery<MeQuery>({
+            query: MeDocument,
+            data: {
+              __typename: "Query",
+              me: data.discordOAuth.user,
+            },
+          });
+        },
       });
       setState(response.data?.discordOAuth || {})
     })();

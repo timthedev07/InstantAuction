@@ -3,8 +3,9 @@ import { FRONTEND } from "../constants/servers";
 
 export const getGoogleAuthUrl = (clientId: string | undefined | null) => {
   if (!clientId) {
-    throw new Error("Falsy value provided for `clientId`");
+    throw new Error("Falsy value provided for Google OAuth `clientId`");
   }
+
   const params = stringify({
     client_id: clientId,
     redirect_uri: `${FRONTEND}/auth/google`,
@@ -17,4 +18,14 @@ export const getGoogleAuthUrl = (clientId: string | undefined | null) => {
     prompt: "consent",
   });
   return `https://accounts.google.com/o/oauth2/v2/auth?${params}`;
+};
+
+export const getDiscordAuthUrl = (clientId: string | undefined | null) => {
+  if (!clientId) {
+    throw new Error("Falsy value provided for Discord OAuth `clientId`");
+  }
+
+  return `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(
+    `${FRONTEND}/auth/oauth/discord`
+  )}&response_type=code&scope=identify%20email`;
 };

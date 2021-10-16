@@ -16,7 +16,13 @@ export type Scalars = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  discordOAuth: OAuthResponse;
   googleOAuth: OAuthResponse;
+};
+
+
+export type MutationDiscordOAuthArgs = {
+  code: Scalars['String'];
 };
 
 
@@ -46,6 +52,13 @@ export type User = {
   username: Scalars['String'];
 };
 
+export type DiscordOAuthMutationVariables = Exact<{
+  code: Scalars['String'];
+}>;
+
+
+export type DiscordOAuthMutation = { __typename?: 'Mutation', discordOAuth: { __typename?: 'OAuthResponse', user?: { __typename?: 'User', id: number, email: string, username: string, provider?: string | null | undefined, avatarUrl: string, transactionCount: number, reputation: number } | null | undefined } };
+
 export type GoogleOAuthMutationVariables = Exact<{
   code: Scalars['String'];
 }>;
@@ -64,6 +77,47 @@ export type HelloQueryVariables = Exact<{ [key: string]: never; }>;
 export type HelloQuery = { __typename?: 'Query', hello: string };
 
 
+export const DiscordOAuthDocument = gql`
+    mutation DiscordOAuth($code: String!) {
+  discordOAuth(code: $code) {
+    user {
+      id
+      email
+      username
+      provider
+      avatarUrl
+      transactionCount
+      reputation
+    }
+  }
+}
+    `;
+export type DiscordOAuthMutationFn = Apollo.MutationFunction<DiscordOAuthMutation, DiscordOAuthMutationVariables>;
+
+/**
+ * __useDiscordOAuthMutation__
+ *
+ * To run a mutation, you first call `useDiscordOAuthMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDiscordOAuthMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [discordOAuthMutation, { data, loading, error }] = useDiscordOAuthMutation({
+ *   variables: {
+ *      code: // value for 'code'
+ *   },
+ * });
+ */
+export function useDiscordOAuthMutation(baseOptions?: Apollo.MutationHookOptions<DiscordOAuthMutation, DiscordOAuthMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DiscordOAuthMutation, DiscordOAuthMutationVariables>(DiscordOAuthDocument, options);
+      }
+export type DiscordOAuthMutationHookResult = ReturnType<typeof useDiscordOAuthMutation>;
+export type DiscordOAuthMutationResult = Apollo.MutationResult<DiscordOAuthMutation>;
+export type DiscordOAuthMutationOptions = Apollo.BaseMutationOptions<DiscordOAuthMutation, DiscordOAuthMutationVariables>;
 export const GoogleOAuthDocument = gql`
     mutation GoogleOAuth($code: String!) {
   googleOAuth(code: $code) {

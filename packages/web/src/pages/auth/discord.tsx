@@ -1,4 +1,4 @@
-import { MeDocument, MeQuery, useDiscordOAuthMutation } from "client-controllers";
+import { createDiscordOAuthOptions, useDiscordOAuthMutation } from "client-controllers";
 import { NextPage } from "next";
 import { useRouter } from "next/dist/client/router";
 import queryString from "query-string";
@@ -19,22 +19,12 @@ const Discord: NextPage = () => {
         // TODO: handle error here
       }
 
-      const response = await discordOAuth({
-        variables: {
-          code,
-        },
-        update: (store, { data }) => {
-          if (!data?.discordOAuth) return;
-          store.writeQuery<MeQuery>({
-            query: MeDocument,
-            data: {
-              __typename: "Query",
-              me: data.discordOAuth.user,
-            },
-          });
-          success = true;
-        },
-      });
+      const response = await discordOAuth(createDiscordOAuthOptions({code}));
+
+      if (!response.errors || !response.errors.length) {
+        success = true;
+      }
+
       setState(response.data?.discordOAuth || {})
 
       return success;

@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import {
   useHelloQuery,
-  useGetProfileQuery,
+  useMeQuery,
   useLogoutLazyQuery,
 } from "client-controllers";
 import { OAuthButton } from "../components/OAuthButton";
@@ -9,7 +9,7 @@ import { getDiscordAuthUrl, getGoogleAuthUrl } from "shared";
 
 const Landing: NextPage = () => {
   const { data: testData, loading: testLoading } = useHelloQuery();
-  const { data, loading, error } = useGetProfileQuery();
+  const { data, loading, error } = useMeQuery();
   const [logout] = useLogoutLazyQuery();
   return (
     <>

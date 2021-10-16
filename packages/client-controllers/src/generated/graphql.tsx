@@ -39,7 +39,7 @@ export type Query = {
   __typename?: 'Query';
   hello: Scalars['String'];
   logout: Scalars['Boolean'];
-  me: User;
+  me?: Maybe<User>;
 };
 
 export type User = {
@@ -80,7 +80,7 @@ export type LogoutQuery = { __typename?: 'Query', logout: boolean };
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MeQuery = { __typename?: 'Query', me: { __typename?: 'User', id: number, email: string, username: string, provider?: string | null | undefined, avatarUrl: string, transactionCount: number, reputation: number } };
+export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', id: number, email: string, username: string, provider?: string | null | undefined, avatarUrl: string, transactionCount: number, reputation: number } | null | undefined };
 
 
 export const DiscordOAuthDocument = gql`

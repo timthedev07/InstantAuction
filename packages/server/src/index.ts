@@ -11,6 +11,7 @@ import connectRedis from "connect-redis";
 import { redisClient } from "./redis";
 import { __prod__ } from "./constants/prod";
 import { createSchema } from "./schema";
+import { sessionCookieName } from "./constants/session";
 
 const PORT = parseInt(process.env.PORT || "4000");
 const HOSTNAME = process.env.HOST || "0.0.0.0";
@@ -35,7 +36,7 @@ const HOSTNAME = process.env.HOST || "0.0.0.0";
   const RedisStore = connectRedis(session);
   app.use(
     session({
-      name: "lid",
+      name: sessionCookieName,
       store: new RedisStore({
         client: redisClient,
         disableTouch: true,

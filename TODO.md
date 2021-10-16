@@ -25,17 +25,17 @@
     - Grab credentials ✅
     - See [this](https://medium.com/authpack/easy-google-auth-with-node-js-99ac40b97f4c) article for more instructions ✅
     - Create sign in button component(probably not, there is already an existing button in one of my previous projects) ✅
-  - Discord Auth
+  - Discord Auth ✅
     - Create a project in discord developers site ✅
     - Grab credentials ✅
-    - Complete token handling logic
-    - Create or get a sign in button
+    - Complete token handling logic ✅
+    - Create or get a sign in button ✅
 
 ## Server side
 
 - User Resolvers
 
-  - Login resolver
+  - Login resolver ✅
   - Logout resolver
   - Delete account resolver
   - Update credentials resolver

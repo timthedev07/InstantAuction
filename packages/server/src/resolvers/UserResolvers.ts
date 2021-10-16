@@ -26,8 +26,7 @@ export class OAuthResponse {
 @Resolver()
 export class UserResolver {
   @Query(() => String)
-  hello(@Ctx() { req }: NetworkingContext) {
-    req;
+  hello() {
     return "Hello from your backend";
   }
 

@@ -3,8 +3,6 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import { ApolloServer } from "apollo-server-express";
-import { UserResolver } from "./resolvers/UserResolvers";
-import { buildSchema } from "type-graphql";
 import cookieParser from "cookie-parser";
 import { createConnection } from "typeorm";
 import { FRONTEND, PLAYGROUND } from "shared";
@@ -12,6 +10,7 @@ import session from "express-session";
 import connectRedis from "connect-redis";
 import { redisClient } from "./redis";
 import { __prod__ } from "./constants/prod";
+import { createSchema } from "./schema";
 
 const PORT = parseInt(process.env.PORT || "4000");
 const HOSTNAME = process.env.HOST || "0.0.0.0";
@@ -53,8 +52,10 @@ const HOSTNAME = process.env.HOST || "0.0.0.0";
     })
   );
 
+  const schema = await createSchema();
+
   const apolloServer = new ApolloServer({
-    schema: await buildSchema({ resolvers: [UserResolver] }),
+    schema,
     context: ({ req, res }) => ({ req, res }),
   });
 

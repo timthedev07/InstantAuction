@@ -27,7 +27,7 @@ const Discord: NextPage = () => {
 
   return (
     <>
-      <pre>{JSON.stringify(state)}</pre>
+      <pre>{JSON.stringify(state, null, 2)}</pre>
     </>
   );
 };

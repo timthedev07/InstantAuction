@@ -26,6 +26,6 @@ export const getDiscordAuthUrl = (clientId: string | undefined | null) => {
   }
 
   return `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(
-    `${FRONTEND}/auth/oauth/discord`
+    `${FRONTEND}/auth/discord`
   )}&response_type=code&scope=identify%20email`;
 };

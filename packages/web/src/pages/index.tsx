@@ -1,11 +1,16 @@
 import { NextPage } from "next";
-import { useHelloQuery, useGetProfileQuery } from "client-controllers";
+import {
+  useHelloQuery,
+  useGetProfileQuery,
+  useLogoutLazyQuery,
+} from "client-controllers";
 import { OAuthButton } from "../components/OAuthButton";
 import { getDiscordAuthUrl, getGoogleAuthUrl } from "shared";
 
 const Landing: NextPage = () => {
   const { data: testData, loading: testLoading } = useHelloQuery();
   const { data, loading, error } = useGetProfileQuery();
+  const [logout] = useLogoutLazyQuery();
   return (
     <>
       <h1 className="text-3xl">
@@ -18,6 +23,7 @@ const Landing: NextPage = () => {
           ? JSON.stringify(error, null, 2)
           : JSON.stringify(data, null, 2)}
       </pre>
+      <button onClick={() => logout()}>Logout</button>
       <OAuthButton
         provider="google"
         href={getGoogleAuthUrl(process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID)}

@@ -3,6 +3,7 @@ import { useHelloQuery, useMeQuery } from "client-controllers";
 import { OAuthButton } from "../components/OAuthButton";
 import { getDiscordAuthUrl, getGoogleAuthUrl } from "shared";
 import { LogoutButton } from "../components/LogoutButton";
+import { DeleteAccountButton } from "../components/DeleteAccountButton";
 
 const Landing: NextPage = () => {
   const { data: testData, loading: testLoading } = useHelloQuery();
@@ -20,6 +21,7 @@ const Landing: NextPage = () => {
           : JSON.stringify(data, null, 2)}
       </pre>
       <LogoutButton />
+      <DeleteAccountButton />
       <OAuthButton
         provider="google"
         href={getGoogleAuthUrl(process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID)}

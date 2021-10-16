@@ -1,4 +1,4 @@
-import { MeDocument, MeQuery, useGoogleOAuthMutation } from "client-controllers";
+import { createGoogleOAuthOptions, useGoogleOAuthMutation } from "client-controllers";
 import { NextPage } from "next";
 import { useRouter } from "next/dist/client/router";
 import queryString from "query-string";
@@ -19,22 +19,11 @@ const Google: NextPage = () => {
         // TODO: handle error here
       }
 
-      const response = await googleOAuth({
-        variables: {
-          code,
-        },
-        update: (store, { data }) => {
-          if (!data?.googleOAuth) return;
-          store.writeQuery<MeQuery>({
-            query: MeDocument,
-            data: {
-              __typename: "Query",
-              me: data.googleOAuth.user,
-            },
-          });
-          success = true;
-        },
-      });
+      const response = await googleOAuth(createGoogleOAuthOptions({code}));
+
+      if (!response.errors || !response.errors.length) {
+        success = true;
+      }
       setState(response.data?.googleOAuth || {})
 
       return success

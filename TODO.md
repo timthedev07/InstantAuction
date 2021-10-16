@@ -36,7 +36,7 @@
 - User Resolvers
 
   - Login resolver ✅
-  - Logout resolver
+  - Logout resolver ✅
   - Delete account resolver
   - Update credentials resolver
   - Get Profile Resolver

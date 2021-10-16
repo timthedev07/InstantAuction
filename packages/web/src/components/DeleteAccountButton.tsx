@@ -1,6 +1,6 @@
 import { FC } from "react";
 import {
-  deleteAccountOptions,
+  createDeleteAccountOptions,
   useDeleteAccountMutation,
 } from "client-controllers";
 
@@ -10,7 +10,13 @@ export const DeleteAccountButton: FC = () => {
   return (
     <button
       className="border rounded p-2 px-4 text-center"
-      onClick={() => deleteAccount(deleteAccountOptions)}
+      onClick={() =>
+        deleteAccount(
+          createDeleteAccountOptions({
+            email: "bot.rem.autogenerate@gmail.com",
+          })
+        )
+      }
     >
       Delete account
     </button>

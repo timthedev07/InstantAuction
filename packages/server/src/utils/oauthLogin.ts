@@ -1,6 +1,6 @@
 import { User } from "../entity/User";
 import { Request, Response } from "express";
-import { OAuthResponse } from "../resolvers/UserResolvers";
+import { OAuthResponse } from "../types/OAuthResponse";
 
 declare module "express-session" {
   interface SessionData {

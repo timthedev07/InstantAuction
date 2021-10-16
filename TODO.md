@@ -78,6 +78,7 @@
   - User Profile Page
   - Landing Page
 - Components
+  - Alert at the top level of the app(with a trigger function passed down to the children)
   - Item component
   - Logout button
   - New Item Form(using Formik)

@@ -19,7 +19,7 @@
 
 ## Auth
 
-- OAuth
+- OAuth ✅
   - Google Auth ✅
     - Create a project in google cloud console ✅
     - Grab credentials ✅

@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import { useHelloQuery, useGetProfileQuery } from "client-controllers";
 import { OAuthButton } from "../components/OAuthButton";
-import { getGoogleAuthUrl } from "shared";
+import { getDiscordAuthUrl, getGoogleAuthUrl } from "shared";
 
 const Landing: NextPage = () => {
   const { data: testData, loading: testLoading } = useHelloQuery();
@@ -21,6 +21,10 @@ const Landing: NextPage = () => {
       <OAuthButton
         provider="google"
         href={getGoogleAuthUrl(process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID)}
+      />
+      <OAuthButton
+        provider="discord"
+        href={getDiscordAuthUrl(process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID)}
       />
     </>
   );

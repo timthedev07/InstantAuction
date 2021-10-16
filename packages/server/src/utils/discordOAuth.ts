@@ -2,6 +2,7 @@ import { FRONTEND } from "shared";
 import axios from "axios";
 import { DiscordAccessTokenResponse } from "../types/Discord";
 import { jsonToUrlParams } from "shared";
+import { DiscordUser } from "../modules/discordUser";
 
 const API_ENDPOINT = "https://discord.com/api/v8";
 const CLIENT_ID = process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID;
@@ -69,4 +70,33 @@ export const refreshToken = async (
   });
 
   return data as DiscordAccessTokenResponse;
+};
+
+export const getDiscordUserInfoWithAccessToken = async (
+  accessToken: string
+) => {
+  const { data } = await axios({
+    url: "https://discordapp.com/api/users/@me",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+
+  return data as DiscordUser;
+};
+
+export const getDiscordUserInfo = async (code: string, clientSecret: string) => {
+  try {
+    const discordCodeResponse = await exchangeCode(code, clientSecret);
+    const accessToken = discordCodeResponse?.access_token;
+
+    if (!accessToken) {
+      throw new Error("No Access Token");
+    }
+
+    return await getDiscordUserInfoWithAccessToken(accessToken);
+
+  } catch(err) {
+    throw err;
+  }
 };

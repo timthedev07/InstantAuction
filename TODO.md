@@ -45,11 +45,11 @@
     - Show username ✅
     - Show transaction count ✅
     - Show reputation ✅
-    - Show a list of transactions
+    - Show a list of transactions(items)
 
 - Express session(I would use session for auth this time) ✅
 - Setup redis if needed. ✅
-- Transaction Entity
+- Item Entity
 
   - Auto generated id
   - Date started
@@ -58,12 +58,12 @@
   - Current highest bidder
   - Current highest bid
 
-- Transaction Resolvers
+- Item Resolvers
 
-  - Create transaction
-  - Delete transaction
-  - Get transaction info
-  - Update transaction details
+  - Item transaction
+  - Item transaction
+  - Get item info
+  - Update item details
 
 ## Client-side
 

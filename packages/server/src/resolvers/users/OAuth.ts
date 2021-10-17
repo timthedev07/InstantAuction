@@ -8,6 +8,7 @@ import { NetworkingContext } from "../../types/NetworkingContext";
 import { getDiscordUserInfo } from "../../utils/discordOAuth";
 import { getGoogleUserInfo } from "../../utils/googleOAuth";
 import { loginOAuth } from "../../utils/oauthLogin";
+import { getDiscordAvatarUrlFromHash } from "../../utils/getDiscordAvatar";
 
 @Resolver()
 export class OAuthResolver {
@@ -94,7 +95,9 @@ export class OAuthResolver {
     try {
       await User.insert({
         email,
-        avatarUrl: userData.avatar || undefined,
+        avatarUrl: userData.avatar
+          ? getDiscordAvatarUrlFromHash(userData.avatar, userData.id)
+          : undefined,
         provider: "Discord",
         username: userData.username,
         externalId: userData.id,

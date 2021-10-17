@@ -20,6 +20,7 @@ export type Mutation = {
   discordOAuth: OAuthResponse;
   googleOAuth: OAuthResponse;
   logout: Scalars['Boolean'];
+  updateCredentials: User;
 };
 
 
@@ -37,6 +38,11 @@ export type MutationGoogleOAuthArgs = {
   code: Scalars['String'];
 };
 
+
+export type MutationUpdateCredentialsArgs = {
+  username?: Maybe<Scalars['String']>;
+};
+
 export type OAuthResponse = {
   __typename?: 'OAuthResponse';
   user?: Maybe<User>;
@@ -46,6 +52,7 @@ export type Query = {
   __typename?: 'Query';
   hello: Scalars['String'];
   me?: Maybe<User>;
+  users: Array<User>;
 };
 
 export type User = {
@@ -94,6 +101,13 @@ export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', id: number, email: string, username: string, provider?: string | null | undefined, avatarUrl: string, transactionCount: number, reputation: number } | null | undefined };
+
+export type UpdateCredentialsMutationVariables = Exact<{
+  username: Scalars['String'];
+}>;
+
+
+export type UpdateCredentialsMutation = { __typename?: 'Mutation', updateCredentials: { __typename?: 'User', id: number, email: string, username: string, provider?: string | null | undefined, avatarUrl: string, transactionCount: number, reputation: number } };
 
 
 export const DiscordOAuthDocument = gql`
@@ -311,3 +325,42 @@ export function useMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MeQuery
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
 export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
+export const UpdateCredentialsDocument = gql`
+    mutation UpdateCredentials($username: String!) {
+  updateCredentials(username: $username) {
+    id
+    email
+    username
+    provider
+    avatarUrl
+    transactionCount
+    reputation
+  }
+}
+    `;
+export type UpdateCredentialsMutationFn = Apollo.MutationFunction<UpdateCredentialsMutation, UpdateCredentialsMutationVariables>;
+
+/**
+ * __useUpdateCredentialsMutation__
+ *
+ * To run a mutation, you first call `useUpdateCredentialsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateCredentialsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateCredentialsMutation, { data, loading, error }] = useUpdateCredentialsMutation({
+ *   variables: {
+ *      username: // value for 'username'
+ *   },
+ * });
+ */
+export function useUpdateCredentialsMutation(baseOptions?: Apollo.MutationHookOptions<UpdateCredentialsMutation, UpdateCredentialsMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateCredentialsMutation, UpdateCredentialsMutationVariables>(UpdateCredentialsDocument, options);
+      }
+export type UpdateCredentialsMutationHookResult = ReturnType<typeof useUpdateCredentialsMutation>;
+export type UpdateCredentialsMutationResult = Apollo.MutationResult<UpdateCredentialsMutation>;
+export type UpdateCredentialsMutationOptions = Apollo.BaseMutationOptions<UpdateCredentialsMutation, UpdateCredentialsMutationVariables>;

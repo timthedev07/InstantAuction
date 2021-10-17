@@ -14,9 +14,9 @@ export const createSchema = () =>
       OAuthResolver,
       LogoutResolver,
       DeleteAccountResolver,
-      UpdateCredentialsResolver,
+      UpdateCredentialsResolver
     ],
     authChecker: ({ context: { req } }) => {
       return !!req.session.userId;
-    },
+    }
   });

@@ -4,6 +4,7 @@ import { OAuthButton } from "../components/OAuthButton";
 import { getDiscordAuthUrl, getGoogleAuthUrl } from "shared";
 import { LogoutButton } from "../components/LogoutButton";
 import { DeleteAccountButton } from "../components/DeleteAccountButton";
+import { UpdateUserCredentials } from "../components/UpdateUserCredentials";
 
 const Landing: NextPage = () => {
   const { data: testData, loading: testLoading } = useHelloQuery();
@@ -22,6 +23,7 @@ const Landing: NextPage = () => {
       </pre>
       <LogoutButton />
       <DeleteAccountButton />
+      <UpdateUserCredentials />
       <OAuthButton
         provider="google"
         href={getGoogleAuthUrl(process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID)}

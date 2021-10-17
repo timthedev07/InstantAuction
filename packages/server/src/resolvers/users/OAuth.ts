@@ -48,6 +48,7 @@ export class OAuthResolver {
         avatarUrl: userData.picture || undefined,
         provider: "Google",
         username: userData.given_name,
+        externalId: String(userData.id),
       });
     } catch (err) {}
 
@@ -96,6 +97,7 @@ export class OAuthResolver {
         avatarUrl: userData.avatar || undefined,
         provider: "Discord",
         username: userData.username,
+        externalId: userData.id,
       });
     } catch (err) {}
 

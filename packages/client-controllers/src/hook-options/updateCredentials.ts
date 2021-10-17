@@ -5,7 +5,7 @@ import {
   UpdateCredentialsMutationOptions
 } from "../generated/graphql";
 
-export const createDeleteAccountOptions = (
+export const createUpdateCredentialsOptions = (
   variables: UpdateCredentialsMutationVariables
 ): UpdateCredentialsMutationOptions => {
   return {

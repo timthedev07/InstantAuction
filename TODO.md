@@ -38,8 +38,8 @@
   - Login resolver ✅
   - Logout resolver ✅
   - Delete account resolver ✅
-  - Update credentials resolver
-    - Update username
+  - Update credentials resolver ✅
+    - Update username ✅
   - Get Profile Resolver
     - Show avatar ✅
     - Show username ✅

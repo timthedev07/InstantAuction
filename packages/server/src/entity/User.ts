@@ -31,4 +31,7 @@ export class User extends BaseEntity {
   @Field(() => Int)
   @Column({ type: "integer", default: 100 })
   reputation: number;
+
+  @Column({ type: "integer", nullable: false })
+  externalId: string;
 }

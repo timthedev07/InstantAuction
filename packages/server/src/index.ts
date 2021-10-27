@@ -12,6 +12,7 @@ import { redisClient } from "./redis";
 import { __prod__ } from "./constants/prod";
 import { createSchema } from "./schema";
 import { sessionCookieName } from "./constants/session";
+import { graphqlUploadExpress } from "graphql-upload";
 
 const PORT = parseInt(process.env.PORT || "4000");
 const HOSTNAME = process.env.HOST || "0.0.0.0";
@@ -33,6 +34,7 @@ const HOSTNAME = process.env.HOST || "0.0.0.0";
       origin: [FRONTEND, PLAYGROUND],
     })
   );
+  app.use(graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }));
   const RedisStore = connectRedis(session);
   app.use(
     session({

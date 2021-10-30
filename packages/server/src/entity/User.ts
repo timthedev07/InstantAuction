@@ -1,5 +1,12 @@
 import { Field, Int, ObjectType } from "type-graphql";
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  BaseEntity,
+  OneToMany,
+} from "typeorm";
+import { Auction } from "./Auction";
 
 @ObjectType()
 @Entity("users")
@@ -34,4 +41,12 @@ export class User extends BaseEntity {
 
   @Column({ type: "text", nullable: false })
   externalId: string;
+
+  @Field(() => [Auction])
+  @OneToMany(() => Auction, (item) => item.seller)
+  auctionsOwned: Auction[];
+
+  @Field(() => [Auction])
+  @OneToMany(() => Auction, (item) => item)
+  itemsBid: Auction[];
 }

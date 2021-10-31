@@ -5,16 +5,20 @@ import { LogoutResolver } from "./resolvers/users/Logout";
 import { OAuthResolver } from "./resolvers/users/OAuth";
 import { DeleteAccountResolver } from "./resolvers/users/DeleteAccount";
 import { UpdateCredentialsResolver } from "./resolvers/users/UpdateCredentials";
+import { CreateItemResolver } from "./resolvers/items/createItem";
 
 export const createSchema = () =>
   buildSchema({
     resolvers: [
+      // user resolvers
       TmpResolvers,
       MeResolver,
       OAuthResolver,
       LogoutResolver,
       DeleteAccountResolver,
-      UpdateCredentialsResolver
+      UpdateCredentialsResolver,
+      // item resolvers
+      CreateItemResolver
     ],
     authChecker: ({ context: { req } }) => {
       return !!req.session.userId;

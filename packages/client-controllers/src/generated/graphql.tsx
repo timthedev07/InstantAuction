@@ -46,11 +46,18 @@ export type Item = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  createItem: Scalars['Boolean'];
   deleteAccount: Scalars['Boolean'];
   discordOAuth: OAuthResponse;
   googleOAuth: OAuthResponse;
   logout: Scalars['Boolean'];
   updateCredentials: User;
+};
+
+
+export type MutationCreateItemArgs = {
+  name: Scalars['String'];
+  picture: Scalars['Upload'];
 };
 
 
@@ -93,16 +100,32 @@ export type QueryTestUploadArgs = {
 
 export type User = {
   __typename?: 'User';
-  auctionsBid: Array<Auction>;
   auctionsOwned: Array<Auction>;
   avatarUrl: Scalars['String'];
+  bids: Array<Bid>;
   email: Scalars['String'];
   id: Scalars['Int'];
+  itemsOwned: Array<Item>;
   provider?: Maybe<Scalars['String']>;
   reputation: Scalars['Int'];
   transactionCount: Scalars['Int'];
   username: Scalars['String'];
 };
+
+export type CreateItemMutationVariables = Exact<{
+  name: Scalars['String'];
+  upload: Scalars['Upload'];
+}>;
+
+
+export type CreateItemMutation = { __typename?: 'Mutation', createItem: boolean };
+
+export type TestUploadQueryVariables = Exact<{
+  file: Scalars['Upload'];
+}>;
+
+
+export type TestUploadQuery = { __typename?: 'Query', testUpload: boolean };
 
 export type DiscordOAuthMutationVariables = Exact<{
   code: Scalars['String'];
@@ -140,13 +163,6 @@ export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', id: number, email: string, username: string, provider?: string | null | undefined, avatarUrl: string, transactionCount: number, reputation: number } | null | undefined };
 
-export type TestUploadQueryVariables = Exact<{
-  file: Scalars['Upload'];
-}>;
-
-
-export type TestUploadQuery = { __typename?: 'Query', testUpload: boolean };
-
 export type UpdateCredentialsMutationVariables = Exact<{
   username: Scalars['String'];
 }>;
@@ -155,6 +171,71 @@ export type UpdateCredentialsMutationVariables = Exact<{
 export type UpdateCredentialsMutation = { __typename?: 'Mutation', updateCredentials: { __typename?: 'User', id: number, email: string, username: string, provider?: string | null | undefined, avatarUrl: string, transactionCount: number, reputation: number } };
 
 
+export const CreateItemDocument = gql`
+    mutation CreateItem($name: String!, $upload: Upload!) {
+  createItem(name: $name, picture: $upload)
+}
+    `;
+export type CreateItemMutationFn = Apollo.MutationFunction<CreateItemMutation, CreateItemMutationVariables>;
+
+/**
+ * __useCreateItemMutation__
+ *
+ * To run a mutation, you first call `useCreateItemMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateItemMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createItemMutation, { data, loading, error }] = useCreateItemMutation({
+ *   variables: {
+ *      name: // value for 'name'
+ *      upload: // value for 'upload'
+ *   },
+ * });
+ */
+export function useCreateItemMutation(baseOptions?: Apollo.MutationHookOptions<CreateItemMutation, CreateItemMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateItemMutation, CreateItemMutationVariables>(CreateItemDocument, options);
+      }
+export type CreateItemMutationHookResult = ReturnType<typeof useCreateItemMutation>;
+export type CreateItemMutationResult = Apollo.MutationResult<CreateItemMutation>;
+export type CreateItemMutationOptions = Apollo.BaseMutationOptions<CreateItemMutation, CreateItemMutationVariables>;
+export const TestUploadDocument = gql`
+    query TestUpload($file: Upload!) {
+  testUpload(file: $file)
+}
+    `;
+
+/**
+ * __useTestUploadQuery__
+ *
+ * To run a query within a React component, call `useTestUploadQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTestUploadQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useTestUploadQuery({
+ *   variables: {
+ *      file: // value for 'file'
+ *   },
+ * });
+ */
+export function useTestUploadQuery(baseOptions: Apollo.QueryHookOptions<TestUploadQuery, TestUploadQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<TestUploadQuery, TestUploadQueryVariables>(TestUploadDocument, options);
+      }
+export function useTestUploadLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TestUploadQuery, TestUploadQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<TestUploadQuery, TestUploadQueryVariables>(TestUploadDocument, options);
+        }
+export type TestUploadQueryHookResult = ReturnType<typeof useTestUploadQuery>;
+export type TestUploadLazyQueryHookResult = ReturnType<typeof useTestUploadLazyQuery>;
+export type TestUploadQueryResult = Apollo.QueryResult<TestUploadQuery, TestUploadQueryVariables>;
 export const DiscordOAuthDocument = gql`
     mutation DiscordOAuth($code: String!) {
   discordOAuth(code: $code) {
@@ -370,39 +451,6 @@ export function useMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MeQuery
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
 export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
-export const TestUploadDocument = gql`
-    query TestUpload($file: Upload!) {
-  testUpload(file: $file)
-}
-    `;
-
-/**
- * __useTestUploadQuery__
- *
- * To run a query within a React component, call `useTestUploadQuery` and pass it any options that fit your needs.
- * When your component renders, `useTestUploadQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useTestUploadQuery({
- *   variables: {
- *      file: // value for 'file'
- *   },
- * });
- */
-export function useTestUploadQuery(baseOptions: Apollo.QueryHookOptions<TestUploadQuery, TestUploadQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<TestUploadQuery, TestUploadQueryVariables>(TestUploadDocument, options);
-      }
-export function useTestUploadLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TestUploadQuery, TestUploadQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<TestUploadQuery, TestUploadQueryVariables>(TestUploadDocument, options);
-        }
-export type TestUploadQueryHookResult = ReturnType<typeof useTestUploadQuery>;
-export type TestUploadLazyQueryHookResult = ReturnType<typeof useTestUploadLazyQuery>;
-export type TestUploadQueryResult = Apollo.QueryResult<TestUploadQuery, TestUploadQueryVariables>;
 export const UpdateCredentialsDocument = gql`
     mutation UpdateCredentials($username: String!) {
   updateCredentials(username: $username) {

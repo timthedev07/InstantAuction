@@ -23,6 +23,7 @@ export class Item extends BaseEntity {
   @Column({ type: "varchar", length: 200 })
   name: string;
 
+  @Field(() => User)
   @ManyToOne(() => User, user => user.auctionsOwned)
   owner: User;
 }

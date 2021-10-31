@@ -21,7 +21,8 @@ export class TmpResolvers {
     fileInfo: FileUpload
   ): Promise<boolean> {
     try {
-      await handleImageUpload(fileInfo);
+      const link = await handleImageUpload(fileInfo);
+      console.log({ link });
       return true;
     } catch (err) {
       return false;

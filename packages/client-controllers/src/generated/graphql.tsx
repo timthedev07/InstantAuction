@@ -41,6 +41,7 @@ export type Item = {
   __typename?: 'Item';
   id: Scalars['Int'];
   name: Scalars['String'];
+  owner: User;
   picture: Scalars['String'];
 };
 
@@ -87,6 +88,7 @@ export type OAuthResponse = {
 
 export type Query = {
   __typename?: 'Query';
+  getUserItems: UserItemsResponse;
   hello: Scalars['String'];
   me?: Maybe<User>;
   testUpload: Scalars['Boolean'];
@@ -112,6 +114,12 @@ export type User = {
   username: Scalars['String'];
 };
 
+export type UserItemsResponse = {
+  __typename?: 'UserItemsResponse';
+  count: Scalars['Int'];
+  items: Array<Item>;
+};
+
 export type CreateItemMutationVariables = Exact<{
   name: Scalars['String'];
   picture: Scalars['Upload'];
@@ -119,6 +127,11 @@ export type CreateItemMutationVariables = Exact<{
 
 
 export type CreateItemMutation = { __typename?: 'Mutation', createItem: boolean };
+
+export type GetUserItemsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetUserItemsQuery = { __typename?: 'Query', getUserItems: { __typename?: 'UserItemsResponse', count: number, items: Array<{ __typename?: 'Item', id: number, picture: string, name: string, owner: { __typename?: 'User', username: string } }> } };
 
 export type TestUploadQueryVariables = Exact<{
   file: Scalars['Upload'];
@@ -203,6 +216,48 @@ export function useCreateItemMutation(baseOptions?: Apollo.MutationHookOptions<C
 export type CreateItemMutationHookResult = ReturnType<typeof useCreateItemMutation>;
 export type CreateItemMutationResult = Apollo.MutationResult<CreateItemMutation>;
 export type CreateItemMutationOptions = Apollo.BaseMutationOptions<CreateItemMutation, CreateItemMutationVariables>;
+export const GetUserItemsDocument = gql`
+    query GetUserItems {
+  getUserItems {
+    items {
+      id
+      picture
+      name
+      owner {
+        username
+      }
+    }
+    count
+  }
+}
+    `;
+
+/**
+ * __useGetUserItemsQuery__
+ *
+ * To run a query within a React component, call `useGetUserItemsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUserItemsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUserItemsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetUserItemsQuery(baseOptions?: Apollo.QueryHookOptions<GetUserItemsQuery, GetUserItemsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetUserItemsQuery, GetUserItemsQueryVariables>(GetUserItemsDocument, options);
+      }
+export function useGetUserItemsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUserItemsQuery, GetUserItemsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetUserItemsQuery, GetUserItemsQueryVariables>(GetUserItemsDocument, options);
+        }
+export type GetUserItemsQueryHookResult = ReturnType<typeof useGetUserItemsQuery>;
+export type GetUserItemsLazyQueryHookResult = ReturnType<typeof useGetUserItemsLazyQuery>;
+export type GetUserItemsQueryResult = Apollo.QueryResult<GetUserItemsQuery, GetUserItemsQueryVariables>;
 export const TestUploadDocument = gql`
     query TestUpload($file: Upload!) {
   testUpload(file: $file)

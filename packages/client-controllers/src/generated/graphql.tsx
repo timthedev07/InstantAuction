@@ -114,7 +114,7 @@ export type User = {
 
 export type CreateItemMutationVariables = Exact<{
   name: Scalars['String'];
-  upload: Scalars['Upload'];
+  picture: Scalars['Upload'];
 }>;
 
 
@@ -172,8 +172,8 @@ export type UpdateCredentialsMutation = { __typename?: 'Mutation', updateCredent
 
 
 export const CreateItemDocument = gql`
-    mutation CreateItem($name: String!, $upload: Upload!) {
-  createItem(name: $name, picture: $upload)
+    mutation CreateItem($name: String!, $picture: Upload!) {
+  createItem(name: $name, picture: $picture)
 }
     `;
 export type CreateItemMutationFn = Apollo.MutationFunction<CreateItemMutation, CreateItemMutationVariables>;
@@ -192,7 +192,7 @@ export type CreateItemMutationFn = Apollo.MutationFunction<CreateItemMutation, C
  * const [createItemMutation, { data, loading, error }] = useCreateItemMutation({
  *   variables: {
  *      name: // value for 'name'
- *      upload: // value for 'upload'
+ *      picture: // value for 'picture'
  *   },
  * });
  */

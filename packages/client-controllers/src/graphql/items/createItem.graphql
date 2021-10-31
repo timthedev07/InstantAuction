@@ -1,0 +1,3 @@
+mutation CreateItem($name: String!, $upload: Upload!) {
+  createItem(name: $name, picture: $upload)
+}

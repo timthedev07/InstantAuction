@@ -16,7 +16,7 @@ export class Bid extends BaseEntity {
   auction: Auction;
 
   @Field(() => User)
-  @ManyToOne(() => User, user => user.auctionsBid)
+  @ManyToOne(() => User, user => user.bids)
   bidder: User;
 
   @Field(() => Item)

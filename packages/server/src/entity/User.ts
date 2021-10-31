@@ -48,5 +48,5 @@ export class User extends BaseEntity {
 
   @Field(() => [Auction])
   @OneToMany(() => Auction, (item) => item)
-  itemsBid: Auction[];
+  auctionsBid: Auction[];
 }

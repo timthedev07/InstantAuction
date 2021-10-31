@@ -38,6 +38,6 @@ export class Auction extends BaseEntity {
   dateUpdated: Date;
 
   @Field(() => [Bid])
-  @OneToMany(() => Bid, bid => bid.item)
+  @OneToMany(() => Bid, bid => bid.auction)
   bids: Bid[];
 }

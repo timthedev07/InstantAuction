@@ -24,5 +24,5 @@ export class Item extends BaseEntity {
   name: string;
 
   @ManyToOne(() => User, user => user.auctionsOwned)
-  seller: User;
+  owner: User;
 }

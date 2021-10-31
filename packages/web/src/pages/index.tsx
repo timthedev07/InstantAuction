@@ -5,7 +5,7 @@ import { getDiscordAuthUrl, getGoogleAuthUrl } from "shared";
 import { LogoutButton } from "../components/LogoutButton";
 import { DeleteAccountButton } from "../components/DeleteAccountButton";
 import { UpdateUserCredentials } from "../components/UpdateUserCredentials";
-import { UploadImage } from "../components/UploadImage";
+import { UploadImage } from "../components/CreateItem";
 
 const Landing: NextPage = () => {
   const { data: testData, loading: testLoading } = useHelloQuery();

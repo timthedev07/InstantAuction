@@ -5,7 +5,7 @@ import { getDiscordAuthUrl, getGoogleAuthUrl } from "shared";
 import { LogoutButton } from "../components/LogoutButton";
 import { DeleteAccountButton } from "../components/DeleteAccountButton";
 import { UpdateUserCredentials } from "../components/UpdateUserCredentials";
-import { UploadImage } from "../components/CreateItem";
+import { CreateItem } from "../components/CreateItem";
 
 const Landing: NextPage = () => {
   const { data: testData, loading: testLoading } = useHelloQuery();
@@ -34,7 +34,7 @@ const Landing: NextPage = () => {
         href={getDiscordAuthUrl(process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID)}
       />
 
-      <UploadImage />
+      <CreateItem />
     </>
   );
 };

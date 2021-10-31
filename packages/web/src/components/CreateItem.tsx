@@ -2,7 +2,7 @@ import { useTestUploadLazyQuery } from "client-controllers";
 import { FC, useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
-export const UploadImage: FC = ({}) => {
+export const CreateItem: FC = ({}) => {
   const [uploadFile] = useTestUploadLazyQuery();
   const [file, setFile] = useState<any>(null);
   const onDrop = useCallback(

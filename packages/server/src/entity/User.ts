@@ -7,6 +7,7 @@ import {
   OneToMany,
 } from "typeorm";
 import { Auction } from "./Auction";
+import { Item } from "./Item";
 
 @ObjectType()
 @Entity("users")
@@ -43,10 +44,10 @@ export class User extends BaseEntity {
   externalId: string;
 
   @Field(() => [Auction])
-  @OneToMany(() => Auction, (item) => item.seller)
+  @OneToMany(() => Auction, (auction) => auction.seller)
   auctionsOwned: Auction[];
 
-  @Field(() => [Auction])
-  @OneToMany(() => Auction, (item) => item)
-  auctionsBid: Auction[];
+  @Field(() => [Item])
+  @OneToMany(() => Item, (item) => item.owner)
+  itemsOwned: Item[];
 }

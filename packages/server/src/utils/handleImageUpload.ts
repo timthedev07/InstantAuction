@@ -15,7 +15,7 @@ interface Args {
  * Given a filename and a function `createReadStream` from graphql-upload,
  * read and upload the image to imgur.
  *
- * @returns
+ * @returns A imgur link to the image(promise)
  */
 export const handleImageUpload = async ({
   filename,

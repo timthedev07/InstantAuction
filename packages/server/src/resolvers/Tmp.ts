@@ -4,7 +4,8 @@ import { User } from "../entity/User";
 import { createWriteStream } from "fs";
 import { tmpdir } from "os";
 import { join } from "path";
-import { tryStuff } from "./try";
+import { cyan, red } from "chalk";
+import { uploadToImgur } from "../utils/uploadToImgur";
 
 @Resolver()
 export class TmpResolvers {
@@ -22,22 +23,27 @@ export class TmpResolvers {
   async testUpload(@Arg("file", () => GraphQLUpload)
   {
     createReadStream,
-    filename,
-    mimetype
+    filename
   }: FileUpload): Promise<boolean> {
-    console.log({ filename, mimetype, tempdir: tmpdir() });
     const tempdir = tmpdir();
     const imageBufferPath = join(tempdir, filename);
     return await new Promise(async (resolve, reject) => {
       createReadStream()
         .pipe(createWriteStream(imageBufferPath))
-        .on("finish", () => {
-          console.log(`File written to ${imageBufferPath}`);
-          tryStuff();
-          resolve(true);
+        .on("finish", async () => {
+          cyan(`File written to ${imageBufferPath}`);
+          try {
+            const link = await uploadToImgur(imageBufferPath);
+            console.log(link);
+            // do something with the link
+            resolve(true);
+          } catch (err) {
+            red("An error occurred while uploading to imgur: ", err);
+            reject(false);
+          }
         })
         .on("error", error => {
-          console.log("An error occurred while writing file:", error);
+          red("An error occurred while writing file:", error);
           reject(false);
         });
     });

@@ -3,6 +3,7 @@ import { Arg, Query, Resolver } from "type-graphql";
 import { User } from "../entity/User";
 import { createWriteStream } from "fs";
 import { tmpdir } from "os";
+import { join } from "path";
 
 @Resolver()
 export class TmpResolvers {
@@ -22,8 +23,21 @@ export class TmpResolvers {
     createReadStream,
     filename,
     mimetype
-  }: FileUpload) {
+  }: FileUpload): Promise<boolean> {
     console.log({ filename, mimetype, tempdir: tmpdir() });
-    createReadStream().pipe(createWriteStream(filename));
+    const tempdir = tmpdir();
+    const imageBufferPath = join(tempdir, filename);
+    return await new Promise(async (resolve, reject) => {
+      createReadStream()
+        .pipe(createWriteStream(imageBufferPath))
+        .on("finish", () => {
+          console.log(`File written to ${imageBufferPath}`);
+          resolve(true);
+        })
+        .on("error", error => {
+          console.log("An error occurred while writing file:", error);
+          reject(false);
+        });
+    });
   }
 }

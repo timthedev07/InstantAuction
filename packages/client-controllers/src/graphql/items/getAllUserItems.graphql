@@ -1,0 +1,13 @@
+query GetUserItems {
+  getUserItems {
+    items {
+      id
+      picture
+      name
+      owner {
+        username
+      }
+    }
+    count
+  }
+}

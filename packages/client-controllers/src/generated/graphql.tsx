@@ -12,6 +12,36 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  /** The javascript `Date` as string. Type represents date and time as the ISO Date string. */
+  DateTime: any;
+  /** The `Upload` scalar type represents a file upload. */
+  Upload: any;
+};
+
+export type Auction = {
+  __typename?: 'Auction';
+  bids: Array<Bid>;
+  dateCreated: Scalars['DateTime'];
+  dateUpdated: Scalars['DateTime'];
+  description: Scalars['String'];
+  id: Scalars['Int'];
+  seller: User;
+  title: Scalars['String'];
+};
+
+export type Bid = {
+  __typename?: 'Bid';
+  auction: Auction;
+  bidder: User;
+  id: Scalars['Int'];
+  item: Item;
+};
+
+export type Item = {
+  __typename?: 'Item';
+  id: Scalars['Int'];
+  name: Scalars['String'];
+  picture: Scalars['String'];
 };
 
 export type Mutation = {
@@ -52,11 +82,19 @@ export type Query = {
   __typename?: 'Query';
   hello: Scalars['String'];
   me?: Maybe<User>;
+  testUpload: Scalars['Boolean'];
   users: Array<User>;
+};
+
+
+export type QueryTestUploadArgs = {
+  file: Scalars['Upload'];
 };
 
 export type User = {
   __typename?: 'User';
+  auctionsBid: Array<Auction>;
+  auctionsOwned: Array<Auction>;
   avatarUrl: Scalars['String'];
   email: Scalars['String'];
   id: Scalars['Int'];
@@ -101,6 +139,13 @@ export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', id: number, email: string, username: string, provider?: string | null | undefined, avatarUrl: string, transactionCount: number, reputation: number } | null | undefined };
+
+export type TestUploadQueryVariables = Exact<{
+  file: Scalars['Upload'];
+}>;
+
+
+export type TestUploadQuery = { __typename?: 'Query', testUpload: boolean };
 
 export type UpdateCredentialsMutationVariables = Exact<{
   username: Scalars['String'];
@@ -325,6 +370,39 @@ export function useMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MeQuery
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
 export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
+export const TestUploadDocument = gql`
+    query TestUpload($file: Upload!) {
+  testUpload(file: $file)
+}
+    `;
+
+/**
+ * __useTestUploadQuery__
+ *
+ * To run a query within a React component, call `useTestUploadQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTestUploadQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useTestUploadQuery({
+ *   variables: {
+ *      file: // value for 'file'
+ *   },
+ * });
+ */
+export function useTestUploadQuery(baseOptions: Apollo.QueryHookOptions<TestUploadQuery, TestUploadQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<TestUploadQuery, TestUploadQueryVariables>(TestUploadDocument, options);
+      }
+export function useTestUploadLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TestUploadQuery, TestUploadQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<TestUploadQuery, TestUploadQueryVariables>(TestUploadDocument, options);
+        }
+export type TestUploadQueryHookResult = ReturnType<typeof useTestUploadQuery>;
+export type TestUploadLazyQueryHookResult = ReturnType<typeof useTestUploadLazyQuery>;
+export type TestUploadQueryResult = Apollo.QueryResult<TestUploadQuery, TestUploadQueryVariables>;
 export const UpdateCredentialsDocument = gql`
     mutation UpdateCredentials($username: String!) {
   updateCredentials(username: $username) {

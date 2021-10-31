@@ -6,6 +6,7 @@ import { LogoutButton } from "../components/LogoutButton";
 import { DeleteAccountButton } from "../components/DeleteAccountButton";
 import { UpdateUserCredentials } from "../components/UpdateUserCredentials";
 import { CreateItem } from "../components/CreateItem";
+import { ItemsList } from "../components/ItemsList";
 
 const Landing: NextPage = () => {
   const { data: testData, loading: testLoading } = useHelloQuery();
@@ -35,6 +36,7 @@ const Landing: NextPage = () => {
       />
 
       <CreateItem />
+      <ItemsList />
     </>
   );
 };

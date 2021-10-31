@@ -4,6 +4,7 @@ import { User } from "../entity/User";
 import { createWriteStream } from "fs";
 import { tmpdir } from "os";
 import { join } from "path";
+import { tryStuff } from "./try";
 
 @Resolver()
 export class TmpResolvers {
@@ -32,6 +33,7 @@ export class TmpResolvers {
         .pipe(createWriteStream(imageBufferPath))
         .on("finish", () => {
           console.log(`File written to ${imageBufferPath}`);
+          tryStuff();
           resolve(true);
         })
         .on("error", error => {

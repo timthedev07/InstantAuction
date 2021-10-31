@@ -1,0 +1,3 @@
+query TestUpload($file: Upload!) {
+  testUpload(file: $file)
+}

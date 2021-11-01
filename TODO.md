@@ -50,33 +50,38 @@
     - Show reputation ✅
     - Show a list of items
 
-- Item Entity
+- Item
 
-  - Name ✅
-  - Owner ✅
-  - Picture url (hosted on imgur) ✅
+  - Entity
+    - Name ✅
+    - Owner ✅
+    - Picture url (hosted on imgur) ✅
+  - Resolvers
+    - Create Item ✅
+    - Get Items belonged to a particular user ✅
+    - Modify Item
+    - Delete Item
+    - Mark as sold
 
 - Bid Entity
 
-  - The associated Auction
-  - bidder
-  - Item used
+  - The associated Auction ✅
+  - bidder ✅
+  - Item used ✅
 
-- Auction Entity
-
-  - Auto generated id
-  - Date started
-  - Status(closed, succeeded, open)
-  - Seller
-  - A list of bids
-
-- Auction Resolvers
-
-  - Get item info
-  - Update item details
-  - For a particular user:
-    - Show a list of auctions owned
-    - Show a list of auctions participated in
+- Auction
+  - Entity
+    - Auto generated id
+    - Date started
+    - Status(closed, succeeded, open)
+    - Seller
+    - A list of bids
+  - Resolvers
+    - Get auction info
+    - Update auction details(the owner)
+    - For a particular user:
+      - Show a list of auctions owned
+      - Show a list of auctions participated in
 
 ## Client-side
 

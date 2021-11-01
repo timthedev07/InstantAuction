@@ -1,4 +1,7 @@
-import { createItemCreationOptions, useCreateItemMutation } from "client-controllers";
+import {
+  createItemCreationOptions,
+  useCreateItemMutation
+} from "client-controllers";
 import { FC, FormEventHandler, useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
@@ -17,14 +20,13 @@ export const CreateItem: FC = ({}) => {
     onDrop
   });
 
-  const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
+  const handleSubmit: FormEventHandler<HTMLFormElement> = async e => {
     e.preventDefault();
     if (file && name) {
       try {
-        const result = await createItem(createItemCreationOptions({ name, picture: file }));
-        alert(result.data?.createItem.valueOf());
-      } catch(err: any) {
-        alert(err.graphQLErrors[0].message)
+        await createItem(createItemCreationOptions({ name, picture: file }));
+      } catch (err) {
+        alert((err as any).graphQLErrors[0].message);
       }
     }
   };

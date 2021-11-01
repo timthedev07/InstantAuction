@@ -46,7 +46,7 @@ export const CreateItem: FC = ({}) => {
       </div>
 
       <button className="cyan-button" type="submit">
-        Upload
+        Add
       </button>
     </form>
   );

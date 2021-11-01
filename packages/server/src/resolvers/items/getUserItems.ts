@@ -13,7 +13,7 @@ import { getConnection } from "typeorm";
 import { Item } from "../../entity/Item";
 
 @ObjectType()
-class UserItemsResponse {
+export class UserItemsResponse {
   @Field(() => [Item])
   items: Item[];
 

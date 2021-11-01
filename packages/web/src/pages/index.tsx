@@ -1,16 +1,24 @@
 import { NextPage } from "next";
-import { useHelloQuery, useMeQuery } from "client-controllers";
+import {
+  useGetUserItemsQuery,
+  useHelloQuery,
+  useMeQuery,
+} from "client-controllers";
 import { OAuthButton } from "../components/OAuthButton";
 import { getDiscordAuthUrl, getGoogleAuthUrl } from "shared";
-import { LogoutButton } from "../components/LogoutButton";
-import { DeleteAccountButton } from "../components/DeleteAccountButton";
-import { UpdateUserCredentials } from "../components/UpdateUserCredentials";
 import { CreateItem } from "../components/CreateItem";
 import { ItemsList } from "../components/ItemsList";
+import { ModifyItem } from "../components/ModifyItem";
 
 const Landing: NextPage = () => {
   const { data: testData, loading: testLoading } = useHelloQuery();
   const { data, loading, error } = useMeQuery();
+  const {
+    data: itemsData,
+    loading: itemsLoading,
+    error: itemsError,
+  } = useGetUserItemsQuery();
+
   return (
     <>
       <h1 className="text-3xl">
@@ -23,9 +31,6 @@ const Landing: NextPage = () => {
           ? JSON.stringify(error.message, null, 2)
           : JSON.stringify(data, null, 2)}
       </pre>
-      <LogoutButton />
-      <DeleteAccountButton />
-      <UpdateUserCredentials />
       <OAuthButton
         provider="google"
         href={getGoogleAuthUrl(process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID)}
@@ -37,6 +42,9 @@ const Landing: NextPage = () => {
 
       <CreateItem />
       <ItemsList />
+      {!itemsLoading && !itemsError && itemsData && (
+        <ModifyItem {...itemsData.getUserItems.items[0]} />
+      )}
     </>
   );
 };

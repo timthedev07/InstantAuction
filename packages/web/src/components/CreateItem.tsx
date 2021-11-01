@@ -45,7 +45,7 @@ export const CreateItem: FC = ({}) => {
         <input accept="image/*" {...getInputProps()} />
       </div>
 
-      <button className="bg-cyan-600 text-white rounded p-4" type="submit">
+      <button className="cyan-button" type="submit">
         Upload
       </button>
     </form>

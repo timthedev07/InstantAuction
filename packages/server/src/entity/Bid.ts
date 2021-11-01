@@ -5,7 +5,8 @@ import {
   BaseEntity,
   ManyToOne,
   OneToOne,
-  JoinColumn
+  JoinColumn,
+  Column
 } from "typeorm";
 import { Auction } from "./Auction";
 import { Item } from "./Item";
@@ -30,4 +31,8 @@ export class Bid extends BaseEntity {
   @OneToOne(() => Item)
   @JoinColumn()
   item: Item;
+
+  @Field(() => Boolean)
+  @Column({ type: "boolean", default: false })
+  won: boolean;
 }

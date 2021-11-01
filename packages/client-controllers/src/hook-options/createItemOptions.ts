@@ -16,14 +16,19 @@ export const createItemCreationOptions = (
       const cachedData = store.readQuery<GetUserItemsQuery>({
         query: GetUserItemsDocument
       });
-      const count =
-        cachedData && cachedData.getUserItems
-          ? cachedData.getUserItems.count + 1
-          : 1;
-      const items =
-        cachedData && cachedData.getUserItems
-          ? [...cachedData.getUserItems.items, data.createItem]
-          : [data.createItem];
+
+      let count: number = 1;
+      let items = [data.createItem];
+
+      if (
+        cachedData &&
+        cachedData.getUserItems &&
+        cachedData.getUserItems.count
+      ) {
+        // if there are cached items
+        count = cachedData.getUserItems.count + 1;
+        items = [...cachedData.getUserItems.items, data.createItem];
+      }
 
       store.writeQuery<GetUserItemsQuery>({
         query: GetUserItemsDocument,

@@ -28,6 +28,8 @@ export const CreateItem: FC = ({}) => {
       } catch (err) {
         alert((err as any).graphQLErrors[0].message);
       }
+    } else {
+      alert("Please make sure all information is provided.");
     }
   };
 

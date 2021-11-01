@@ -25,14 +25,11 @@ export const ItemsList: FC = ({}) => {
               <button
                 onClick={async () => {
                   try {
-                    const result = await deleteItem(
+                    await deleteItem(
                       createItemDeletionOptions({
                         itemId: each.id
                       })
                     );
-                    if (result.data && result.data.deleteItem) {
-                      alert("Item deleted");
-                    }
                   } catch (error) {
                     alert((error as any).graphQLErrors[0].message);
                   }

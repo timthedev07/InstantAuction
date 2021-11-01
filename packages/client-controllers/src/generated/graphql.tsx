@@ -35,6 +35,7 @@ export type Bid = {
   bidder: User;
   id: Scalars['Int'];
   item: Item;
+  won: Scalars['Boolean'];
 };
 
 export type Item = {
@@ -49,6 +50,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   createItem: Scalars['Boolean'];
   deleteAccount: Scalars['Boolean'];
+  deleteItem: Scalars['Boolean'];
   discordOAuth: OAuthResponse;
   googleOAuth: OAuthResponse;
   logout: Scalars['Boolean'];
@@ -64,6 +66,11 @@ export type MutationCreateItemArgs = {
 
 export type MutationDeleteAccountArgs = {
   email: Scalars['String'];
+};
+
+
+export type MutationDeleteItemArgs = {
+  itemId: Scalars['Int'];
 };
 
 
@@ -110,7 +117,6 @@ export type User = {
   itemsOwned: Array<Item>;
   provider?: Maybe<Scalars['String']>;
   reputation: Scalars['Int'];
-  transactionCount: Scalars['Int'];
   username: Scalars['String'];
 };
 
@@ -127,6 +133,13 @@ export type CreateItemMutationVariables = Exact<{
 
 
 export type CreateItemMutation = { __typename?: 'Mutation', createItem: boolean };
+
+export type DeleteItemMutationVariables = Exact<{
+  itemId: Scalars['Int'];
+}>;
+
+
+export type DeleteItemMutation = { __typename?: 'Mutation', deleteItem: boolean };
 
 export type GetUserItemsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -145,14 +158,14 @@ export type DiscordOAuthMutationVariables = Exact<{
 }>;
 
 
-export type DiscordOAuthMutation = { __typename?: 'Mutation', discordOAuth: { __typename?: 'OAuthResponse', user?: { __typename?: 'User', id: number, email: string, username: string, provider?: string | null | undefined, avatarUrl: string, transactionCount: number, reputation: number } | null | undefined } };
+export type DiscordOAuthMutation = { __typename?: 'Mutation', discordOAuth: { __typename?: 'OAuthResponse', user?: { __typename?: 'User', id: number, email: string, username: string, provider?: string | null | undefined, avatarUrl: string, reputation: number } | null | undefined } };
 
 export type GoogleOAuthMutationVariables = Exact<{
   code: Scalars['String'];
 }>;
 
 
-export type GoogleOAuthMutation = { __typename?: 'Mutation', googleOAuth: { __typename?: 'OAuthResponse', user?: { __typename?: 'User', id: number, email: string, username: string, provider?: string | null | undefined, avatarUrl: string, transactionCount: number, reputation: number } | null | undefined } };
+export type GoogleOAuthMutation = { __typename?: 'Mutation', googleOAuth: { __typename?: 'OAuthResponse', user?: { __typename?: 'User', id: number, email: string, username: string, provider?: string | null | undefined, avatarUrl: string, reputation: number } | null | undefined } };
 
 export type DeleteAccountMutationVariables = Exact<{
   email: Scalars['String'];
@@ -174,14 +187,14 @@ export type LogoutMutation = { __typename?: 'Mutation', logout: boolean };
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', id: number, email: string, username: string, provider?: string | null | undefined, avatarUrl: string, transactionCount: number, reputation: number } | null | undefined };
+export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', id: number, email: string, username: string, provider?: string | null | undefined, avatarUrl: string, reputation: number } | null | undefined };
 
 export type UpdateCredentialsMutationVariables = Exact<{
   username: Scalars['String'];
 }>;
 
 
-export type UpdateCredentialsMutation = { __typename?: 'Mutation', updateCredentials: { __typename?: 'User', id: number, email: string, username: string, provider?: string | null | undefined, avatarUrl: string, transactionCount: number, reputation: number } };
+export type UpdateCredentialsMutation = { __typename?: 'Mutation', updateCredentials: { __typename?: 'User', id: number, email: string, username: string, provider?: string | null | undefined, avatarUrl: string, reputation: number } };
 
 
 export const CreateItemDocument = gql`
@@ -216,6 +229,37 @@ export function useCreateItemMutation(baseOptions?: Apollo.MutationHookOptions<C
 export type CreateItemMutationHookResult = ReturnType<typeof useCreateItemMutation>;
 export type CreateItemMutationResult = Apollo.MutationResult<CreateItemMutation>;
 export type CreateItemMutationOptions = Apollo.BaseMutationOptions<CreateItemMutation, CreateItemMutationVariables>;
+export const DeleteItemDocument = gql`
+    mutation DeleteItem($itemId: Int!) {
+  deleteItem(itemId: $itemId)
+}
+    `;
+export type DeleteItemMutationFn = Apollo.MutationFunction<DeleteItemMutation, DeleteItemMutationVariables>;
+
+/**
+ * __useDeleteItemMutation__
+ *
+ * To run a mutation, you first call `useDeleteItemMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteItemMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteItemMutation, { data, loading, error }] = useDeleteItemMutation({
+ *   variables: {
+ *      itemId: // value for 'itemId'
+ *   },
+ * });
+ */
+export function useDeleteItemMutation(baseOptions?: Apollo.MutationHookOptions<DeleteItemMutation, DeleteItemMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteItemMutation, DeleteItemMutationVariables>(DeleteItemDocument, options);
+      }
+export type DeleteItemMutationHookResult = ReturnType<typeof useDeleteItemMutation>;
+export type DeleteItemMutationResult = Apollo.MutationResult<DeleteItemMutation>;
+export type DeleteItemMutationOptions = Apollo.BaseMutationOptions<DeleteItemMutation, DeleteItemMutationVariables>;
 export const GetUserItemsDocument = gql`
     query GetUserItems {
   getUserItems {
@@ -297,7 +341,6 @@ export const DiscordOAuthDocument = gql`
       username
       provider
       avatarUrl
-      transactionCount
       reputation
     }
   }
@@ -338,7 +381,6 @@ export const GoogleOAuthDocument = gql`
       username
       provider
       avatarUrl
-      transactionCount
       reputation
     }
   }
@@ -471,7 +513,6 @@ export const MeDocument = gql`
     username
     provider
     avatarUrl
-    transactionCount
     reputation
   }
 }
@@ -511,7 +552,6 @@ export const UpdateCredentialsDocument = gql`
     username
     provider
     avatarUrl
-    transactionCount
     reputation
   }
 }

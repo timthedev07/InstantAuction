@@ -20,15 +20,15 @@ export class Bid extends BaseEntity {
   id: number;
 
   @Field(() => Auction)
-  @ManyToOne(() => Auction, auction => auction.bids)
+  @ManyToOne(() => Auction, auction => auction.bids, { onDelete: "CASCADE" })
   auction: Auction;
 
   @Field(() => User)
-  @ManyToOne(() => User, user => user.bids)
+  @ManyToOne(() => User, user => user.bids, { onDelete: "CASCADE" })
   bidder: User;
 
   @Field(() => Item)
-  @OneToOne(() => Item)
+  @OneToOne(() => Item, { onDelete: "CASCADE" })
   @JoinColumn()
   item: Item;
 

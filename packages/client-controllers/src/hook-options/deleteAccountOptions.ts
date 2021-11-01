@@ -1,19 +1,24 @@
-import { MeQuery, MeDocument, DeleteAccountMutationOptions, DeleteAccountMutationVariables } from "../generated/graphql";
+import {
+  MeQuery,
+  MeDocument,
+  DeleteAccountMutationOptions,
+  DeleteAccountMutationVariables
+} from "../generated/graphql";
 
 export const createDeleteAccountOptions = (
-  variables:DeleteAccountMutationVariables
+  variables: DeleteAccountMutationVariables
 ): DeleteAccountMutationOptions => {
   return {
     variables,
     update: (store, { data }) => {
-      if (data?.deleteAccount === undefined) return;
+      if (!data || data.deleteAccount === undefined) return;
       store.writeQuery<MeQuery>({
         query: MeDocument,
         data: {
           __typename: "Query",
-          me: null,
-        },
+          me: null
+        }
       });
-    },
+    }
   };
 };

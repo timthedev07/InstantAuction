@@ -34,10 +34,6 @@ export class User extends BaseEntity {
   avatarUrl: string;
 
   @Field(() => Int)
-  @Column({ type: "integer", default: 0 })
-  transactionCount: number;
-
-  @Field(() => Int)
   @Column({ type: "integer", default: 100 })
   reputation: number;
 

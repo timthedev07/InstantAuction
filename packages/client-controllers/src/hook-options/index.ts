@@ -4,3 +4,4 @@ export * from "./googleOAuthOptions";
 export * from "./discordOAuthOptions";
 export * from "./updateCredentials";
 export * from "./createItemOptions";
+export * from "./deleteItemOptions";

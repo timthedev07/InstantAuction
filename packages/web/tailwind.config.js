@@ -109,7 +109,8 @@ module.exports = {
   },
   variants: {
     extend: {
-      typography: ["dark"]
+      typography: ["dark"],
+      cursor: ["hover", "focus"]
     }
   },
   plugins: [require("@tailwindcss/typography")]

@@ -33,6 +33,9 @@
 
 ## Server side
 
+- Express session(I would use session for auth this time) ✅
+- Setup redis if needed. ✅
+
 - User Resolvers
 
   - Login resolver ✅
@@ -45,25 +48,35 @@
     - Show username ✅
     - Show transaction count ✅
     - Show reputation ✅
-    - Show a list of transactions(items)
+    - Show a list of items
 
-- Express session(I would use session for auth this time) ✅
-- Setup redis if needed. ✅
 - Item Entity
+
+  - Name ✅
+  - Owner ✅
+  - Picture url (hosted on imgur) ✅
+
+- Bid Entity
+
+  - The associated Auction
+  - bidder
+  - Item used
+
+- Auction Entity
 
   - Auto generated id
   - Date started
   - Status(closed, succeeded, open)
   - Seller
-  - Current highest bidder
-  - Current highest bid
+  - A list of bids
 
-- Item Resolvers
+- Auction Resolvers
 
-  - Item transaction
-  - Item transaction
   - Get item info
   - Update item details
+  - For a particular user:
+    - Show a list of auctions owned
+    - Show a list of auctions participated in
 
 ## Client-side
 

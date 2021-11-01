@@ -7,6 +7,7 @@ import { DeleteAccountResolver } from "./resolvers/users/DeleteAccount";
 import { UpdateCredentialsResolver } from "./resolvers/users/UpdateCredentials";
 import { CreateItemResolver } from "./resolvers/items/createItem";
 import { GetUserItemsResolver } from "./resolvers/items/getUserItems";
+import { DeleteItemResolver } from "./resolvers/items/deleteItem";
 
 export const createSchema = () =>
   buildSchema({
@@ -20,7 +21,8 @@ export const createSchema = () =>
       UpdateCredentialsResolver,
       // item resolvers
       CreateItemResolver,
-      GetUserItemsResolver
+      GetUserItemsResolver,
+      DeleteItemResolver
     ],
     authChecker: ({ context: { req } }) => {
       return !!req.session.userId;

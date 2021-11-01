@@ -97,10 +97,23 @@
   - User Profile Page
   - Landing Page
 - Components
+
   - Alert at the top level of the app(with a trigger function passed down to the children)
-  - Item component
-  - Logout button
-  - New Item Form(using Formik)
+  - Auctions
+    - Auction component
+    - Auctions List
+    - New Auction Form(using Formik)
+  - Items
+    - Item component
+    - My Items List
+    - New Item Form(using Formik)
+  - Auth/User
+    - Profile
+      - Reputation
+      - Avatar
+      - Username
+      - Email
+    - Logout button
 
 **Note: Finish building the web interface before moving on to native.**
 

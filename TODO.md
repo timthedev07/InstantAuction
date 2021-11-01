@@ -59,8 +59,8 @@
   - Resolvers
     - Create Item ✅
     - Get Items belonged to a particular user ✅
+    - Delete Item ✅
     - Modify Item
-    - Delete Item
     - Mark as sold
 
 - Bid Entity

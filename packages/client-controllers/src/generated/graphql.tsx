@@ -48,7 +48,7 @@ export type Item = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  createItem: Scalars['Boolean'];
+  createItem: Item;
   deleteAccount: Scalars['Boolean'];
   deleteItem: Scalars['Boolean'];
   discordOAuth: OAuthResponse;
@@ -132,7 +132,7 @@ export type CreateItemMutationVariables = Exact<{
 }>;
 
 
-export type CreateItemMutation = { __typename?: 'Mutation', createItem: boolean };
+export type CreateItemMutation = { __typename?: 'Mutation', createItem: { __typename?: 'Item', id: number, picture: string, name: string } };
 
 export type DeleteItemMutationVariables = Exact<{
   itemId: Scalars['Int'];
@@ -199,7 +199,11 @@ export type UpdateCredentialsMutation = { __typename?: 'Mutation', updateCredent
 
 export const CreateItemDocument = gql`
     mutation CreateItem($name: String!, $picture: Upload!) {
-  createItem(name: $name, picture: $picture)
+  createItem(name: $name, picture: $picture) {
+    id
+    picture
+    name
+  }
 }
     `;
 export type CreateItemMutationFn = Apollo.MutationFunction<CreateItemMutation, CreateItemMutationVariables>;

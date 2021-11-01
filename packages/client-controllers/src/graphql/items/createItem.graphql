@@ -1,4 +1,3 @@
 mutation CreateItem($name: String!, $picture: Upload!) {
   createItem(name: $name, picture: $picture)
-  j
 }

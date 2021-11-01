@@ -4,7 +4,8 @@ import {
   PrimaryGeneratedColumn,
   BaseEntity,
   ManyToOne,
-  OneToOne
+  OneToOne,
+  JoinColumn
 } from "typeorm";
 import { Auction } from "./Auction";
 import { Item } from "./Item";
@@ -27,5 +28,6 @@ export class Bid extends BaseEntity {
 
   @Field(() => Item)
   @OneToOne(() => Item)
+  @JoinColumn()
   item: Item;
 }

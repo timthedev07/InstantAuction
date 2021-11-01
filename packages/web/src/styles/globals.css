@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .cyan-button {
+    @apply bg-cyan-600 text-white rounded px-4 py-1;
+  }
+}
+
 .oauth-buttons-wrapper {
   height: auto;
   width: 100%;

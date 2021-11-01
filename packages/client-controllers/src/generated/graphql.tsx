@@ -131,7 +131,7 @@ export type CreateItemMutation = { __typename?: 'Mutation', createItem: boolean 
 export type GetUserItemsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetUserItemsQuery = { __typename?: 'Query', getUserItems: { __typename?: 'UserItemsResponse', count: number, items: Array<{ __typename?: 'Item', id: number, picture: string, name: string, owner: { __typename?: 'User', username: string } }> } };
+export type GetUserItemsQuery = { __typename?: 'Query', getUserItems: { __typename?: 'UserItemsResponse', count: number, items: Array<{ __typename?: 'Item', id: number, picture: string, name: string }> } };
 
 export type TestUploadQueryVariables = Exact<{
   file: Scalars['Upload'];
@@ -223,9 +223,6 @@ export const GetUserItemsDocument = gql`
       id
       picture
       name
-      owner {
-        username
-      }
     }
     count
   }

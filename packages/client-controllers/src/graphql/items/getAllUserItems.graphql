@@ -4,9 +4,6 @@ query GetUserItems {
       id
       picture
       name
-      owner {
-        username
-      }
     }
     count
   }

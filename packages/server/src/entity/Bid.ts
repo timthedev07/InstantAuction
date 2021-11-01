@@ -1,5 +1,11 @@
 import { Field, Int, ObjectType } from "type-graphql";
-import { Entity, PrimaryGeneratedColumn, BaseEntity, ManyToOne } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  BaseEntity,
+  ManyToOne,
+  OneToOne
+} from "typeorm";
 import { Auction } from "./Auction";
 import { Item } from "./Item";
 import { User } from "./User";
@@ -12,7 +18,7 @@ export class Bid extends BaseEntity {
   id: number;
 
   @Field(() => Auction)
-  @ManyToOne(() => Auction, item => item.bids)
+  @ManyToOne(() => Auction, auction => auction.bids)
   auction: Auction;
 
   @Field(() => User)
@@ -20,5 +26,6 @@ export class Bid extends BaseEntity {
   bidder: User;
 
   @Field(() => Item)
+  @OneToOne(() => Item)
   item: Item;
 }

@@ -6,7 +6,6 @@ mutation DiscordOAuth($code: String!) {
       username
       provider
       avatarUrl
-      transactionCount
       reputation
     }
   }

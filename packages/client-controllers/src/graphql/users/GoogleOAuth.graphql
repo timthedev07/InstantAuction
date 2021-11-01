@@ -6,7 +6,6 @@ mutation GoogleOAuth($code: String!) {
       username
       provider
       avatarUrl
-      transactionCount
       reputation
     }
   }

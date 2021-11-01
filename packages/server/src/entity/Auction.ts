@@ -26,7 +26,7 @@ export class Auction extends BaseEntity {
   description: string;
 
   @Field(() => User)
-  @ManyToOne(() => User, user => user.auctionsOwned)
+  @ManyToOne(() => User, user => user.auctionsOwned, { onDelete: "CASCADE" })
   seller: User;
 
   @Field(() => Date)

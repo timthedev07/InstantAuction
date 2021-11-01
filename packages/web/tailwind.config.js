@@ -26,14 +26,7 @@ module.exports = {
       colors: {
         "light-blue": colors.sky,
         cyan: colors.cyan,
-        "primary-bg": "#282828",
-        "dark-bg": "#121212",
-        "component-primary-bg": "#404040",
-        "purple-bold": "#3500D3",
-        "purple-dim": "#240090",
-        "purple-darkish": "#190061",
-        "purple-dark": "#0C0032",
-        "purple-light": "#8c66ff"
+        "primary-bg": "#111111"
       },
       typography: theme => ({
         light: {

@@ -36,6 +36,7 @@ export const ModifyItem: FC<ModifyItemProps> = ({ name, picture, id }) => {
           <form onSubmit={handleSubmit}>
             <input
               name="name"
+              className="px-4 py-3 rounded bg-gray-800 bg-opacity-90 border border-gray-50"
               value={values.name}
               onChange={handleChange}
               onBlur={handleBlur}

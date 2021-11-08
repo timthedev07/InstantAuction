@@ -53,7 +53,7 @@ export const Layout: FC = ({ children }) => {
         <link rel="apple-touch-icon" href="/logo192.png" />
       </Head>
 
-      <div id="App" className={`bg-gray-100 dark:bg-primary-bg min-w-350`}>
+      <div id="App" className={`bg-primary-900 min-w-350`}>
         {/* {windowSize > BREAK_POINT ? <Navbar /> : null} */}
         <main
           className={`${

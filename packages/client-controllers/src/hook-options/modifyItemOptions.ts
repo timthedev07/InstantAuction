@@ -26,7 +26,7 @@ export const createItemModificationOptions = (
         cachedData.getUserItems.count
       ) {
         // if there are cached items
-        count = cachedData.getUserItems.count + 1;
+        count = cachedData.getUserItems.count;
         items = cachedData.getUserItems.items;
         items[
           items.findIndex(val => {

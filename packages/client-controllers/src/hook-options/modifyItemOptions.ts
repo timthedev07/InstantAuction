@@ -5,7 +5,7 @@ import {
   GetUserItemsQuery
 } from "../generated/graphql";
 
-export const modifyItemCreationOptions = (
+export const createItemModificationOptions = (
   variables: ModifyItemMutationVariables
 ): ModifyItemMutationOptions => {
   return {

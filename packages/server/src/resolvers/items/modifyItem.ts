@@ -1,5 +1,5 @@
 import { GraphQLUpload, FileUpload } from "graphql-upload";
-import { Resolver, Mutation, Arg, UseMiddleware, Ctx } from "type-graphql";
+import { Resolver, Mutation, Arg, UseMiddleware, Ctx, Int } from "type-graphql";
 import { Item } from "../../entity/Item";
 import { NetworkingContext } from "../../types/NetworkingContext";
 import { handleImageUpload } from "../../utils/handleImageUpload";
@@ -11,9 +11,9 @@ export class ModifyItemResolver {
   @UseMiddleware(isAuth)
   async modifyItem(
     @Ctx() { req }: NetworkingContext,
-    @Arg("itemId") itemId: number,
+    @Arg("itemId", () => Int) itemId: number,
     @Arg("newName", { nullable: true }) newName?: string,
-    @Arg("picture", () => GraphQLUpload)
+    @Arg("picture", () => GraphQLUpload, { nullable: true })
     fileUpload?: FileUpload
   ): Promise<Item> {
     let item;
@@ -38,6 +38,7 @@ export class ModifyItemResolver {
           picture: fileUpload ? await handleImageUpload(fileUpload) : undefined
         }
       );
+
       return raw[0];
     } catch (err) {
       console.error(err);

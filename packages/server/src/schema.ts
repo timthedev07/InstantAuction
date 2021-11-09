@@ -8,6 +8,7 @@ import { UpdateCredentialsResolver } from "./resolvers/users/UpdateCredentials";
 import { CreateItemResolver } from "./resolvers/items/createItem";
 import { GetUserItemsResolver } from "./resolvers/items/getUserItems";
 import { DeleteItemResolver } from "./resolvers/items/deleteItem";
+import { ModifyItemResolver } from "./resolvers/items/modifyItem";
 
 export const createSchema = () =>
   buildSchema({
@@ -22,7 +23,8 @@ export const createSchema = () =>
       // item resolvers
       CreateItemResolver,
       GetUserItemsResolver,
-      DeleteItemResolver
+      DeleteItemResolver,
+      ModifyItemResolver
     ],
     authChecker: ({ context: { req } }) => {
       return !!req.session.userId;

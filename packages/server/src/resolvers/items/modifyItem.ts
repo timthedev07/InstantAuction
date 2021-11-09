@@ -1,0 +1,47 @@
+import { GraphQLUpload, FileUpload } from "graphql-upload";
+import { Resolver, Mutation, Arg, UseMiddleware, Ctx } from "type-graphql";
+import { Item } from "../../entity/Item";
+import { NetworkingContext } from "../../types/NetworkingContext";
+import { handleImageUpload } from "../../utils/handleImageUpload";
+import { isAuth } from "../../utils/isAuthMiddleware";
+
+@Resolver()
+export class ModifyItemResolver {
+  @Mutation(() => Item)
+  @UseMiddleware(isAuth)
+  async modifyItem(
+    @Ctx() { req }: NetworkingContext,
+    @Arg("itemId") itemId: number,
+    @Arg("newName", { nullable: true }) newName?: string,
+    @Arg("picture", () => GraphQLUpload)
+    fileUpload?: FileUpload
+  ): Promise<Item> {
+    let item;
+    try {
+      item = await Item.findOne({
+        where: { id: itemId },
+        relations: ["owner"]
+      });
+    } catch (err) {
+      throw new Error("Invalid item");
+    }
+
+    if (item.owner.id !== req.session.userId) {
+      throw new Error("Unauthorized");
+    }
+
+    try {
+      const { raw } = await Item.update(
+        { id: itemId },
+        {
+          name: newName,
+          picture: fileUpload ? await handleImageUpload(fileUpload) : undefined
+        }
+      );
+      return raw[0];
+    } catch (err) {
+      console.error(err);
+      throw new Error("Failed to update your item.");
+    }
+  }
+}

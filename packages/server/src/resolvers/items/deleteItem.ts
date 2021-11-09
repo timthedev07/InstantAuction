@@ -1,4 +1,4 @@
-import { Resolver, Mutation, UseMiddleware, Arg, Int, Ctx } from "type-graphql";
+import { Resolver, Mutation, Arg, Int, Ctx, UseMiddleware } from "type-graphql";
 import { Item } from "../../entity/Item";
 import { NetworkingContext } from "../../types/NetworkingContext";
 import { isAuth } from "../../utils/isAuthMiddleware";
@@ -11,19 +11,20 @@ export class DeleteItemResolver {
     @Arg("itemId", () => Int) itemId: number,
     @Ctx() { req }: NetworkingContext
   ): Promise<boolean> {
+    let item;
     try {
-      const item = await Item.findOne({
+      item = await Item.findOne({
         where: {
           id: itemId
         },
         relations: ["owner"]
       });
-
-      if (item.owner.id !== req.session.userId) {
-        throw new Error("Unauthorized");
-      }
     } catch (err) {
+      console.log(err);
       throw new Error("Invalid item");
+    }
+    if (item.owner.id !== req.session.userId) {
+      throw new Error("Unauthorized");
     }
 
     try {

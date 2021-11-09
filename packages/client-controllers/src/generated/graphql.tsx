@@ -54,6 +54,7 @@ export type Mutation = {
   discordOAuth: OAuthResponse;
   googleOAuth: OAuthResponse;
   logout: Scalars['Boolean'];
+  modifyItem: Item;
   updateCredentials: User;
 };
 
@@ -81,6 +82,13 @@ export type MutationDiscordOAuthArgs = {
 
 export type MutationGoogleOAuthArgs = {
   code: Scalars['String'];
+};
+
+
+export type MutationModifyItemArgs = {
+  itemId: Scalars['Int'];
+  newName?: Maybe<Scalars['String']>;
+  picture?: Maybe<Scalars['Upload']>;
 };
 
 
@@ -145,6 +153,15 @@ export type GetUserItemsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetUserItemsQuery = { __typename?: 'Query', getUserItems: { __typename?: 'UserItemsResponse', count: number, items: Array<{ __typename?: 'Item', id: number, picture: string, name: string }> } };
+
+export type ModifyItemMutationVariables = Exact<{
+  itemId: Scalars['Int'];
+  newName?: Maybe<Scalars['String']>;
+  picture?: Maybe<Scalars['Upload']>;
+}>;
+
+
+export type ModifyItemMutation = { __typename?: 'Mutation', modifyItem: { __typename?: 'Item', id: number, picture: string, name: string } };
 
 export type TestUploadQueryVariables = Exact<{
   file: Scalars['Upload'];
@@ -303,6 +320,43 @@ export function useGetUserItemsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export type GetUserItemsQueryHookResult = ReturnType<typeof useGetUserItemsQuery>;
 export type GetUserItemsLazyQueryHookResult = ReturnType<typeof useGetUserItemsLazyQuery>;
 export type GetUserItemsQueryResult = Apollo.QueryResult<GetUserItemsQuery, GetUserItemsQueryVariables>;
+export const ModifyItemDocument = gql`
+    mutation ModifyItem($itemId: Int!, $newName: String, $picture: Upload) {
+  modifyItem(itemId: $itemId, newName: $newName, picture: $picture) {
+    id
+    picture
+    name
+  }
+}
+    `;
+export type ModifyItemMutationFn = Apollo.MutationFunction<ModifyItemMutation, ModifyItemMutationVariables>;
+
+/**
+ * __useModifyItemMutation__
+ *
+ * To run a mutation, you first call `useModifyItemMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useModifyItemMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [modifyItemMutation, { data, loading, error }] = useModifyItemMutation({
+ *   variables: {
+ *      itemId: // value for 'itemId'
+ *      newName: // value for 'newName'
+ *      picture: // value for 'picture'
+ *   },
+ * });
+ */
+export function useModifyItemMutation(baseOptions?: Apollo.MutationHookOptions<ModifyItemMutation, ModifyItemMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ModifyItemMutation, ModifyItemMutationVariables>(ModifyItemDocument, options);
+      }
+export type ModifyItemMutationHookResult = ReturnType<typeof useModifyItemMutation>;
+export type ModifyItemMutationResult = Apollo.MutationResult<ModifyItemMutation>;
+export type ModifyItemMutationOptions = Apollo.BaseMutationOptions<ModifyItemMutation, ModifyItemMutationVariables>;
 export const TestUploadDocument = gql`
     query TestUpload($file: Upload!) {
   testUpload(file: $file)

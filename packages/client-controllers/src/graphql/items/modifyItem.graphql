@@ -1,0 +1,7 @@
+mutation ModifyItem($itemId: Int!, $newName: String, $picture: Upload) {
+  modifyItem(itemId: $itemId, newName: $newName, picture: $picture) {
+    id
+    picture
+    name
+  }
+}

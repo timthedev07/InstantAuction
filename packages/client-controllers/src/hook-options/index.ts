@@ -5,3 +5,4 @@ export * from "./discordOAuthOptions";
 export * from "./updateCredentials";
 export * from "./createItemOptions";
 export * from "./deleteItemOptions";
+export * from "./modifyItemOptions";

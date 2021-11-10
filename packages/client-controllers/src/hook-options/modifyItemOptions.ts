@@ -28,11 +28,15 @@ export const createItemModificationOptions = (
         // if there are cached items
         count = cachedData.getUserItems.count;
         items = cachedData.getUserItems.items;
-        items[
-          items.findIndex(val => {
-            return val.id === data.modifyItem.id;
-          })
-        ] = data.modifyItem;
+
+        const ind = items.findIndex(val => {
+          return val.id === data.modifyItem.id;
+        });
+
+        try {
+          items[ind].name = data.modifyItem.name;
+          items[ind].picture = data.modifyItem.picture;
+        } catch (err) {}
       }
 
       store.writeQuery<GetUserItemsQuery>({

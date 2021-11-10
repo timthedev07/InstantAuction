@@ -7,6 +7,7 @@ declare module "express-session" {
     userId: number;
   }
 }
+
 export const loginOAuth = (
   user: User,
   request: Request,

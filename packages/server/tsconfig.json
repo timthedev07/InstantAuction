@@ -23,5 +23,10 @@
     "jsx": "react"
   },
   "exclude": ["node_modules"],
-  "include": ["./src/**/*.ts", "./env.d.ts"]
+  "include": [
+    "./src/**/*.ts",
+    "./src/**/*.d.ts",
+    "./env.d.ts",
+    "src/types/expressSession.ts"
+  ]
 }

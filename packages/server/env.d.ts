@@ -11,3 +11,5 @@ declare namespace NodeJS {
     IMGUR_CLIENT_ID: string;
   }
 }
+
+export {};

@@ -1,6 +1,10 @@
 import { FC, useCallback, useState } from "react";
 import { Formik } from "formik";
 import { useDropzone } from "react-dropzone";
+import {
+  createItemModificationOptions,
+  useModifyItemMutation
+} from "client-controllers";
 
 interface ModifyItemProps {
   id: number;
@@ -17,6 +21,7 @@ export const ModifyItem: FC<ModifyItemProps> = ({ name, picture, id }) => {
     },
     [setFile]
   );
+  const [modifyItem] = useModifyItemMutation();
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
@@ -27,17 +32,33 @@ export const ModifyItem: FC<ModifyItemProps> = ({ name, picture, id }) => {
     <div className="m-6 border-white border rounded p-5">
       <h1 className="text-3xl">Modify item of id {id}</h1>
       <Formik
-        initialValues={{ name }}
-        onSubmit={({ name }) => {
-          name;
+        initialValues={{ inputtedName: name }}
+        onSubmit={async ({ inputtedName }) => {
+          const newName = inputtedName === name ? undefined : inputtedName;
+          try {
+            await modifyItem(
+              createItemModificationOptions({
+                itemId: id,
+                newName,
+                picture: file
+              })
+            );
+          } catch (err) {
+            console.log("Error: ", err);
+          }
         }}
       >
         {({ values, handleChange, handleSubmit, handleBlur }) => (
-          <form onSubmit={handleSubmit}>
+          <form
+            onSubmit={e => {
+              e.preventDefault();
+              handleSubmit();
+            }}
+          >
             <input
-              name="name"
+              name="inputtedName"
               className="px-4 py-3 rounded bg-gray-800 bg-opacity-90 border border-gray-50"
-              value={values.name}
+              value={values.inputtedName}
               onChange={handleChange}
               onBlur={handleBlur}
             />

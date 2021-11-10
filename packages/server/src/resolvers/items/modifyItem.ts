@@ -31,13 +31,13 @@ export class ModifyItemResolver {
     }
 
     try {
-      const result = await Item.getRepository().save({
+      await Item.getRepository().save({
         id: itemId,
         name: newName,
         picture: fileUpload ? await handleImageUpload(fileUpload) : undefined
       });
 
-      return result;
+      return await Item.findOne(itemId);
     } catch (err) {
       console.error(err);
       throw new Error("Failed to update your item.");

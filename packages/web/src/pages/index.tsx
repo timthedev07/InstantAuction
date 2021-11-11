@@ -3,6 +3,7 @@ import { useHelloQuery, useMeQuery } from "client-controllers";
 import { OAuthButton } from "../components/OAuthButton";
 import { getDiscordAuthUrl, getGoogleAuthUrl } from "shared";
 import { ItemsList } from "../components/ItemsList";
+import { CreateAuction } from "../components/CreateAuction";
 
 const Landing: NextPage = () => {
   const { data: testData, loading: testLoading } = useHelloQuery();
@@ -18,7 +19,7 @@ const Landing: NextPage = () => {
           ? "loading..."
           : error
           ? JSON.stringify(error.message, null, 2)
-          : JSON.stringify(data, null, 2)}
+          : JSON.stringify(data!.me!.email, null, 2)}
       </pre>
       <OAuthButton
         provider="google"
@@ -28,8 +29,7 @@ const Landing: NextPage = () => {
         provider="discord"
         href={getDiscordAuthUrl(process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID)}
       />
-
-      <ItemsList />
+      <CreateAuction />
     </>
   );
 };

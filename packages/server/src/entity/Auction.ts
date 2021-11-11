@@ -40,4 +40,8 @@ export class Auction extends BaseEntity {
   @Field(() => [Bid])
   @OneToMany(() => Bid, bid => bid.auction)
   bids: Bid[];
+
+  @Field(() => String)
+  @Column({ type: "varchar", length: 6 })
+  status: "closed" | "sold" | "open";
 }

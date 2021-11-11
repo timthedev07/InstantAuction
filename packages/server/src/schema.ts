@@ -9,6 +9,7 @@ import { CreateItemResolver } from "./resolvers/items/createItem";
 import { GetUserItemsResolver } from "./resolvers/items/getUserItems";
 import { DeleteItemResolver } from "./resolvers/items/deleteItem";
 import { ModifyItemResolver } from "./resolvers/items/modifyItem";
+import { CreateAuctionResolver } from "./resolvers/auctions/createAuction";
 
 export const createSchema = () =>
   buildSchema({
@@ -20,11 +21,15 @@ export const createSchema = () =>
       LogoutResolver,
       DeleteAccountResolver,
       UpdateCredentialsResolver,
+
       // item resolvers
       CreateItemResolver,
       GetUserItemsResolver,
       DeleteItemResolver,
-      ModifyItemResolver
+      ModifyItemResolver,
+
+      // auction resolvers
+      CreateAuctionResolver
     ],
     authChecker: ({ context: { req } }) => {
       return !!req.session.userId;

@@ -18,6 +18,12 @@ export type Scalars = {
   Upload: any;
 };
 
+export type AllAuctionsResponse = {
+  __typename?: 'AllAuctionsResponse';
+  auctions: Array<Auction>;
+  count: Scalars['Int'];
+};
+
 export type Auction = {
   __typename?: 'Auction';
   bids: Array<Bid>;
@@ -111,6 +117,7 @@ export type OAuthResponse = {
 
 export type Query = {
   __typename?: 'Query';
+  allAuctions: AllAuctionsResponse;
   getUserItems: UserItemsResponse;
   hello: Scalars['String'];
   me?: Maybe<User>;
@@ -141,6 +148,11 @@ export type UserItemsResponse = {
   count: Scalars['Int'];
   items: Array<Item>;
 };
+
+export type AllAuctionsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AllAuctionsQuery = { __typename?: 'Query', allAuctions: { __typename?: 'AllAuctionsResponse', count: number, auctions: Array<{ __typename?: 'Auction', id: number, title: string, description: string, status: string, dateCreated: any, dateUpdated: any, seller: { __typename?: 'User', username: string } }> } };
 
 export type CreateAuctionMutationVariables = Exact<{
   title: Scalars['String'];
@@ -230,6 +242,51 @@ export type UpdateCredentialsMutationVariables = Exact<{
 export type UpdateCredentialsMutation = { __typename?: 'Mutation', updateCredentials: { __typename?: 'User', id: number, email: string, username: string, provider?: string | null | undefined, avatarUrl: string, reputation: number } };
 
 
+export const AllAuctionsDocument = gql`
+    query AllAuctions {
+  allAuctions {
+    count
+    auctions {
+      id
+      title
+      description
+      seller {
+        username
+      }
+      status
+      dateCreated
+      dateUpdated
+    }
+  }
+}
+    `;
+
+/**
+ * __useAllAuctionsQuery__
+ *
+ * To run a query within a React component, call `useAllAuctionsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAllAuctionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAllAuctionsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAllAuctionsQuery(baseOptions?: Apollo.QueryHookOptions<AllAuctionsQuery, AllAuctionsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<AllAuctionsQuery, AllAuctionsQueryVariables>(AllAuctionsDocument, options);
+      }
+export function useAllAuctionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AllAuctionsQuery, AllAuctionsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<AllAuctionsQuery, AllAuctionsQueryVariables>(AllAuctionsDocument, options);
+        }
+export type AllAuctionsQueryHookResult = ReturnType<typeof useAllAuctionsQuery>;
+export type AllAuctionsLazyQueryHookResult = ReturnType<typeof useAllAuctionsLazyQuery>;
+export type AllAuctionsQueryResult = Apollo.QueryResult<AllAuctionsQuery, AllAuctionsQueryVariables>;
 export const CreateAuctionDocument = gql`
     mutation CreateAuction($title: String!, $description: String!) {
   createAuction(title: $title, description: $description)

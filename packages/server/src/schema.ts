@@ -10,6 +10,7 @@ import { GetUserItemsResolver } from "./resolvers/items/getUserItems";
 import { DeleteItemResolver } from "./resolvers/items/deleteItem";
 import { ModifyItemResolver } from "./resolvers/items/modifyItem";
 import { CreateAuctionResolver } from "./resolvers/auctions/createAuction";
+import { AllAuctionsResolver } from "./resolvers/auctions/allAuctions";
 
 export const createSchema = () =>
   buildSchema({
@@ -29,6 +30,7 @@ export const createSchema = () =>
       ModifyItemResolver,
 
       // auction resolvers
-      CreateAuctionResolver
+      CreateAuctionResolver,
+      AllAuctionsResolver
     ]
   });

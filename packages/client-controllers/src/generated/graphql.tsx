@@ -26,6 +26,7 @@ export type Auction = {
   description: Scalars['String'];
   id: Scalars['Int'];
   seller: User;
+  status: Scalars['String'];
   title: Scalars['String'];
 };
 
@@ -48,6 +49,7 @@ export type Item = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  createAuction: Scalars['Boolean'];
   createItem: Item;
   deleteAccount: Scalars['Boolean'];
   deleteItem: Scalars['Boolean'];
@@ -56,6 +58,12 @@ export type Mutation = {
   logout: Scalars['Boolean'];
   modifyItem: Item;
   updateCredentials: User;
+};
+
+
+export type MutationCreateAuctionArgs = {
+  description: Scalars['String'];
+  title: Scalars['String'];
 };
 
 
@@ -133,6 +141,14 @@ export type UserItemsResponse = {
   count: Scalars['Int'];
   items: Array<Item>;
 };
+
+export type CreateAuctionMutationVariables = Exact<{
+  title: Scalars['String'];
+  description: Scalars['String'];
+}>;
+
+
+export type CreateAuctionMutation = { __typename?: 'Mutation', createAuction: boolean };
 
 export type CreateItemMutationVariables = Exact<{
   name: Scalars['String'];
@@ -214,6 +230,38 @@ export type UpdateCredentialsMutationVariables = Exact<{
 export type UpdateCredentialsMutation = { __typename?: 'Mutation', updateCredentials: { __typename?: 'User', id: number, email: string, username: string, provider?: string | null | undefined, avatarUrl: string, reputation: number } };
 
 
+export const CreateAuctionDocument = gql`
+    mutation CreateAuction($title: String!, $description: String!) {
+  createAuction(title: $title, description: $description)
+}
+    `;
+export type CreateAuctionMutationFn = Apollo.MutationFunction<CreateAuctionMutation, CreateAuctionMutationVariables>;
+
+/**
+ * __useCreateAuctionMutation__
+ *
+ * To run a mutation, you first call `useCreateAuctionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateAuctionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createAuctionMutation, { data, loading, error }] = useCreateAuctionMutation({
+ *   variables: {
+ *      title: // value for 'title'
+ *      description: // value for 'description'
+ *   },
+ * });
+ */
+export function useCreateAuctionMutation(baseOptions?: Apollo.MutationHookOptions<CreateAuctionMutation, CreateAuctionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateAuctionMutation, CreateAuctionMutationVariables>(CreateAuctionDocument, options);
+      }
+export type CreateAuctionMutationHookResult = ReturnType<typeof useCreateAuctionMutation>;
+export type CreateAuctionMutationResult = Apollo.MutationResult<CreateAuctionMutation>;
+export type CreateAuctionMutationOptions = Apollo.BaseMutationOptions<CreateAuctionMutation, CreateAuctionMutationVariables>;
 export const CreateItemDocument = gql`
     mutation CreateItem($name: String!, $picture: Upload!) {
   createItem(name: $name, picture: $picture) {

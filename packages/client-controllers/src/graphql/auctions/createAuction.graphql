@@ -1,0 +1,3 @@
+mutation CreateAuction($title: String!, $description: String!) {
+  createAuction(title: $title, description: $description)
+}

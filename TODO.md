@@ -70,13 +70,8 @@
   - Item used ✅
 
 - Auction
-  - Entity
-    - Auto generated id
-    - Date started
-    - Status(closed, sold, open)
-    - Seller
-    - A list of bids
   - Resolvers
+    - Get all actions
     - Get auction info
     - Update auction details(the owner)
     - For a particular user:

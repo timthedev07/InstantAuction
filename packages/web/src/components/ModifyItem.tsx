@@ -13,7 +13,6 @@ interface ModifyItemProps {
 }
 
 export const ModifyItem: FC<ModifyItemProps> = ({ name, picture, id }) => {
-  const handleChangePicture = () => {};
   const [file, setFile] = useState<any>(null);
   const onDrop = useCallback(
     ([file]) => {
@@ -69,7 +68,6 @@ export const ModifyItem: FC<ModifyItemProps> = ({ name, picture, id }) => {
               <img
                 className="rounded-lg w-60 h-60 absolute z-0"
                 src={file ? file.preview : picture}
-                onClick={handleChangePicture}
               />
               <input accept="image/*" {...getInputProps()} />
             </div>

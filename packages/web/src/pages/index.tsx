@@ -1,23 +1,12 @@
 import { NextPage } from "next";
-import {
-  useGetUserItemsQuery,
-  useHelloQuery,
-  useMeQuery,
-} from "client-controllers";
+import { useHelloQuery, useMeQuery } from "client-controllers";
 import { OAuthButton } from "../components/OAuthButton";
 import { getDiscordAuthUrl, getGoogleAuthUrl } from "shared";
-import { CreateItem } from "../components/CreateItem";
 import { ItemsList } from "../components/ItemsList";
-import { ModifyItem } from "../components/ModifyItem";
 
 const Landing: NextPage = () => {
   const { data: testData, loading: testLoading } = useHelloQuery();
   const { data, loading, error } = useMeQuery();
-  const {
-    data: itemsData,
-    loading: itemsLoading,
-    error: itemsError,
-  } = useGetUserItemsQuery();
 
   return (
     <>
@@ -40,11 +29,7 @@ const Landing: NextPage = () => {
         href={getDiscordAuthUrl(process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID)}
       />
 
-      <CreateItem />
       <ItemsList />
-      {!itemsLoading && !itemsError && itemsData && (
-        <ModifyItem {...itemsData.getUserItems.items[0]} />
-      )}
     </>
   );
 };

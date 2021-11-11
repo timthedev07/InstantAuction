@@ -32,7 +32,10 @@ export const Layout: FC = ({ children }) => {
         <title>{metadata.title}</title>
         <meta name="title" content={metadata.title} />
         <meta name="description" content={metadata.title} />
-        <meta name="keywords" content="auction, platform, trade" />
+        <meta
+          name="keywords"
+          content="auction, platform, trade, trending, ethical, social"
+        />
         <meta name="robots" content="index, follow" />
         <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="language" content="English" />

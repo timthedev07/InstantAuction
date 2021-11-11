@@ -1,4 +1,4 @@
-import { Resolver, Mutation, UseMiddleware, Ctx } from "type-graphql";
+import { Resolver, Mutation, UseMiddleware, Ctx, Arg } from "type-graphql";
 import { Auction } from "../../entity/Auction";
 import { User } from "../../entity/User";
 import { NetworkingContext } from "../../types/NetworkingContext";
@@ -9,8 +9,10 @@ export class CreateAuctionResolver {
   @Mutation(() => Boolean)
   @UseMiddleware(isAuth)
   async createAuction(
-    description: string,
+    @Arg("title")
     title: string,
+    @Arg("description")
+    description: string,
     @Ctx() { req }: NetworkingContext
   ) {
     try {

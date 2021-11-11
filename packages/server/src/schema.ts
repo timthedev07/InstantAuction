@@ -30,8 +30,5 @@ export const createSchema = () =>
 
       // auction resolvers
       CreateAuctionResolver
-    ],
-    authChecker: ({ context: { req } }) => {
-      return !!req.session.userId;
-    }
+    ]
   });

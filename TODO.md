@@ -60,7 +60,7 @@
     - Create Item ✅
     - Get Items belonged to a particular user ✅
     - Delete Item ✅
-    - Modify Item
+    - Modify Item ✅
     - Mark as sold
 
 - Bid Entity
@@ -73,7 +73,7 @@
   - Entity
     - Auto generated id
     - Date started
-    - Status(closed, succeeded, open)
+    - Status(closed, sold, open)
     - Seller
     - A list of bids
   - Resolvers

@@ -3,7 +3,7 @@ import { auctionExposedRelations } from "../../constants/exposed-relations";
 import { Auction } from "../../entity/Auction";
 
 @ObjectType()
-class AllAuctionsResponse {
+export class AuctionsResponse {
   @Field(() => Int)
   count: number;
 
@@ -13,8 +13,8 @@ class AllAuctionsResponse {
 
 @Resolver()
 export class AllAuctionsResolver {
-  @Query(() => AllAuctionsResponse)
-  async allAuctions(): Promise<AllAuctionsResponse> {
+  @Query(() => AuctionsResponse)
+  async allAuctions(): Promise<AuctionsResponse> {
     const queryResult = await Auction.findAndCount({
       relations: auctionExposedRelations
     });

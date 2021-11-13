@@ -19,14 +19,27 @@ export class CreateAuctionResolver {
     itemId: number,
     @Ctx() { req }: NetworkingContext
   ) {
+    let seller;
     try {
-      const seller = await User.findOne(req.session.userId);
-      const item = await Item.findOne(itemId, { relations: ["owner"] });
+      seller = await User.findOne(req.session.userId);
+    } catch (err) {
+      console.error(err);
+      throw new Error(unauthorizedErrorMessage);
+    }
 
-      if (item.owner !== seller) {
-        throw new Error(unauthorizedErrorMessage);
-      }
+    let item;
+    try {
+      item = await Item.findOne(itemId, { relations: ["owner"] });
+    } catch (err) {
+      throw new Error("Couldn't find item.");
+    }
 
+    console.log({ itemOwner: item.owner, seller });
+    if (item.owner !== seller) {
+      throw new Error(unauthorizedErrorMessage);
+    }
+
+    try {
       await Auction.insert({
         bids: [],
         description,
@@ -36,8 +49,7 @@ export class CreateAuctionResolver {
         item
       });
     } catch (err) {
-      console.error(err);
-      return false;
+      throw new Error("Failed to create item.");
     }
     return true;
   }

@@ -31,6 +31,7 @@ export type Auction = {
   dateUpdated: Scalars['DateTime'];
   description: Scalars['String'];
   id: Scalars['Int'];
+  item: Item;
   seller: User;
   status: Scalars['String'];
   title: Scalars['String'];
@@ -69,6 +70,7 @@ export type Mutation = {
 
 export type MutationCreateAuctionArgs = {
   description: Scalars['String'];
+  itemId: Scalars['Int'];
   title: Scalars['String'];
 };
 
@@ -157,6 +159,7 @@ export type AllAuctionsQuery = { __typename?: 'Query', allAuctions: { __typename
 export type CreateAuctionMutationVariables = Exact<{
   title: Scalars['String'];
   description: Scalars['String'];
+  itemId: Scalars['Int'];
 }>;
 
 
@@ -288,8 +291,8 @@ export type AllAuctionsQueryHookResult = ReturnType<typeof useAllAuctionsQuery>;
 export type AllAuctionsLazyQueryHookResult = ReturnType<typeof useAllAuctionsLazyQuery>;
 export type AllAuctionsQueryResult = Apollo.QueryResult<AllAuctionsQuery, AllAuctionsQueryVariables>;
 export const CreateAuctionDocument = gql`
-    mutation CreateAuction($title: String!, $description: String!) {
-  createAuction(title: $title, description: $description)
+    mutation CreateAuction($title: String!, $description: String!, $itemId: Int!) {
+  createAuction(title: $title, description: $description, itemId: $itemId)
 }
     `;
 export type CreateAuctionMutationFn = Apollo.MutationFunction<CreateAuctionMutation, CreateAuctionMutationVariables>;
@@ -309,6 +312,7 @@ export type CreateAuctionMutationFn = Apollo.MutationFunction<CreateAuctionMutat
  *   variables: {
  *      title: // value for 'title'
  *      description: // value for 'description'
+ *      itemId: // value for 'itemId'
  *   },
  * });
  */

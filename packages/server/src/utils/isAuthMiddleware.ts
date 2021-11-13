@@ -1,4 +1,5 @@
 import { MiddlewareFn } from "type-graphql";
+import { notAuthenticatedErrorMessage } from "../constants/errorMessages";
 import { NetworkingContext } from "../types/NetworkingContext";
 
 /**
@@ -13,7 +14,7 @@ export const isAuth: MiddlewareFn<NetworkingContext> = ({ context }, next) => {
   const userId = context.req.session.userId;
 
   if (!userId) {
-    throw new Error("Not Authenticated");
+    throw new Error(notAuthenticatedErrorMessage);
   }
 
   return next();

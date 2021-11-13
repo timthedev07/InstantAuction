@@ -26,4 +26,7 @@ export class Item extends BaseEntity {
   @Field(() => User)
   @ManyToOne(() => User, user => user.auctionsOwned, { onDelete: "CASCADE" })
   owner: User;
+
+  @Column(() => Boolean)
+  auctionedOff: boolean;
 }

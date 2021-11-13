@@ -35,7 +35,7 @@ export class CreateAuctionResolver {
     }
 
     console.log({ itemOwner: item.owner, seller });
-    if (item.owner !== seller) {
+    if (item.owner.id !== seller.id) {
       throw new Error(unauthorizedErrorMessage);
     }
 

@@ -32,9 +32,9 @@ export class GetUserItemsResolver {
     const [items, count] = await Item.findAndCount({
       relations: ["owner"],
       where: {
-        "owner.id": req.session.userId,
+        owner: { id: req.session.userId },
         // filter based on the parameter
-        auctionedOff: excludeAuctionedOff || undefined
+        auctionedOff: excludeAuctionedOff === true ? false : undefined
       }
     });
     return {

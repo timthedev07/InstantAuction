@@ -1,3 +1,18 @@
 mutation CreateAuction($title: String!, $description: String!, $itemId: Int!) {
-  createAuction(title: $title, description: $description, itemId: $itemId)
+  createAuction(title: $title, description: $description, itemId: $itemId) {
+    id
+    title
+    description
+    seller {
+      username
+    }
+    status
+    dateCreated
+    dateUpdated
+    item {
+      id
+      picture
+      name
+    }
+  }
 }

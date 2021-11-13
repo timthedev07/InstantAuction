@@ -1,1 +1,1 @@
-export const AuctionExposedRelations = ["seller", "item"];
+export const auctionExposedRelations = ["seller", "item"];

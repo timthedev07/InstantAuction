@@ -1,5 +1,6 @@
 import { Resolver, Mutation, UseMiddleware, Ctx, Arg, Int } from "type-graphql";
 import { unauthorizedErrorMessage } from "../../constants/errorMessages";
+import { auctionExposedRelations } from "../../constants/exposed-relations";
 import { Auction } from "../../entity/Auction";
 import { Item } from "../../entity/Item";
 import { User } from "../../entity/User";
@@ -8,7 +9,7 @@ import { isAuth } from "../../utils/isAuthMiddleware";
 
 @Resolver()
 export class CreateAuctionResolver {
-  @Mutation(() => Boolean)
+  @Mutation(() => Auction)
   @UseMiddleware(isAuth)
   async createAuction(
     @Arg("title")
@@ -34,13 +35,13 @@ export class CreateAuctionResolver {
       throw new Error("Couldn't find item.");
     }
 
-    console.log({ itemOwner: item.owner, seller });
     if (item.owner.id !== seller.id) {
       throw new Error(unauthorizedErrorMessage);
     }
 
+    let id: number;
     try {
-      await Auction.insert({
+      const { raw } = await Auction.insert({
         bids: [],
         description,
         title,
@@ -48,9 +49,11 @@ export class CreateAuctionResolver {
         seller,
         item
       });
+      id = raw[0].id;
     } catch (err) {
       throw new Error("Failed to create item.");
     }
-    return true;
+
+    return await Auction.findOne(id, { relations: auctionExposedRelations });
   }
 }

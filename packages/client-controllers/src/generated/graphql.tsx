@@ -154,7 +154,7 @@ export type UserItemsResponse = {
 export type AllAuctionsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type AllAuctionsQuery = { __typename?: 'Query', allAuctions: { __typename?: 'AllAuctionsResponse', count: number, auctions: Array<{ __typename?: 'Auction', id: number, title: string, description: string, status: string, dateCreated: any, dateUpdated: any, seller: { __typename?: 'User', username: string } }> } };
+export type AllAuctionsQuery = { __typename?: 'Query', allAuctions: { __typename?: 'AllAuctionsResponse', count: number, auctions: Array<{ __typename?: 'Auction', id: number, title: string, description: string, status: string, dateCreated: any, dateUpdated: any, seller: { __typename?: 'User', username: string }, item: { __typename?: 'Item', id: number, picture: string, name: string } }> } };
 
 export type CreateAuctionMutationVariables = Exact<{
   title: Scalars['String'];
@@ -259,6 +259,11 @@ export const AllAuctionsDocument = gql`
       status
       dateCreated
       dateUpdated
+      item {
+        id
+        picture
+        name
+      }
     }
   }
 }

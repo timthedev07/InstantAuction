@@ -7,3 +7,4 @@ export * from "./createItemOptions";
 export * from "./deleteItemOptions";
 export * from "./modifyItemOptions";
 export * from "./deleteAuctionOptions";
+export * from "./createAuctionOptions";

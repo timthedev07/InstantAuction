@@ -36,6 +36,7 @@ export class CreateAuctionResolver {
         item
       });
     } catch (err) {
+      console.error(err);
       return false;
     }
     return true;

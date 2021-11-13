@@ -1,8 +1,13 @@
-import { useAllAuctionsQuery } from "client-controllers";
+import {
+  createAuctionDeletionOptions,
+  useAllAuctionsQuery,
+  useDeleteAuctionMutation
+} from "client-controllers";
 import { FC } from "react";
 
 export const AllAuctions: FC = () => {
   const { data, loading, error } = useAllAuctionsQuery();
+  const [deleteAuction] = useDeleteAuctionMutation();
 
   return (
     <div>
@@ -29,6 +34,20 @@ export const AllAuctions: FC = () => {
                     </i>
                     <p>{each.description}</p>
                     <img src={each.item.picture} className="w-auto h-28" />
+                    <button
+                      onClick={async () => {
+                        try {
+                          await deleteAuction(
+                            createAuctionDeletionOptions({ auctionId: each.id })
+                          );
+                        } catch (error) {
+                          alert((error as any).graphQLErrors[0].message);
+                        }
+                      }}
+                      className="danger-button"
+                    >
+                      Delete Auction
+                    </button>
                   </li>
                 ))}
               </>

@@ -51,7 +51,9 @@ export class CreateAuctionResolver {
       });
       id = raw[0].id;
     } catch (err) {
-      throw new Error("Failed to create item.");
+      throw new Error(
+        "The selected item is already participating in another auction."
+      );
     }
 
     return await Auction.findOne(id, { relations: auctionExposedRelations });

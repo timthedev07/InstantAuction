@@ -28,7 +28,7 @@ export const createAuctionDeletionOptions = (
         cachedData.allAuctions.count
       ) {
         // if there are cached Auctions
-        count = cachedData.allAuctions.count + 1;
+        count = cachedData.allAuctions.count - 1;
         auctions = cachedData.allAuctions.auctions.filter(
           each => each.id !== auctionId
         );

@@ -3,7 +3,7 @@ import { notAuthenticatedErrorMessage } from "../constants/errorMessages";
 import { NetworkingContext } from "../types/NetworkingContext";
 
 /**
- * This middleware function checks for whether the user is authenticated
+ * This middleware function checks whether the user is authenticated
  * according to the context variable.
  *
  *

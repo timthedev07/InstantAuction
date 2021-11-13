@@ -1,4 +1,5 @@
 import {
+  createAuctionCreationOptions,
   useCreateAuctionMutation,
   useGetUserItemsQuery
 } from "client-controllers";
@@ -21,7 +22,7 @@ export const CreateAuction: FC<CreateAuctionProps> = ({}) => {
           if (itemIdNum === -1) {
             return;
           }
-          createAuction({ variables: { description, title, itemId: itemIdNum } });
+          createAuction(createAuctionCreationOptions({ description, title, itemId: itemIdNum }));
         }}
       >
         {() => (

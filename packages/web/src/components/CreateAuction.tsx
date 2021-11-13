@@ -17,6 +17,20 @@ export const CreateAuction: FC = ({}) => {
       <h1 className="text-3xl">Create Auction</h1>
       <Formik
         initialValues={{ title: "", description: "", itemId: "" }}
+        validate={({ description, title }) => {
+          return {
+            description: !description
+              ? "Required"
+              : description.length > 400
+              ? "Must be within 400 characters"
+              : undefined,
+            title: title!
+              ? "Required"
+              : title.length > 100
+              ? "Must be within 100 characters"
+              : undefined
+          };
+        }}
         onSubmit={async ({ title, description, itemId }) => {
           const itemIdNum = parseInt(itemId);
           if (itemIdNum === -1) {

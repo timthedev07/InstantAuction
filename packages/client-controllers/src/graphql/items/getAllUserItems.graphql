@@ -1,5 +1,5 @@
-query GetUserItems {
-  getUserItems {
+query GetUserItems($excludeAuctionedOff: Boolean!) {
+  getUserItems(excludeAuctionedOff: $excludeAuctionedOff) {
     items {
       id
       picture

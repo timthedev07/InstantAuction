@@ -18,12 +18,6 @@ export type Scalars = {
   Upload: any;
 };
 
-export type AllAuctionsResponse = {
-  __typename?: 'AllAuctionsResponse';
-  auctions: Array<Auction>;
-  count: Scalars['Int'];
-};
-
 export type Auction = {
   __typename?: 'Auction';
   bids: Array<Bid>;
@@ -35,6 +29,12 @@ export type Auction = {
   seller: User;
   status: Scalars['String'];
   title: Scalars['String'];
+};
+
+export type AuctionsResponse = {
+  __typename?: 'AuctionsResponse';
+  auctions: Array<Auction>;
+  count: Scalars['Int'];
 };
 
 export type Bid = {
@@ -125,12 +125,17 @@ export type OAuthResponse = {
 
 export type Query = {
   __typename?: 'Query';
-  allAuctions: AllAuctionsResponse;
+  allAuctions: AuctionsResponse;
   getUserItems: UserItemsResponse;
   hello: Scalars['String'];
   me?: Maybe<User>;
   testUpload: Scalars['Boolean'];
   users: Array<User>;
+};
+
+
+export type QueryGetUserItemsArgs = {
+  excludeAuctionedOff: Scalars['Boolean'];
 };
 
 
@@ -160,7 +165,7 @@ export type UserItemsResponse = {
 export type AllAuctionsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type AllAuctionsQuery = { __typename?: 'Query', allAuctions: { __typename?: 'AllAuctionsResponse', count: number, auctions: Array<{ __typename?: 'Auction', id: number, title: string, description: string, status: string, dateCreated: any, dateUpdated: any, seller: { __typename?: 'User', username: string }, item: { __typename?: 'Item', id: number, picture: string, name: string } }> } };
+export type AllAuctionsQuery = { __typename?: 'Query', allAuctions: { __typename?: 'AuctionsResponse', count: number, auctions: Array<{ __typename?: 'Auction', id: number, title: string, description: string, status: string, dateCreated: any, dateUpdated: any, seller: { __typename?: 'User', username: string }, item: { __typename?: 'Item', id: number, picture: string, name: string } }> } };
 
 export type CreateAuctionMutationVariables = Exact<{
   title: Scalars['String'];
@@ -193,7 +198,9 @@ export type DeleteItemMutationVariables = Exact<{
 
 export type DeleteItemMutation = { __typename?: 'Mutation', deleteItem: boolean };
 
-export type GetUserItemsQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetUserItemsQueryVariables = Exact<{
+  excludeAuctionedOff: Scalars['Boolean'];
+}>;
 
 
 export type GetUserItemsQuery = { __typename?: 'Query', getUserItems: { __typename?: 'UserItemsResponse', count: number, items: Array<{ __typename?: 'Item', id: number, picture: string, name: string }> } };
@@ -455,8 +462,8 @@ export type DeleteItemMutationHookResult = ReturnType<typeof useDeleteItemMutati
 export type DeleteItemMutationResult = Apollo.MutationResult<DeleteItemMutation>;
 export type DeleteItemMutationOptions = Apollo.BaseMutationOptions<DeleteItemMutation, DeleteItemMutationVariables>;
 export const GetUserItemsDocument = gql`
-    query GetUserItems {
-  getUserItems {
+    query GetUserItems($excludeAuctionedOff: Boolean!) {
+  getUserItems(excludeAuctionedOff: $excludeAuctionedOff) {
     items {
       id
       picture
@@ -479,10 +486,11 @@ export const GetUserItemsDocument = gql`
  * @example
  * const { data, loading, error } = useGetUserItemsQuery({
  *   variables: {
+ *      excludeAuctionedOff: // value for 'excludeAuctionedOff'
  *   },
  * });
  */
-export function useGetUserItemsQuery(baseOptions?: Apollo.QueryHookOptions<GetUserItemsQuery, GetUserItemsQueryVariables>) {
+export function useGetUserItemsQuery(baseOptions: Apollo.QueryHookOptions<GetUserItemsQuery, GetUserItemsQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<GetUserItemsQuery, GetUserItemsQueryVariables>(GetUserItemsDocument, options);
       }

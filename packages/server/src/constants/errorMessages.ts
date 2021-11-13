@@ -1,1 +1,2 @@
-export const notAuthenticatedErrorMessage = "User not authenticated";
+export const notAuthenticatedErrorMessage = "Not authenticated";
+export const unauthorizedErrorMessage = "Unauthorized";

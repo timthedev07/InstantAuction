@@ -11,8 +11,12 @@ export const AllAuctions: FC = () => {
       {loading ? "..." : error ? "Error fetching auctions" : <>
         <h3 className="text-xl">{auctionsData!.count} Auctions</h3>
         {auctionsData!.auctions.map(each => (
-          <li key={each.id}>
-            {each.title}
+          <li className="w-64 h-64 p-3 border border-white" key={each.id}>
+            <h3 className="text-xl">{each.title}</h3>
+            <i>Started by: {each.seller.username}</i>
+            <i>Status: {each.status}</i>
+            <p>{each.description}</p>
+            <img src={each.item.picture} />
           </li>
         ))}
       </>}

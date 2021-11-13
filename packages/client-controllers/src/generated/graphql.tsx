@@ -59,6 +59,7 @@ export type Mutation = {
   createAuction: Scalars['Boolean'];
   createItem: Item;
   deleteAccount: Scalars['Boolean'];
+  deleteAuction: Scalars['Boolean'];
   deleteItem: Scalars['Boolean'];
   discordOAuth: OAuthResponse;
   googleOAuth: OAuthResponse;
@@ -83,6 +84,11 @@ export type MutationCreateItemArgs = {
 
 export type MutationDeleteAccountArgs = {
   email: Scalars['String'];
+};
+
+
+export type MutationDeleteAuctionArgs = {
+  auctionId: Scalars['Int'];
 };
 
 
@@ -164,6 +170,13 @@ export type CreateAuctionMutationVariables = Exact<{
 
 
 export type CreateAuctionMutation = { __typename?: 'Mutation', createAuction: boolean };
+
+export type DeleteAuctionMutationVariables = Exact<{
+  auctionId: Scalars['Int'];
+}>;
+
+
+export type DeleteAuctionMutation = { __typename?: 'Mutation', deleteAuction: boolean };
 
 export type CreateItemMutationVariables = Exact<{
   name: Scalars['String'];
@@ -328,6 +341,37 @@ export function useCreateAuctionMutation(baseOptions?: Apollo.MutationHookOption
 export type CreateAuctionMutationHookResult = ReturnType<typeof useCreateAuctionMutation>;
 export type CreateAuctionMutationResult = Apollo.MutationResult<CreateAuctionMutation>;
 export type CreateAuctionMutationOptions = Apollo.BaseMutationOptions<CreateAuctionMutation, CreateAuctionMutationVariables>;
+export const DeleteAuctionDocument = gql`
+    mutation DeleteAuction($auctionId: Int!) {
+  deleteAuction(auctionId: $auctionId)
+}
+    `;
+export type DeleteAuctionMutationFn = Apollo.MutationFunction<DeleteAuctionMutation, DeleteAuctionMutationVariables>;
+
+/**
+ * __useDeleteAuctionMutation__
+ *
+ * To run a mutation, you first call `useDeleteAuctionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteAuctionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteAuctionMutation, { data, loading, error }] = useDeleteAuctionMutation({
+ *   variables: {
+ *      auctionId: // value for 'auctionId'
+ *   },
+ * });
+ */
+export function useDeleteAuctionMutation(baseOptions?: Apollo.MutationHookOptions<DeleteAuctionMutation, DeleteAuctionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteAuctionMutation, DeleteAuctionMutationVariables>(DeleteAuctionDocument, options);
+      }
+export type DeleteAuctionMutationHookResult = ReturnType<typeof useDeleteAuctionMutation>;
+export type DeleteAuctionMutationResult = Apollo.MutationResult<DeleteAuctionMutation>;
+export type DeleteAuctionMutationOptions = Apollo.BaseMutationOptions<DeleteAuctionMutation, DeleteAuctionMutationVariables>;
 export const CreateItemDocument = gql`
     mutation CreateItem($name: String!, $picture: Upload!) {
   createItem(name: $name, picture: $picture) {

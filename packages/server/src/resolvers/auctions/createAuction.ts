@@ -50,6 +50,9 @@ export class CreateAuctionResolver {
         item
       });
       id = raw[0].id;
+
+      // mark the selected item as actioned off
+      await Item.update(item.id, { auctionedOff: true });
     } catch (err) {
       throw new Error(
         "The selected item is already participating in another auction."

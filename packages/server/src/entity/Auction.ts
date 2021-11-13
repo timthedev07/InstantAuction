@@ -5,9 +5,12 @@ import {
   Column,
   BaseEntity,
   ManyToOne,
-  OneToMany
+  OneToMany,
+  OneToOne,
+  JoinColumn
 } from "typeorm";
 import { Bid } from "./Bid";
+import { Item } from "./Item";
 import { User } from "./User";
 
 @ObjectType()
@@ -44,4 +47,9 @@ export class Auction extends BaseEntity {
   @Field(() => String)
   @Column({ type: "varchar", length: 6 })
   status: "closed" | "sold" | "open";
+
+  @Field(() => Item)
+  @OneToOne(() => Item, { onDelete: "CASCADE", nullable: false })
+  @JoinColumn()
+  item: Item;
 }

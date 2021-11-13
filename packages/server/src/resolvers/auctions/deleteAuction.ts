@@ -5,7 +5,7 @@ import { isAuth } from "../../utils/isAuthMiddleware";
 
 @Resolver()
 export class DeleteAuctionResolver {
-  @Mutation()
+  @Mutation(() => Boolean)
   @UseMiddleware(isAuth)
   async deleteAuction(
     @Ctx() { req }: NetworkingContext,

@@ -6,11 +6,11 @@ import {
 import { Field, Form, Formik } from "formik";
 import { FC } from "react";
 
-interface CreateAuctionProps {}
-
-export const CreateAuction: FC<CreateAuctionProps> = ({}) => {
+export const CreateAuction: FC = ({}) => {
   const [createAuction] = useCreateAuctionMutation();
-  const { data } = useGetUserItemsQuery();
+  const { data } = useGetUserItemsQuery({
+    variables: { excludeAuctionedOff: true }
+  });
 
   return (
     <div className="m-6 border-white border rounded p-5">
@@ -22,7 +22,13 @@ export const CreateAuction: FC<CreateAuctionProps> = ({}) => {
           if (itemIdNum === -1) {
             return;
           }
-          createAuction(createAuctionCreationOptions({ description, title, itemId: itemIdNum }));
+          createAuction(
+            createAuctionCreationOptions({
+              description,
+              title,
+              itemId: itemIdNum
+            })
+          );
         }}
       >
         {() => (
@@ -32,11 +38,18 @@ export const CreateAuction: FC<CreateAuctionProps> = ({}) => {
               className="px-4 py-3 rounded bg-gray-800 bg-opacity-90 border border-gray-50"
             />
             <br />
-            <Field className="bg-primary-700 rounded py-2 px-4" name="itemId" as="select">
-              <option disabled value="">-Select Item-</option>
-              {data && data?.getUserItems.items.map(each => (
-                <option value={each.id}>{each.name}</option>
-              ))}
+            <Field
+              className="bg-primary-700 rounded py-2 px-4"
+              name="itemId"
+              as="select"
+            >
+              <option disabled value="">
+                -Select Item-
+              </option>
+              {data &&
+                data.getUserItems.items.map(each => (
+                  <option value={each.id}>{each.name}</option>
+                ))}
             </Field>
             <br />
             <Field

@@ -6,7 +6,9 @@ import {
 import { FC } from "react";
 
 export const ItemsList: FC = ({}) => {
-  const { data, error, loading } = useGetUserItemsQuery();
+  const { data, error, loading } = useGetUserItemsQuery({
+    variables: { excludeAuctionedOff: false }
+  });
   const [deleteItem] = useDeleteItemMutation();
 
   return (

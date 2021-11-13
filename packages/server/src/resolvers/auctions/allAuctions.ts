@@ -14,7 +14,9 @@ class AllAuctionsResponse {
 export class AllAuctionsResolver {
   @Query(() => AllAuctionsResponse)
   async allAuctions(): Promise<AllAuctionsResponse> {
-    const queryResult = await Auction.findAndCount({ relations: ["seller"] });
+    const queryResult = await Auction.findAndCount({
+      relations: ["seller", "item"]
+    });
     // TODO: might need to add some filtering/sorting feature in the future
     return {
       auctions: queryResult[0],

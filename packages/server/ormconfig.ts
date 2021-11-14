@@ -22,15 +22,15 @@ module.exports = {
   cli: {
     entitiesDir: `${basedir}/entity`,
     migrationsDir: `${basedir}/migrations`,
-    subscribersDir: `${basedir}/subscriber`,
+    subscribersDir: `${basedir}/subscriber`
   },
   synchronize: true,
   ssl: production,
   extra: production
     ? {
         ssl: {
-          rejectUnauthorized: false,
-        },
+          rejectUnauthorized: false
+        }
       }
-    : undefined,
+    : undefined
 };

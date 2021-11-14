@@ -48,7 +48,6 @@ export const CreateAuction: FC = ({}) => {
       >
         {({ errors }) => (
           <>
-            <>{JSON.stringify(errors)}</>
             <Form>
               <Field
                 name="title"

@@ -27,6 +27,7 @@
     "./src/**/*.ts",
     "./src/**/*.d.ts",
     "./env.d.ts",
-    "src/types/expressSession.ts"
+    "src/types/expressSession.ts",
+    "./ormconfig.ts"
   ]
 }

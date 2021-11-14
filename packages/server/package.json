@@ -56,6 +56,6 @@
     "build": "tsc && cp src/email.html dist",
     "tsc": "tsc",
     "test:setup-db": "ts-node ./src/test-utils/setup.ts",
-    "test": "yarn &test:setup-db && jest"
+    "test": "yarn test:setup-db && jest"
   }
 }

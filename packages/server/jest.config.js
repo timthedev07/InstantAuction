@@ -2,7 +2,7 @@
 module.exports = {
   preset: "ts-jest",
   testEnvironment: "node",
-  testRegex: "(/src/tests/.*|(\\.|/)(test|spec))\\.[jt]s?$",
+  testRegex: "(/src/__tests/.*|(\\.|/)index.(test|spec))\\.ts?$",
   moduleFileExtensions: ["ts", "js"],
   maxWorkers: 1,
   cache: true,

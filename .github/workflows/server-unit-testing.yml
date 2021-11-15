@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - packages/server/**
+      - .github/workflows/server-unit-testing.yml
     branches:
       - staging
 
@@ -27,16 +28,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Install Node.js, and Yarn
-        working-directory: ${{env.rootDir}}
         uses: actions/setup-node@v2
         with:
           node-version: 16
+        working-directory: ${{env.rootDir}}
       - name: Install Dependencies
-        working-directory: ${{env.rootDir}}
         run: yarn
-      - name: Run Tests
         working-directory: ${{env.rootDir}}
+      - name: Run Tests
         run: yarn test
+        working-directory: ${{env.rootDir}}
         env:
           NODE_ENV: test
           POSTGRES_HOST: postgres

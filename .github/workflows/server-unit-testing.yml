@@ -32,12 +32,12 @@ jobs:
         with:
           node-version: 16
       - name: Install Dependencies
-        run: yarn
+        run: ls && yarn
         working-directory: ${{env.rootDir}}
       - name: Run Tests
         run: yarn test
         working-directory: ${{env.rootDir}}
         env:
           NODE_ENV: test
-          POSTGRES_HOST: postgres
+          POSTGRES_HOST: localhost
           POSTGRES_PORT: 5432

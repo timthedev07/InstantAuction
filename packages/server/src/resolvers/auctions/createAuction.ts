@@ -28,10 +28,8 @@ export class CreateAuctionResolver {
       throw new Error(unauthorizedErrorMessage);
     }
 
-    let item;
-    try {
-      item = await Item.findOne(itemId, { relations: ["owner"] });
-    } catch (err) {
+    let item = await Item.findOne(itemId, { relations: ["owner"] });
+    if (!item) {
       throw new Error("Couldn't find item.");
     }
 

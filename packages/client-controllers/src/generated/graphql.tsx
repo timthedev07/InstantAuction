@@ -58,6 +58,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   createAuction: Auction;
   createItem: Item;
+  createItemWithPictureUrl: Item;
   deleteAccount: Scalars['Boolean'];
   deleteAuction: Scalars['Boolean'];
   deleteItem: Scalars['Boolean'];
@@ -79,6 +80,12 @@ export type MutationCreateAuctionArgs = {
 export type MutationCreateItemArgs = {
   name: Scalars['String'];
   picture: Scalars['Upload'];
+};
+
+
+export type MutationCreateItemWithPictureUrlArgs = {
+  name: Scalars['String'];
+  pictureUrl: Scalars['String'];
 };
 
 
@@ -190,6 +197,14 @@ export type CreateItemMutationVariables = Exact<{
 
 
 export type CreateItemMutation = { __typename?: 'Mutation', createItem: { __typename?: 'Item', id: number, picture: string, name: string } };
+
+export type CreateItemWithPictureUrlMutationVariables = Exact<{
+  pictureUrl: Scalars['String'];
+  name: Scalars['String'];
+}>;
+
+
+export type CreateItemWithPictureUrlMutation = { __typename?: 'Mutation', createItemWithPictureUrl: { __typename?: 'Item', id: number, picture: string, name: string } };
 
 export type DeleteItemMutationVariables = Exact<{
   itemId: Scalars['Int'];
@@ -430,6 +445,42 @@ export function useCreateItemMutation(baseOptions?: Apollo.MutationHookOptions<C
 export type CreateItemMutationHookResult = ReturnType<typeof useCreateItemMutation>;
 export type CreateItemMutationResult = Apollo.MutationResult<CreateItemMutation>;
 export type CreateItemMutationOptions = Apollo.BaseMutationOptions<CreateItemMutation, CreateItemMutationVariables>;
+export const CreateItemWithPictureUrlDocument = gql`
+    mutation CreateItemWithPictureUrl($pictureUrl: String!, $name: String!) {
+  createItemWithPictureUrl(pictureUrl: $pictureUrl, name: $name) {
+    id
+    picture
+    name
+  }
+}
+    `;
+export type CreateItemWithPictureUrlMutationFn = Apollo.MutationFunction<CreateItemWithPictureUrlMutation, CreateItemWithPictureUrlMutationVariables>;
+
+/**
+ * __useCreateItemWithPictureUrlMutation__
+ *
+ * To run a mutation, you first call `useCreateItemWithPictureUrlMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateItemWithPictureUrlMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createItemWithPictureUrlMutation, { data, loading, error }] = useCreateItemWithPictureUrlMutation({
+ *   variables: {
+ *      pictureUrl: // value for 'pictureUrl'
+ *      name: // value for 'name'
+ *   },
+ * });
+ */
+export function useCreateItemWithPictureUrlMutation(baseOptions?: Apollo.MutationHookOptions<CreateItemWithPictureUrlMutation, CreateItemWithPictureUrlMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateItemWithPictureUrlMutation, CreateItemWithPictureUrlMutationVariables>(CreateItemWithPictureUrlDocument, options);
+      }
+export type CreateItemWithPictureUrlMutationHookResult = ReturnType<typeof useCreateItemWithPictureUrlMutation>;
+export type CreateItemWithPictureUrlMutationResult = Apollo.MutationResult<CreateItemWithPictureUrlMutation>;
+export type CreateItemWithPictureUrlMutationOptions = Apollo.BaseMutationOptions<CreateItemWithPictureUrlMutation, CreateItemWithPictureUrlMutationVariables>;
 export const DeleteItemDocument = gql`
     mutation DeleteItem($itemId: Int!) {
   deleteItem(itemId: $itemId)

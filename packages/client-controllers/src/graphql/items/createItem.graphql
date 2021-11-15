@@ -5,3 +5,11 @@ mutation CreateItem($name: String!, $picture: Upload!) {
     name
   }
 }
+
+mutation CreateItemWithPictureUrl($pictureUrl: String!, $name: String!) {
+  createItemWithPictureUrl(pictureUrl: $pictureUrl, name: $name) {
+    id
+    picture
+    name
+  }
+}

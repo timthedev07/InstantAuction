@@ -31,7 +31,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16
-        working-directory: ${{env.rootDir}}
       - name: Install Dependencies
         run: yarn
         working-directory: ${{env.rootDir}}

@@ -35,4 +35,26 @@ export class CreateItemResolver {
       throw new Error(`Error: ${err}`);
     }
   }
+
+  @Mutation(() => Item)
+  @UseMiddleware(isAuth)
+  async createItemWithPictureUrl(
+    @Arg("name") name: string,
+    @Arg("pictureUrl", () => String)
+    pictureUrl: string,
+    @Ctx() { req }: NetworkingContext
+  ): Promise<Item> {
+    const userId = req.session.userId!;
+    try {
+      const { raw } = await Item.insert({
+        owner: await User.findOne(userId),
+        name,
+        picture: pictureUrl
+      });
+
+      return await Item.findOne(raw[0].id);
+    } catch (err) {
+      throw new Error(`Error: ${err}`);
+    }
+  }
 }

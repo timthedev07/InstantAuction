@@ -2,10 +2,7 @@ import { callGraphql } from "../test-utils/callGraphql";
 import faker from "faker";
 import { user } from "./index.test";
 
-export const testAuctionResolvers = () => {
-  it("creates an auction", async () => {
-    const result = await callGraphql({
-      source: `
+const createAuctionSource = `
 mutation CreateAuction($title: String!, $description: String!, $itemId: Int!) {
   createAuction(title: $title, description: $description, itemId: $itemId) {
     id
@@ -24,17 +21,34 @@ mutation CreateAuction($title: String!, $description: String!, $itemId: Int!) {
     }
   }
 }
-`,
-      variableValues: {
-        title: faker.lorem.word(),
-        description: faker.lorem.paragraph(2),
-        itemId: 1
-      },
-      userId: user.id
+`;
+
+export const testAuctionResolvers = () => {
+  describe("Create Auction", () => {
+    it("rejects invalid item id", async () => {
+      const result = await callGraphql({
+        source: createAuctionSource,
+        variableValues: {
+          title: faker.lorem.word(),
+          description: faker.lorem.paragraph(2),
+          itemId: -5
+        },
+        userId: user.id
+      });
+      expect(result.errors).toBeTruthy();
+      expect(result.errors.length).toBeGreaterThan(0);
     });
-    console.log(result);
-    result;
-    // expect(hi()).toThrowError("Couldn't find item.");
-    expect(true).toBe(true);
+    it("creates an auction", async () => {
+      const result = await callGraphql({
+        source: createAuctionSource,
+        variableValues: {
+          title: faker.lorem.word(),
+          description: faker.lorem.paragraph(2),
+          itemId: 10
+        },
+        userId: user.id
+      });
+      expect(result).toBeTruthy();
+    });
   });
 };

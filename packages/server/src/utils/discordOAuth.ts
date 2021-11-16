@@ -33,16 +33,17 @@ export const exchangeCode = async (
       redirect_uri: FRONTEND + "/auth/discord",
     };
 
-    const { json } = await fetch(`${API_ENDPOINT}/oauth2/token`, {
+    const response = await fetch(`${API_ENDPOINT}/oauth2/token`, {
       method: "post",
-      body: JSON.stringify(jsonToUrlParams(requestData)),
+      body: jsonToUrlParams(requestData),
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
     });
 
-
-    return await json() as DiscordAccessTokenResponse;
+    const data = await response.json();
+    console.log(data);
+    return data as DiscordAccessTokenResponse;
   } catch (err) {
     throw new Error("Error getting discord access token.");
   }
@@ -58,32 +59,32 @@ export const refreshToken = async (
   refreshToken: string,
   clientSecret: string
 ) => {
-  const { json } = await fetch(`${API_ENDPOINT}/oauth2/token`, {
+  const response = await fetch(`${API_ENDPOINT}/oauth2/token`, {
     method: "post",
-    body: JSON.stringify(jsonToUrlParams({
+    body: jsonToUrlParams({
       client_id: CLIENT_ID,
       client_secret: clientSecret,
       grant_type: "refresh_token",
       refresh_token: refreshToken,
-    })),
+    }),
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
     },
   });
 
-  return await json() as DiscordAccessTokenResponse;
+  return await response.json() as DiscordAccessTokenResponse;
 };
 
 export const getDiscordUserInfoWithAccessToken = async (
   accessToken: string
 ) => {
-  const { json } = await fetch( "https://discordapp.com/api/users/@me",{
+  const response = await fetch( "https://discordapp.com/api/users/@me",{
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
   });
 
-  return await json() as DiscordUser;
+  return await response.json() as DiscordUser;
 };
 
 export const getDiscordUserInfo = async (code: string) => {
@@ -96,7 +97,6 @@ export const getDiscordUserInfo = async (code: string) => {
     }
 
     return await getDiscordUserInfoWithAccessToken(accessToken);
-
   } catch(err) {
     throw err;
   }

@@ -1,8 +1,8 @@
 import { FRONTEND } from "shared";
-import axios from "axios";
 import { DiscordAccessTokenResponse } from "../types/Discord";
 import { jsonToUrlParams } from "shared";
 import { DiscordUser } from "../modules/discordUser";
+import fetch from "node-fetch";
 
 const API_ENDPOINT = "https://discord.com/api/v8";
 const CLIENT_ID = process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID;
@@ -33,16 +33,16 @@ export const exchangeCode = async (
       redirect_uri: FRONTEND + "/auth/discord",
     };
 
-    const { data } = await axios({
-      url: `${API_ENDPOINT}/oauth2/token`,
+    const { json } = await fetch(`${API_ENDPOINT}/oauth2/token`, {
       method: "post",
-      data: jsonToUrlParams(requestData),
+      body: JSON.stringify(jsonToUrlParams(requestData)),
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
     });
 
-    return data as DiscordAccessTokenResponse;
+
+    return await json() as DiscordAccessTokenResponse;
   } catch (err) {
     throw new Error("Error getting discord access token.");
   }
@@ -58,34 +58,32 @@ export const refreshToken = async (
   refreshToken: string,
   clientSecret: string
 ) => {
-  const { data } = await axios({
-    url: `${API_ENDPOINT}/oauth2/token`,
+  const { json } = await fetch(`${API_ENDPOINT}/oauth2/token`, {
     method: "post",
-    data: jsonToUrlParams({
+    body: JSON.stringify(jsonToUrlParams({
       client_id: CLIENT_ID,
       client_secret: clientSecret,
       grant_type: "refresh_token",
       refresh_token: refreshToken,
-    }),
+    })),
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
     },
   });
 
-  return data as DiscordAccessTokenResponse;
+  return await json() as DiscordAccessTokenResponse;
 };
 
 export const getDiscordUserInfoWithAccessToken = async (
   accessToken: string
 ) => {
-  const { data } = await axios({
-    url: "https://discordapp.com/api/users/@me",
+  const { json } = await fetch( "https://discordapp.com/api/users/@me",{
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
   });
 
-  return data as DiscordUser;
+  return await json() as DiscordUser;
 };
 
 export const getDiscordUserInfo = async (code: string) => {

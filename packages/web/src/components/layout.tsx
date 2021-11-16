@@ -5,7 +5,7 @@ import Head from "next/head";
 
 const BREAK_POINT = 600;
 
-const metadata = {
+export const metadata = {
   title: "Instant Auction",
   image: "",
   description: "A modern auction platform for trading goods.",

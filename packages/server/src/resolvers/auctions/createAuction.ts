@@ -43,7 +43,6 @@ export class CreateAuctionResolver {
         bids: [],
         description,
         title,
-        status: "open",
         seller,
         item
       });

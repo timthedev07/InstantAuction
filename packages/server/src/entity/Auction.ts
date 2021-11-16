@@ -45,7 +45,7 @@ export class Auction extends BaseEntity {
   bids: Bid[];
 
   @Field(() => String)
-  @Column({ type: "varchar", length: 6 })
+  @Column({ type: "varchar", length: 6, default: "open" })
   status: "closed" | "sold" | "open";
 
   @Field(() => Item)

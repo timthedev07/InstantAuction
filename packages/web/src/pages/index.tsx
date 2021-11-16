@@ -7,7 +7,7 @@ import { AllAuctions } from "../components/AllAuctions";
 
 const Landing: NextPage = () => {
   const { data: testData, loading: testLoading } = useHelloQuery();
-  const { data, loading, error } = useMeQuery();
+  const { data } = useMeQuery();
 
   return (
     <>
@@ -15,11 +15,7 @@ const Landing: NextPage = () => {
         {testLoading ? "Loading..." : testData?.hello || "No data returned"}
       </h1>
       <pre>
-        {loading
-          ? "loading..."
-          : error
-          ? JSON.stringify(error.message, null, 2)
-          : JSON.stringify(data!.me!.email, null, 2)}
+        {data && data.me ? JSON.stringify(data!.me!.email, null, 2) : ""}
       </pre>
       <OAuthButton
         provider="google"

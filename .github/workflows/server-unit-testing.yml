@@ -55,4 +55,4 @@ jobs:
         env:
           NODE_ENV: test
           POSTGRES_HOST: localhost
-          POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
+          POSTGRES_PORT: 5432

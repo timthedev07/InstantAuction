@@ -55,6 +55,6 @@ jobs:
         run: yarn test
         working-directory: ${{env.rootDir}}
         env:
-          NODE_ENV: test
           POSTGRES_HOST: postgres
           POSTGRES_PORT: ${{ job.services.postgres.ports['5432'] }}
+          TEST_MODE: ci-cd

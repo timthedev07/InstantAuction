@@ -4,19 +4,12 @@
   "main": "src/index.ts",
   "license": "MIT",
   "dependencies": {
-    "@apollo/client": "^3.4.16",
     "cross-env": "7.0.3",
-    "graphql": "^15.6.1",
     "query-string": "^7.0.1",
     "typescript": "^4.3.5"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "2.2.0",
-    "@graphql-codegen/typescript": "2.2.2",
-    "@graphql-codegen/typescript-operations": "2.1.6",
-    "@graphql-codegen/typescript-react-apollo": "3.1.4",
-    "@types/node": "^16.10.3",
-    "graphql-code-generator": "^0.18.2"
+    "@types/node": "^16.10.3"
   },
   "scripts": {
     "build": "tsc"

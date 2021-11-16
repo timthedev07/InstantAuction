@@ -9,7 +9,7 @@ const PG_PORT = process.env.POSTGRES_PORT;
 
 module.exports = {
   type: "postgres",
-  host: __prod__ ? process.env.HP_HOST : "localhost",
+  host: __test__ ? process.env.POSTGRES_HOST : __prod__ ? process.env.HP_HOST : "localhost",
   port: __test__ && PG_PORT ? parseInt(PG_PORT) : 5432,
   username: __prod__
     ? process.env.HP_USERNAME

@@ -52,4 +52,11 @@ export class Auction extends BaseEntity {
   @OneToOne(() => Item, { onDelete: "CASCADE", nullable: false })
   @JoinColumn()
   item: Item;
+
+  @Field(() => User)
+  @ManyToOne(() => User, user => user.auctionsWon, {
+    onDelete: "SET NULL",
+    nullable: true
+  })
+  winner: User;
 }

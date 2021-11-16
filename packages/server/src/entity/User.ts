@@ -51,4 +51,8 @@ export class User extends BaseEntity {
   @Field(() => [Item])
   @OneToMany(() => Item, (item) => item.owner)
   itemsOwned: Item[];
+
+  @Field(() => [Auction])
+  @OneToMany(() => Auction, (auction) => auction.winner)
+  auctionsWon: Auction[];
 }

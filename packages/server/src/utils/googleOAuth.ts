@@ -1,22 +1,20 @@
 import { FRONTEND } from "shared";
-import axios from "axios";
 import { GoogleUser } from "../modules/googleUser";
 
 const getAccessTokenFromCode = async (code: string) => {
   try {
-    const { data } = await axios({
-      url: `https://oauth2.googleapis.com/token`,
+    const { json } = await fetch(`https://oauth2.googleapis.com/token`, {
       method: "post",
-      data: {
+      body: JSON.stringify({
         client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
         client_secret: process.env.GOOGLE_CLIENT_SECRET || "",
         redirect_uri: `${FRONTEND}/auth/google`,
         grant_type: "authorization_code",
         code,
-      },
+      }),
     });
 
-    return (data as any)?.access_token || "";
+    return (await json() as any)?.access_token || "";
   } catch (err) {
     console.log("something unexpected happened at function getAccessTokenFromCode")
     return "";
@@ -27,14 +25,13 @@ export const getGoogleUserInfo = async (code: string): Promise<GoogleUser> => {
   const accessToken: string = await getAccessTokenFromCode(code);
 
   try {
-    const { data } = await axios({
-      url: "https://www.googleapis.com/oauth2/v2/userinfo",
+    const { json } = await fetch("https://www.googleapis.com/oauth2/v2/userinfo", {
       method: "get",
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-    return data as GoogleUser;
+    return (await json()) as GoogleUser;
   } catch (err) {
     console.log("something unexpected happened at function getGoogleUserInfo")
     throw new Error("Error getting Google user info.")

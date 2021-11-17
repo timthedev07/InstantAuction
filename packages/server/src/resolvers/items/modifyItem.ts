@@ -16,13 +16,12 @@ export class ModifyItemResolver {
     @Arg("picture", () => GraphQLUpload, { nullable: true })
     fileUpload?: FileUpload
   ): Promise<Item> {
-    let item;
-    try {
-      item = await Item.findOne({
-        where: { id: itemId },
-        relations: ["owner"]
-      });
-    } catch (err) {
+    const item = await Item.findOne({
+      where: { id: itemId },
+      relations: ["owner"]
+    });
+
+    if (!item) {
       throw new Error("Invalid item");
     }
 

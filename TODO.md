@@ -73,13 +73,13 @@
   - Resolvers
     - Get all actions ✅
     - Update auction details(the owner)
-    - For a particular user:
-      - Show a list of auctions owned
-      - Show a list of auctions participated in
     - Close auction
     - Delete auction
     - Update auction info
     - End auction and declare winner;
+    - For a particular user:
+      - Show a list of auctions owned
+      - Show a list of auctions participated in
 
 ## Client-side
 

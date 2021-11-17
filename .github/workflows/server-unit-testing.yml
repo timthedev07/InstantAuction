@@ -52,7 +52,7 @@ jobs:
         run: yarn
         working-directory: ${{env.rootDir}}
       - name: Run Tests
-        run: yarn test
+        run: yarn --silent test
         working-directory: ${{env.rootDir}}
         env:
           POSTGRES_HOST: postgres

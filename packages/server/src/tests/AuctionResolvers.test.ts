@@ -23,6 +23,27 @@ mutation CreateAuction($title: String!, $description: String!, $itemId: Int!) {
 }
 `;
 
+const closeAuctionSource = `
+mutation CloseAuction($auctionId: Int!) {
+  closeAuction(auctionId: $auctionId) {
+    id
+    title
+    description
+    seller {
+      username
+    }
+    status
+    dateCreated
+    dateUpdated
+    item {
+      id
+      picture
+      name
+    }
+  }
+}
+`;
+
 let auctionId: number;
 
 export const testAuctionResolvers = () => {
@@ -56,8 +77,17 @@ export const testAuctionResolvers = () => {
   });
 
   describe("Close auction", () => {
-    it("successfully mutates auction status", () => {
-      auctionId;
+    it("successfully mutates auction status", async () => {
+      const result = await callGraphql({
+        source: closeAuctionSource,
+        userId: user.id,
+        variableValues: {
+          auctionId
+        }
+      });
+
+      expect(result.data).toBeTruthy();
+      expect(result.data.closeAuction.status).toBe("closed");
     });
   });
 };

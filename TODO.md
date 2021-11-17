@@ -63,13 +63,12 @@
     - Modify Item ✅
     - Mark as sold
 
-- Bid Entity
+- Bid Resolvers
 
-  - The associated Auction ✅
-  - bidder ✅
-  - Item used ✅
+  - Bid an auction for an item(reject multiple bids from one user on the same auction)
+  - Delete bid
 
-- Auction
+* Auction
   - Resolvers
     - Get all actions ✅
     - Close auction ✅

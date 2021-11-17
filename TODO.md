@@ -72,10 +72,9 @@
 - Auction
   - Resolvers
     - Get all actions ✅
-    - Update auction details(the owner)
     - Close auction ✅
     - Delete auction
-    - Update auction info
+    - Update auction details(the owner)
     - End auction and declare winner;
     - For a particular user:
       - Show a list of auctions owned

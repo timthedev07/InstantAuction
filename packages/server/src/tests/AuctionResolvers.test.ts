@@ -1,56 +1,15 @@
 import { callGraphql } from "../test-utils/callGraphql";
 import faker from "faker";
 import { user } from "./index.test";
-
-const createAuctionSource = `
-mutation CreateAuction($title: String!, $description: String!, $itemId: Int!) {
-  createAuction(title: $title, description: $description, itemId: $itemId) {
-    id
-    title
-    description
-    seller {
-      username
-    }
-    status
-    dateCreated
-    dateUpdated
-    item {
-      id
-      picture
-      name
-    }
-  }
-}
-`;
-
-const closeAuctionSource = `
-mutation CloseAuction($auctionId: Int!) {
-  closeAuction(auctionId: $auctionId) {
-    id
-    title
-    description
-    seller {
-      username
-    }
-    status
-    dateCreated
-    dateUpdated
-    item {
-      id
-      picture
-      name
-    }
-  }
-}
-`;
-
-const deleteAuctionSource = `
-mutation DeleteAuction($auctionId: Int!) {
-  deleteAuction(auctionId: $auctionId)
-}
-`;
+import {
+  allAuctionsSource,
+  closeAuctionSource,
+  createAuctionSource,
+  deleteAuctionSource
+} from "./sources";
 
 let auctionId: number;
+let allAuctionsResult: any;
 
 export const testAuctionResolvers = () => {
   // creating an auction
@@ -109,6 +68,27 @@ export const testAuctionResolvers = () => {
 
       expect(result.errors).toBeTruthy();
       expect(result.errors.length).toBeGreaterThan(0);
+    });
+  });
+
+  // retrieving all of the auctions
+  describe("All Auctions Resolver", () => {
+    it("retrieves all auctions", async () => {
+      allAuctionsResult = await callGraphql({
+        source: allAuctionsSource
+      });
+
+      const auctions = allAuctionsResult.data.allAuctions.auctions;
+      expect(allAuctionsResult.data).toBeTruthy();
+      expect(auctions).toBeTruthy();
+      expect(auctions.length).toBeGreaterThan(0);
+    });
+
+    it("retrieves the correct count", async () => {
+      const { count, auctions } = allAuctionsResult.data.allAuctions;
+      expect(count).toBeTruthy();
+      expect(typeof count).toBe("number");
+      expect(count).toEqual(auctions.length);
     });
   });
 

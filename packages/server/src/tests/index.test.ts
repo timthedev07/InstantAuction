@@ -6,11 +6,9 @@ import { testItemResolvers } from "./ItemResolvers.test";
 
 export let connection: Connection;
 export let user: User;
-let startTime: number;
 
 // register a user to pass auth check
 beforeAll(async () => {
-  startTime = Date.now();
   const result = await getTestConnection();
   connection = result[0];
 
@@ -32,7 +30,4 @@ describe("InstantAuction Backend Server Unit Testing", () => {
 
 afterAll(async () => {
   await connection.close();
-  const dur = Date.now() - startTime;
-
-  console.log(`Testing took ${dur}ms`);
 });

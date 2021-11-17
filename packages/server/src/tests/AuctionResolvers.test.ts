@@ -89,5 +89,18 @@ export const testAuctionResolvers = () => {
       expect(result.data).toBeTruthy();
       expect(result.data.closeAuction.status).toBe("closed");
     });
+
+    it("rejects invalid item id", async () => {
+      const result = await callGraphql({
+        source: closeAuctionSource,
+        userId: user.id,
+        variableValues: {
+          auctionId: -100
+        }
+      });
+
+      expect(result.errors).toBeTruthy();
+      expect(result.errors.length).toBeGreaterThan(0);
+    });
   });
 };

@@ -1,4 +1,5 @@
 import { Resolver, Mutation, UseMiddleware, Ctx, Arg, Int } from "type-graphql";
+import { auctionExposedRelations } from "../../constants/exposed-relations";
 import { Auction } from "../../entity/Auction";
 import { NetworkingContext } from "../../types/NetworkingContext";
 import { isAuth } from "../../utils/isAuthMiddleware";
@@ -26,6 +27,8 @@ export class CloseAuctionResolver {
       dateUpdated: new Date()
     });
 
-    return await Auction.findOne(auction.id);
+    return await Auction.findOne(auction.id, {
+      relations: auctionExposedRelations
+    });
   }
 }

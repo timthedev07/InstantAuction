@@ -44,10 +44,17 @@ mutation CloseAuction($auctionId: Int!) {
 }
 `;
 
+const deleteAuctionSource = `
+mutation DeleteAuction($auctionId: Int!) {
+  deleteAuction(auctionId: $auctionId)
+}
+`;
+
 let auctionId: number;
 
 export const testAuctionResolvers = () => {
-  describe("Create Auction", () => {
+  // creating an auction
+  describe("Create Auction Resolver", () => {
     it("rejects invalid item id", async () => {
       const result = await callGraphql({
         source: createAuctionSource,
@@ -76,7 +83,8 @@ export const testAuctionResolvers = () => {
     });
   });
 
-  describe("Close auction", () => {
+  // closing an auction
+  describe("Close auction Resolver", () => {
     it("successfully mutates auction status", async () => {
       const result = await callGraphql({
         source: closeAuctionSource,
@@ -101,6 +109,35 @@ export const testAuctionResolvers = () => {
 
       expect(result.errors).toBeTruthy();
       expect(result.errors.length).toBeGreaterThan(0);
+    });
+  });
+
+  // deleting an auction
+  describe("Delete Auction Resolver", () => {
+    it("rejects invalid auction id", async () => {
+      const { errors } = await callGraphql({
+        source: deleteAuctionSource,
+        userId: user.id,
+        variableValues: {
+          auctionId: -10
+        }
+      });
+
+      expect(errors).toBeTruthy();
+      expect(errors.length).toBeGreaterThan(0);
+    });
+
+    it("deletes the given auction", async () => {
+      const result = await callGraphql({
+        source: deleteAuctionSource,
+        userId: user.id,
+        variableValues: {
+          auctionId
+        }
+      });
+
+      expect(result.data).toBeTruthy();
+      expect(result.data.deleteAuction).toEqual(true);
     });
   });
 };

@@ -33,9 +33,9 @@ export const testAuctionResolvers = () => {
         variableValues: {
           title: faker.lorem.word(),
           description: faker.lorem.paragraph(2),
-          itemId: -5
+          itemId: -5,
         },
-        userId: user.id
+        userId: user.id,
       });
       expect(result.errors).toBeTruthy();
       expect(result.errors.length).toBeGreaterThan(0);
@@ -46,9 +46,9 @@ export const testAuctionResolvers = () => {
         variableValues: {
           title: faker.lorem.word(),
           description: faker.lorem.paragraph(2),
-          itemId: 10
+          itemId: 10,
         },
-        userId: user.id
+        userId: user.id,
       });
       auctionId = result.data.createAuction.id;
       expect(result).toBeTruthy();
@@ -56,7 +56,7 @@ export const testAuctionResolvers = () => {
   });
 
   describe("Close auction", () => {
-    it("successfully mutate auction status", () => {
+    it("successfully mutates auction status", () => {
       console.log(auctionId);
       expect(true).toBe(true);
     });

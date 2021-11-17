@@ -73,7 +73,7 @@
   - Resolvers
     - Get all actions ✅
     - Close auction ✅
-    - Delete auction
+    - Delete auction ✅
     - Update auction details(the owner)
     - End auction and declare winner;
     - For a particular user:

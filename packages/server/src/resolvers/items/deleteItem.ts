@@ -11,18 +11,17 @@ export class DeleteItemResolver {
     @Arg("itemId", () => Int) itemId: number,
     @Ctx() { req }: NetworkingContext
   ): Promise<boolean> {
-    let item;
-    try {
-      item = await Item.findOne({
-        where: {
-          id: itemId
-        },
-        relations: ["owner"]
-      });
-    } catch (err) {
-      console.log(err);
+    const item = await Item.findOne({
+      where: {
+        id: itemId
+      },
+      relations: ["owner"]
+    });
+
+    if (!item) {
       throw new Error("Invalid item");
     }
+
     if (item.owner.id !== req.session.userId) {
       throw new Error("Unauthorized");
     }

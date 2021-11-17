@@ -90,7 +90,7 @@ export const testAuctionResolvers = () => {
       expect(result.data.closeAuction.status).toBe("closed");
     });
 
-    it("rejects invalid item id", async () => {
+    it("rejects invalid auction id", async () => {
       const result = await callGraphql({
         source: closeAuctionSource,
         userId: user.id,

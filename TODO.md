@@ -74,8 +74,8 @@
     - Get all actions ✅
     - Close auction ✅
     - Delete auction ✅
+    - End auction and declare winner
     - Update auction details(the owner)
-    - End auction and declare winner;
     - For a particular user:
       - Show a list of auctions owned
       - Show a list of auctions participated in

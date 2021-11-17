@@ -4,7 +4,7 @@ module.exports = {
   testEnvironment: "node",
   testRegex: "(/src/tests/index.(test|spec))\\.ts?$",
   moduleFileExtensions: ["ts", "js"],
-  maxWorkers: "50%",
+  maxWorkers: 1,
   cache: true,
   cacheDirectory: ".jest-cache"
 };

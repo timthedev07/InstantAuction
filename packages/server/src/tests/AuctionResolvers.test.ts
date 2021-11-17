@@ -23,6 +23,8 @@ mutation CreateAuction($title: String!, $description: String!, $itemId: Int!) {
 }
 `;
 
+let auctionId: number;
+
 export const testAuctionResolvers = () => {
   describe("Create Auction", () => {
     it("rejects invalid item id", async () => {
@@ -48,7 +50,15 @@ export const testAuctionResolvers = () => {
         },
         userId: user.id
       });
+      auctionId = result.data.createAuction.id;
       expect(result).toBeTruthy();
+    });
+  });
+
+  describe("Close auction", () => {
+    it("successfully mutate auction status", () => {
+      console.log(auctionId);
+      expect(true).toBe(true);
     });
   });
 };

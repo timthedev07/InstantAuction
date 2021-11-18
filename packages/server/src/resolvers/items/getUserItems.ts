@@ -34,7 +34,7 @@ export class GetUserItemsResolver {
       where: {
         owner: { id: req.session.userId },
         // filter based on the parameter
-        auctionedOff: excludeAuctionedOff === true ? false : undefined
+        participating: excludeAuctionedOff === true ? false : undefined
       }
     });
     return {

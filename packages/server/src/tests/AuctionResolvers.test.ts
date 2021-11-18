@@ -91,7 +91,9 @@ export const testAuctionResolvers = () => {
       expect(count).toEqual(auctions.length);
     });
   });
+};
 
+export const testAuctionResolversFinal = () => {
   // deleting an auction
   describe("Delete Auction Resolver", () => {
     it("rejects invalid auction id", async () => {

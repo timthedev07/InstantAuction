@@ -1,5 +1,5 @@
-mutation CloseAuction($auctionId: Int!) {
-  closeAuction(auctionId: $auctionId) {
+mutation EndAuction($auctionId: Int!, $winningBidId: Int!) {
+  endAuction(auctionId: $auctionId, winningBidId: $winningBidId) {
     id
     title
     description

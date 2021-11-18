@@ -28,5 +28,5 @@ export class Item extends BaseEntity {
   owner: User;
 
   @Column({ type: "boolean", default: false })
-  auctionedOff: boolean;
+  participating: boolean;
 }

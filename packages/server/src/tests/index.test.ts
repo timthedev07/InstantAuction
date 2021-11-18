@@ -1,8 +1,12 @@
 import { Connection } from "typeorm";
 import { getTestConnection } from "../test-utils/testConn";
 import { User } from "../entity/User";
-import { testAuctionResolvers } from "./AuctionResolvers.test";
+import {
+  testAuctionResolvers,
+  testAuctionResolversFinal
+} from "./AuctionResolvers.test";
 import { testItemResolvers } from "./ItemResolvers.test";
+import { testBidResolvers } from "./BidResolvers.test";
 
 export let connection: Connection;
 export let user: User;
@@ -25,7 +29,9 @@ beforeAll(async () => {
 
 describe("InstantAuction Backend Server Unit Testing", () => {
   describe("Item Resolvers", testItemResolvers);
-  describe("Auction Resolvers", testAuctionResolvers);
+  describe("Auction Resolvers - 0", testAuctionResolvers);
+  describe("Bid Resolvers", testBidResolvers);
+  describe("Auction Resolvers - 1", testAuctionResolversFinal);
 });
 
 afterAll(async () => {

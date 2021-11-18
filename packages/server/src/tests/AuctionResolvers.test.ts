@@ -8,7 +8,7 @@ import {
   deleteAuctionSource
 } from "./sources";
 
-let auctionId: number;
+export let auctionId: number;
 let allAuctionsResult: any;
 
 export const testAuctionResolvers = () => {

@@ -10,6 +10,7 @@ import { testBidResolvers } from "./BidResolvers.test";
 
 export let connection: Connection;
 export let user: User;
+export let user2: User;
 
 // register a user to pass auth check
 beforeAll(async () => {
@@ -23,8 +24,16 @@ beforeAll(async () => {
     provider: "Google",
     username: "Jeff"
   });
+  const { raw: raw1 } = await User.insert({
+    avatarUrl: "https://avatars.githubusercontent.com/u/87135844?v=4",
+    email: "chris@white.com",
+    externalId: "194817249812",
+    provider: "Discord",
+    username: "i.am.entrepreneur"
+  });
 
   user = await User.findOne(raw[0].id);
+  user2 = await User.findOne(raw1[0].id);
 });
 
 describe("InstantAuction Backend Server Unit Testing", () => {

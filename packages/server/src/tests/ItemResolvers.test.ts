@@ -1,6 +1,9 @@
 import { callGraphql } from "../test-utils/callGraphql";
 import faker from "faker";
 import { user } from "./index.test";
+import { Item } from "../entity/Item";
+
+export let item: Item;
 
 export const testItemResolvers = () => {
   // item creation unit test
@@ -22,6 +25,7 @@ mutation CreateItemWithPictureUrl($pictureUrl: String!, $name: String!) {
       },
       userId: user.id
     });
-    expect(result).toBeTruthy();
+    expect(result.data).toBeTruthy();
+    item = result.data.createItemWithPictureUrl;
   });
 };

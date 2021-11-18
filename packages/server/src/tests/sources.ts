@@ -92,3 +92,20 @@ mutation EndAuction($auctionId: Int!, $winningBidId: Int!) {
 
 
 `;
+
+export const createBidSource = `
+mutation CreateBid($itemId: Int!, $auctionId: Int!) {
+  createBid(itemId: $itemId, auctionId: $auctionId) {
+    id
+    bidder {
+      username
+    }
+    item {
+      id
+      picture
+      name
+    }
+    won
+  }
+}
+`;

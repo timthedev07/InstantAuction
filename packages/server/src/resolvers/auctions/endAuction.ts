@@ -1,5 +1,6 @@
 import { Resolver, Mutation, UseMiddleware, Ctx, Arg, Int } from "type-graphql";
 import { Auction } from "../../entity/Auction";
+import { Bid } from "../../entity/Bid";
 import { NetworkingContext } from "../../types/NetworkingContext";
 import { isAuth } from "../../utils/isAuthMiddleware";
 
@@ -37,6 +38,10 @@ export class EndAuctionResolver {
       dateUpdated: new Date(),
       status: "closed",
       winner: auction.bids[winningBidIndex].bidder
+    });
+
+    Bid.update(auction.bids[winningBidIndex].id, {
+      won: true
     });
 
     return await Auction.findOne(auction.id);

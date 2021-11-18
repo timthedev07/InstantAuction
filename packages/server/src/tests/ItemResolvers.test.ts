@@ -1,15 +1,11 @@
 import { callGraphql } from "../test-utils/callGraphql";
-import faker from "faker";
 import { user } from "./index.test";
 import { Item } from "../entity/Item";
 
-export let item: Item;
+export let items: Item[] = [];
 
 export const testItemResolvers = () => {
-  // item creation unit test
-  it("creates an item", async () => {
-    const result = await callGraphql({
-      source: `
+  const source = `
 mutation CreateItemWithPictureUrl($pictureUrl: String!, $name: String!) {
   createItemWithPictureUrl(pictureUrl: $pictureUrl, name: $name) {
     id
@@ -17,15 +13,28 @@ mutation CreateItemWithPictureUrl($pictureUrl: String!, $name: String!) {
     name
   }
 }
-`,
-      variableValues: {
-        name: faker.vehicle.model(),
-        pictureUrl:
-          "https://ferrari-cdn.thron.com/delivery/public/thumbnail/ferrari/29a25eda-7921-4362-ba7c-ef5b2c429505/q076ls/std/488x325/29a25eda-7921-4362-ba7c-ef5b2c429505?scalemode=auto"
-      },
-      userId: user.id
+`;
+  // item creation unit test
+  it("creates an item", async () => {
+    const itemNames = [
+      "heat",
+      "Mr. K",
+      "iPhone 129 from the future",
+      "ultraviolet",
+      "infrared"
+    ];
+    itemNames.forEach(async each => {
+      const result = await callGraphql({
+        source,
+        variableValues: {
+          name: each,
+          pictureUrl:
+            "https://ferrari-cdn.thron.com/delivery/public/thumbnail/ferrari/29a25eda-7921-4362-ba7c-ef5b2c429505/q076ls/std/488x325/29a25eda-7921-4362-ba7c-ef5b2c429505?scalemode=auto"
+        },
+        userId: user.id
+      });
+      expect(result.data).toBeTruthy();
+      items.push(result.data.createItemWithPictureUrl);
     });
-    expect(result.data).toBeTruthy();
-    item = result.data.createItemWithPictureUrl;
   });
 };

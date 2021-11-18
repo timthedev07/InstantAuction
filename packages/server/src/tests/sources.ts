@@ -68,6 +68,27 @@ query AllAuctions {
     }
   }
 }
+`;
+
+export const endAuctionSource = `
+mutation EndAuction($auctionId: Int!, $winningBidId: Int!) {
+  endAuction(auctionId: $auctionId, winningBidId: $winningBidId) {
+    id
+    title
+    description
+    seller {
+      username
+    }
+    status
+    dateCreated
+    dateUpdated
+    item {
+      id
+      picture
+      name
+    }
+  }
+}
 
 
 `;

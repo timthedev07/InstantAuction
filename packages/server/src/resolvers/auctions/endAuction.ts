@@ -40,7 +40,7 @@ export class EndAuctionResolver {
       winner: auction.bids[winningBidIndex].bidder
     });
 
-    Bid.update(auction.bids[winningBidIndex].id, {
+    await Bid.update(auction.bids[winningBidIndex].id, {
       won: true
     });
 

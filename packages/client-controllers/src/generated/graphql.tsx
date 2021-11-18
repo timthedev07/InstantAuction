@@ -29,6 +29,7 @@ export type Auction = {
   seller: User;
   status: Scalars['String'];
   title: Scalars['String'];
+  winner: User;
 };
 
 export type AuctionsResponse = {
@@ -56,6 +57,7 @@ export type Item = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  closeAuction: Auction;
   createAuction: Auction;
   createItem: Item;
   createItemWithPictureUrl: Item;
@@ -63,10 +65,16 @@ export type Mutation = {
   deleteAuction: Scalars['Boolean'];
   deleteItem: Scalars['Boolean'];
   discordOAuth: OAuthResponse;
+  endAuction: Auction;
   googleOAuth: OAuthResponse;
   logout: Scalars['Boolean'];
   modifyItem: Item;
   updateCredentials: User;
+};
+
+
+export type MutationCloseAuctionArgs = {
+  auctionId: Scalars['Int'];
 };
 
 
@@ -106,6 +114,12 @@ export type MutationDeleteItemArgs = {
 
 export type MutationDiscordOAuthArgs = {
   code: Scalars['String'];
+};
+
+
+export type MutationEndAuctionArgs = {
+  auctionId: Scalars['Int'];
+  winningBidId: Scalars['Int'];
 };
 
 
@@ -153,6 +167,7 @@ export type QueryTestUploadArgs = {
 export type User = {
   __typename?: 'User';
   auctionsOwned: Array<Auction>;
+  auctionsWon: Array<Auction>;
   avatarUrl: Scalars['String'];
   bids: Array<Bid>;
   email: Scalars['String'];
@@ -174,6 +189,13 @@ export type AllAuctionsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type AllAuctionsQuery = { __typename?: 'Query', allAuctions: { __typename?: 'AuctionsResponse', count: number, auctions: Array<{ __typename?: 'Auction', id: number, title: string, description: string, status: string, dateCreated: any, dateUpdated: any, seller: { __typename?: 'User', username: string }, item: { __typename?: 'Item', id: number, picture: string, name: string } }> } };
 
+export type CloseAuctionMutationVariables = Exact<{
+  auctionId: Scalars['Int'];
+}>;
+
+
+export type CloseAuctionMutation = { __typename?: 'Mutation', closeAuction: { __typename?: 'Auction', id: number, title: string, description: string, status: string, dateCreated: any, dateUpdated: any, seller: { __typename?: 'User', username: string }, item: { __typename?: 'Item', id: number, picture: string, name: string } } };
+
 export type CreateAuctionMutationVariables = Exact<{
   title: Scalars['String'];
   description: Scalars['String'];
@@ -189,6 +211,14 @@ export type DeleteAuctionMutationVariables = Exact<{
 
 
 export type DeleteAuctionMutation = { __typename?: 'Mutation', deleteAuction: boolean };
+
+export type EndAuctionMutationVariables = Exact<{
+  auctionId: Scalars['Int'];
+  winningBidId: Scalars['Int'];
+}>;
+
+
+export type EndAuctionMutation = { __typename?: 'Mutation', endAuction: { __typename?: 'Auction', id: number, title: string, description: string, status: string, dateCreated: any, dateUpdated: any, seller: { __typename?: 'User', username: string }, item: { __typename?: 'Item', id: number, picture: string, name: string } } };
 
 export type CreateItemMutationVariables = Exact<{
   name: Scalars['String'];
@@ -330,6 +360,52 @@ export function useAllAuctionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type AllAuctionsQueryHookResult = ReturnType<typeof useAllAuctionsQuery>;
 export type AllAuctionsLazyQueryHookResult = ReturnType<typeof useAllAuctionsLazyQuery>;
 export type AllAuctionsQueryResult = Apollo.QueryResult<AllAuctionsQuery, AllAuctionsQueryVariables>;
+export const CloseAuctionDocument = gql`
+    mutation CloseAuction($auctionId: Int!) {
+  closeAuction(auctionId: $auctionId) {
+    id
+    title
+    description
+    seller {
+      username
+    }
+    status
+    dateCreated
+    dateUpdated
+    item {
+      id
+      picture
+      name
+    }
+  }
+}
+    `;
+export type CloseAuctionMutationFn = Apollo.MutationFunction<CloseAuctionMutation, CloseAuctionMutationVariables>;
+
+/**
+ * __useCloseAuctionMutation__
+ *
+ * To run a mutation, you first call `useCloseAuctionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCloseAuctionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [closeAuctionMutation, { data, loading, error }] = useCloseAuctionMutation({
+ *   variables: {
+ *      auctionId: // value for 'auctionId'
+ *   },
+ * });
+ */
+export function useCloseAuctionMutation(baseOptions?: Apollo.MutationHookOptions<CloseAuctionMutation, CloseAuctionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CloseAuctionMutation, CloseAuctionMutationVariables>(CloseAuctionDocument, options);
+      }
+export type CloseAuctionMutationHookResult = ReturnType<typeof useCloseAuctionMutation>;
+export type CloseAuctionMutationResult = Apollo.MutationResult<CloseAuctionMutation>;
+export type CloseAuctionMutationOptions = Apollo.BaseMutationOptions<CloseAuctionMutation, CloseAuctionMutationVariables>;
 export const CreateAuctionDocument = gql`
     mutation CreateAuction($title: String!, $description: String!, $itemId: Int!) {
   createAuction(title: $title, description: $description, itemId: $itemId) {
@@ -409,6 +485,53 @@ export function useDeleteAuctionMutation(baseOptions?: Apollo.MutationHookOption
 export type DeleteAuctionMutationHookResult = ReturnType<typeof useDeleteAuctionMutation>;
 export type DeleteAuctionMutationResult = Apollo.MutationResult<DeleteAuctionMutation>;
 export type DeleteAuctionMutationOptions = Apollo.BaseMutationOptions<DeleteAuctionMutation, DeleteAuctionMutationVariables>;
+export const EndAuctionDocument = gql`
+    mutation EndAuction($auctionId: Int!, $winningBidId: Int!) {
+  endAuction(auctionId: $auctionId, winningBidId: $winningBidId) {
+    id
+    title
+    description
+    seller {
+      username
+    }
+    status
+    dateCreated
+    dateUpdated
+    item {
+      id
+      picture
+      name
+    }
+  }
+}
+    `;
+export type EndAuctionMutationFn = Apollo.MutationFunction<EndAuctionMutation, EndAuctionMutationVariables>;
+
+/**
+ * __useEndAuctionMutation__
+ *
+ * To run a mutation, you first call `useEndAuctionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEndAuctionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [endAuctionMutation, { data, loading, error }] = useEndAuctionMutation({
+ *   variables: {
+ *      auctionId: // value for 'auctionId'
+ *      winningBidId: // value for 'winningBidId'
+ *   },
+ * });
+ */
+export function useEndAuctionMutation(baseOptions?: Apollo.MutationHookOptions<EndAuctionMutation, EndAuctionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<EndAuctionMutation, EndAuctionMutationVariables>(EndAuctionDocument, options);
+      }
+export type EndAuctionMutationHookResult = ReturnType<typeof useEndAuctionMutation>;
+export type EndAuctionMutationResult = Apollo.MutationResult<EndAuctionMutation>;
+export type EndAuctionMutationOptions = Apollo.BaseMutationOptions<EndAuctionMutation, EndAuctionMutationVariables>;
 export const CreateItemDocument = gql`
     mutation CreateItem($name: String!, $picture: Upload!) {
   createItem(name: $name, picture: $picture) {

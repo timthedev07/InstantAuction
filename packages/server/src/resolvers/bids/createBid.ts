@@ -1,4 +1,5 @@
 import { Resolver, Mutation, UseMiddleware, Ctx, Int, Arg } from "type-graphql";
+import { bidExposedRelations } from "../../constants/exposed-relations";
 import { Auction } from "../../entity/Auction";
 import { Bid } from "../../entity/Bid";
 import { Item } from "../../entity/Item";
@@ -41,6 +42,6 @@ export class CreateBidResolver {
       participating: true
     });
 
-    return await Bid.findOne(raw[0].id);
+    return await Bid.findOne(raw[0].id, { relations: bidExposedRelations });
   }
 }

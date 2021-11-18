@@ -47,7 +47,7 @@ export class CreateItemResolver {
     const userId = req.session.userId!;
     try {
       const { raw } = await Item.insert({
-        owner: await User.findOne(userId),
+        owner: { id: userId },
         name,
         picture: pictureUrl
       });

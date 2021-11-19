@@ -27,6 +27,7 @@ export const testAuctionResolvers = () => {
       expect(result.errors).toBeTruthy();
       expect(result.errors.length).toBeGreaterThan(0);
     });
+
     it("creates an auction", async () => {
       const result = await callGraphql({
         source: createAuctionSource,
@@ -39,6 +40,20 @@ export const testAuctionResolvers = () => {
       });
       expect(result.data).toBeTruthy();
       auctionId = result.data.createAuction.id;
+    });
+
+    it("rejects an item already participating", async () => {
+      const result = await callGraphql({
+        source: createAuctionSource,
+        variableValues: {
+          title: faker.lorem.word(),
+          description: faker.lorem.paragraph(2),
+          itemId: 1
+        },
+        userId: user.id
+      });
+      expect(result.errors).toBeTruthy();
+      expect(result.errors.length).toBeGreaterThan(0);
     });
   });
 
@@ -94,6 +109,11 @@ export const testAuctionResolvers = () => {
 };
 
 export const testAuctionResolversFinal = () => {
+  // ending an auction
+  // describe("End Auction Resolver", () => {
+  //   // it("");
+  // });
+
   // deleting an auction
   describe("Delete Auction Resolver", () => {
     it("rejects invalid auction id", async () => {

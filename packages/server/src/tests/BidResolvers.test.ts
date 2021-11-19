@@ -42,5 +42,25 @@ export const testBidResolvers = () => {
         alreadyParticipating
       );
     });
+
+    it("successfully creates a bid", async () => {
+      const result = await callGraphql({
+        source: createBidSource,
+        userId: user2.id,
+        variableValues: {
+          itemId: items[1].id,
+          auctionId
+        }
+      });
+
+      expect(result.data.createBid).toMatchObject({
+        bidder: {
+          username: user2.username
+        },
+        item: {
+          id: items[1].id
+        }
+      });
+    });
   });
 };

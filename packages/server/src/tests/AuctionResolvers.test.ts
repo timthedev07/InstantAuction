@@ -1,11 +1,12 @@
 import { callGraphql } from "../test-utils/callGraphql";
 import faker from "faker";
-import { user } from "./index.test";
+import { users } from "./index.test";
 import {
   allAuctionsSource,
   closeAuctionSource,
   createAuctionSource,
-  deleteAuctionSource
+  deleteAuctionSource,
+  endAuctionSource
 } from "./sources";
 
 export let auctionId: number;
@@ -22,7 +23,7 @@ export const testAuctionResolvers = () => {
           description: faker.lorem.paragraph(2),
           itemId: -5
         },
-        userId: user.id
+        userId: users[0].id
       });
       expect(result.errors).toBeTruthy();
       expect(result.errors.length).toBeGreaterThan(0);
@@ -36,7 +37,7 @@ export const testAuctionResolvers = () => {
           description: faker.lorem.paragraph(2),
           itemId: 1
         },
-        userId: user.id
+        userId: users[0].id
       });
       expect(result.data).toBeTruthy();
       auctionId = result.data.createAuction.id;
@@ -50,7 +51,7 @@ export const testAuctionResolvers = () => {
           description: faker.lorem.paragraph(2),
           itemId: 1
         },
-        userId: user.id
+        userId: users[0].id
       });
       expect(result.errors).toBeTruthy();
       expect(result.errors.length).toBeGreaterThan(0);
@@ -62,7 +63,7 @@ export const testAuctionResolvers = () => {
     it("successfully mutates auction status", async () => {
       const result = await callGraphql({
         source: closeAuctionSource,
-        userId: user.id,
+        userId: users[0].id,
         variableValues: {
           auctionId
         }
@@ -75,7 +76,7 @@ export const testAuctionResolvers = () => {
     it("rejects invalid auction id", async () => {
       const result = await callGraphql({
         source: closeAuctionSource,
-        userId: user.id,
+        userId: users[0].id,
         variableValues: {
           auctionId: -100
         }
@@ -110,16 +111,27 @@ export const testAuctionResolvers = () => {
 
 export const testAuctionResolversFinal = () => {
   // ending an auction
-  // describe("End Auction Resolver", () => {
-  //   // it("");
-  // });
+  describe("End Auction Resolver", () => {
+    it("rejects invalid", async () => {
+      const result = await callGraphql({
+        source: endAuctionSource,
+        userId: users[0].id,
+        variableValues: {
+          auctionId,
+          winningBidId: 3
+        }
+      });
+      result;
+      expect(3).toBe(3);
+    });
+  });
 
   // deleting an auction
   describe("Delete Auction Resolver", () => {
     it("rejects invalid auction id", async () => {
       const { errors } = await callGraphql({
         source: deleteAuctionSource,
-        userId: user.id,
+        userId: users[0].id,
         variableValues: {
           auctionId: -10
         }
@@ -132,7 +144,7 @@ export const testAuctionResolversFinal = () => {
     it("deletes the given auction", async () => {
       const result = await callGraphql({
         source: deleteAuctionSource,
-        userId: user.id,
+        userId: users[0].id,
         variableValues: {
           auctionId
         }

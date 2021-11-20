@@ -6,7 +6,7 @@ import {
 } from "../resolvers/bids/createBid";
 import { accessGraphqlErrorMessage } from "../test-utils/accessGraphqlError";
 import { callGraphql } from "../test-utils/callGraphql";
-import { auctionId } from "./AuctionResolvers.test";
+import { auctionCreator, auctionId } from "./AuctionResolvers.test";
 import { users } from "./index.test";
 import { items } from "./ItemResolvers.test";
 import { createBidSource } from "./sources";
@@ -18,9 +18,9 @@ export const testBidResolvers = () => {
     it("rejects bid from the auction seller", async () => {
       const result = await callGraphql({
         source: createBidSource,
-        userId: users[0].id,
+        userId: auctionCreator.id,
         variableValues: {
-          itemId: items[1].id,
+          itemId: items[auctionCreator.id][1].id,
           auctionId
         }
       });
@@ -32,47 +32,50 @@ export const testBidResolvers = () => {
     });
 
     it("rejects an item already participating in another auction", async () => {
+      const actionUser = users[1];
       const result = await callGraphql({
         source: createBidSource,
-        userId: users[1].id,
+        userId: actionUser.id,
         variableValues: {
-          itemId: items[0].id,
+          itemId: items[users[0].id][0].id,
           auctionId
         }
       });
 
-      expect(result.errors.length).toBeGreaterThan(0);
       expect(accessGraphqlErrorMessage(result.errors)).toBe(
         alreadyParticipating
       );
     });
 
     it("successfully creates bids", async () => {
+      const actionUser = users[1];
+      const itemId = items[actionUser.id][1].id;
       const result = await callGraphql({
         source: createBidSource,
-        userId: users[1].id,
+        userId: actionUser.id,
         variableValues: {
-          itemId: items[1].id,
+          itemId,
           auctionId
         }
       });
 
       expect(result.data.createBid).toMatchObject({
         bidder: {
-          username: users[1].username
+          username: actionUser.username
         },
         item: {
-          id: items[1].id
+          id: itemId
         }
       });
     });
 
     it("rejects bid from an existing bidder", async () => {
+      const actionUserId = users[1].id;
       const result = await callGraphql({
         source: createBidSource,
-        userId: users[1].id,
+        userId: actionUserId,
         variableValues: {
-          itemId: items[2].id,
+          itemId: items[actionUserId][2].id,
           auctionId
         }
       });

@@ -15,8 +15,9 @@ mutation CreateItemWithPictureUrl($pictureUrl: String!, $name: String!) {
 }
 `;
   // item creation unit test
-  it("creates an item", async () => {
+  it("creates items", async () => {
     users.forEach(userUsed => {
+      items[userUsed.id] = [];
       const itemNames = [
         "heat",
         "Mr. K",
@@ -38,5 +39,7 @@ mutation CreateItemWithPictureUrl($pictureUrl: String!, $name: String!) {
         items[userUsed.id].push(result.data.createItemWithPictureUrl);
       });
     });
+
+    console.log(JSON.stringify(items));
   });
 };

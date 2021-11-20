@@ -9,8 +9,7 @@ import { testItemResolvers } from "./ItemResolvers.test";
 import { testBidResolvers } from "./BidResolvers.test";
 
 export let connection: Connection;
-export let user: User;
-export let user2: User;
+export let users: User[];
 
 // register a user to pass auth check
 beforeAll(async () => {
@@ -31,9 +30,19 @@ beforeAll(async () => {
     provider: "Discord",
     username: "i.am.entrepreneur"
   });
+  const { raw: raw2 } = await User.insert({
+    avatarUrl: "https://avatars.githubusercontent.com/u/87135844?v=4",
+    email: "john@carlson.com",
+    externalId: "iamjeffbezos",
+    provider: "Google",
+    username: "JEFFZEBOSISHERE"
+  });
 
-  user = await User.findOne(raw[0].id);
-  user2 = await User.findOne(raw1[0].id);
+  users = [
+    await User.findOne(raw[0].id),
+    await User.findOne(raw1[0].id),
+    await User.findOne(raw2[0].id)
+  ];
 });
 
 describe("InstantAuction Backend Server Unit Testing", () => {

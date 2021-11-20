@@ -1,5 +1,6 @@
 import { GraphQLUpload, FileUpload } from "graphql-upload";
 import { Resolver, Mutation, Arg, UseMiddleware, Ctx, Int } from "type-graphql";
+import { unauthorizedErrorMessage } from "../../constants/errorMessages";
 import { Item } from "../../entity/Item";
 import { NetworkingContext } from "../../types/NetworkingContext";
 import { handleImageUpload } from "../../utils/handleImageUpload";
@@ -26,7 +27,7 @@ export class ModifyItemResolver {
     }
 
     if (item.owner.id !== req.session.userId) {
-      throw new Error("Unauthorized");
+      throw new Error(unauthorizedErrorMessage);
     }
 
     try {

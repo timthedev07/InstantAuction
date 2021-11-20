@@ -1,4 +1,5 @@
 import { Resolver, Mutation, UseMiddleware, Ctx, Arg, Int } from "type-graphql";
+import { unauthorizedErrorMessage } from "../../constants/errorMessages";
 import { Auction } from "../../entity/Auction";
 import { NetworkingContext } from "../../types/NetworkingContext";
 import { isAuth } from "../../utils/isAuthMiddleware";
@@ -18,7 +19,7 @@ export class DeleteAuctionResolver {
     }
 
     if (auction.seller.id !== req.session.userId) {
-      throw new Error("Unauthorized");
+      throw new Error(unauthorizedErrorMessage);
     }
 
     await Auction.remove(auction);

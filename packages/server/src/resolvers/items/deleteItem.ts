@@ -1,4 +1,5 @@
 import { Resolver, Mutation, Arg, Int, Ctx, UseMiddleware } from "type-graphql";
+import { unauthorizedErrorMessage } from "../../constants/errorMessages";
 import { Item } from "../../entity/Item";
 import { NetworkingContext } from "../../types/NetworkingContext";
 import { isAuth } from "../../utils/isAuthMiddleware";
@@ -23,7 +24,7 @@ export class DeleteItemResolver {
     }
 
     if (item.owner.id !== req.session.userId) {
-      throw new Error("Unauthorized");
+      throw new Error(unauthorizedErrorMessage);
     }
 
     try {

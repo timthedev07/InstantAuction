@@ -1,4 +1,5 @@
 import { Resolver, Mutation, UseMiddleware, Ctx, Arg, Int } from "type-graphql";
+import { unauthorizedErrorMessage } from "../../constants/errorMessages";
 import { Auction } from "../../entity/Auction";
 import { Bid } from "../../entity/Bid";
 import { NetworkingContext } from "../../types/NetworkingContext";
@@ -22,7 +23,7 @@ export class EndAuctionResolver {
     }
 
     if (auction.seller.id !== req.session.userId) {
-      throw new Error("Unauthorized");
+      throw new Error(unauthorizedErrorMessage);
     }
 
     // if the winningBidId is not found in the list of bids

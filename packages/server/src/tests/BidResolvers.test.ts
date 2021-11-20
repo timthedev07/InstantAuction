@@ -31,13 +31,13 @@ export const testBidResolvers = () => {
       );
     });
 
-    it("rejects an item already participating in another auction", async () => {
+    it("rejects an item already participating in an auction", async () => {
       const actionUser = users[1];
       const result = await callGraphql({
         source: createBidSource,
         userId: actionUser.id,
         variableValues: {
-          itemId: items[users[0].id][0].id,
+          itemId: items[actionUser.id][0].id,
           auctionId
         }
       });
@@ -47,7 +47,7 @@ export const testBidResolvers = () => {
       );
     });
 
-    it("successfully creates bids", async () => {
+    it("successfully creates a bid", async () => {
       const actionUser = users[1];
       const itemId = items[actionUser.id][1].id;
       const result = await callGraphql({

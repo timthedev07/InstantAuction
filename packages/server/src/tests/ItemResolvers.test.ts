@@ -39,7 +39,5 @@ mutation CreateItemWithPictureUrl($pictureUrl: String!, $name: String!) {
         items[userUsed.id].push(result.data.createItemWithPictureUrl);
       });
     });
-
-    console.log(JSON.stringify(items));
   });
 };

@@ -2,6 +2,7 @@ import { Connection } from "typeorm";
 import { getTestConnection } from "../test-utils/testConn";
 import { User } from "../entity/User";
 import {
+  setAuctionCreator,
   testAuctionResolvers,
   testAuctionResolversFinal
 } from "./AuctionResolvers.test";
@@ -43,6 +44,7 @@ beforeAll(async () => {
     await User.findOne(raw1[0].id),
     await User.findOne(raw2[0].id)
   ];
+  setAuctionCreator(users[0]);
 });
 
 describe("InstantAuction Backend Server Unit Testing", () => {

@@ -1,4 +1,5 @@
 import { Resolver, Mutation, UseMiddleware, Ctx, Arg, Int } from "type-graphql";
+import { unauthorizedErrorMessage } from "../../constants/errorMessages";
 import { auctionExposedRelations } from "../../constants/exposed-relations";
 import { Auction } from "../../entity/Auction";
 import { NetworkingContext } from "../../types/NetworkingContext";
@@ -19,7 +20,7 @@ export class CloseAuctionResolver {
     }
 
     if (auction.seller.id !== req.session.userId) {
-      throw new Error("Unauthorized");
+      throw new Error(unauthorizedErrorMessage);
     }
 
     await Auction.update(auction.id, {

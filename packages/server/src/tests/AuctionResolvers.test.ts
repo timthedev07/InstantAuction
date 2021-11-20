@@ -8,11 +8,14 @@ import {
   deleteAuctionSource,
   endAuctionSource
 } from "./sources";
+import { User } from "../entity/User";
 
 export let auctionId: number;
 let allAuctionsResult: any;
+export let auctionCreator: User;
 
 export const testAuctionResolvers = () => {
+  auctionCreator = users[0];
   // creating an auction
   describe("Create Auction Resolver", () => {
     it("rejects invalid item id", async () => {
@@ -23,7 +26,7 @@ export const testAuctionResolvers = () => {
           description: faker.lorem.paragraph(2),
           itemId: -5
         },
-        userId: users[0].id
+        userId: auctionCreator.id
       });
       expect(result.errors).toBeTruthy();
       expect(result.errors.length).toBeGreaterThan(0);
@@ -37,7 +40,7 @@ export const testAuctionResolvers = () => {
           description: faker.lorem.paragraph(2),
           itemId: 1
         },
-        userId: users[0].id
+        userId: auctionCreator.id
       });
       expect(result.data).toBeTruthy();
       auctionId = result.data.createAuction.id;
@@ -51,7 +54,7 @@ export const testAuctionResolvers = () => {
           description: faker.lorem.paragraph(2),
           itemId: 1
         },
-        userId: users[0].id
+        userId: auctionCreator.id
       });
       expect(result.errors).toBeTruthy();
       expect(result.errors.length).toBeGreaterThan(0);
@@ -63,7 +66,7 @@ export const testAuctionResolvers = () => {
     it("successfully mutates auction status", async () => {
       const result = await callGraphql({
         source: closeAuctionSource,
-        userId: users[0].id,
+        userId: auctionCreator.id,
         variableValues: {
           auctionId
         }
@@ -76,7 +79,7 @@ export const testAuctionResolvers = () => {
     it("rejects invalid auction id", async () => {
       const result = await callGraphql({
         source: closeAuctionSource,
-        userId: users[0].id,
+        userId: auctionCreator.id,
         variableValues: {
           auctionId: -100
         }
@@ -115,7 +118,7 @@ export const testAuctionResolversFinal = () => {
     it("rejects invalid", async () => {
       const result = await callGraphql({
         source: endAuctionSource,
-        userId: users[0].id,
+        userId: auctionCreator.id,
         variableValues: {
           auctionId,
           winningBidId: 3
@@ -131,7 +134,7 @@ export const testAuctionResolversFinal = () => {
     it("rejects invalid auction id", async () => {
       const { errors } = await callGraphql({
         source: deleteAuctionSource,
-        userId: users[0].id,
+        userId: auctionCreator.id,
         variableValues: {
           auctionId: -10
         }
@@ -144,7 +147,7 @@ export const testAuctionResolversFinal = () => {
     it("deletes the given auction", async () => {
       const result = await callGraphql({
         source: deleteAuctionSource,
-        userId: users[0].id,
+        userId: auctionCreator.id,
         variableValues: {
           auctionId
         }

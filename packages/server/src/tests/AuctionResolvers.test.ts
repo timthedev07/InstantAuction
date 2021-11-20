@@ -1,6 +1,5 @@
 import { callGraphql } from "../test-utils/callGraphql";
 import faker from "faker";
-import { users } from "./index.test";
 import {
   allAuctionsSource,
   closeAuctionSource,
@@ -14,8 +13,9 @@ export let auctionId: number;
 let allAuctionsResult: any;
 export let auctionCreator: User;
 
+export const setAuctionCreator = (user: User) => (auctionCreator = user);
+
 export const testAuctionResolvers = () => {
-  auctionCreator = users[0];
   // creating an auction
   describe("Create Auction Resolver", () => {
     it("rejects invalid item id", async () => {

@@ -49,7 +49,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - name: Install Dependencies
-        run: yarn
+        run: yarn install 2> >(grep -v warning 1>&2)
         working-directory: ${{env.rootDir}}
       - name: Run Tests
         run: yarn --silent test

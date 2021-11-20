@@ -1,5 +1,5 @@
 import { callGraphql } from "../test-utils/callGraphql";
-import { user } from "./index.test";
+import { users } from "./index.test";
 import { Item } from "../entity/Item";
 
 export let items: Item[] = [];
@@ -31,7 +31,7 @@ mutation CreateItemWithPictureUrl($pictureUrl: String!, $name: String!) {
           pictureUrl:
             "https://ferrari-cdn.thron.com/delivery/public/thumbnail/ferrari/29a25eda-7921-4362-ba7c-ef5b2c429505/q076ls/std/488x325/29a25eda-7921-4362-ba7c-ef5b2c429505?scalemode=auto"
         },
-        userId: user.id
+        userId: users[0].id
       });
       expect(result.data).toBeTruthy();
       items.push(result.data.createItemWithPictureUrl);

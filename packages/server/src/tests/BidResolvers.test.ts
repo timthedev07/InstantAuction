@@ -1,3 +1,4 @@
+import { Bid } from "../entity/Bid";
 import {
   alreadyParticipating,
   notYourOwnAuctionMessage
@@ -5,16 +6,18 @@ import {
 import { accessGraphqlErrorMessage } from "../test-utils/accessGraphqlError";
 import { callGraphql } from "../test-utils/callGraphql";
 import { auctionId } from "./AuctionResolvers.test";
-import { user, user2 } from "./index.test";
+import { users } from "./index.test";
 import { items } from "./ItemResolvers.test";
 import { createBidSource } from "./sources";
+
+export let bids: Bid[] = [];
 
 export const testBidResolvers = () => {
   describe("Create Bid Resolver", () => {
     it("rejects bid from the auction seller", async () => {
       const result = await callGraphql({
         source: createBidSource,
-        userId: user.id,
+        userId: users[1].id,
         variableValues: {
           itemId: items[1].id,
           auctionId
@@ -30,7 +33,7 @@ export const testBidResolvers = () => {
     it("rejects an item already participating in another auction", async () => {
       const result = await callGraphql({
         source: createBidSource,
-        userId: user2.id,
+        userId: users[1].id,
         variableValues: {
           itemId: items[0].id,
           auctionId
@@ -43,10 +46,10 @@ export const testBidResolvers = () => {
       );
     });
 
-    it("successfully creates a bid", async () => {
+    it("successfully creates bids", async () => {
       const result = await callGraphql({
         source: createBidSource,
-        userId: user2.id,
+        userId: users[1].id,
         variableValues: {
           itemId: items[1].id,
           auctionId
@@ -55,7 +58,7 @@ export const testBidResolvers = () => {
 
       expect(result.data.createBid).toMatchObject({
         bidder: {
-          username: user2.username
+          username: users[1].username
         },
         item: {
           id: items[1].id

@@ -1,6 +1,7 @@
 import { Bid } from "../entity/Bid";
 import {
   alreadyParticipating,
+  cannotRebid,
   notYourOwnAuctionMessage
 } from "../resolvers/bids/createBid";
 import { accessGraphqlErrorMessage } from "../test-utils/accessGraphqlError";
@@ -17,7 +18,7 @@ export const testBidResolvers = () => {
     it("rejects bid from the auction seller", async () => {
       const result = await callGraphql({
         source: createBidSource,
-        userId: users[1].id,
+        userId: users[0].id,
         variableValues: {
           itemId: items[1].id,
           auctionId
@@ -64,6 +65,21 @@ export const testBidResolvers = () => {
           id: items[1].id
         }
       });
+    });
+
+    it("rejects bid from an existing bidder", async () => {
+      const result = await callGraphql({
+        source: createBidSource,
+        userId: users[1].id,
+        variableValues: {
+          itemId: items[2].id,
+          auctionId
+        }
+      });
+
+      expect(accessGraphqlErrorMessage(result.errors)).toBe<string>(
+        cannotRebid
+      );
     });
   });
 };

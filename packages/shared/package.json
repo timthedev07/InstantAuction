@@ -6,10 +6,10 @@
   "dependencies": {
     "cross-env": "7.0.3",
     "query-string": "^7.0.1",
-    "typescript": "^4.3.5"
+    "typescript": "^4.5.2"
   },
   "devDependencies": {
-    "@types/node": "^16.10.3"
+    "@types/node": "^16.11.9"
   },
   "scripts": {
     "build": "tsc"

@@ -1,6 +1,7 @@
 import { Resolver, Mutation, UseMiddleware, Ctx, Arg, Int } from "type-graphql";
 import {
   invalidAuction,
+  invalidWinningBidId,
   unauthorizedErrorMessage,
 } from "../../constants/errorMessages";
 import { Auction } from "../../entity/Auction";
@@ -35,7 +36,7 @@ export class EndAuctionResolver {
     });
 
     if (winningBidIndex === -1) {
-      throw new Error("Invalid winning bid id");
+      throw new Error(invalidWinningBidId);
     }
 
     // closing the auction and declaring the winner

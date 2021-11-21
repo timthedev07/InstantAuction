@@ -2,11 +2,11 @@ import { Bid } from "../entity/Bid";
 import {
   alreadyParticipating,
   cannotRebid,
-  notYourOwnAuctionMessage
+  notYourOwnAuctionMessage,
 } from "../resolvers/bids/createBid";
 import { accessGraphqlErrorMessage } from "../test-utils/accessGraphqlError";
 import { callGraphql } from "../test-utils/callGraphql";
-import { auctionCreator, auctionId } from "./AuctionResolvers.test";
+import { auction2Id, auctionCreator, auctionId } from "./AuctionResolvers.test";
 import { users } from "./index.test";
 import { items } from "./ItemResolvers.test";
 import { createBidSource } from "./sources";
@@ -21,29 +21,13 @@ export const testBidResolvers = () => {
         userId: auctionCreator.id,
         variableValues: {
           itemId: items[auctionCreator.id][1].id,
-          auctionId
-        }
+          auctionId,
+        },
       });
 
       expect(result.errors.length).toBeGreaterThan(0);
       expect(accessGraphqlErrorMessage(result.errors)).toBe(
         notYourOwnAuctionMessage
-      );
-    });
-
-    it("rejects an item already participating in an auction", async () => {
-      const actionUser = users[1];
-      const result = await callGraphql({
-        source: createBidSource,
-        userId: actionUser.id,
-        variableValues: {
-          itemId: items[actionUser.id][0].id,
-          auctionId
-        }
-      });
-
-      expect(accessGraphqlErrorMessage(result.errors)).toBe(
-        alreadyParticipating
       );
     });
 
@@ -55,18 +39,34 @@ export const testBidResolvers = () => {
         userId: actionUser.id,
         variableValues: {
           itemId,
-          auctionId
-        }
+          auctionId,
+        },
       });
 
       expect(result.data.createBid).toMatchObject({
         bidder: {
-          username: actionUser.username
+          username: actionUser.username,
         },
         item: {
-          id: itemId
-        }
+          id: itemId,
+        },
       });
+    });
+
+    it("rejects an item already participating in an auction", async () => {
+      const actionUser = users[1];
+      const result = await callGraphql({
+        source: createBidSource,
+        userId: actionUser.id,
+        variableValues: {
+          itemId: items[actionUser.id][1].id,
+          auctionId: auction2Id,
+        },
+      });
+
+      expect(accessGraphqlErrorMessage(result.errors)).toBe(
+        alreadyParticipating
+      );
     });
 
     it("rejects bid from an existing bidder", async () => {
@@ -76,8 +76,8 @@ export const testBidResolvers = () => {
         userId: actionUserId,
         variableValues: {
           itemId: items[actionUserId][2].id,
-          auctionId
-        }
+          auctionId,
+        },
       });
 
       expect(accessGraphqlErrorMessage(result.errors)).toBe<string>(

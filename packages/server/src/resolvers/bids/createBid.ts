@@ -1,7 +1,7 @@
 import { Resolver, Mutation, UseMiddleware, Ctx, Int, Arg } from "type-graphql";
 import {
   invalidItem,
-  unauthorizedErrorMessage
+  unauthorizedErrorMessage,
 } from "../../constants/errorMessages";
 import { bidExposedRelations } from "../../constants/exposed-relations";
 import { Auction } from "../../entity/Auction";
@@ -25,7 +25,7 @@ export class CreateBidResolver {
     @Ctx() { req }: NetworkingContext
   ) {
     const auction = await Auction.findOne(auctionId, {
-      relations: ["seller", "bids", "bids.bidder"]
+      relations: ["seller", "bids", "bids.bidder"],
     });
 
     if (!auction) {
@@ -53,17 +53,18 @@ export class CreateBidResolver {
     }
 
     if (auction.bids.find(val => val.bidder.id === item.owner.id)) {
+      throw new Error(cannotRebid);
     }
 
     const { raw } = await Bid.insert({
       auction: auction,
       item,
-      bidder: { id: userId }
+      bidder: { id: userId },
     });
     (await Bid.findOne()).bidder;
 
     await Item.update(item.id, {
-      participating: true
+      participating: true,
     });
 
     return await Bid.findOne(raw[0].id, { relations: bidExposedRelations });

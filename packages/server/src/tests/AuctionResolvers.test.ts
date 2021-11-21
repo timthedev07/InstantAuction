@@ -9,6 +9,7 @@ import {
 } from "./sources";
 import { User } from "../entity/User";
 import { items } from "./ItemResolvers.test";
+import { Auction } from "../entity/Auction";
 
 export let auctionId: number;
 export let auction2Id: number;
@@ -79,11 +80,18 @@ export const testAuctionResolvers = () => {
   // closing an auction
   describe("Close auction Resolver", () => {
     it("successfully mutates auction status", async () => {
+      const { raw } = await Auction.insert({
+        bids: [],
+        description: "Close me please.",
+        title: "Dog water",
+        seller: { id: auctionCreator.id },
+        item: { id: items[auctionCreator.id].at(-1).id },
+      });
       const result = await callGraphql({
         source: closeAuctionSource,
         userId: auctionCreator.id,
         variableValues: {
-          auctionId,
+          auctionId: raw[0].id,
         },
       });
 

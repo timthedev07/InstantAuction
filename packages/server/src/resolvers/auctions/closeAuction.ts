@@ -1,5 +1,8 @@
 import { Resolver, Mutation, UseMiddleware, Ctx, Arg, Int } from "type-graphql";
-import { unauthorizedErrorMessage } from "../../constants/errorMessages";
+import {
+  invalidAuction,
+  unauthorizedErrorMessage,
+} from "../../constants/errorMessages";
 import { auctionExposedRelations } from "../../constants/exposed-relations";
 import { Auction } from "../../entity/Auction";
 import { NetworkingContext } from "../../types/NetworkingContext";
@@ -16,7 +19,7 @@ export class CloseAuctionResolver {
     const auction = await Auction.findOne(auctionId, { relations: ["seller"] });
 
     if (!auction) {
-      throw new Error("Invalid auction");
+      throw new Error(invalidAuction);
     }
 
     if (auction.seller.id !== req.session.userId) {
@@ -25,11 +28,11 @@ export class CloseAuctionResolver {
 
     await Auction.update(auction.id, {
       status: "closed",
-      dateUpdated: new Date()
+      dateUpdated: new Date(),
     });
 
     return await Auction.findOne(auction.id, {
-      relations: auctionExposedRelations
+      relations: auctionExposedRelations,
     });
   }
 }

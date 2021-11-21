@@ -1,5 +1,8 @@
 import { Resolver, Mutation, UseMiddleware, Ctx, Arg, Int } from "type-graphql";
-import { unauthorizedErrorMessage } from "../../constants/errorMessages";
+import {
+  invalidAuction,
+  unauthorizedErrorMessage,
+} from "../../constants/errorMessages";
 import { Auction } from "../../entity/Auction";
 import { Bid } from "../../entity/Bid";
 import { NetworkingContext } from "../../types/NetworkingContext";
@@ -15,11 +18,11 @@ export class EndAuctionResolver {
     @Ctx() { req }: NetworkingContext
   ) {
     const auction = await Auction.findOne(auctionId, {
-      relations: ["seller", "bids", "bids.bidder"]
+      relations: ["seller", "bids", "bids.bidder"],
     });
 
     if (!auction) {
-      throw new Error("Invalid auction");
+      throw new Error(invalidAuction);
     }
 
     if (auction.seller.id !== req.session.userId) {
@@ -30,6 +33,7 @@ export class EndAuctionResolver {
     const winningBidIndex = auction.bids.findIndex(bid => {
       return bid.id === winningBidId;
     });
+
     if (winningBidIndex === -1) {
       throw new Error("Invalid bid id");
     }
@@ -38,11 +42,11 @@ export class EndAuctionResolver {
     await Auction.update(auction.id, {
       dateUpdated: new Date(),
       status: "closed",
-      winner: auction.bids[winningBidIndex].bidder
+      winner: auction.bids[winningBidIndex].bidder,
     });
 
     await Bid.update(auction.bids[winningBidIndex].id, {
-      won: true
+      won: true,
     });
 
     return await Auction.findOne(auction.id);

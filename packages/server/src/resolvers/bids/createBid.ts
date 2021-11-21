@@ -3,6 +3,7 @@ import {
   alreadyParticipating,
   auctionClosed,
   cannotRebid,
+  invalidAuction,
   invalidItem,
   notYourOwnAuctionMessage,
   unauthorizedErrorMessage,
@@ -28,7 +29,7 @@ export class CreateBidResolver {
     });
 
     if (!auction) {
-      throw new Error("Invalid auction");
+      throw new Error(invalidAuction);
     }
 
     if (auction.status === "closed") {

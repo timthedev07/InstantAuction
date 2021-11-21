@@ -5,11 +5,13 @@ import {
   closeAuctionSource,
   createAuctionSource,
   deleteAuctionSource,
-  endAuctionSource
+  endAuctionSource,
 } from "./sources";
 import { User } from "../entity/User";
+import { items } from "./ItemResolvers.test";
 
 export let auctionId: number;
+export let auction2Id: number;
 let allAuctionsResult: any;
 export let auctionCreator: User;
 
@@ -24,26 +26,32 @@ export const testAuctionResolvers = () => {
         variableValues: {
           title: faker.lorem.word(),
           description: faker.lorem.paragraph(2),
-          itemId: -5
+          itemId: -5,
         },
-        userId: auctionCreator.id
+        userId: auctionCreator.id,
       });
       expect(result.errors).toBeTruthy();
       expect(result.errors.length).toBeGreaterThan(0);
     });
 
     it("creates an auction", async () => {
-      const result = await callGraphql({
-        source: createAuctionSource,
-        variableValues: {
-          title: faker.lorem.word(),
-          description: faker.lorem.paragraph(2),
-          itemId: 1
-        },
-        userId: auctionCreator.id
-      });
-      expect(result.data).toBeTruthy();
-      auctionId = result.data.createAuction.id;
+      const results = [];
+      for (let i = 0; i < 2; ++i) {
+        results.push(
+          await callGraphql({
+            source: createAuctionSource,
+            variableValues: {
+              title: faker.lorem.word(),
+              description: faker.lorem.paragraph(2),
+              itemId: items[auctionCreator.id][0].id,
+            },
+            userId: auctionCreator.id,
+          })
+        );
+        expect(results[i].data).toBeTruthy();
+      }
+      auctionId = results[0].data.createAuction.id;
+      auctionId = results[1].data.createAuction.id;
     });
 
     it("rejects an item already participating", async () => {
@@ -52,9 +60,9 @@ export const testAuctionResolvers = () => {
         variableValues: {
           title: faker.lorem.word(),
           description: faker.lorem.paragraph(2),
-          itemId: 1
+          itemId: 1,
         },
-        userId: auctionCreator.id
+        userId: auctionCreator.id,
       });
       expect(result.errors).toBeTruthy();
       expect(result.errors.length).toBeGreaterThan(0);
@@ -68,8 +76,8 @@ export const testAuctionResolvers = () => {
         source: closeAuctionSource,
         userId: auctionCreator.id,
         variableValues: {
-          auctionId
-        }
+          auctionId,
+        },
       });
 
       expect(result.data).toBeTruthy();
@@ -81,8 +89,8 @@ export const testAuctionResolvers = () => {
         source: closeAuctionSource,
         userId: auctionCreator.id,
         variableValues: {
-          auctionId: -100
-        }
+          auctionId: -100,
+        },
       });
 
       expect(result.errors).toBeTruthy();
@@ -94,7 +102,7 @@ export const testAuctionResolvers = () => {
   describe("All Auctions Resolver", () => {
     it("retrieves all auctions", async () => {
       allAuctionsResult = await callGraphql({
-        source: allAuctionsSource
+        source: allAuctionsSource,
       });
 
       const auctions = allAuctionsResult.data.allAuctions.auctions;
@@ -121,8 +129,8 @@ export const testAuctionResolversFinal = () => {
         userId: auctionCreator.id,
         variableValues: {
           auctionId,
-          winningBidId: 3
-        }
+          winningBidId: 3,
+        },
       });
       result;
       expect(3).toBe(3);
@@ -136,8 +144,8 @@ export const testAuctionResolversFinal = () => {
         source: deleteAuctionSource,
         userId: auctionCreator.id,
         variableValues: {
-          auctionId: -10
-        }
+          auctionId: -10,
+        },
       });
 
       expect(errors).toBeTruthy();
@@ -149,8 +157,8 @@ export const testAuctionResolversFinal = () => {
         source: deleteAuctionSource,
         userId: auctionCreator.id,
         variableValues: {
-          auctionId
-        }
+          auctionId,
+        },
       });
 
       expect(result.data).toBeTruthy();

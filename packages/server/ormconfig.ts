@@ -1,6 +1,7 @@
 const MODE = process.env.NODE_ENV;
 const __prod__ = MODE === "production";
 const __cicd__ = process.env.TEST_MODE === "ci-cd";
+const __localtest__ = MODE === "test";
 
 const basedir = __prod__ ? "dist" : "src";
 const fileType = __prod__ ? "js" : "ts";
@@ -29,6 +30,8 @@ module.exports = {
     ? process.env.HP_DATABASE
     : __cicd__
     ? "postgres"
+    : __localtest__
+    ? "InstantAuction.test"
     : "InstantAuction.local",
   entities: [`${basedir}/entity/**/*.${fileType}`],
   migrations: [`${basedir}/migrations/**/*.${fileType}`],
@@ -36,15 +39,15 @@ module.exports = {
   cli: {
     entitiesDir: `${basedir}/entity`,
     migrationsDir: `${basedir}/migrations`,
-    subscribersDir: `${basedir}/subscriber`
+    subscribersDir: `${basedir}/subscriber`,
   },
   synchronize: true,
   ssl: __prod__,
   extra: __prod__
     ? {
         ssl: {
-          rejectUnauthorized: false
-        }
+          rejectUnauthorized: false,
+        },
       }
-    : undefined
+    : undefined,
 };

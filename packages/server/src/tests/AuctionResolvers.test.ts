@@ -10,6 +10,8 @@ import {
 import { User } from "../entity/User";
 import { items } from "./ItemResolvers.test";
 import { Auction } from "../entity/Auction";
+import { gqlErrorMessage } from "../test-utils/accessGraphqlError";
+import { invalidAuction } from "../constants/errorMessages";
 
 export let auctionId: number;
 export let auction2Id: number;
@@ -140,17 +142,16 @@ export const testAuctionResolvers = () => {
 export const testAuctionResolversFinal = () => {
   // ending an auction
   describe("End Auction Resolver", () => {
-    it("rejects invalid", async () => {
+    it("rejects invalid auction id", async () => {
       const result = await callGraphql({
         source: endAuctionSource,
         userId: auctionCreator.id,
         variableValues: {
-          auctionId,
+          auctionId: -5,
           winningBidId: 3,
         },
       });
-      result;
-      expect(3).toBe(3);
+      expect(gqlErrorMessage(result.errors)).toBe(invalidAuction);
     });
   });
 

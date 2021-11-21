@@ -1,4 +1,4 @@
-export const accessGraphqlErrorMessage = (errors: any) => {
+export const gqlErrorMessage = (errors: any) => {
   try {
     return errors[0].message as string;
   } catch (err) {

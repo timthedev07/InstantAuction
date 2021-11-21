@@ -5,7 +5,7 @@ import {
   cannotRebid,
   notYourOwnAuctionMessage,
 } from "../constants/errorMessages";
-import { accessGraphqlErrorMessage } from "../test-utils/accessGraphqlError";
+import { gqlErrorMessage } from "../test-utils/accessGraphqlError";
 import { callGraphql } from "../test-utils/callGraphql";
 import {
   auction2Id,
@@ -32,9 +32,7 @@ export const testBidResolvers = () => {
       });
 
       expect(result.errors.length).toBeGreaterThan(0);
-      expect(accessGraphqlErrorMessage(result.errors)).toBe(
-        notYourOwnAuctionMessage
-      );
+      expect(gqlErrorMessage(result.errors)).toBe(notYourOwnAuctionMessage);
     });
 
     it("successfully creates a bid", async () => {
@@ -70,9 +68,7 @@ export const testBidResolvers = () => {
         },
       });
 
-      expect(accessGraphqlErrorMessage(result.errors)).toBe(
-        alreadyParticipating
-      );
+      expect(gqlErrorMessage(result.errors)).toBe(alreadyParticipating);
     });
 
     it("rejects bid from an existing bidder", async () => {
@@ -86,9 +82,7 @@ export const testBidResolvers = () => {
         },
       });
 
-      expect(accessGraphqlErrorMessage(result.errors)).toBe<string>(
-        cannotRebid
-      );
+      expect(gqlErrorMessage(result.errors)).toBe<string>(cannotRebid);
     });
 
     it("rejects bid for a closed auction", async () => {
@@ -102,7 +96,7 @@ export const testBidResolvers = () => {
         },
       });
 
-      expect(accessGraphqlErrorMessage(result.errors)).toBe(auctionClosed);
+      expect(gqlErrorMessage(result.errors)).toBe(auctionClosed);
     });
   });
 };

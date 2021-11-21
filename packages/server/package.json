@@ -49,7 +49,7 @@
     "start": "node dist/index.js",
     "build": "tsc && cp src/email.html dist",
     "tsc": "tsc",
-    "test:setup-db": "ts-node --transpile-only --project tsconfig-test.json ./src/test-utils/setup.ts",
+    "test:setup-db": "NODE_ENV=test ts-node --transpile-only --project tsconfig-test.json ./src/test-utils/setup.ts",
     "test": "yarn --silent test:setup-db && jest"
   }
 }

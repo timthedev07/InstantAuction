@@ -6,3 +6,4 @@ export const alreadyParticipating =
   "Item is already participating in an auction";
 export const cannotRebid = "You cannot rebid.";
 export const auctionClosed = "Auction Closed";
+export const invalidAuction = "Invalid Auction";

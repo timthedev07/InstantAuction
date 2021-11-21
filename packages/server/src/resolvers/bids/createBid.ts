@@ -1,6 +1,10 @@
 import { Resolver, Mutation, UseMiddleware, Ctx, Int, Arg } from "type-graphql";
 import {
+  alreadyParticipating,
+  auctionClosed,
+  cannotRebid,
   invalidItem,
+  notYourOwnAuctionMessage,
   unauthorizedErrorMessage,
 } from "../../constants/errorMessages";
 import { bidExposedRelations } from "../../constants/exposed-relations";
@@ -9,11 +13,6 @@ import { Bid } from "../../entity/Bid";
 import { Item } from "../../entity/Item";
 import { NetworkingContext } from "../../types/NetworkingContext";
 import { isAuth } from "../../utils/isAuthMiddleware";
-
-export const notYourOwnAuctionMessage = "You can't bid at your own auction.";
-export const alreadyParticipating =
-  "Item is already participating in an auction";
-export const cannotRebid = "You cannot rebid.";
 
 @Resolver()
 export class CreateBidResolver {
@@ -30,6 +29,10 @@ export class CreateBidResolver {
 
     if (!auction) {
       throw new Error("Invalid auction");
+    }
+
+    if (auction.status === "closed") {
+      throw new Error(auctionClosed);
     }
 
     const userId = req.session.userId;
@@ -61,7 +64,6 @@ export class CreateBidResolver {
       item,
       bidder: { id: userId },
     });
-    (await Bid.findOne()).bidder;
 
     await Item.update(item.id, {
       participating: true,

@@ -3,7 +3,7 @@ import {
   alreadyParticipating,
   cannotRebid,
   notYourOwnAuctionMessage,
-} from "../resolvers/bids/createBid";
+} from "../constants/errorMessages";
 import { accessGraphqlErrorMessage } from "../test-utils/accessGraphqlError";
 import { callGraphql } from "../test-utils/callGraphql";
 import { auction2Id, auctionCreator, auctionId } from "./AuctionResolvers.test";

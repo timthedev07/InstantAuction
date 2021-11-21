@@ -34,24 +34,31 @@ export const testAuctionResolvers = () => {
       expect(result.errors.length).toBeGreaterThan(0);
     });
 
-    it("creates an auction", async () => {
-      const results = [];
-      for (let i = 0; i < 2; ++i) {
-        results.push(
-          await callGraphql({
-            source: createAuctionSource,
-            variableValues: {
-              title: faker.lorem.word(),
-              description: faker.lorem.paragraph(2),
-              itemId: items[auctionCreator.id][0].id,
-            },
-            userId: auctionCreator.id,
-          })
-        );
-        expect(results[i].data).toBeTruthy();
-      }
-      auctionId = results[0].data.createAuction.id;
-      auctionId = results[1].data.createAuction.id;
+    it("creates auctions", async () => {
+      // create an auction
+      let result = await callGraphql({
+        source: createAuctionSource,
+        variableValues: {
+          title: faker.lorem.word(),
+          description: faker.lorem.paragraph(2),
+          itemId: items[auctionCreator.id][0].id,
+        },
+        userId: auctionCreator.id,
+      });
+      expect(result.data).toBeTruthy();
+      auctionId = result.data.createAuction.id;
+
+      // creates another auction
+      result = await callGraphql({
+        source: createAuctionSource,
+        variableValues: {
+          title: faker.lorem.word(),
+          description: faker.lorem.paragraph(2),
+          itemId: items[auctionCreator.id][1].id,
+        },
+        userId: auctionCreator.id,
+      });
+      auction2Id = result.data.createAuction.id;
     });
 
     it("rejects an item already participating", async () => {

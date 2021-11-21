@@ -15,6 +15,7 @@ export let auctionId: number;
 export let auction2Id: number;
 let allAuctionsResult: any;
 export let auctionCreator: User;
+export let closedAuctionId: number;
 
 export const setAuctionCreator = (user: User) => (auctionCreator = user);
 
@@ -97,6 +98,7 @@ export const testAuctionResolvers = () => {
 
       expect(result.data).toBeTruthy();
       expect(result.data.closeAuction.status).toBe("closed");
+      closedAuctionId = result.data.closeAuction.id;
     });
 
     it("rejects invalid auction id", async () => {

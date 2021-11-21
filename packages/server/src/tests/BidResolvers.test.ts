@@ -1,6 +1,7 @@
 import { Bid } from "../entity/Bid";
 import {
   alreadyParticipating,
+  auctionClosed,
   cannotRebid,
   notYourOwnAuctionMessage,
 } from "../constants/errorMessages";
@@ -83,6 +84,20 @@ export const testBidResolvers = () => {
       expect(accessGraphqlErrorMessage(result.errors)).toBe<string>(
         cannotRebid
       );
+    });
+
+    it("rejects bid for a closed auction", async () => {
+      const actionUserId = users[2].id;
+      const result = await callGraphql({
+        source: createBidSource,
+        userId: actionUserId,
+        variableValues: {
+          itemId: items[actionUserId][3].id,
+          auctionId,
+        },
+      });
+
+      expect(accessGraphqlErrorMessage(result.errors)).toBe(auctionClosed);
     });
   });
 };

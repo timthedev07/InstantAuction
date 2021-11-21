@@ -82,7 +82,7 @@ export const testBidResolvers = () => {
         userId: actionUserId,
         variableValues: {
           itemId: items[actionUserId][2].id,
-          auctionId: closedAuctionId,
+          auctionId,
         },
       });
 
@@ -98,7 +98,7 @@ export const testBidResolvers = () => {
         userId: actionUserId,
         variableValues: {
           itemId: items[actionUserId][3].id,
-          auctionId,
+          auctionId: closedAuctionId,
         },
       });
 

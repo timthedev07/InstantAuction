@@ -4,6 +4,7 @@ import {
   invalidWinningBidId,
   unauthorizedErrorMessage,
 } from "../../constants/errorMessages";
+import { auctionExposedRelations } from "../../constants/exposed-relations";
 import { Auction } from "../../entity/Auction";
 import { Bid } from "../../entity/Bid";
 import { NetworkingContext } from "../../types/NetworkingContext";
@@ -50,6 +51,8 @@ export class EndAuctionResolver {
       won: true,
     });
 
-    return await Auction.findOne(auction.id);
+    return await Auction.findOne(auction.id, {
+      relations: auctionExposedRelations,
+    });
   }
 }

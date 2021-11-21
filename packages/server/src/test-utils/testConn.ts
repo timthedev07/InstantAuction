@@ -8,8 +8,8 @@ export const getTestConnection = async (
     await createConnection({
       ...(await getConnectionOptions()),
       dropSchema: drop,
-      synchronize: drop
+      synchronize: drop,
     }),
-    startTime
+    startTime,
   ];
 };

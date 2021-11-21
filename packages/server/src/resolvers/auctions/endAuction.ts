@@ -35,7 +35,7 @@ export class EndAuctionResolver {
     });
 
     if (winningBidIndex === -1) {
-      throw new Error("Invalid bid id");
+      throw new Error("Invalid winning bid id");
     }
 
     // closing the auction and declaring the winner

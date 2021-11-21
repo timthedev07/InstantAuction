@@ -14,5 +14,8 @@ mutation CloseAuction($auctionId: Int!) {
       picture
       name
     }
+    winner {
+      username
+    }
   }
 }

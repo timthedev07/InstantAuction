@@ -14,5 +14,8 @@ mutation CreateAuction($title: String!, $description: String!, $itemId: Int!) {
       picture
       name
     }
+    winner {
+      username
+    }
   }
 }

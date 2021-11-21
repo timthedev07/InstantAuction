@@ -18,6 +18,9 @@ query AllAuctions {
         picture
         name
       }
+      winner {
+        username
+      }
     }
   }
 }

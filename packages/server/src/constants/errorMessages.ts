@@ -7,3 +7,4 @@ export const alreadyParticipating =
 export const cannotRebid = "You cannot rebid.";
 export const auctionClosed = "Auction Closed";
 export const invalidAuction = "Invalid Auction";
+export const invalidWinningBidId = "Invalid winning bid id";

@@ -31,7 +31,7 @@ const HOSTNAME = process.env.HOST || "0.0.0.0";
   app.use(
     cors({
       credentials: true,
-      origin: [FRONTEND, PLAYGROUND],
+      origin: [FRONTEND, PLAYGROUND]
     })
   );
   app.use(graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }));
@@ -41,17 +41,17 @@ const HOSTNAME = process.env.HOST || "0.0.0.0";
       name: sessionCookieName,
       store: new RedisStore({
         client: redisClient,
-        disableTouch: true,
+        disableTouch: true
       }),
       cookie: {
         maxAge: 1000 * 60 * 60 * 24 * 365 * 10,
         httpOnly: true,
         secure: __prod__, // cookie only works in https
-        sameSite: "lax",
+        sameSite: "lax"
       },
       secret: sessionSecret,
       resave: false,
-      saveUninitialized: false,
+      saveUninitialized: false
     })
   );
 
@@ -59,7 +59,7 @@ const HOSTNAME = process.env.HOST || "0.0.0.0";
 
   const apolloServer = new ApolloServer({
     schema,
-    context: ({ req, res }) => ({ req, res }),
+    context: ({ req, res }) => ({ req, res })
   });
 
   await createConnection();

@@ -1,5 +1,8 @@
 import { Resolver, Mutation, UseMiddleware, Ctx, Arg, Int } from "type-graphql";
-import { unauthorizedErrorMessage } from "../../constants/errorMessages";
+import {
+  invalidItem,
+  unauthorizedErrorMessage,
+} from "../../constants/errorMessages";
 import { auctionExposedRelations } from "../../constants/exposed-relations";
 import { Auction } from "../../entity/Auction";
 import { Item } from "../../entity/Item";
@@ -30,7 +33,7 @@ export class CreateAuctionResolver {
 
     let item = await Item.findOne(itemId, { relations: ["owner"] });
     if (!item) {
-      throw new Error("Couldn't find item.");
+      throw new Error(invalidItem);
     }
 
     if (item.owner.id !== seller.id) {
@@ -44,7 +47,7 @@ export class CreateAuctionResolver {
         description,
         title,
         seller,
-        item
+        item,
       });
       id = raw[0].id;
 

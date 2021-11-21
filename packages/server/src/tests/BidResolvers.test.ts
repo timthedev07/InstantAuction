@@ -7,7 +7,12 @@ import {
 } from "../constants/errorMessages";
 import { accessGraphqlErrorMessage } from "../test-utils/accessGraphqlError";
 import { callGraphql } from "../test-utils/callGraphql";
-import { auction2Id, auctionCreator, auctionId } from "./AuctionResolvers.test";
+import {
+  auction2Id,
+  auctionCreator,
+  auctionId,
+  closedAuctionId,
+} from "./AuctionResolvers.test";
 import { users } from "./index.test";
 import { items } from "./ItemResolvers.test";
 import { createBidSource } from "./sources";
@@ -77,7 +82,7 @@ export const testBidResolvers = () => {
         userId: actionUserId,
         variableValues: {
           itemId: items[actionUserId][2].id,
-          auctionId,
+          auctionId: closedAuctionId,
         },
       });
 

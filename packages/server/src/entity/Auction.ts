@@ -7,7 +7,7 @@ import {
   ManyToOne,
   OneToMany,
   OneToOne,
-  JoinColumn
+  JoinColumn,
 } from "typeorm";
 import { Bid } from "./Bid";
 import { Item } from "./Item";
@@ -53,10 +53,10 @@ export class Auction extends BaseEntity {
   @JoinColumn()
   item: Item;
 
-  @Field(() => User)
+  @Field(() => User, { nullable: true })
   @ManyToOne(() => User, user => user.auctionsWon, {
     onDelete: "SET NULL",
-    nullable: true
+    nullable: true,
   })
-  winner: User;
+  winner: User | null;
 }

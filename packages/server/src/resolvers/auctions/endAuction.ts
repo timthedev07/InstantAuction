@@ -7,6 +7,7 @@ import {
 import { auctionExposedRelations } from "../../constants/exposed-relations";
 import { Auction } from "../../entity/Auction";
 import { Bid } from "../../entity/Bid";
+import { Item } from "../../entity/Item";
 import { NetworkingContext } from "../../types/NetworkingContext";
 import { isAuth } from "../../utils/isAuthMiddleware";
 
@@ -20,7 +21,7 @@ export class EndAuctionResolver {
     @Ctx() { req }: NetworkingContext
   ) {
     const auction = await Auction.findOne(auctionId, {
-      relations: ["seller", "bids", "bids.bidder"],
+      relations: ["seller", "bids", "bids.bidder", "bids.item"],
     });
 
     if (!auction) {
@@ -50,6 +51,8 @@ export class EndAuctionResolver {
     await Bid.update(auction.bids[winningBidIndex].id, {
       won: true,
     });
+
+    await Item.delete({ id: auction.bids[winningBidIndex].item.id });
 
     return await Auction.findOne(auction.id, {
       relations: auctionExposedRelations,

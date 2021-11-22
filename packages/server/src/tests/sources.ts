@@ -46,5 +46,3 @@ export const createBidSource = getSource(
   "createBid.graphql",
   ResolverType.bids
 );
-
-console.log(module.exports);

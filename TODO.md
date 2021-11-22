@@ -61,19 +61,19 @@
     - Get Items belonged to a particular user ✅
     - Delete Item ✅
     - Modify Item ✅
-    - Mark as sold
+    - Gets deleted when sold
 
 - Bid Resolvers
 
   - Bid an auction for an item(reject multiple bids from one user on the same auction)
   - Delete bid
 
-* Auction
+- Auction
   - Resolvers
     - Get all actions ✅
     - Close auction ✅
     - Delete auction ✅
-    - End auction and declare winner
+    - End auction and declare winner ✅
     - Update auction details(the owner)
     - For a particular user:
       - Show a list of auctions owned

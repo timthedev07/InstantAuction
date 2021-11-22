@@ -13,7 +13,7 @@ jobs:
     # docker container
     container: node:lts-alpine3.14
     env:
-      rootDir: ./packages/server
+      rootDir: ./
     services:
       postgres:
         image: postgres
@@ -52,7 +52,7 @@ jobs:
         run: yarn install 2> >(grep -v warning 1>&2)
         working-directory: ${{env.rootDir}}
       - name: Run Tests
-        run: yarn --silent test
+        run: cd packages/server && yarn --silent test
         working-directory: ${{env.rootDir}}
         env:
           POSTGRES_HOST: postgres

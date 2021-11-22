@@ -15,12 +15,14 @@ import {
   invalidAuction,
   invalidWinningBidId,
 } from "../constants/errorMessages";
+import { Item } from "../entity/Item";
 
 export let auctionId: number;
 export let auction2Id: number;
-let allAuctionsResult: any;
 export let auctionCreator: User;
 export let closedAuctionId: number;
+let allAuctionsResult: any;
+let chosenItemId: number;
 
 export const setAuctionCreator = (user: User) => (auctionCreator = user);
 
@@ -171,8 +173,10 @@ export const testAuctionResolversFinal = () => {
 
     it("ends the auction and declares the winner", async () => {
       const chosenBid = (await Auction.findOne(auctionId, {
-        relations: ["bids", "bids.bidder"],
+        relations: ["bids", "bids.bidder", "bids.item"],
       })).bids[0];
+
+      chosenItemId = chosenBid.item.id;
 
       const result = await callGraphql({
         source: endAuctionSource,
@@ -188,6 +192,11 @@ export const testAuctionResolversFinal = () => {
         },
         status: "closed",
       });
+    });
+
+    it("deletes the selected bid's item", async () => {
+      const result = await Item.findOne(chosenItemId);
+      expect(result).toBeFalsy();
     });
   });
 

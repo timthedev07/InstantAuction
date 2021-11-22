@@ -1,90 +1,50 @@
 import { readFileSync } from "fs";
 import { join } from "path";
 
-type ResolverType = "auctions" | "bids" | "items" | "users";
+enum ResolverType {
+  auctions = "auctions",
+  bids = "bids",
+  items = "items",
+  users = "users",
+}
 /**
  *
- * @param gqlFileShortPath e.g. auctions/allAuctions.graphql, bids/createBid.graphql
+ * @param gqlFilename e.g. allAuctions.graphql, createBid.graphql
  * @returns
  */
-export const getSource = () => {
-  const gqlFilePath = `../client-controllers/src/graphql/${gqlFilename}`;
+export const getSource = (gqlFilename: string, resolverType: ResolverType) => {
+  const gqlFilePath = `../client-controllers/src/graphql/${resolverType}/${gqlFilename}`;
   return readFileSync(join(process.cwd(), gqlFilePath)).toString();
 };
 
-export const createAuctionSource = getSource("auctions/createAuction.graphql");
+export const createAuctionSource = getSource(
+  "createAuction.graphql",
+  ResolverType.auctions
+);
 
-export const closeAuctionSource = getSource("auctions/closeAuction.graphql");
+export const closeAuctionSource = getSource(
+  "closeAuction.graphql",
+  ResolverType.auctions
+);
 
-export const deleteAuctionSource = `
-mutation DeleteAuction($auctionId: Int!) {
-  deleteAuction(auctionId: $auctionId)
-}
-`;
+export const deleteAuctionSource = getSource(
+  "deleteAuction.graphql",
+  ResolverType.auctions
+);
 
-export const allAuctionsSource = `
-query AllAuctions {
-  allAuctions {
-    count
-    auctions {
-      id
-      title
-      description
-      seller {
-        username
-      }
-      status
-      dateCreated
-      dateUpdated
-      item {
-        id
-        picture
-        name
-      }
-    }
-  }
-}
-`;
+export const allAuctionsSource = getSource(
+  "allAuctions.graphql",
+  ResolverType.auctions
+);
 
-export const endAuctionSource = `
-mutation EndAuction($auctionId: Int!, $winningBidId: Int!) {
-  endAuction(auctionId: $auctionId, winningBidId: $winningBidId) {
-    id
-    title
-    description
-    seller {
-      username
-    }
-    status
-    dateCreated
-    dateUpdated
-    item {
-      id
-      picture
-      name
-    }
-    winner {
-      username
-    }
-  }
-}
+export const endAuctionSource = getSource(
+  "endAuction.graphql",
+  ResolverType.auctions
+);
 
+export const createBidSource = getSource(
+  "createBid.graphql",
+  ResolverType.bids
+);
 
-`;
-
-export const createBidSource = `
-mutation CreateBid($itemId: Int!, $auctionId: Int!) {
-  createBid(itemId: $itemId, auctionId: $auctionId) {
-    id
-    bidder {
-      username
-    }
-    item {
-      id
-      picture
-      name
-    }
-    won
-  }
-}
-`;
+console.log(module.exports);

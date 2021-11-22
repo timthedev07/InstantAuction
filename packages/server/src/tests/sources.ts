@@ -1,56 +1,20 @@
 import { readFileSync } from "fs";
+import { join } from "path";
 
+type ResolverType = "auctions" | "bids" | "items" | "users";
 /**
  *
  * @param gqlFileShortPath e.g. auctions/allAuctions.graphql, bids/createBid.graphql
  * @returns
  */
-export const getSource = (gqlFileShortPath: string) => {
-  const gqlFilePath = `../client-controllers/src/graphql/${gqlFileShortPath}`;
-  return readFileSync(gqlFilePath).toString();
+export const getSource = () => {
+  const gqlFilePath = `../client-controllers/src/graphql/${gqlFilename}`;
+  return readFileSync(join(process.cwd(), gqlFilePath)).toString();
 };
 
-export const createAuctionSource = `
-mutation CreateAuction($title: String!, $description: String!, $itemId: Int!) {
-  createAuction(title: $title, description: $description, itemId: $itemId) {
-    id
-    title
-    description
-    seller {
-      username
-    }
-    status
-    dateCreated
-    dateUpdated
-    item {
-      id
-      picture
-      name
-    }
-  }
-}
-`;
+export const createAuctionSource = getSource("auctions/createAuction.graphql");
 
-export const closeAuctionSource = `
-mutation CloseAuction($auctionId: Int!) {
-  closeAuction(auctionId: $auctionId) {
-    id
-    title
-    description
-    seller {
-      username
-    }
-    status
-    dateCreated
-    dateUpdated
-    item {
-      id
-      picture
-      name
-    }
-  }
-}
-`;
+export const closeAuctionSource = getSource("auctions/closeAuction.graphql");
 
 export const deleteAuctionSource = `
 mutation DeleteAuction($auctionId: Int!) {

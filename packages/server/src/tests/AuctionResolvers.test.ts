@@ -11,7 +11,10 @@ import { User } from "../entity/User";
 import { items } from "./ItemResolvers.test";
 import { Auction } from "../entity/Auction";
 import { gqlErrorMessage } from "../test-utils/accessGraphqlError";
-import { invalidAuction } from "../constants/errorMessages";
+import {
+  invalidAuction,
+  invalidWinningBidId,
+} from "../constants/errorMessages";
 
 export let auctionId: number;
 export let auction2Id: number;
@@ -152,6 +155,39 @@ export const testAuctionResolversFinal = () => {
         },
       });
       expect(gqlErrorMessage(result.errors)).toBe(invalidAuction);
+    });
+
+    it("rejects invalid winning bid id", async () => {
+      const result = await callGraphql({
+        source: endAuctionSource,
+        userId: auctionCreator.id,
+        variableValues: {
+          auctionId,
+          winningBidId: -5,
+        },
+      });
+      expect(gqlErrorMessage(result.errors)).toBe(invalidWinningBidId);
+    });
+
+    it("ends the auction and declares the winner", async () => {
+      const chosenBid = (await Auction.findOne(auctionId, {
+        relations: ["bids", "bids.bidder"],
+      })).bids[0];
+
+      const result = await callGraphql({
+        source: endAuctionSource,
+        userId: auctionCreator.id,
+        variableValues: {
+          auctionId,
+          winningBidId: chosenBid.id,
+        },
+      });
+      expect(result.data.endAuction).toMatchObject({
+        winner: {
+          username: chosenBid.bidder.username,
+        },
+        status: "closed",
+      });
     });
   });
 

@@ -87,6 +87,9 @@ mutation EndAuction($auctionId: Int!, $winningBidId: Int!) {
       picture
       name
     }
+    winner {
+      username
+    }
   }
 }
 

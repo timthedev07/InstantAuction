@@ -1,3 +1,15 @@
+import { readFileSync } from "fs";
+
+/**
+ *
+ * @param gqlFileShortPath e.g. auctions/allAuctions.graphql, bids/createBid.graphql
+ * @returns
+ */
+export const getSource = (gqlFileShortPath: string) => {
+  const gqlFilePath = `../client-controllers/src/graphql/${gqlFileShortPath}`;
+  return readFileSync(gqlFilePath).toString();
+};
+
 export const createAuctionSource = `
 mutation CreateAuction($title: String!, $description: String!, $itemId: Int!) {
   createAuction(title: $title, description: $description, itemId: $itemId) {

@@ -61,11 +61,11 @@
     - Get Items belonged to a particular user ✅
     - Delete Item ✅
     - Modify Item ✅
-    - Gets deleted when sold
+    - Gets deleted when sold ✅
 
 - Bid Resolvers
 
-  - Bid an auction for an item(reject multiple bids from one user on the same auction)
+  - Bid an auction for an item(reject multiple bids from one user on the same auction) ✅
   - Delete bid
 
 - Auction

@@ -6,5 +6,9 @@ module.exports = {
   moduleFileExtensions: ["ts", "js"],
   maxWorkers: 1,
   cache: true,
-  cacheDirectory: ".jest-cache"
+  cacheDirectory: ".jest-cache",
+  displayName: {
+    color: "cyan",
+    name: "GraphQL Resolvers Tests",
+  },
 };

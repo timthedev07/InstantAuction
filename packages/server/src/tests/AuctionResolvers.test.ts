@@ -194,7 +194,7 @@ export const testAuctionResolversFinal = () => {
       });
     });
 
-    it("deletes the selected bid's item", async () => {
+    it("deletes the selected bid's item after an auction has ended", async () => {
       const result = await Item.findOne(chosenItemId);
       expect(result).toBeFalsy();
     });

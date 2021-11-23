@@ -4,7 +4,7 @@ import { User } from "../entity/User";
 import {
   setAuctionCreator,
   testAuctionResolvers,
-  testAuctionResolversFinal
+  testAuctionResolversFinal,
 } from "./AuctionResolvers.test";
 import { testItemResolvers } from "./ItemResolvers.test";
 import { testBidResolvers } from "./BidResolvers.test";
@@ -22,32 +22,32 @@ beforeAll(async () => {
     email: "jeff@jeff.org",
     externalId: "333",
     provider: "Google",
-    username: "Jeff"
+    username: "Jeff",
   });
   const { raw: raw1 } = await User.insert({
     avatarUrl: "https://avatars.githubusercontent.com/u/87135844?v=4",
     email: "chris@white.com",
     externalId: "194817249812",
     provider: "Discord",
-    username: "i.am.entrepreneur"
+    username: "i.am.entrepreneur",
   });
   const { raw: raw2 } = await User.insert({
     avatarUrl: "https://avatars.githubusercontent.com/u/87135844?v=4",
     email: "john@carlson.com",
     externalId: "iamjeffbezos",
     provider: "Google",
-    username: "JEFFZEBOSISHERE"
+    username: "JEFFZEBOSISHERE",
   });
 
   users = [
     await User.findOne(raw[0].id),
     await User.findOne(raw1[0].id),
-    await User.findOne(raw2[0].id)
+    await User.findOne(raw2[0].id),
   ];
   setAuctionCreator(users[0]);
 });
 
-describe("InstantAuction Backend Server Unit Testing", () => {
+describe("InstantAuction Backend Testing", () => {
   describe("Item Resolvers", testItemResolvers);
   describe("Auction Resolvers - 0", testAuctionResolvers);
   describe("Bid Resolvers", testBidResolvers);

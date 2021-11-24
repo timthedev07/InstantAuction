@@ -9,50 +9,45 @@ enum ResolverType {
 }
 /**
  *
- * @param gqlFilename e.g. allAuctions.graphql, createBid.graphql
+ * @param gqlFilename Your graphql file name without extension e.g. allAuctions.graphql createBid
  * @returns
  */
-export const getSource = (gqlFilename: string, resolverType: ResolverType) => {
-  const gqlFilePath = `../client-controllers/src/graphql/${resolverType}/${gqlFilename}`;
+export const getSource = (
+  gqlFilename: string,
+  resolverType: ResolverType,
+  ext: string = ".graphql"
+) => {
+  const gqlFilePath = `../client-controllers/src/graphql/${resolverType}/${gqlFilename}${ext}`;
   return readFileSync(join(process.cwd(), gqlFilePath)).toString();
 };
 
 export const createAuctionSource = getSource(
-  "createAuction.graphql",
+  "createAuction",
   ResolverType.auctions
 );
 
 export const closeAuctionSource = getSource(
-  "closeAuction.graphql",
+  "closeAuction",
   ResolverType.auctions
 );
 
 export const deleteAuctionSource = getSource(
-  "deleteAuction.graphql",
+  "deleteAuction",
   ResolverType.auctions
 );
 
 export const allAuctionsSource = getSource(
-  "allAuctions.graphql",
+  "allAuctions",
   ResolverType.auctions
 );
 
-export const endAuctionSource = getSource(
-  "endAuction.graphql",
-  ResolverType.auctions
-);
+export const endAuctionSource = getSource("endAuction", ResolverType.auctions);
 
-export const createBidSource = getSource(
-  "createBid.graphql",
-  ResolverType.bids
-);
+export const createBidSource = getSource("createBid", ResolverType.bids);
 
-export const deleteBidSource = getSource(
-  "deleteBid.graphql",
-  ResolverType.bids
-);
+export const deleteBidSource = getSource("deleteBid", ResolverType.bids);
 
 export const modifyAuctionSource = getSource(
-  "modifyAuction.graphql",
-  ResolverType.bids
+  "modifyAuction",
+  ResolverType.auctions
 );

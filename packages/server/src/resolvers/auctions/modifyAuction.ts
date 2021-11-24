@@ -1,8 +1,12 @@
-import { Resolver, Mutation, Int } from "type-graphql";
+import { Resolver, Mutation, Int, UseMiddleware, Arg, Ctx } from "type-graphql";
 import { Auction } from "../../entity/Auction";
 import { isAuth } from "../../utils/isAuthMiddleware";
 import { NetworkingContext } from "../../types/NetworkingContext";
-import { unauthorizedErrorMessage } from "../../constants/errorMessages";
+import {
+  invalidAuction,
+  unauthorizedErrorMessage,
+} from "../../constants/errorMessages";
+import { ModifyAuctionPartialUpdate } from "../../types/partialModifyAuction";
 
 @Resolver()
 export class ModifyAuctionResolver {
@@ -10,16 +14,22 @@ export class ModifyAuctionResolver {
   @UseMiddleware(isAuth)
   async modifyAuction(
     @Arg("auctionId", () => Int) auctionId: number,
-    @Arg("update object") object: Object,
+    @Arg("partialUpdate") partialUpdate: ModifyAuctionPartialUpdate,
     @Ctx() { req }: NetworkingContext
   ) {
     const auction = await Auction.findOne(auctionId, { relations: ["seller"] });
+
+    if (!auction) {
+      throw new Error(invalidAuction);
+    }
 
     // check the ownership
     if (auction.seller.id !== req.session.userId) {
       throw new Error(unauthorizedErrorMessage);
     }
 
-    const updateResult = await Auction.update(auctionId, {});
+    await Auction.update(auctionId, partialUpdate);
+
+    return true;
   }
 }

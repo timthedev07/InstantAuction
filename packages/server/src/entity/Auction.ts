@@ -29,7 +29,7 @@ export class Auction extends BaseEntity {
   description: string;
 
   @Field(() => User)
-  @ManyToOne(() => User, user => user.auctionsOwned, { onDelete: "CASCADE" })
+  @ManyToOne(() => User, (user) => user.auctionsOwned, { onDelete: "CASCADE" })
   seller: User;
 
   @Field(() => Date)
@@ -41,7 +41,7 @@ export class Auction extends BaseEntity {
   dateUpdated: Date;
 
   @Field(() => [Bid])
-  @OneToMany(() => Bid, bid => bid.auction)
+  @OneToMany(() => Bid, (bid) => bid.auction)
   bids: Bid[];
 
   @Field(() => String)
@@ -54,7 +54,7 @@ export class Auction extends BaseEntity {
   item: Item;
 
   @Field(() => User, { nullable: true })
-  @ManyToOne(() => User, user => user.auctionsWon, {
+  @ManyToOne(() => User, (user) => user.auctionsWon, {
     onDelete: "SET NULL",
     nullable: true,
   })

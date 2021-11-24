@@ -1,6 +1,7 @@
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
+export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
@@ -29,7 +30,7 @@ export type Auction = {
   seller: User;
   status: Scalars['String'];
   title: Scalars['String'];
-  winner: User;
+  winner?: Maybe<User>;
 };
 
 export type AuctionsResponse = {
@@ -55,6 +56,11 @@ export type Item = {
   picture: Scalars['String'];
 };
 
+export type ModifyAuctionPartialUpdate = {
+  description?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   closeAuction: Auction;
@@ -64,11 +70,13 @@ export type Mutation = {
   createItemWithPictureUrl: Item;
   deleteAccount: Scalars['Boolean'];
   deleteAuction: Scalars['Boolean'];
+  deleteBid: Scalars['Boolean'];
   deleteItem: Scalars['Boolean'];
   discordOAuth: OAuthResponse;
   endAuction: Auction;
   googleOAuth: OAuthResponse;
   logout: Scalars['Boolean'];
+  modifyAuction: Auction;
   modifyItem: Item;
   updateCredentials: User;
 };
@@ -114,6 +122,11 @@ export type MutationDeleteAuctionArgs = {
 };
 
 
+export type MutationDeleteBidArgs = {
+  bidId: Scalars['Int'];
+};
+
+
 export type MutationDeleteItemArgs = {
   itemId: Scalars['Int'];
 };
@@ -135,15 +148,21 @@ export type MutationGoogleOAuthArgs = {
 };
 
 
+export type MutationModifyAuctionArgs = {
+  auctionId: Scalars['Int'];
+  partialUpdate: ModifyAuctionPartialUpdate;
+};
+
+
 export type MutationModifyItemArgs = {
   itemId: Scalars['Int'];
-  newName?: Maybe<Scalars['String']>;
-  picture?: Maybe<Scalars['Upload']>;
+  newName?: InputMaybe<Scalars['String']>;
+  picture?: InputMaybe<Scalars['Upload']>;
 };
 
 
 export type MutationUpdateCredentialsArgs = {
-  username?: Maybe<Scalars['String']>;
+  username?: InputMaybe<Scalars['String']>;
 };
 
 export type OAuthResponse = {
@@ -194,14 +213,14 @@ export type UserItemsResponse = {
 export type AllAuctionsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type AllAuctionsQuery = { __typename?: 'Query', allAuctions: { __typename?: 'AuctionsResponse', count: number, auctions: Array<{ __typename?: 'Auction', id: number, title: string, description: string, status: string, dateCreated: any, dateUpdated: any, seller: { __typename?: 'User', username: string }, item: { __typename?: 'Item', id: number, picture: string, name: string } }> } };
+export type AllAuctionsQuery = { __typename?: 'Query', allAuctions: { __typename?: 'AuctionsResponse', count: number, auctions: Array<{ __typename?: 'Auction', id: number, title: string, description: string, status: string, dateCreated: any, dateUpdated: any, seller: { __typename?: 'User', username: string }, item: { __typename?: 'Item', id: number, picture: string, name: string }, winner?: { __typename?: 'User', username: string } | null | undefined }> } };
 
 export type CloseAuctionMutationVariables = Exact<{
   auctionId: Scalars['Int'];
 }>;
 
 
-export type CloseAuctionMutation = { __typename?: 'Mutation', closeAuction: { __typename?: 'Auction', id: number, title: string, description: string, status: string, dateCreated: any, dateUpdated: any, seller: { __typename?: 'User', username: string }, item: { __typename?: 'Item', id: number, picture: string, name: string } } };
+export type CloseAuctionMutation = { __typename?: 'Mutation', closeAuction: { __typename?: 'Auction', id: number, title: string, description: string, status: string, dateCreated: any, dateUpdated: any, seller: { __typename?: 'User', username: string }, item: { __typename?: 'Item', id: number, picture: string, name: string }, winner?: { __typename?: 'User', username: string } | null | undefined } };
 
 export type CreateAuctionMutationVariables = Exact<{
   title: Scalars['String'];
@@ -210,7 +229,7 @@ export type CreateAuctionMutationVariables = Exact<{
 }>;
 
 
-export type CreateAuctionMutation = { __typename?: 'Mutation', createAuction: { __typename?: 'Auction', id: number, title: string, description: string, status: string, dateCreated: any, dateUpdated: any, seller: { __typename?: 'User', username: string }, item: { __typename?: 'Item', id: number, picture: string, name: string } } };
+export type CreateAuctionMutation = { __typename?: 'Mutation', createAuction: { __typename?: 'Auction', id: number, title: string, description: string, status: string, dateCreated: any, dateUpdated: any, seller: { __typename?: 'User', username: string }, item: { __typename?: 'Item', id: number, picture: string, name: string }, winner?: { __typename?: 'User', username: string } | null | undefined } };
 
 export type DeleteAuctionMutationVariables = Exact<{
   auctionId: Scalars['Int'];
@@ -225,7 +244,15 @@ export type EndAuctionMutationVariables = Exact<{
 }>;
 
 
-export type EndAuctionMutation = { __typename?: 'Mutation', endAuction: { __typename?: 'Auction', id: number, title: string, description: string, status: string, dateCreated: any, dateUpdated: any, seller: { __typename?: 'User', username: string }, item: { __typename?: 'Item', id: number, picture: string, name: string } } };
+export type EndAuctionMutation = { __typename?: 'Mutation', endAuction: { __typename?: 'Auction', id: number, title: string, description: string, status: string, dateCreated: any, dateUpdated: any, seller: { __typename?: 'User', username: string }, item: { __typename?: 'Item', id: number, picture: string, name: string }, winner?: { __typename?: 'User', username: string } | null | undefined } };
+
+export type ModifyAuctionMutationVariables = Exact<{
+  partialUpdate: ModifyAuctionPartialUpdate;
+  auctionId: Scalars['Int'];
+}>;
+
+
+export type ModifyAuctionMutation = { __typename?: 'Mutation', modifyAuction: { __typename?: 'Auction', id: number, title: string, description: string, status: string, dateCreated: any, dateUpdated: any, seller: { __typename?: 'User', username: string }, item: { __typename?: 'Item', id: number, picture: string, name: string }, winner?: { __typename?: 'User', username: string } | null | undefined } };
 
 export type CreateBidMutationVariables = Exact<{
   itemId: Scalars['Int'];
@@ -234,6 +261,13 @@ export type CreateBidMutationVariables = Exact<{
 
 
 export type CreateBidMutation = { __typename?: 'Mutation', createBid: { __typename?: 'Bid', id: number, won: boolean, bidder: { __typename?: 'User', username: string }, item: { __typename?: 'Item', id: number, picture: string, name: string } } };
+
+export type DeleteBidMutationVariables = Exact<{
+  bidId: Scalars['Int'];
+}>;
+
+
+export type DeleteBidMutation = { __typename?: 'Mutation', deleteBid: boolean };
 
 export type CreateItemMutationVariables = Exact<{
   name: Scalars['String'];
@@ -267,8 +301,8 @@ export type GetUserItemsQuery = { __typename?: 'Query', getUserItems: { __typena
 
 export type ModifyItemMutationVariables = Exact<{
   itemId: Scalars['Int'];
-  newName?: Maybe<Scalars['String']>;
-  picture?: Maybe<Scalars['Upload']>;
+  newName?: InputMaybe<Scalars['String']>;
+  picture?: InputMaybe<Scalars['Upload']>;
 }>;
 
 
@@ -344,6 +378,9 @@ export const AllAuctionsDocument = gql`
         picture
         name
       }
+      winner {
+        username
+      }
     }
   }
 }
@@ -392,6 +429,9 @@ export const CloseAuctionDocument = gql`
       picture
       name
     }
+    winner {
+      username
+    }
   }
 }
     `;
@@ -437,6 +477,9 @@ export const CreateAuctionDocument = gql`
       id
       picture
       name
+    }
+    winner {
+      username
     }
   }
 }
@@ -517,6 +560,9 @@ export const EndAuctionDocument = gql`
       picture
       name
     }
+    winner {
+      username
+    }
   }
 }
     `;
@@ -547,6 +593,56 @@ export function useEndAuctionMutation(baseOptions?: Apollo.MutationHookOptions<E
 export type EndAuctionMutationHookResult = ReturnType<typeof useEndAuctionMutation>;
 export type EndAuctionMutationResult = Apollo.MutationResult<EndAuctionMutation>;
 export type EndAuctionMutationOptions = Apollo.BaseMutationOptions<EndAuctionMutation, EndAuctionMutationVariables>;
+export const ModifyAuctionDocument = gql`
+    mutation ModifyAuction($partialUpdate: ModifyAuctionPartialUpdate!, $auctionId: Int!) {
+  modifyAuction(partialUpdate: $partialUpdate, auctionId: $auctionId) {
+    id
+    title
+    description
+    seller {
+      username
+    }
+    status
+    dateCreated
+    dateUpdated
+    item {
+      id
+      picture
+      name
+    }
+    winner {
+      username
+    }
+  }
+}
+    `;
+export type ModifyAuctionMutationFn = Apollo.MutationFunction<ModifyAuctionMutation, ModifyAuctionMutationVariables>;
+
+/**
+ * __useModifyAuctionMutation__
+ *
+ * To run a mutation, you first call `useModifyAuctionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useModifyAuctionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [modifyAuctionMutation, { data, loading, error }] = useModifyAuctionMutation({
+ *   variables: {
+ *      partialUpdate: // value for 'partialUpdate'
+ *      auctionId: // value for 'auctionId'
+ *   },
+ * });
+ */
+export function useModifyAuctionMutation(baseOptions?: Apollo.MutationHookOptions<ModifyAuctionMutation, ModifyAuctionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ModifyAuctionMutation, ModifyAuctionMutationVariables>(ModifyAuctionDocument, options);
+      }
+export type ModifyAuctionMutationHookResult = ReturnType<typeof useModifyAuctionMutation>;
+export type ModifyAuctionMutationResult = Apollo.MutationResult<ModifyAuctionMutation>;
+export type ModifyAuctionMutationOptions = Apollo.BaseMutationOptions<ModifyAuctionMutation, ModifyAuctionMutationVariables>;
 export const CreateBidDocument = gql`
     mutation CreateBid($itemId: Int!, $auctionId: Int!) {
   createBid(itemId: $itemId, auctionId: $auctionId) {
@@ -590,6 +686,37 @@ export function useCreateBidMutation(baseOptions?: Apollo.MutationHookOptions<Cr
 export type CreateBidMutationHookResult = ReturnType<typeof useCreateBidMutation>;
 export type CreateBidMutationResult = Apollo.MutationResult<CreateBidMutation>;
 export type CreateBidMutationOptions = Apollo.BaseMutationOptions<CreateBidMutation, CreateBidMutationVariables>;
+export const DeleteBidDocument = gql`
+    mutation DeleteBid($bidId: Int!) {
+  deleteBid(bidId: $bidId)
+}
+    `;
+export type DeleteBidMutationFn = Apollo.MutationFunction<DeleteBidMutation, DeleteBidMutationVariables>;
+
+/**
+ * __useDeleteBidMutation__
+ *
+ * To run a mutation, you first call `useDeleteBidMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteBidMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteBidMutation, { data, loading, error }] = useDeleteBidMutation({
+ *   variables: {
+ *      bidId: // value for 'bidId'
+ *   },
+ * });
+ */
+export function useDeleteBidMutation(baseOptions?: Apollo.MutationHookOptions<DeleteBidMutation, DeleteBidMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteBidMutation, DeleteBidMutationVariables>(DeleteBidDocument, options);
+      }
+export type DeleteBidMutationHookResult = ReturnType<typeof useDeleteBidMutation>;
+export type DeleteBidMutationResult = Apollo.MutationResult<DeleteBidMutation>;
+export type DeleteBidMutationOptions = Apollo.BaseMutationOptions<DeleteBidMutation, DeleteBidMutationVariables>;
 export const CreateItemDocument = gql`
     mutation CreateItem($name: String!, $picture: Upload!) {
   createItem(name: $name, picture: $picture) {

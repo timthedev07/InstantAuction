@@ -1,0 +1,24 @@
+mutation ModifyAuction(
+  $partialUpdate: ModifyAuctionPartialUpdate!
+  $auctionId: Int!
+) {
+  modifyAuction(partialUpdate: $partialUpdate, auctionId: $auctionId) {
+    id
+    title
+    description
+    seller {
+      username
+    }
+    status
+    dateCreated
+    dateUpdated
+    item {
+      id
+      picture
+      name
+    }
+    winner {
+      username
+    }
+  }
+}

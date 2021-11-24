@@ -16,6 +16,7 @@ import { CloseAuctionResolver } from "./resolvers/auctions/closeAuction";
 import { EndAuctionResolver } from "./resolvers/auctions/endAuction";
 import { CreateBidResolver } from "./resolvers/bids/createBid";
 import { DeleteBidResolver } from "./resolvers/bids/deleteBid";
+import { ModifyAuctionResolver } from "./resolvers/auctions/modifyAuction";
 
 export const createSchema = () =>
   buildSchema({
@@ -40,6 +41,7 @@ export const createSchema = () =>
       DeleteAuctionResolver,
       CloseAuctionResolver,
       EndAuctionResolver,
+      ModifyAuctionResolver,
 
       // bid resolvers,
       CreateBidResolver,

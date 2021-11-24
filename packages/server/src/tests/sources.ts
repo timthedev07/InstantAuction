@@ -51,3 +51,8 @@ export const deleteBidSource = getSource(
   "deleteBid.graphql",
   ResolverType.bids
 );
+
+export const modifyAuctionSource = getSource(
+  "modifyAuction.graphql",
+  ResolverType.bids
+);

@@ -8,6 +8,7 @@ import {
   unauthorizedErrorMessage,
 } from "../../constants/errorMessages";
 import { ModifyAuctionPartialUpdate } from "../../types/partialModifyAuction";
+import { auctionExposedRelations } from "../../constants/exposed-relations";
 
 @Resolver()
 export class ModifyAuctionResolver {
@@ -35,6 +36,8 @@ export class ModifyAuctionResolver {
 
     await Auction.update(auctionId, partialUpdate);
 
-    return true;
+    return await Auction.findOne(auctionId, {
+      relations: auctionExposedRelations,
+    });
   }
 }

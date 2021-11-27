@@ -66,7 +66,7 @@
 - Bid Resolvers
 
   - Bid an auction for an item(reject multiple bids from one user on the same auction) ✅
-  - Delete bid
+  - Delete bid ✅
 
 - Auction
   - Resolvers
@@ -74,7 +74,7 @@
     - Close auction ✅
     - Delete auction ✅
     - End auction and declare winner ✅
-    - Update auction details(the owner)
+    - Update auction details(the owner) ✅
     - For a particular user:
       - Show a list of auctions owned
       - Show a list of auctions participated in

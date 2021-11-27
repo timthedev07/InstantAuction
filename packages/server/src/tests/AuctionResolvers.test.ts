@@ -13,6 +13,7 @@ import { items } from "./ItemResolvers.test";
 import { Auction } from "../entity/Auction";
 import { gqlErrorMessage } from "../test-utils/accessGraphqlError";
 import {
+  auctionClosed,
   invalidAuction,
   invalidWinningBidId,
   unauthorizedErrorMessage,
@@ -235,6 +236,22 @@ export const testAuctionResolversFinal = () => {
       });
 
       expect(gqlErrorMessage(result.errors)).toBe(unauthorizedErrorMessage);
+    });
+
+    it("rejects closed auctions", async () => {
+      const result = await callGraphql({
+        userId: auctionCreator.id,
+        source: modifyAuctionSource,
+        variableValues: {
+          partialUpdate: {
+            title: "",
+            description: "",
+          },
+          auctionId: auctionId,
+        },
+      });
+
+      expect(gqlErrorMessage(result.errors)).toBe(auctionClosed);
     });
   });
 

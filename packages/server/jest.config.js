@@ -2,7 +2,7 @@
 module.exports = {
   preset: "ts-jest",
   testEnvironment: "node",
-  testRegex: "(/src/tests/index.(test|spec))\\.ts?$",
+  testRegex: "(/src/tests/.*|(\\.|/)(test|spec))\\.ts?$",
   moduleFileExtensions: ["ts", "js"],
   maxWorkers: 1,
   cache: true,
@@ -11,4 +11,5 @@ module.exports = {
     color: "cyan",
     name: "GraphQL Resolvers Tests",
   },
+  testSequencer: "./jest-sequencer.js",
 };

@@ -6,6 +6,7 @@ import {
   createAuctionSource,
   deleteAuctionSource,
   endAuctionSource,
+  modifyAuctionSource,
 } from "./sources";
 import { User } from "../entity/User";
 import { items } from "./ItemResolvers.test";
@@ -14,8 +15,10 @@ import { gqlErrorMessage } from "../test-utils/accessGraphqlError";
 import {
   invalidAuction,
   invalidWinningBidId,
+  unauthorizedErrorMessage,
 } from "../constants/errorMessages";
 import { Item } from "../entity/Item";
+import { users } from "./index.test";
 
 export let auctionId: number;
 export let auction2Id: number;
@@ -197,6 +200,41 @@ export const testAuctionResolversFinal = () => {
     it("deletes the selected bid's item after an auction has ended", async () => {
       const result = await Item.findOne(chosenItemId);
       expect(result).toBeFalsy();
+    });
+  });
+
+  // modifying an auction
+  describe("Modify Auction Resolver", () => {
+    it("rejects invalid auction id", async () => {
+      const result = await callGraphql({
+        userId: auctionCreator.id,
+        source: modifyAuctionSource,
+        variableValues: {
+          partialUpdate: {
+            title: "",
+            description: "",
+          },
+          auctionId: -5555,
+        },
+      });
+
+      expect(gqlErrorMessage(result.errors)).toBe(invalidAuction);
+    });
+
+    it("rejects auction not owned by the user", async () => {
+      const result = await callGraphql({
+        userId: users[1].id,
+        source: modifyAuctionSource,
+        variableValues: {
+          partialUpdate: {
+            title: "",
+            description: "",
+          },
+          auctionId: auctionId,
+        },
+      });
+
+      expect(gqlErrorMessage(result.errors)).toBe(unauthorizedErrorMessage);
     });
   });
 

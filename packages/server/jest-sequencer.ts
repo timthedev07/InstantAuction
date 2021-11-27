@@ -1,11 +1,15 @@
 import TestSequencer from "@jest/test-sequencer";
 import { Test } from "@jest/test-result";
+import path from "path";
 
 export default class CustomSequencer extends TestSequencer {
   sort(tests: Array<Test>): Array<Test> {
-    const orderPath = ["ItemResolvers.test.ts"];
+    const orderNames = ["ItemResolvers"];
+    const orderPath = orderNames.map(each =>
+      path.resolve(__dirname, "..", each + ".test.ts")
+    );
+    // console.log(orderPath);
     return tests.sort((testA, testB) => {
-      console.log(testA);
       const indexA = orderPath.indexOf(testA.path);
       const indexB = orderPath.indexOf(testB.path);
 

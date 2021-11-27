@@ -2,12 +2,6 @@ import { User } from "../entity/User";
 import { Request, Response } from "express";
 import { OAuthResponse } from "../types/OAuthResponse";
 
-declare module "express-session" {
-  interface SessionData {
-    userId: number;
-  }
-}
-
 export const loginOAuth = (
   user: User,
   request: Request,
@@ -19,6 +13,6 @@ export const loginOAuth = (
   response;
 
   return {
-    user
+    user,
   } as OAuthResponse;
 };

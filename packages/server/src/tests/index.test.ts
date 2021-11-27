@@ -25,7 +25,6 @@ const getFakeUser = () => {
 
 // register a user to pass auth check
 beforeAll(async () => {
-  const startTime = Date.now();
   const result = await getTestConnection();
   connection = result[0];
 
@@ -40,9 +39,6 @@ beforeAll(async () => {
   ];
 
   setAuctionCreator(users[0]);
-
-  const endTime = Date.now();
-  console.log(`Test user generation took ${endTime - startTime}ms`);
 });
 
 describe("InstantAuction Backend Testing", () => {

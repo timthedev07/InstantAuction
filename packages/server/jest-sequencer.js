@@ -9,6 +9,7 @@ class CustomSequencer extends test_sequencer_1.default {
     sort(tests) {
         const orderNames = ["ItemResolvers"];
         const orderPath = orderNames.map(each => path_1.default.resolve(__dirname, "..", each + ".test.ts"));
+        console.log(orderPath);
         return tests.sort((testA, testB) => {
             const indexA = orderPath.indexOf(testA.path);
             const indexB = orderPath.indexOf(testB.path);

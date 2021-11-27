@@ -3,6 +3,7 @@ import { Auction } from "../../entity/Auction";
 import { isAuth } from "../../utils/isAuthMiddleware";
 import { NetworkingContext } from "../../types/NetworkingContext";
 import {
+  auctionClosed,
   invalidAuction,
   unauthorizedErrorMessage,
 } from "../../constants/errorMessages";
@@ -26,6 +27,10 @@ export class ModifyAuctionResolver {
     // check the ownership
     if (auction.seller.id !== req.session.userId) {
       throw new Error(unauthorizedErrorMessage);
+    }
+
+    if (auction.status === "closed") {
+      throw new Error(auctionClosed);
     }
 
     await Auction.update(auctionId, partialUpdate);

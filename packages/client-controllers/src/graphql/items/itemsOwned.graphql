@@ -1,0 +1,10 @@
+query ItemsOwned($excludeAuctionedOff: Boolean!) {
+  itemsOwned(excludeAuctionedOff: $excludeAuctionedOff) {
+    items {
+      id
+      picture
+      name
+    }
+    count
+  }
+}

@@ -173,15 +173,16 @@ export type OAuthResponse = {
 export type Query = {
   __typename?: 'Query';
   allAuctions: AuctionsResponse;
-  getUserItems: UserItemsResponse;
+  auctionsOwned: AuctionsResponse;
   hello: Scalars['String'];
+  itemsOwned: UserItemsResponse;
   me?: Maybe<User>;
   testUpload: Scalars['Boolean'];
   users: Array<User>;
 };
 
 
-export type QueryGetUserItemsArgs = {
+export type QueryItemsOwnedArgs = {
   excludeAuctionedOff: Scalars['Boolean'];
 };
 
@@ -214,6 +215,11 @@ export type AllAuctionsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type AllAuctionsQuery = { __typename?: 'Query', allAuctions: { __typename?: 'AuctionsResponse', count: number, auctions: Array<{ __typename?: 'Auction', id: number, title: string, description: string, status: string, dateCreated: any, dateUpdated: any, seller: { __typename?: 'User', username: string }, item: { __typename?: 'Item', id: number, picture: string, name: string }, winner?: { __typename?: 'User', username: string } | null | undefined }> } };
+
+export type AuctionsOwnedQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AuctionsOwnedQuery = { __typename?: 'Query', auctionsOwned: { __typename?: 'AuctionsResponse', count: number, auctions: Array<{ __typename?: 'Auction', id: number, title: string, description: string, status: string, dateCreated: any, dateUpdated: any, seller: { __typename?: 'User', username: string }, item: { __typename?: 'Item', id: number, picture: string, name: string }, winner?: { __typename?: 'User', username: string } | null | undefined }> } };
 
 export type CloseAuctionMutationVariables = Exact<{
   auctionId: Scalars['Int'];
@@ -292,12 +298,12 @@ export type DeleteItemMutationVariables = Exact<{
 
 export type DeleteItemMutation = { __typename?: 'Mutation', deleteItem: boolean };
 
-export type GetUserItemsQueryVariables = Exact<{
+export type ItemsOwnedQueryVariables = Exact<{
   excludeAuctionedOff: Scalars['Boolean'];
 }>;
 
 
-export type GetUserItemsQuery = { __typename?: 'Query', getUserItems: { __typename?: 'UserItemsResponse', count: number, items: Array<{ __typename?: 'Item', id: number, picture: string, name: string }> } };
+export type ItemsOwnedQuery = { __typename?: 'Query', itemsOwned: { __typename?: 'UserItemsResponse', count: number, items: Array<{ __typename?: 'Item', id: number, picture: string, name: string }> } };
 
 export type ModifyItemMutationVariables = Exact<{
   itemId: Scalars['Int'];
@@ -412,6 +418,59 @@ export function useAllAuctionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type AllAuctionsQueryHookResult = ReturnType<typeof useAllAuctionsQuery>;
 export type AllAuctionsLazyQueryHookResult = ReturnType<typeof useAllAuctionsLazyQuery>;
 export type AllAuctionsQueryResult = Apollo.QueryResult<AllAuctionsQuery, AllAuctionsQueryVariables>;
+export const AuctionsOwnedDocument = gql`
+    query AuctionsOwned {
+  auctionsOwned {
+    auctions {
+      id
+      title
+      description
+      seller {
+        username
+      }
+      status
+      dateCreated
+      dateUpdated
+      item {
+        id
+        picture
+        name
+      }
+      winner {
+        username
+      }
+    }
+    count
+  }
+}
+    `;
+
+/**
+ * __useAuctionsOwnedQuery__
+ *
+ * To run a query within a React component, call `useAuctionsOwnedQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAuctionsOwnedQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAuctionsOwnedQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAuctionsOwnedQuery(baseOptions?: Apollo.QueryHookOptions<AuctionsOwnedQuery, AuctionsOwnedQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<AuctionsOwnedQuery, AuctionsOwnedQueryVariables>(AuctionsOwnedDocument, options);
+      }
+export function useAuctionsOwnedLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AuctionsOwnedQuery, AuctionsOwnedQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<AuctionsOwnedQuery, AuctionsOwnedQueryVariables>(AuctionsOwnedDocument, options);
+        }
+export type AuctionsOwnedQueryHookResult = ReturnType<typeof useAuctionsOwnedQuery>;
+export type AuctionsOwnedLazyQueryHookResult = ReturnType<typeof useAuctionsOwnedLazyQuery>;
+export type AuctionsOwnedQueryResult = Apollo.QueryResult<AuctionsOwnedQuery, AuctionsOwnedQueryVariables>;
 export const CloseAuctionDocument = gql`
     mutation CloseAuction($auctionId: Int!) {
   closeAuction(auctionId: $auctionId) {
@@ -820,9 +879,9 @@ export function useDeleteItemMutation(baseOptions?: Apollo.MutationHookOptions<D
 export type DeleteItemMutationHookResult = ReturnType<typeof useDeleteItemMutation>;
 export type DeleteItemMutationResult = Apollo.MutationResult<DeleteItemMutation>;
 export type DeleteItemMutationOptions = Apollo.BaseMutationOptions<DeleteItemMutation, DeleteItemMutationVariables>;
-export const GetUserItemsDocument = gql`
-    query GetUserItems($excludeAuctionedOff: Boolean!) {
-  getUserItems(excludeAuctionedOff: $excludeAuctionedOff) {
+export const ItemsOwnedDocument = gql`
+    query ItemsOwned($excludeAuctionedOff: Boolean!) {
+  itemsOwned(excludeAuctionedOff: $excludeAuctionedOff) {
     items {
       id
       picture
@@ -834,32 +893,32 @@ export const GetUserItemsDocument = gql`
     `;
 
 /**
- * __useGetUserItemsQuery__
+ * __useItemsOwnedQuery__
  *
- * To run a query within a React component, call `useGetUserItemsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetUserItemsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useItemsOwnedQuery` and pass it any options that fit your needs.
+ * When your component renders, `useItemsOwnedQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetUserItemsQuery({
+ * const { data, loading, error } = useItemsOwnedQuery({
  *   variables: {
  *      excludeAuctionedOff: // value for 'excludeAuctionedOff'
  *   },
  * });
  */
-export function useGetUserItemsQuery(baseOptions: Apollo.QueryHookOptions<GetUserItemsQuery, GetUserItemsQueryVariables>) {
+export function useItemsOwnedQuery(baseOptions: Apollo.QueryHookOptions<ItemsOwnedQuery, ItemsOwnedQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetUserItemsQuery, GetUserItemsQueryVariables>(GetUserItemsDocument, options);
+        return Apollo.useQuery<ItemsOwnedQuery, ItemsOwnedQueryVariables>(ItemsOwnedDocument, options);
       }
-export function useGetUserItemsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUserItemsQuery, GetUserItemsQueryVariables>) {
+export function useItemsOwnedLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ItemsOwnedQuery, ItemsOwnedQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetUserItemsQuery, GetUserItemsQueryVariables>(GetUserItemsDocument, options);
+          return Apollo.useLazyQuery<ItemsOwnedQuery, ItemsOwnedQueryVariables>(ItemsOwnedDocument, options);
         }
-export type GetUserItemsQueryHookResult = ReturnType<typeof useGetUserItemsQuery>;
-export type GetUserItemsLazyQueryHookResult = ReturnType<typeof useGetUserItemsLazyQuery>;
-export type GetUserItemsQueryResult = Apollo.QueryResult<GetUserItemsQuery, GetUserItemsQueryVariables>;
+export type ItemsOwnedQueryHookResult = ReturnType<typeof useItemsOwnedQuery>;
+export type ItemsOwnedLazyQueryHookResult = ReturnType<typeof useItemsOwnedLazyQuery>;
+export type ItemsOwnedQueryResult = Apollo.QueryResult<ItemsOwnedQuery, ItemsOwnedQueryVariables>;
 export const ModifyItemDocument = gql`
     mutation ModifyItem($itemId: Int!, $newName: String, $picture: Upload) {
   modifyItem(itemId: $itemId, newName: $newName, picture: $picture) {

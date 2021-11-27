@@ -1,14 +1,14 @@
 import {
   createAuctionCreationOptions,
   useCreateAuctionMutation,
-  useGetUserItemsQuery
+  useItemsOwnedQuery
 } from "client-controllers";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { FC } from "react";
 
 export const CreateAuction: FC = ({}) => {
   const [createAuction] = useCreateAuctionMutation();
-  const { data } = useGetUserItemsQuery({
+  const { data } = useItemsOwnedQuery({
     variables: { excludeAuctionedOff: true }
   });
 
@@ -66,7 +66,7 @@ export const CreateAuction: FC = ({}) => {
                   -Select Item-
                 </option>
                 {data &&
-                  data.getUserItems.items.map(each => (
+                  data.itemsOwned.items.map(each => (
                     <option value={each.id}>{each.name}</option>
                   ))}
               </Field>

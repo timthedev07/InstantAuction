@@ -47,7 +47,7 @@
   "scripts": {
     "dev": "killall redis-server; npx concurrently \"redis-server\" \"ts-node-dev --respawn src/index.ts\"",
     "start": "node dist/index.js",
-    "build": "tsc && cp src/email.html dist",
+    "build": "tsc",
     "tsc": "tsc",
     "test:setup-db": "NODE_ENV=test ts-node --transpile-only --project tsconfig-test.json ./src/test-utils/setup.ts",
     "test": "yarn --silent test:setup-db && jest --runInBand"

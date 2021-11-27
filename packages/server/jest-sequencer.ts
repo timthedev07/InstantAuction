@@ -9,6 +9,7 @@ export default class CustomSequencer extends TestSequencer {
       "ItemResolvers",
       "AuctionResolvers",
       "BidResolvers",
+      "AuctionResolvers2",
     ];
     const orderPath = orderNames.map(each =>
       path.resolve(__dirname, "src/tests", each + ".test.ts")

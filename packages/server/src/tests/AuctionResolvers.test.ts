@@ -253,6 +253,25 @@ export const testAuctionResolversFinal = () => {
 
       expect(gqlErrorMessage(result.errors)).toBe(auctionClosed);
     });
+
+    it("successfully updates the given auction", async () => {
+      const partialUpdate = {
+        title: "auction2Modified",
+        description: "I am not jezz befos nor zark muckerberg",
+      };
+      const result = await callGraphql({
+        userId: auctionCreator.id,
+        source: modifyAuctionSource,
+        variableValues: {
+          partialUpdate,
+          auctionId: auction2Id,
+        },
+      });
+
+      expect(result.data).toMatchObject({
+        modifyAuction: partialUpdate,
+      });
+    });
   });
 
   // deleting an auction

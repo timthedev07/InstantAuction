@@ -1,7 +1,13 @@
 import { Connection } from "typeorm";
 import { getTestConnection } from "../test-utils/testConn";
 import { User } from "../entity/User";
-import { setAuctionCreator } from "./AuctionResolvers.test";
+import {
+  setAuctionCreator,
+  testAuctionResolvers,
+  testAuctionResolversFinal,
+} from "./AuctionResolvers.test";
+import { testItemResolvers } from "./ItemResolvers.test";
+import { testBidResolvers } from "./BidResolvers.test";
 import faker from "faker";
 
 export let connection: Connection;
@@ -35,7 +41,12 @@ beforeAll(async () => {
   setAuctionCreator(users[0]);
 });
 
-describe("InstantAuction Backend Testing", () => {});
+describe("InstantAuction Backend Testing", () => {
+  describe("Item Resolvers", testItemResolvers);
+  describe("Auction Resolvers - 0", testAuctionResolvers);
+  describe("Bid Resolvers", testBidResolvers);
+  describe("Auction Resolvers - 1", testAuctionResolversFinal);
+});
 
 afterAll(async () => {
   await connection.close();

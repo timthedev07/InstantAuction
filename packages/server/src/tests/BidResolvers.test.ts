@@ -19,7 +19,7 @@ import { createBidSource } from "./sources";
 
 export let bids: Bid[] = [];
 
-describe("Bid Resolvers", () => {
+export const testBidResolvers = () => {
   describe("Create Bid Resolver", () => {
     it("rejects bid from the auction seller", async () => {
       const result = await callGraphql({
@@ -99,4 +99,4 @@ describe("Bid Resolvers", () => {
       expect(gqlErrorMessage(result.errors)).toBe(auctionClosed);
     });
   });
-});
+};

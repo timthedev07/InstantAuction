@@ -1,9 +1,14 @@
-import TestSequencer from "@jest/test-sequencer";
-import path from "path";
-export default class CustomSequencer extends TestSequencer {
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const test_sequencer_1 = __importDefault(require("@jest/test-sequencer"));
+const path_1 = __importDefault(require("path"));
+class CustomSequencer extends test_sequencer_1.default {
     sort(tests) {
         const orderNames = ["ItemResolvers"];
-        const orderPath = orderNames.map(each => path.resolve(__dirname, "..", each + ".test.ts"));
+        const orderPath = orderNames.map(each => path_1.default.resolve(__dirname, "..", each + ".test.ts"));
         return tests.sort((testA, testB) => {
             const indexA = orderPath.indexOf(testA.path);
             const indexB = orderPath.indexOf(testB.path);
@@ -17,3 +22,4 @@ export default class CustomSequencer extends TestSequencer {
         });
     }
 }
+exports.default = CustomSequencer;

@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es6",
-    "module": "ES2020",
+    "module": "commonjs",
     "lib": ["es6", "es2017", "esnext.asynciterable"],
     "sourceMap": false,
     "moduleResolution": "node",

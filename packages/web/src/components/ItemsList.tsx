@@ -1,12 +1,12 @@
 import {
   createItemDeletionOptions,
   useDeleteItemMutation,
-  useGetUserItemsQuery
+  useItemsOwnedQuery
 } from "client-controllers";
 import { FC } from "react";
 
 export const ItemsList: FC = ({}) => {
-  const { data, error, loading } = useGetUserItemsQuery({
+  const { data, error, loading } = useItemsOwnedQuery({
     variables: { excludeAuctionedOff: false }
   });
   const [deleteItem] = useDeleteItemMutation();
@@ -17,7 +17,7 @@ export const ItemsList: FC = ({}) => {
         ? "..."
         : error
         ? `${error}`
-        : data!.getUserItems.items.map(each => (
+        : data!.itemsOwned.items.map(each => (
             <div key={each.id} className="border-white border my-4 mx-1 p-2">
               <h2 className="text-3xl">{each.name}</h2>
               <img

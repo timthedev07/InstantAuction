@@ -4,11 +4,15 @@ import path from "path";
 
 export default class CustomSequencer extends TestSequencer {
   sort(tests: Array<Test>): Array<Test> {
-    const orderNames = ["ItemResolvers"];
+    const orderNames = [
+      "index",
+      "ItemResolvers",
+      "AuctionResolvers",
+      "BidResolvers",
+    ];
     const orderPath = orderNames.map(each =>
-      path.resolve(__dirname, "..", each + ".test.ts")
+      path.resolve(__dirname, "src/tests", each + ".test.ts")
     );
-    console.log(orderPath);
     return tests.sort((testA, testB) => {
       const indexA = orderPath.indexOf(testA.path);
       const indexB = orderPath.indexOf(testB.path);

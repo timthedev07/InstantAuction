@@ -6,7 +6,7 @@ import {
   ObjectType,
   Query,
   Resolver,
-  UseMiddleware
+  UseMiddleware,
 } from "type-graphql";
 import { NetworkingContext } from "../../types/NetworkingContext";
 import { isAuth } from "../../utils/isAuthMiddleware";
@@ -22,10 +22,10 @@ export class UserItemsResponse {
 }
 
 @Resolver()
-export class GetUserItemsResolver {
+export class ItemsOwned {
   @Query(() => UserItemsResponse)
   @UseMiddleware(isAuth)
-  async getUserItems(
+  async itemsOwned(
     @Ctx() { req }: NetworkingContext,
     @Arg("excludeAuctionedOff") excludeAuctionedOff: boolean
   ): Promise<UserItemsResponse> {
@@ -34,12 +34,12 @@ export class GetUserItemsResolver {
       where: {
         owner: { id: req.session.userId },
         // filter based on the parameter
-        participating: excludeAuctionedOff === true ? false : undefined
-      }
+        participating: excludeAuctionedOff === true ? false : undefined,
+      },
     });
     return {
       items,
-      count
+      count,
     };
   }
 }

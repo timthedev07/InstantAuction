@@ -1,8 +1,8 @@
 import {
   CreateItemMutationOptions,
   CreateItemMutationVariables,
-  GetUserItemsDocument,
-  GetUserItemsQuery
+  ItemsOwnedDocument,
+  ItemsOwnedQuery
 } from "../generated/graphql";
 
 export const createItemCreationOptions = (
@@ -13,27 +13,23 @@ export const createItemCreationOptions = (
     update: (store, { data }) => {
       if (!data || !data.createItem) return;
 
-      const cachedData = store.readQuery<GetUserItemsQuery>({
-        query: GetUserItemsDocument
+      const cachedData = store.readQuery<ItemsOwnedQuery>({
+        query: ItemsOwnedDocument
       });
 
       let count: number = 1;
       let items = [data.createItem];
 
-      if (
-        cachedData &&
-        cachedData.getUserItems &&
-        cachedData.getUserItems.count
-      ) {
+      if (cachedData && cachedData.itemsOwned && cachedData.itemsOwned.count) {
         // if there are cached items
-        count = cachedData.getUserItems.count + 1;
-        items = [...cachedData.getUserItems.items, data.createItem];
+        count = cachedData.itemsOwned.count + 1;
+        items = [...cachedData.itemsOwned.items, data.createItem];
       }
 
-      store.writeQuery<GetUserItemsQuery>({
-        query: GetUserItemsDocument,
+      store.writeQuery<ItemsOwnedQuery>({
+        query: ItemsOwnedDocument,
         data: {
-          getUserItems: { count, items, __typename: "UserItemsResponse" }
+          itemsOwned: { count, items, __typename: "UserItemsResponse" }
         }
       });
     }

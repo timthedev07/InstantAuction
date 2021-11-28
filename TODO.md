@@ -76,7 +76,7 @@
     - End auction and declare winner ✅
     - Update auction details(the owner) ✅
     - For a particular user:
-      - Show a list of auctions owned
+      - Show a list of auctions owned ✅
       - Show a list of auctions participated in
 
 ## Client-side

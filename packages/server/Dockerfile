@@ -15,4 +15,5 @@ RUN yarn build
 
 # Run App
 EXPOSE 4000
+ENV ON_DOCKER=true
 CMD [ "node", "dist/src/index.js" ]

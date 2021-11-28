@@ -2,6 +2,9 @@ const MODE = process.env.NODE_ENV;
 const __prod__ = MODE === "production";
 const __cicd__ = process.env.TEST_MODE === "ci-cd";
 const __localtest__ = MODE === "test";
+const ON_DOCKER = process.env.ON_DOCKER === "true";
+
+console.log(ON_DOCKER);
 
 const basedir = __prod__ ? "dist" : "src";
 const fileType = __prod__ ? "js" : "ts";
@@ -14,6 +17,8 @@ module.exports = {
     ? process.env.POSTGRES_HOST
     : __prod__
     ? process.env.HP_HOST
+    : ON_DOCKER
+    ? "host.docker.internal"
     : "localhost",
   port: __cicd__ && PG_PORT ? parseInt(PG_PORT) : 5432,
   username: __prod__

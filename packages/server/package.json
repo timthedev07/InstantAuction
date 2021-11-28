@@ -40,7 +40,6 @@
     "pg": "^8.4.0",
     "redis": "^3.1.2",
     "reflect-metadata": "^0.1.10",
-    "shared": ">=1.0.0",
     "type-graphql": "^1.1.1",
     "typeorm": "^0.2.41",
     "uuid": "^8.3.2"

@@ -4,11 +4,11 @@ import { createUploadLink } from "apollo-upload-client";
 
 const link = createUploadLink({
   uri: `${BACKEND}/graphql`,
-  credentials: "include"
+  credentials: "include",
 });
 
 export const client = new ApolloClient({
   cache: new InMemoryCache(),
   link,
-  credentials: "include"
+  credentials: "include",
 });

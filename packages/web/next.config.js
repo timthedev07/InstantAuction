@@ -1,5 +1,5 @@
 const path = require("path");
-const monorepoPackages = ["client-controllers", "shared"];
+const monorepoPackages = ["client-controllers"];
 const paths = monorepoPackages.map((each) => ({
   name: each,
   path: path.resolve(__dirname, `../${each}`),

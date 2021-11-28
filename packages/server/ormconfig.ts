@@ -4,8 +4,6 @@ const __cicd__ = process.env.TEST_MODE === "ci-cd";
 const __localtest__ = MODE === "test";
 const ON_DOCKER = process.env.ON_DOCKER === "true";
 
-console.log(ON_DOCKER);
-
 const basedir = __prod__ ? "dist" : "src";
 const fileType = __prod__ ? "js" : "ts";
 

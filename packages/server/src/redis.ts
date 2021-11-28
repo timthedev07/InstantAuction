@@ -1,17 +1,17 @@
 import { createClient } from "redis";
 
+const ON_DOCKER = process.env.ON_DOCKER === "true";
+
 export const redisClient = createClient(
-  process.env.NODE_ENV === "production"
-    ? Math.random() < 0.5
-      ? {
-          host: process.env.REDIS_HOST!,
-          port: parseInt(process.env.REDIS_PORT!),
-          password: process.env.REDIS_PASSWORD!
-        }
-      : {
-          host: process.env.REDIS_HOST2!,
-          port: parseInt(process.env.REDIS_PORT2!),
-          password: process.env.REDIS_PASSWORD2!
-        }
+  ON_DOCKER
+    ? {
+        host: "host.docker.internal",
+      }
+    : process.env.NODE_ENV === "production"
+    ? {
+        host: process.env.REDIS_HOST!,
+        port: parseInt(process.env.REDIS_PORT!),
+        password: process.env.REDIS_PASSWORD!,
+      }
     : undefined
 );

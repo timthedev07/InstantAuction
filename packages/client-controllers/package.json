@@ -4,7 +4,7 @@
   "main": "src/index.ts",
   "license": "MIT",
   "dependencies": {
-    "@apollo/client": "^3.4.17",
+    "@apollo/client": "^3.4.16",
     "@jest/test-sequencer": "^27.3.1",
     "apollo-upload-client": "^16.0.0",
     "cross-env": "7.0.3",

@@ -12,8 +12,11 @@ COPY . .
 
 # Bundle App Source
 RUN yarn build
+COPY .env ./dist/
+WORKDIR /usr/app/dist
+
 
 # Run App
 EXPOSE 4000
 ENV ON_DOCKER=true
-CMD [ "node", "dist/src/index.js" ]
+CMD [ "node", "src/index.js" ]

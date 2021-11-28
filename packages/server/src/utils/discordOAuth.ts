@@ -1,6 +1,6 @@
 import { FRONTEND } from "../constants/app";
 import { DiscordAccessTokenResponse } from "../types/Discord";
-import { jsonToUrlParams } from "shared";
+import { jsonToUrlParams } from "../utils/jsonToUrlParams";
 import { DiscordUser } from "../modules/discordUser";
 import fetch from "node-fetch";
 

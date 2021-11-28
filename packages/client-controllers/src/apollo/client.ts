@@ -1,5 +1,5 @@
 import { ApolloClient, InMemoryCache } from "@apollo/client";
-import { BACKEND } from "shared";
+import { BACKEND } from "../constants";
 import { createUploadLink } from "apollo-upload-client";
 
 const link = createUploadLink({

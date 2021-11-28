@@ -5,7 +5,6 @@ import cors from "cors";
 import { ApolloServer } from "apollo-server-express";
 import cookieParser from "cookie-parser";
 import { createConnection } from "typeorm";
-import { FRONTEND, PLAYGROUND } from "shared";
 import session from "express-session";
 import connectRedis from "connect-redis";
 import { redisClient } from "./redis";
@@ -13,9 +12,6 @@ import { __prod__ } from "./constants/prod";
 import { createSchema } from "./schema";
 import { sessionCookieName } from "./constants/session";
 import { graphqlUploadExpress } from "graphql-upload";
-
-const PORT = parseInt(process.env.PORT || "4000");
-const HOSTNAME = process.env.HOST || "0.0.0.0";
 
 (async () => {
   // check for environment variables before anything
@@ -31,7 +27,7 @@ const HOSTNAME = process.env.HOST || "0.0.0.0";
   app.use(
     cors({
       credentials: true,
-      origin: [FRONTEND, PLAYGROUND]
+      origin: [FRONTEND, PLAYGROUND],
     })
   );
   app.use(graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }));
@@ -41,17 +37,17 @@ const HOSTNAME = process.env.HOST || "0.0.0.0";
       name: sessionCookieName,
       store: new RedisStore({
         client: redisClient,
-        disableTouch: true
+        disableTouch: true,
       }),
       cookie: {
         maxAge: 1000 * 60 * 60 * 24 * 365 * 10,
         httpOnly: true,
         secure: __prod__, // cookie only works in https
-        sameSite: "lax"
+        sameSite: "lax",
       },
       secret: sessionSecret,
       resave: false,
-      saveUninitialized: false
+      saveUninitialized: false,
     })
   );
 
@@ -59,7 +55,7 @@ const HOSTNAME = process.env.HOST || "0.0.0.0";
 
   const apolloServer = new ApolloServer({
     schema,
-    context: ({ req, res }) => ({ req, res })
+    context: ({ req, res }) => ({ req, res }),
   });
 
   await createConnection();

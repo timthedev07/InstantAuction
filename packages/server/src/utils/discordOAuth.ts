@@ -1,4 +1,4 @@
-import { FRONTEND } from "shared";
+import { FRONTEND } from "../constants/app";
 import { DiscordAccessTokenResponse } from "../types/Discord";
 import { jsonToUrlParams } from "shared";
 import { DiscordUser } from "../modules/discordUser";
@@ -72,19 +72,19 @@ export const refreshToken = async (
     },
   });
 
-  return await response.json() as DiscordAccessTokenResponse;
+  return (await response.json()) as DiscordAccessTokenResponse;
 };
 
 export const getDiscordUserInfoWithAccessToken = async (
   accessToken: string
 ) => {
-  const response = await fetch( "https://discordapp.com/api/users/@me",{
+  const response = await fetch("https://discordapp.com/api/users/@me", {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
   });
 
-  return await response.json() as DiscordUser;
+  return (await response.json()) as DiscordUser;
 };
 
 export const getDiscordUserInfo = async (code: string) => {
@@ -97,7 +97,7 @@ export const getDiscordUserInfo = async (code: string) => {
     }
 
     return await getDiscordUserInfoWithAccessToken(accessToken);
-  } catch(err) {
+  } catch (err) {
     throw err;
   }
 };

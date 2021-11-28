@@ -173,6 +173,7 @@ export type OAuthResponse = {
 export type Query = {
   __typename?: 'Query';
   allAuctions: AuctionsResponse;
+  auctionsBid: AuctionsResponse;
   auctionsOwned: AuctionsResponse;
   hello: Scalars['String'];
   itemsOwned: UserItemsResponse;
@@ -215,6 +216,11 @@ export type AllAuctionsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type AllAuctionsQuery = { __typename?: 'Query', allAuctions: { __typename?: 'AuctionsResponse', count: number, auctions: Array<{ __typename?: 'Auction', id: number, title: string, description: string, status: string, dateCreated: any, dateUpdated: any, seller: { __typename?: 'User', username: string }, item: { __typename?: 'Item', id: number, picture: string, name: string }, winner?: { __typename?: 'User', username: string } | null | undefined }> } };
+
+export type AuctionsBidAtQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AuctionsBidAtQuery = { __typename?: 'Query', auctionsBid: { __typename?: 'AuctionsResponse', count: number, auctions: Array<{ __typename?: 'Auction', id: number, title: string, description: string, status: string, dateCreated: any, dateUpdated: any, seller: { __typename?: 'User', username: string }, item: { __typename?: 'Item', id: number, picture: string, name: string }, winner?: { __typename?: 'User', username: string } | null | undefined }> } };
 
 export type AuctionsOwnedQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -418,6 +424,59 @@ export function useAllAuctionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type AllAuctionsQueryHookResult = ReturnType<typeof useAllAuctionsQuery>;
 export type AllAuctionsLazyQueryHookResult = ReturnType<typeof useAllAuctionsLazyQuery>;
 export type AllAuctionsQueryResult = Apollo.QueryResult<AllAuctionsQuery, AllAuctionsQueryVariables>;
+export const AuctionsBidAtDocument = gql`
+    query AuctionsBidAt {
+  auctionsBid {
+    auctions {
+      id
+      title
+      description
+      seller {
+        username
+      }
+      status
+      dateCreated
+      dateUpdated
+      item {
+        id
+        picture
+        name
+      }
+      winner {
+        username
+      }
+    }
+    count
+  }
+}
+    `;
+
+/**
+ * __useAuctionsBidAtQuery__
+ *
+ * To run a query within a React component, call `useAuctionsBidAtQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAuctionsBidAtQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAuctionsBidAtQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAuctionsBidAtQuery(baseOptions?: Apollo.QueryHookOptions<AuctionsBidAtQuery, AuctionsBidAtQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<AuctionsBidAtQuery, AuctionsBidAtQueryVariables>(AuctionsBidAtDocument, options);
+      }
+export function useAuctionsBidAtLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AuctionsBidAtQuery, AuctionsBidAtQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<AuctionsBidAtQuery, AuctionsBidAtQueryVariables>(AuctionsBidAtDocument, options);
+        }
+export type AuctionsBidAtQueryHookResult = ReturnType<typeof useAuctionsBidAtQuery>;
+export type AuctionsBidAtLazyQueryHookResult = ReturnType<typeof useAuctionsBidAtLazyQuery>;
+export type AuctionsBidAtQueryResult = Apollo.QueryResult<AuctionsBidAtQuery, AuctionsBidAtQueryVariables>;
 export const AuctionsOwnedDocument = gql`
     query AuctionsOwned {
   auctionsOwned {

@@ -1,4 +1,3 @@
-import { validateEmailWithRegex } from "shared";
 import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
 import { OAuthResponse } from "../../types/OAuthResponse";
 import { User } from "../../entity/User";
@@ -29,7 +28,7 @@ export class OAuthResolver {
       };
     }
 
-    if (!email || !email.length || !validateEmailWithRegex(email)) {
+    if (!email || !email.length) {
       throw new Error("Invalid email.");
     }
 
@@ -78,7 +77,7 @@ export class OAuthResolver {
       };
     }
 
-    if (!email || !email.length || !validateEmailWithRegex(email)) {
+    if (!email || !email.length) {
       throw new Error("Invalid email.");
     }
 

@@ -1,3 +1,5 @@
+import { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConnectionOptions";
+
 const MODE = process.env.NODE_ENV;
 const __prod__ = MODE === "production";
 const __cicd__ = process.env.TEST_MODE === "ci-cd";
@@ -57,4 +59,5 @@ module.exports = {
         },
       }
     : undefined,
-};
+  logging: true,
+} as PostgresConnectionOptions;

@@ -18,7 +18,11 @@ module.exports = {
     : ON_DOCKER
     ? "db"
     : "localhost",
-  port: __cicd__ && PG_PORT ? parseInt(PG_PORT) : 5432,
+  port: ON_DOCKER
+    ? parseInt(PG_PORT)
+    : __cicd__ && PG_PORT
+    ? parseInt(PG_PORT)
+    : 5432,
   username: __prod__
     ? process.env.HP_USERNAME
     : __cicd__ || ON_DOCKER

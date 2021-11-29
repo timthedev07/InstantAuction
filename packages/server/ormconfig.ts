@@ -16,7 +16,7 @@ module.exports = {
     : __prod__
     ? process.env.HP_HOST
     : ON_DOCKER
-    ? "db"
+    ? "host.docker.internal"
     : "localhost",
   port: ON_DOCKER
     ? parseInt(PG_PORT)

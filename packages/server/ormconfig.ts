@@ -26,12 +26,12 @@ module.exports = {
     : process.env.POSTGRES_USERNAME,
   password: __prod__
     ? process.env.HP_PASSWORD
-    : __cicd__
+    : __cicd__ || ON_DOCKER
     ? "postgres"
     : process.env.POSTGRES_PASSWORD,
   database: __prod__
     ? process.env.HP_DATABASE
-    : __cicd__
+    : __cicd__ || ON_DOCKER
     ? "postgres"
     : __localtest__
     ? "InstantAuction.test"

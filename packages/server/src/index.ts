@@ -59,7 +59,20 @@ import { FRONTEND, PLAYGROUND, PORT, HOSTNAME } from "./constants/app";
     context: ({ req, res }) => ({ req, res }),
   });
 
-  await createConnection();
+  // retry 5 times
+  let retries = 5;
+  while (retries > 0) {
+    try {
+      await createConnection();
+      break;
+    } catch (err) {
+      console.error(err);
+      retries--;
+      console.log(`${retries} Retries left`);
+      // wait 3 seconds before next try
+      await new Promise(resolve => setTimeout(resolve, 3000));
+    }
+  }
 
   await apolloServer.start();
 

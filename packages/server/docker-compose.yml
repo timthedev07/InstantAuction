@@ -9,10 +9,10 @@ services:
     volumes:
       - ./pgdata:/var/lib/postgresql/data
     ports:
-      - '5432:5432'
-  web: 
+      - "${POSTGRES_PORT}:5432"
+  web:
     image: timthedev07/instant-auction-test
     depends_on:
       - db
-    ports: 
+    ports:
       - "4000:4000"

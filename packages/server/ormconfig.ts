@@ -21,7 +21,7 @@ module.exports = {
   port: __cicd__ && PG_PORT ? parseInt(PG_PORT) : 5432,
   username: __prod__
     ? process.env.HP_USERNAME
-    : __cicd__
+    : __cicd__ || ON_DOCKER
     ? "postgres"
     : process.env.POSTGRES_USERNAME,
   password: __prod__

@@ -1,0 +1,18 @@
+version: "1.0"
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+  web: 
+    image: timthedev07/instant-auction-test
+    depends_on:
+      - db
+    ports: 
+      - "4000:4000"

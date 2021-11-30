@@ -59,5 +59,5 @@ module.exports = {
         },
       }
     : undefined,
-  logging: ["error", "query"],
+  // logging: ["error", "query"],
 } as PostgresConnectionOptions;

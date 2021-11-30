@@ -35,7 +35,7 @@ export const CreateItem: FC = ({}) => {
 
   return (
     <form onSubmit={handleSubmit} className="border-2 rounded p-8">
-      <h2 className="text-2xl">Add Item</h2>
+      <h2>Add Item</h2>
 
       <input
         placeholder="Item Name"

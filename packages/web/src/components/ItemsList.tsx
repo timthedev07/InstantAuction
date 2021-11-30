@@ -19,7 +19,7 @@ export const ItemsList: FC = ({}) => {
         ? `${error}`
         : data!.itemsOwned.items.map(each => (
             <div key={each.id} className="border-white border my-4 mx-1 p-2">
-              <h2 className="text-3xl">{each.name}</h2>
+              <h2>{each.name}</h2>
               <img
                 className="min-w-350 w-3/4 h-3/4 max-w-md"
                 src={each.picture}

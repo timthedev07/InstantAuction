@@ -11,7 +11,7 @@ const Landing: NextPage = () => {
 
   return (
     <>
-      <h1 className="text-3xl">
+      <h1>
         {testLoading ? "Loading..." : testData?.hello || "No data returned"}
       </h1>
       <pre>

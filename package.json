@@ -8,7 +8,14 @@
       "packages/*"
     ],
     "nohoist": [
-      "**"
+      "**/typeorm",
+      "**/typeorm/**",
+      "**/expo",
+      "**/expo",
+      "**/expo**",
+      "**/@types/",
+      "**/react-native",
+      "**/react-native/**"
     ]
   },
   "scripts": {

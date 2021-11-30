@@ -6,7 +6,7 @@ export const MyAuctions: FC = ({}) => {
 
   return (
     <div>
-      <h1>My Auctions</h1>
+      <h3>My Auctions</h3>
       <ul>
         {data
           ? data.auctionsOwned.auctions.map(each => (

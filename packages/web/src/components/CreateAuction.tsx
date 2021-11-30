@@ -14,7 +14,7 @@ export const CreateAuction: FC = ({}) => {
 
   return (
     <div className="m-6 border-white border rounded p-5">
-      <h1>Create Auction</h1>
+      <h3>Create Auction</h3>
       <Formik
         initialValues={{ title: "", description: "", itemId: "" }}
         validate={({ description, title }) => {

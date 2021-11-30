@@ -29,7 +29,7 @@ export const ModifyItem: FC<ModifyItemProps> = ({ name, picture, id }) => {
 
   return (
     <div className="m-6 border-white border rounded p-5">
-      <h1>Modify item of id {id}</h1>
+      <h3>Modify item of id {id}</h3>
       <Formik
         initialValues={{ inputtedName: name }}
         onSubmit={async ({ inputtedName }) => {

@@ -20,13 +20,13 @@ export const AllAuctions: FC = () => {
             const auctionsData = data.allAuctions;
             return (
               <>
-                <h3>{auctionsData!.count} Auctions</h3>
+                <h4>{auctionsData!.count} Auctions</h4>
                 {auctionsData!.auctions.map(each => (
                   <li
                     className="w-64 h-80 p-3 border border-white rounded-lg"
                     key={each.id}
                   >
-                    <h3>{each.title}</h3>
+                    <h4>{each.title}</h4>
                     <i>
                       Started by: {each.seller.username}
                       <br />

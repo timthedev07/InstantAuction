@@ -11,9 +11,9 @@ const Landing: NextPage = () => {
 
   return (
     <>
-      <h1>
+      <h3>
         {testLoading ? "Loading..." : testData?.hello || "No data returned"}
-      </h1>
+      </h3>
       <pre>
         {data && data.me ? JSON.stringify(data!.me!.email, null, 2) : ""}
       </pre>

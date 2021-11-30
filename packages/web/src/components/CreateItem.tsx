@@ -35,7 +35,7 @@ export const CreateItem: FC = ({}) => {
 
   return (
     <form onSubmit={handleSubmit} className="border-2 rounded p-8">
-      <h2>Add Item</h2>
+      <h3>Add Item</h3>
 
       <input
         placeholder="Item Name"
@@ -45,7 +45,7 @@ export const CreateItem: FC = ({}) => {
       />
 
       <div {...getRootProps()} className="border-2 rounded p-8">
-        <h3>{file ? file.path : "Drop your file here"}</h3>
+        <h4>{file ? file.path : "Drop your file here"}</h4>
         <input accept="image/*" {...getInputProps()} />
       </div>
 

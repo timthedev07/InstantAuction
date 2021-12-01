@@ -1,15 +1,33 @@
 import { FC } from "react";
+import { FaHome, FaUser } from "react-icons/fa";
+
+const LINKS = [
+  {
+    route: "/",
+    name: "home",
+    icon: FaHome
+  },
+  {
+    route: "/me",
+    name: "me",
+    icon: FaUser
+  }
+];
 
 interface NavProps {}
 
 export const Nav: FC<NavProps> = ({}) => {
   return (
-    <div>
-      THIS IS THE NAV
-      <ol>
-        <li>HOME</li>
-        <li>YOUR ACCOUNT</li>
-      </ol>
-    </div>
+    <nav>
+      <ul>
+        {LINKS.map(each => (
+          <li>
+            <a href={each.route}>
+              <each.icon />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
   );
 };

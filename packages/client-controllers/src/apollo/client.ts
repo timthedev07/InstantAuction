@@ -1,14 +1,18 @@
-import { ApolloClient, InMemoryCache } from "@apollo/client";
+import {
+  ApolloClient,
+  InMemoryCache,
+  NormalizedCacheObject
+} from "@apollo/client";
 import { BACKEND } from "../constants";
 import { createUploadLink } from "apollo-upload-client";
 
 const link = createUploadLink({
   uri: `${BACKEND}/graphql`,
-  credentials: "include",
+  credentials: "include"
 });
 
-export const client = new ApolloClient({
+export const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
   cache: new InMemoryCache(),
   link: link as any,
-  credentials: "include",
+  credentials: "include"
 });

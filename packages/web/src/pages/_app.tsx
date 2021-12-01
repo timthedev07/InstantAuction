@@ -6,7 +6,7 @@ import { client } from "client-controllers";
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
-    <ApolloProvider client={client}>
+    <ApolloProvider client={client as any}>
       <Layout>
         <Component {...pageProps} />
       </Layout>

@@ -1,5 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import Head from "next/head";
+import { Nav } from "./Nav";
 // import { Navbar } from "./nav/Navbar";
 // import { BottomNav } from "./nav/BottomNav";
 
@@ -58,6 +59,7 @@ export const Layout: FC = ({ children }) => {
 
       <div id="App" className={`bg-primary-900 min-w-350`}>
         {/* {windowSize > BREAK_POINT ? <Navbar /> : null} */}
+        <Nav />
         <main
           className={`${
             windowSize > BREAK_POINT ? "py-12" : ""

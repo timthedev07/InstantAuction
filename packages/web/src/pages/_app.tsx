@@ -3,7 +3,7 @@ import type { AppProps } from "next/app";
 import { Layout } from "../components/layout";
 import { ApolloProvider } from "@apollo/client";
 import { client } from "client-controllers";
-import { IconContext } from "react-icons/lib";
+import { IconContext } from "@react-icons/all-files/lib";
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (

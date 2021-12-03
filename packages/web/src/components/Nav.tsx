@@ -1,16 +1,16 @@
 import { FC } from "react";
-import { FaHome, FaUser } from "react-icons/fa";
+import { BiUser } from "react-icons/bi";
 
 const LINKS = [
   {
-    route: "/",
-    name: "home",
-    icon: FaHome
-  },
-  {
     route: "/me",
     name: "me",
-    icon: FaUser
+    icon: BiUser
+  },
+  {
+    route: "/your-stuff",
+    name: "your-stuff",
+    icon: BiUser
   }
 ];
 
@@ -18,10 +18,13 @@ interface NavProps {}
 
 export const Nav: FC<NavProps> = ({}) => {
   return (
-    <nav>
-      <ul>
+    <nav className="flex border-b border-white items-center">
+      <a href="/">
+        <img src="/logo192.png" className="w-9 h-9" />
+      </a>
+      <ul className="flex items-center justify-around p-3">
         {LINKS.map(each => (
-          <li>
+          <li key={each.name}>
             <a href={each.route}>
               <each.icon />
             </a>

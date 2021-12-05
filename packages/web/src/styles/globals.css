@@ -11,6 +11,10 @@
   .danger-button {
     @apply bg-red-600 text-white rounded px-4 py-1;
   }
+
+  .nav-item {
+    @apply flex items-center justify-center w-14 h-9 p-3 rounded-full transition-all duration-300 hover:bg-gray-800 hover:bg-opacity-60 cursor-pointer;
+  }
 }
 
 * {

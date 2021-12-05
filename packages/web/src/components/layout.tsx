@@ -1,8 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import Head from "next/head";
-import { Nav } from "./Nav";
-// import { Navbar } from "./nav/Navbar";
-// import { BottomNav } from "./nav/BottomNav";
+import { Nav } from "./navigation/Nav";
 
 const BREAK_POINT = 600;
 

@@ -25,10 +25,7 @@ export const Nav: FC<NavProps> = ({}) => {
       </a>
       <ul className="flex items-center w-full justify-end gap-5 p-3 float-right">
         {LINKS.map(each => (
-          <li
-            key={each.name}
-            className="flex items-center justify-center w-14 h-9 p-3 rounded-full transition-all duration-300 hover:bg-gray-800 hover:bg-opacity-60 cursor-pointer"
-          >
+          <li key={each.name} className="nav-item">
             <a href={each.route}>
               <each.icon />
             </a>

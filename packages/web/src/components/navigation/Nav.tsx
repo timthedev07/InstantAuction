@@ -2,7 +2,7 @@ import { FC } from "react";
 import { BiUser } from "@react-icons/all-files/bi/BiUser";
 import { BiFolder } from "@react-icons/all-files/bi/BiFolder";
 
-const LINKS = [
+export const LINKS = [
   {
     route: "/your-stuff",
     name: "your-stuff",

@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import Head from "next/head";
 import { Nav } from "./navigation/Nav";
+import { BottomNav } from "./navigation/BottomNav";
 
 const BREAK_POINT = 600;
 
@@ -56,8 +57,7 @@ export const Layout: FC = ({ children }) => {
       </Head>
 
       <div id="App" className={`bg-neutral-1100 min-w-350`}>
-        {/* {windowSize > BREAK_POINT ? <Navbar /> : null} */}
-        <Nav />
+        {windowSize > BREAK_POINT ? <Nav /> : null}
         <main
           className={`${
             windowSize > BREAK_POINT ? "py-12" : ""
@@ -70,7 +70,7 @@ export const Layout: FC = ({ children }) => {
             } bg-transparent h-5`}
           />
         </main>
-        {/* {windowSize <= BREAK_POINT ? <BottomNav /> : null} */}
+        {windowSize <= BREAK_POINT ? <BottomNav /> : null}
       </div>
     </>
   );

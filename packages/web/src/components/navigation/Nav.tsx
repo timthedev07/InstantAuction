@@ -2,6 +2,7 @@ import { FC } from "react";
 import { BiUser } from "@react-icons/all-files/bi/BiUser";
 import { BiFolder } from "@react-icons/all-files/bi/BiFolder";
 import { TiHome } from "@react-icons/all-files/ti/TiHome";
+import { NavbarItem } from "./NavbarItem";
 
 export const LINKS = [
   {
@@ -11,7 +12,7 @@ export const LINKS = [
   },
   {
     route: "/top-traders",
-    name: "top-traders",
+    name: "top traders",
     icon: BiFolder
   },
   {
@@ -29,13 +30,9 @@ export const Nav: FC<NavProps> = ({}) => {
       <a href="/" className="px-6">
         <img src="/logo192.png" className="w-9 h-9" />
       </a>
-      <ul className="flex items-center w-full justify-end gap-5 p-3 float-right">
+      <ul className="flex items-center w-full justify-end gap-5 p-3 float-right pr-10">
         {LINKS.slice(1).map(each => (
-          <li key={each.name} className="nav-item">
-            <a href={each.route}>
-              <each.icon />
-            </a>
-          </li>
+          <NavbarItem navData={each} />
         ))}
       </ul>
     </nav>

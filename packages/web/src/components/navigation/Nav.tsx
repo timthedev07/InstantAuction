@@ -10,8 +10,8 @@ export const LINKS = [
     icon: TiHome
   },
   {
-    route: "/your-stuff",
-    name: "your-stuff",
+    route: "/top-traders",
+    name: "top-traders",
     icon: BiFolder
   },
   {

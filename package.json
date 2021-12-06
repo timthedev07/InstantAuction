@@ -15,7 +15,8 @@
       "**/expo**",
       "**/@types/",
       "**/react-native",
-      "**/react-native/**"
+      "**/react-native/**react**/",
+      "**/react-native/**react**/**"
     ]
   },
   "scripts": {

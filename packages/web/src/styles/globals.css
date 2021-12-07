@@ -8,6 +8,10 @@
     @apply bg-cyan-600 text-white rounded px-4 py-1;
   }
 
+  .dark-button {
+    @apply bg-secondary-600 text-white rounded px-4 py-1;
+  }
+
   .danger-button {
     @apply bg-red-600 text-white rounded px-4 py-1;
   }

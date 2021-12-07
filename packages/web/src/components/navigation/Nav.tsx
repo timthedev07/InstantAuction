@@ -1,8 +1,10 @@
 import { FC } from "react";
 import { BsPersonFill } from "@react-icons/all-files/bs/BsPersonFill";
 import { RiAuctionFill } from "@react-icons/all-files/ri/RiAuctionFill";
+import { AiOutlineLoading } from "@react-icons/all-files/ai/AiOutlineLoading";
 import { TiHome } from "@react-icons/all-files/ti/TiHome";
 import { NavbarItem } from "./NavbarItem";
+import { client, useMeQuery } from "client-controllers";
 
 export const LINKS = [
   {
@@ -22,18 +24,29 @@ export const LINKS = [
   }
 ];
 
-interface NavProps {}
+export const Nav: FC = () => {
+  const { data, loading } = useMeQuery({ client: client });
 
-export const Nav: FC<NavProps> = ({}) => {
   return (
     <nav className="flex border-b border-opacity-30 border-neutral-1000 items-center bg-neutral-800">
       <a href="/" className="px-6">
         <img src="/logo192.png" className="w-9 h-9" />
       </a>
       <ul className="flex items-center w-full justify-end gap-5 p-3 float-right pr-10">
-        {LINKS.slice(1).map(each => (
+        {LINKS.slice(1, -1).map(each => (
           <NavbarItem key={each.name} navData={each} />
         ))}
+        <li className="h-9">
+          <a href="/login">
+            {loading || !data ? (
+              <AiOutlineLoading className="animate-spin" />
+            ) : !data!.me ? (
+              <button className="secondary-button">Sign in</button>
+            ) : (
+              <img src={data!.me!.avatarUrl} className="w-9 h-9" />
+            )}
+          </a>
+        </li>
       </ul>
     </nav>
   );

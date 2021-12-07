@@ -3,6 +3,7 @@ import { NextPage } from "next";
 import { useRouter } from "next/dist/client/router";
 import queryString from "query-string";
 import { useEffect, useState } from "react";
+import { withApollo } from "../../utils/withApollo";
 
 const Discord: NextPage = () => {
   const [state, setState] = useState<{}>();
@@ -42,4 +43,4 @@ const Discord: NextPage = () => {
   );
 };
 
-export default Discord;
+export default withApollo({ssr: false})(Discord);

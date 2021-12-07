@@ -3,6 +3,7 @@ import { NextPage } from "next";
 import { useRouter } from "next/dist/client/router";
 import queryString from "query-string";
 import { useEffect, useState } from "react";
+import { withApollo } from "../../utils/withApollo";
 
 const Google: NextPage = () => {
   const [state, setState] = useState<{}>();
@@ -41,4 +42,4 @@ const Google: NextPage = () => {
   );
 };
 
-export default Google;
+export default withApollo({ssr: false})(Google);

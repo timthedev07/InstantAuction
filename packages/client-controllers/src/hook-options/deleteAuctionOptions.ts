@@ -40,7 +40,7 @@ export const createAuctionDeletionOptions = (
           allAuctions: {
             auctions,
             count,
-            __typename: "AllAuctionsResponse"
+            __typename: "AuctionsResponse"
           },
           __typename: "Query"
         }

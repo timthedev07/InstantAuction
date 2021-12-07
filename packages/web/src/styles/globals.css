@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 @import url(./var.css);
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+@font-face {
+  font-family: "Roboto";
+  src: url("../../public/fonts/roboto/Roboto-Regular.ttf");
+}
 
 @layer components {
   .cyan-button {
@@ -28,6 +34,7 @@
 * {
   scrollbar-width: thin;
   scrollbar-color: var(--color-neutral-400) rgba(0, 0, 0, 0);
+  font-family: "Roboto";
 }
 
 ::-webkit-scrollbar {

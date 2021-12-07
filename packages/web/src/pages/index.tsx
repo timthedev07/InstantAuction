@@ -1,7 +1,5 @@
 import { NextPage } from "next";
 import { useHelloQuery, useMeQuery } from "client-controllers";
-import { OAuthButton } from "../components/OAuthButton";
-import { getDiscordAuthUrl, getGoogleAuthUrl } from "client-controllers";
 import { CreateAuction } from "../components/CreateAuction";
 import { withApollo } from "../utils/withApollo";
 import { CreateItem } from "../components/CreateItem";
@@ -19,14 +17,6 @@ const Landing: NextPage = () => {
       <pre>
         {data && data.me ? JSON.stringify(data!.me!.email, null, 2) : ""}
       </pre>
-      <OAuthButton
-        provider="google"
-        href={getGoogleAuthUrl(process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID)}
-      />
-      <OAuthButton
-        provider="discord"
-        href={getDiscordAuthUrl(process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID)}
-      />
       <CreateAuction />
       <CreateItem />
       <LogoutButton />

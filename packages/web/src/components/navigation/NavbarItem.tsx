@@ -15,7 +15,6 @@ export const NavbarItem: FC<NavbarItemProps> = ({ navData }) => {
   const [show, setShow] = useState<boolean>(false);
   return (
     <li
-      key={navData.name}
       className="nav-item relative"
       onMouseOver={() => setShow(true)}
       onMouseLeave={() => setShow(false)}

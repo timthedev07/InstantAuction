@@ -28,7 +28,7 @@ export const Nav: FC = () => {
   const { data, loading } = useMeQuery({ client: client });
 
   return (
-    <nav className="flex border-b border-opacity-30 border-neutral-1000 items-center bg-neutral-800">
+    <nav className="sticky top-0 flex border-b border-opacity-30 border-neutral-1000 items-center bg-neutral-800">
       <a href="/" className="px-6">
         <img src="/logo192.png" className="w-9 h-9" />
       </a>
@@ -41,7 +41,7 @@ export const Nav: FC = () => {
             {loading || !data ? (
               <AiOutlineLoading className="animate-spin" />
             ) : !data!.me ? (
-              <button className="secondary-button">Sign in</button>
+              <button className="cyan-button">Sign in</button>
             ) : (
               <img src={data!.me!.avatarUrl} className="w-9 h-9" />
             )}

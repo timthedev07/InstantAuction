@@ -39,6 +39,7 @@ module.exports = {
       colors: {
         "light-blue": colors.sky,
         cyan: colors.cyan,
+        "login-image-bg": "rgb(69, 87, 154)",
         primary: {
           50: "var(--color-primary-50)",
           100: "var(--color-primary-100)",

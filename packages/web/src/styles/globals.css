@@ -62,9 +62,9 @@
 
 .oauth-button {
   height: 50px;
-  width: auto;
   min-width: 205px;
-  min-width: 300px;
+  width: 100%;
+  max-width: 300px;
   border-radius: 4px;
   border: none;
   outline: none;

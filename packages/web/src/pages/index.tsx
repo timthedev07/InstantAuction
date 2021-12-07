@@ -5,6 +5,7 @@ import { getDiscordAuthUrl, getGoogleAuthUrl } from "client-controllers";
 import { CreateAuction } from "../components/CreateAuction";
 import { withApollo } from "../utils/withApollo";
 import { CreateItem } from "../components/CreateItem";
+import { LogoutButton } from "../components/LogoutButton";
 
 const Landing: NextPage = () => {
   const { data: testData, loading: testLoading } = useHelloQuery();
@@ -28,6 +29,7 @@ const Landing: NextPage = () => {
       />
       <CreateAuction />
       <CreateItem />
+      <LogoutButton />
     </>
   );
 };

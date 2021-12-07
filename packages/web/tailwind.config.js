@@ -33,7 +33,8 @@ module.exports = {
       height: {
         "80vh": "80vh",
         "90vh": "90vh",
-        "70vh": "70vh"
+        "70vh": "70vh",
+        "9/10": "90%"
       },
       colors: {
         "light-blue": colors.sky,

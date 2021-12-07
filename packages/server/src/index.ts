@@ -35,7 +35,6 @@ import { authRouter } from "./routes/auth";
     })
   );
   app.use(graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }));
-  app.use(authRouter);
 
   const RedisStore = connectRedis(session);
   app.use(
@@ -56,6 +55,7 @@ import { authRouter } from "./routes/auth";
       saveUninitialized: false,
     })
   );
+  app.use(authRouter);
 
   const schema = await createSchema();
 

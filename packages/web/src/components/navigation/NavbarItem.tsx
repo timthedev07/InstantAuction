@@ -29,7 +29,7 @@ export const NavbarItem: FC<NavbarItemProps> = ({ navData }) => {
         arrowAlign="center"
         backgroundColor="var(--color-primary-500)"
         color="white"
-        textBoxWidth="100px"
+        textBoxWidth="110px"
         fontSize="6px"
       >
         <span>{capitalize(navData.name)}</span>

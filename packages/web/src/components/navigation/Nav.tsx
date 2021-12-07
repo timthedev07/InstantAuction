@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { BiUser } from "@react-icons/all-files/bi/BiUser";
-import { BiFolder } from "@react-icons/all-files/bi/BiFolder";
+import { BsPersonFill } from "@react-icons/all-files/bs/BsPersonFill";
+import { RiAuctionFill } from "@react-icons/all-files/ri/RiAuctionFill";
 import { TiHome } from "@react-icons/all-files/ti/TiHome";
 import { NavbarItem } from "./NavbarItem";
 
@@ -11,14 +11,14 @@ export const LINKS = [
     icon: TiHome
   },
   {
-    route: "/top-traders",
-    name: "top traders",
-    icon: BiFolder
+    route: "/auctions",
+    name: "auctions",
+    icon: RiAuctionFill
   },
   {
     route: "/me",
     name: "me",
-    icon: BiUser
+    icon: BsPersonFill
   }
 ];
 

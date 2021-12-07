@@ -1,7 +1,7 @@
 import { IconType } from "@react-icons/all-files/lib";
 import { capitalize } from "client-controllers";
-import { FC, useState } from "react";
-import Tooltip from "react-power-tooltip";
+import { FC } from "react";
+import ReactTooltip from "react-tooltip";
 
 interface NavbarItemProps {
   navData: {
@@ -12,27 +12,14 @@ interface NavbarItemProps {
 }
 
 export const NavbarItem: FC<NavbarItemProps> = ({ navData }) => {
-  const [show, setShow] = useState<boolean>(false);
   return (
-    <li
-      className="nav-item relative"
-      onMouseOver={() => setShow(true)}
-      onMouseLeave={() => setShow(false)}
-    >
-      <a href={navData.route}>
-        <navData.icon />
-      </a>
-      <Tooltip
-        show={show}
-        position="bottom center"
-        arrowAlign="center"
-        backgroundColor="var(--color-primary-500)"
-        color="white"
-        textBoxWidth="110px"
-        fontSize="14px"
-      >
-        <span>{capitalize(navData.name)}</span>
-      </Tooltip>
-    </li>
+    <>
+      <ReactTooltip />
+      <li className="nav-item" data-tip={capitalize(navData.name)}>
+        <a href={navData.route}>
+          <navData.icon />
+        </a>
+      </li>
+    </>
   );
 };

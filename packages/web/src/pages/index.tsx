@@ -4,6 +4,7 @@ import { OAuthButton } from "../components/OAuthButton";
 import { getDiscordAuthUrl, getGoogleAuthUrl } from "client-controllers";
 import { CreateAuction } from "../components/CreateAuction";
 import { AllAuctions } from "../components/AllAuctions";
+import { withApollo } from "../utils/withApollo";
 
 const Landing: NextPage = () => {
   const { data: testData, loading: testLoading } = useHelloQuery();
@@ -31,4 +32,4 @@ const Landing: NextPage = () => {
   );
 };
 
-export default Landing;
+export default withApollo({ ssr: true })(Landing);

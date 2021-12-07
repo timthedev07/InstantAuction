@@ -36,27 +36,17 @@ export const CreateAuction: FC = ({}) => {
         onSubmit={async ({ title, description, itemId }) => {
           const itemIdNum = parseInt(itemId);
 
-          console.log("On submit");
-
           if (itemIdNum === -1) {
             return;
           }
 
-          const result = await createAuction(
+          await createAuction(
             createAuctionCreationOptions({
               description,
               title,
               itemId: itemIdNum
             })
           );
-
-          console.log(result);
-
-          if (result.errors) {
-            console.log(result.errors);
-          } else {
-            alert("Auction created!");
-          }
         }}
       >
         {({ errors }) => (

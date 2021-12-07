@@ -23,15 +23,13 @@ export class CreateAuctionResolver {
     itemId: number,
     @Ctx() { req }: NetworkingContext
   ) {
-    let seller;
-    try {
-      seller = await User.findOne(req.session.userId);
-    } catch (err) {
-      console.error(err);
+    const seller = await User.findOne(req.session.userId);
+    if (!seller) {
       throw new Error(unauthorizedErrorMessage);
     }
 
-    let item = await Item.findOne(itemId, { relations: ["owner"] });
+    const item = await Item.findOne(itemId, { relations: ["owner"] });
+
     if (!item) {
       throw new Error(invalidItem);
     }

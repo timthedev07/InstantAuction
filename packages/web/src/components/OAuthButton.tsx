@@ -5,23 +5,26 @@ import { capitalize } from "client-controllers";
 interface OAuthButtonProps {
   provider: "google" | "discord";
   href: string | null | undefined;
+  style?: React.CSSProperties;
 }
 
-export const OAuthButton: React.FC<OAuthButtonProps> = ({ provider, href }) => {
+export const OAuthButton: React.FC<OAuthButtonProps> = ({
+  provider,
+  href,
+  style
+}) => {
   return !href ? (
     <button>No href provided</button>
   ) : (
     <Link href={href} passHref>
-      <a>
-        <button className={`oauth-button oauth-button-${provider}`}>
-          {capitalize(provider)}
-          <img
-            className="oauth-button__icon"
-            src={`/images/icons/oauth/${provider}.svg`}
-            alt=""
-          />
-        </button>
-      </a>
+      <button className={`oauth-button oauth-button-${provider}`} style={style}>
+        {capitalize(provider)}
+        <img
+          className="oauth-button__icon"
+          src={`/images/icons/oauth/${provider}.svg`}
+          alt=""
+        />
+      </button>
     </Link>
   );
 };

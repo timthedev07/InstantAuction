@@ -6,6 +6,7 @@ import { User } from "../../entity/User";
 import { NetworkingContext } from "../../types/NetworkingContext";
 import { handleImageUpload } from "../../utils/handleImageUpload";
 import { isAuth } from "../../utils/isAuthMiddleware";
+import { unauthorizedErrorMessage } from "../../constants/errorMessages";
 
 @Resolver()
 export class CreateItemResolver {
@@ -18,10 +19,17 @@ export class CreateItemResolver {
     @Ctx() { req }: NetworkingContext
   ): Promise<Item> {
     const userId = req.session.userId!;
+
+    const user = await User.findOne(userId);
+
+    if (!user) {
+      throw new Error(unauthorizedErrorMessage);
+    }
+
     try {
       const picture = await handleImageUpload(fileUpload);
       const {
-        generatedMaps: [result]
+        generatedMaps: [result],
       } = await getConnection()
         .createQueryBuilder()
         .insert()
@@ -49,7 +57,7 @@ export class CreateItemResolver {
       const { raw } = await Item.insert({
         owner: { id: userId },
         name,
-        picture: pictureUrl
+        picture: pictureUrl,
       });
 
       return await Item.findOne(raw[0].id);

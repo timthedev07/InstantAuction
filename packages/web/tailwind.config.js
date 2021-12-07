@@ -24,6 +24,11 @@ module.exports = {
       minWidth: {
         350: "350px"
       },
+      height: {
+        "80vh": "80vh",
+        "90vh": "90vh",
+        "70vh": "70vh"
+      },
       colors: {
         "light-blue": colors.sky,
         cyan: colors.cyan,

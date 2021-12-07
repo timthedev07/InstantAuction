@@ -32,7 +32,7 @@ export const Nav: FC<NavProps> = ({}) => {
       </a>
       <ul className="flex items-center w-full justify-end gap-5 p-3 float-right pr-10">
         {LINKS.slice(1).map(each => (
-          <NavbarItem navData={each} />
+          <NavbarItem key={each.name} navData={each} />
         ))}
       </ul>
     </nav>

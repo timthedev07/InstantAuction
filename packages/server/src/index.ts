@@ -13,6 +13,7 @@ import { createSchema } from "./schema";
 import { sessionCookieName } from "./constants/session";
 import { graphqlUploadExpress } from "graphql-upload";
 import { FRONTEND, PLAYGROUND, PORT, HOSTNAME } from "./constants/app";
+import { msRouter } from "./routes/microsoft";
 
 (async () => {
   // check for environment variables before anything
@@ -52,6 +53,7 @@ import { FRONTEND, PLAYGROUND, PORT, HOSTNAME } from "./constants/app";
       saveUninitialized: false,
     })
   );
+  app.use("/microsoft", msRouter);
 
   const schema = await createSchema();
 

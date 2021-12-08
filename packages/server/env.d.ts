@@ -11,5 +11,6 @@ declare namespace NodeJS {
     NEXT_PUBLIC_DISCORD_CLIENT_ID: string;
     IMGUR_CLIENT_ID: string;
     AZURE_CLIENT_SECRET: string;
+    AZURE_CLIENT_ID: string;
   }
 }

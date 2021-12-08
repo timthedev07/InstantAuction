@@ -76,6 +76,7 @@ export type Mutation = {
   endAuction: Auction;
   googleOAuth: OAuthResponse;
   logout: Scalars['Boolean'];
+  microsoftOAuth: OAuthResponse;
   modifyAuction: Auction;
   modifyItem: Item;
   updateCredentials: User;
@@ -148,6 +149,11 @@ export type MutationGoogleOAuthArgs = {
 };
 
 
+export type MutationMicrosoftOAuthArgs = {
+  code: Scalars['String'];
+};
+
+
 export type MutationModifyAuctionArgs = {
   auctionId: Scalars['Int'];
   partialUpdate: ModifyAuctionPartialUpdate;
@@ -201,7 +207,7 @@ export type User = {
   email: Scalars['String'];
   id: Scalars['Int'];
   itemsOwned: Array<Item>;
-  provider?: Maybe<Scalars['String']>;
+  provider: Scalars['String'];
   reputation: Scalars['Int'];
   username: Scalars['String'];
 };
@@ -332,14 +338,21 @@ export type DiscordOAuthMutationVariables = Exact<{
 }>;
 
 
-export type DiscordOAuthMutation = { __typename?: 'Mutation', discordOAuth: { __typename?: 'OAuthResponse', user?: { __typename?: 'User', id: number, email: string, username: string, provider?: string | null | undefined, avatarUrl: string, reputation: number } | null | undefined } };
+export type DiscordOAuthMutation = { __typename?: 'Mutation', discordOAuth: { __typename?: 'OAuthResponse', user?: { __typename?: 'User', id: number, email: string, username: string, provider: string, avatarUrl: string, reputation: number } | null | undefined } };
 
 export type GoogleOAuthMutationVariables = Exact<{
   code: Scalars['String'];
 }>;
 
 
-export type GoogleOAuthMutation = { __typename?: 'Mutation', googleOAuth: { __typename?: 'OAuthResponse', user?: { __typename?: 'User', id: number, email: string, username: string, provider?: string | null | undefined, avatarUrl: string, reputation: number } | null | undefined } };
+export type GoogleOAuthMutation = { __typename?: 'Mutation', googleOAuth: { __typename?: 'OAuthResponse', user?: { __typename?: 'User', id: number, email: string, username: string, provider: string, avatarUrl: string, reputation: number } | null | undefined } };
+
+export type MicrosoftOAuthMutationVariables = Exact<{
+  code: Scalars['String'];
+}>;
+
+
+export type MicrosoftOAuthMutation = { __typename?: 'Mutation', microsoftOAuth: { __typename?: 'OAuthResponse', user?: { __typename?: 'User', id: number, email: string, username: string, provider: string, avatarUrl: string, reputation: number } | null | undefined } };
 
 export type DeleteAccountMutationVariables = Exact<{
   email: Scalars['String'];
@@ -361,14 +374,14 @@ export type LogoutMutation = { __typename?: 'Mutation', logout: boolean };
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', id: number, email: string, username: string, provider?: string | null | undefined, avatarUrl: string, reputation: number } | null | undefined };
+export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', id: number, email: string, username: string, provider: string, avatarUrl: string, reputation: number } | null | undefined };
 
 export type UpdateCredentialsMutationVariables = Exact<{
   username: Scalars['String'];
 }>;
 
 
-export type UpdateCredentialsMutation = { __typename?: 'Mutation', updateCredentials: { __typename?: 'User', id: number, email: string, username: string, provider?: string | null | undefined, avatarUrl: string, reputation: number } };
+export type UpdateCredentialsMutation = { __typename?: 'Mutation', updateCredentials: { __typename?: 'User', id: number, email: string, username: string, provider: string, avatarUrl: string, reputation: number } };
 
 
 export const AllAuctionsDocument = gql`
@@ -1128,6 +1141,46 @@ export function useGoogleOAuthMutation(baseOptions?: Apollo.MutationHookOptions<
 export type GoogleOAuthMutationHookResult = ReturnType<typeof useGoogleOAuthMutation>;
 export type GoogleOAuthMutationResult = Apollo.MutationResult<GoogleOAuthMutation>;
 export type GoogleOAuthMutationOptions = Apollo.BaseMutationOptions<GoogleOAuthMutation, GoogleOAuthMutationVariables>;
+export const MicrosoftOAuthDocument = gql`
+    mutation MicrosoftOAuth($code: String!) {
+  microsoftOAuth(code: $code) {
+    user {
+      id
+      email
+      username
+      provider
+      avatarUrl
+      reputation
+    }
+  }
+}
+    `;
+export type MicrosoftOAuthMutationFn = Apollo.MutationFunction<MicrosoftOAuthMutation, MicrosoftOAuthMutationVariables>;
+
+/**
+ * __useMicrosoftOAuthMutation__
+ *
+ * To run a mutation, you first call `useMicrosoftOAuthMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useMicrosoftOAuthMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [microsoftOAuthMutation, { data, loading, error }] = useMicrosoftOAuthMutation({
+ *   variables: {
+ *      code: // value for 'code'
+ *   },
+ * });
+ */
+export function useMicrosoftOAuthMutation(baseOptions?: Apollo.MutationHookOptions<MicrosoftOAuthMutation, MicrosoftOAuthMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<MicrosoftOAuthMutation, MicrosoftOAuthMutationVariables>(MicrosoftOAuthDocument, options);
+      }
+export type MicrosoftOAuthMutationHookResult = ReturnType<typeof useMicrosoftOAuthMutation>;
+export type MicrosoftOAuthMutationResult = Apollo.MutationResult<MicrosoftOAuthMutation>;
+export type MicrosoftOAuthMutationOptions = Apollo.BaseMutationOptions<MicrosoftOAuthMutation, MicrosoftOAuthMutationVariables>;
 export const DeleteAccountDocument = gql`
     mutation DeleteAccount($email: String!) {
   deleteAccount(email: $email)

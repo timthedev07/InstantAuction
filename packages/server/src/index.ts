@@ -12,13 +12,7 @@ import { __prod__ } from "./constants/prod";
 import { createSchema } from "./schema";
 import { sessionCookieName } from "./constants/session";
 import { graphqlUploadExpress } from "graphql-upload";
-import { FRONTEND, PLAYGROUND, PORT, HOSTNAME, BACKEND } from "./constants/app";
-import passport from "passport";
-import { Strategy } from "passport-twitter";
-import { authRouter } from "./routes/auth";
-import { User } from "./entity/User";
-import { isTwitterId } from "./utils/formatTwitterId";
-import { getTwitterUserEmail } from "./utils/twitterOAuth";
+import { FRONTEND, PLAYGROUND, PORT, HOSTNAME } from "./constants/app";
 
 (async () => {
   // check for environment variables before anything
@@ -58,7 +52,6 @@ import { getTwitterUserEmail } from "./utils/twitterOAuth";
       saveUninitialized: false,
     })
   );
-  app.use(authRouter);
 
   const schema = await createSchema();
 
@@ -81,53 +74,6 @@ import { getTwitterUserEmail } from "./utils/twitterOAuth";
       await new Promise(resolve => setTimeout(resolve, 3000));
     }
   }
-
-  passport.use(
-    new Strategy(
-      {
-        consumerKey: process.env.TWITTER_CONSUMER_KEY,
-        consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
-        callbackURL: `${BACKEND}/auth/twitter/callback`,
-      },
-      async (token, tokenSecret, profile, cb) => {
-        const { id: twitterId } = profile;
-        twitterId;
-
-        const email = await getTwitterUserEmail(token);
-
-        console.log(email);
-
-        return cb(null, null);
-
-        // find a user with the same email
-        let user = await User.findOne({
-          where: {
-            email,
-          },
-        });
-
-        if (user) {
-          if (isTwitterId(user.externalId) && user.provider === "Twitter") {
-            // login this twitter user
-          }
-        }
-
-        // if this twitter account is already linked with an account
-
-        // is user does not exist
-        if (user) {
-          // create the user
-          await User.insert({});
-        }
-
-        // await User.findOne({ twitterId: profile.id }, function (err, user) {
-        //   return cb(err, user);
-        // });
-        [token, tokenSecret, profile, cb];
-      }
-    )
-  );
-  app.use(passport.initialize());
 
   await apolloServer.start();
 

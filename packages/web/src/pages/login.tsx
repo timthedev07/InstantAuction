@@ -1,8 +1,21 @@
 import { getDiscordAuthUrl, getGoogleAuthUrl } from "client-controllers";
 import { NextPage } from "next";
+import { useRouter } from "next/dist/client/router";
+import { useEffect } from "react";
 import { OAuthButton } from "../components/OAuthButton";
 
 const Login: NextPage = () => {
+  const router = useRouter();
+
+  useEffect(() => {
+    const query = router.query;
+    console.log(query);
+    const error = query.err;
+    if (error) {
+      alert(error);
+    }
+  }, []);
+
   return (
     <>
       <div className="flex justify-center items-center h-70vh min-h-450">

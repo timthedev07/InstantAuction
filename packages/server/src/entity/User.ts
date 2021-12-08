@@ -10,7 +10,7 @@ import { Auction } from "./Auction";
 import { Bid } from "./Bid";
 import { Item } from "./Item";
 
-type ProviderType = "Google" | "Discord" | "Twitter";
+type ProviderType = "Google" | "Discord";
 
 @ObjectType()
 @Entity("users")

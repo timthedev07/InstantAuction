@@ -1,0 +1,12 @@
+mutation MicrosoftOAuth($code: String!) {
+  microsoftOAuth(code: $code) {
+    user {
+      id
+      email
+      username
+      provider
+      avatarUrl
+      reputation
+    }
+  }
+}

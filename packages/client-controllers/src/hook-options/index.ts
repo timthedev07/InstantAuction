@@ -2,6 +2,7 @@ export * from "./logoutOptions";
 export * from "./deleteAccountOptions";
 export * from "./googleOAuthOptions";
 export * from "./discordOAuthOptions";
+export * from "./microsoftOAuthOptions";
 export * from "./updateCredentials";
 export * from "./createItemOptions";
 export * from "./deleteItemOptions";

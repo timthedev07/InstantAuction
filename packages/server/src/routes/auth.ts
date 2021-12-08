@@ -14,6 +14,6 @@ authRouter.get(
   }),
   async (_, res) => {
     // Successful authentication, redirect home.
-    res.redirect("/");
+    res.redirect(`${FRONTEND}`);
   }
 );

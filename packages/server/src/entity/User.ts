@@ -10,6 +10,8 @@ import { Auction } from "./Auction";
 import { Bid } from "./Bid";
 import { Item } from "./Item";
 
+type ProviderType = "Google" | "Discord" | "Twitter";
+
 @ObjectType()
 @Entity("users")
 export class User extends BaseEntity {
@@ -25,9 +27,9 @@ export class User extends BaseEntity {
   @Column({ type: "varchar", length: "45", unique: true })
   username: string;
 
-  @Field(() => String, { nullable: true })
-  @Column("text", { nullable: true })
-  provider: string | null;
+  @Field(() => String, { nullable: false })
+  @Column("text", { nullable: false })
+  provider: ProviderType;
 
   @Field(() => String)
   @Column("text")
@@ -41,18 +43,18 @@ export class User extends BaseEntity {
   externalId: string;
 
   @Field(() => [Auction])
-  @OneToMany(() => Auction, (auction) => auction.seller)
+  @OneToMany(() => Auction, auction => auction.seller)
   auctionsOwned: Auction[];
 
   @Field(() => [Bid])
-  @OneToMany(() => Bid, (bid) => bid.bidder)
+  @OneToMany(() => Bid, bid => bid.bidder)
   bids: Bid[];
 
   @Field(() => [Item])
-  @OneToMany(() => Item, (item) => item.owner)
+  @OneToMany(() => Item, item => item.owner)
   itemsOwned: Item[];
 
   @Field(() => [Auction])
-  @OneToMany(() => Auction, (auction) => auction.winner)
+  @OneToMany(() => Auction, auction => auction.winner)
   auctionsWon: Auction[];
 }

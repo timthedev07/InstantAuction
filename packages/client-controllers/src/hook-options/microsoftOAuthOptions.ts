@@ -5,7 +5,7 @@ import {
   MicrosoftOAuthMutationVariables
 } from "../generated/graphql";
 
-export const createGoogleOAuthOptions = (
+export const createMicrosoftOAuthOptions = (
   variables: MicrosoftOAuthMutationVariables
 ): MicrosoftOAuthMutationOptions => {
   return {

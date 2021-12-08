@@ -16,6 +16,9 @@ import { FRONTEND, PLAYGROUND, PORT, HOSTNAME, BACKEND } from "./constants/app";
 import passport from "passport";
 import { Strategy } from "passport-twitter";
 import { authRouter } from "./routes/auth";
+import { User } from "./entity/User";
+import { isTwitterId } from "./utils/formatTwitterId";
+import { getTwitterUserEmail } from "./utils/twitterOAuth";
 
 (async () => {
   // check for environment variables before anything
@@ -87,10 +90,39 @@ import { authRouter } from "./routes/auth";
         callbackURL: `${BACKEND}/auth/twitter/callback`,
       },
       async (token, tokenSecret, profile, cb) => {
+        const { id: twitterId } = profile;
+        twitterId;
+
+        const email = await getTwitterUserEmail(token);
+
+        console.log(email);
+
+        return cb(null, null);
+
+        // find a user with the same email
+        let user = await User.findOne({
+          where: {
+            email,
+          },
+        });
+
+        if (user) {
+          if (isTwitterId(user.externalId) && user.provider === "Twitter") {
+            // login this twitter user
+          }
+        }
+
+        // if this twitter account is already linked with an account
+
+        // is user does not exist
+        if (user) {
+          // create the user
+          await User.insert({});
+        }
+
         // await User.findOne({ twitterId: profile.id }, function (err, user) {
         //   return cb(err, user);
         // });
-        console.log(profile);
         [token, tokenSecret, profile, cb];
       }
     )

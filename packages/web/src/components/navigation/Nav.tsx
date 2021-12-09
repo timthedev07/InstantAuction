@@ -37,15 +37,15 @@ export const Nav: FC = () => {
           <NavbarItem key={each.name} navData={each} />
         ))}
         <li className="h-9">
-          <a href="/login">
-            {loading || !data ? (
-              <AiOutlineLoading className="animate-spin" />
-            ) : !data!.me ? (
+          {loading || !data ? (
+            <AiOutlineLoading className="animate-spin" />
+          ) : !data!.me ? (
+            <a href="/login">
               <button className="cyan-button">Sign in</button>
-            ) : (
-              <img src={data!.me!.avatarUrl} className="w-9 h-9" />
-            )}
-          </a>
+            </a>
+          ) : (
+            <img src={data!.me!.avatarUrl} className="w-9 h-9 rounded-full" />
+          )}
         </li>
       </ul>
     </nav>

@@ -1,4 +1,8 @@
-import { getDiscordAuthUrl, getGoogleAuthUrl } from "client-controllers";
+import {
+  BACKEND,
+  getDiscordAuthUrl,
+  getGoogleAuthUrl
+} from "client-controllers";
 import { NextPage } from "next";
 import { useRouter } from "next/dist/client/router";
 import { useEffect } from "react";
@@ -36,6 +40,10 @@ const Login: NextPage = () => {
                 href={getDiscordAuthUrl(
                   process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID
                 )}
+              />
+              <OAuthButton
+                provider="microsoft"
+                href={`${BACKEND}/microsoft/`}
               />
             </div>
           </div>

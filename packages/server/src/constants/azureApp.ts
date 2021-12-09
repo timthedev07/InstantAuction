@@ -12,7 +12,7 @@ export const config: Configuration = {
         console.log(message);
       },
       piiLoggingEnabled: false,
-      logLevel: LogLevel.Verbose,
+      logLevel: LogLevel.Error,
     },
   },
 };

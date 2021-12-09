@@ -5,7 +5,7 @@ import { config } from "../constants/azureApp";
 export const msRouter = Router();
 
 export const cca = new ConfidentialClientApplication(config);
-export const redirectUri = "http://localhost:4000/microsoft/redirect";
+export const redirectUri = "http://localhost:3000/auth/microsoft";
 
 msRouter.get("/", (_, res) => {
   const authCodeUrlParameters = {

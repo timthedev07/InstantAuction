@@ -1,14 +1,17 @@
 import {
   BACKEND,
   getDiscordAuthUrl,
-  getGoogleAuthUrl
+  getGoogleAuthUrl,
+  useMeQuery
 } from "client-controllers";
 import { NextPage } from "next";
 import { useRouter } from "next/dist/client/router";
 import { useEffect } from "react";
 import { OAuthButton } from "../components/OAuthButton";
+import { withApollo } from "../utils/withApollo";
 
 const Login: NextPage = () => {
+  const { data } = useMeQuery();
   const router = useRouter();
 
   useEffect(() => {
@@ -19,6 +22,11 @@ const Login: NextPage = () => {
       alert(error);
     }
   }, []);
+
+  if (data && data.me) {
+    router.push("/");
+    return <></>;
+  }
 
   return (
     <>
@@ -56,4 +64,4 @@ const Login: NextPage = () => {
   );
 };
 
-export default Login;
+export default withApollo({ ssr: true })(Login);

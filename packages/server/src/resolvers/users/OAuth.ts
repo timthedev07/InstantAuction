@@ -120,7 +120,7 @@ export class OAuthResolver {
     @Ctx() { res, req }: NetworkingContext
   ): Promise<OAuthResponse> {
     const tokenRequest = {
-      code: code,
+      code,
       scopes: ["user.read"],
       redirectUri,
     };
@@ -133,18 +133,28 @@ export class OAuthResolver {
     const username = ccaResponse.account.name;
     const externalId = ccaResponse.account.localAccountId;
 
-    const asdf = await fetch(
-      "https://graph.microsoft.com/v1.0/me/photo/$value",
-      {
-        headers: {
-          Authorization: "Bearer " + ccaResponse.accessToken,
-          "Content-Type": "image/jpg",
-        },
-      }
-    );
-    const picData = await asdf.buffer();
+    let msProfilePicResponse;
+    try {
+      msProfilePicResponse = await fetch(
+        "https://graph.microsoft.com/v1.0/me/photo/$value",
+        {
+          headers: {
+            Authorization: "Bearer " + ccaResponse.accessToken,
+            "Content-Type": "image/jpg",
+          },
+        }
+      );
+    } catch (err) {
+      console.log(err);
+      return {
+        user: undefined,
+      };
+    }
+
+    const picData = await msProfilePicResponse.buffer();
     let avatarUrl: string;
-    if (asdf.ok) {
+
+    if (msProfilePicResponse.ok) {
       // there is a profile image
       const tempdir = tmpdir();
       const imageBufferPath = join(tempdir, "ms-user-profile-pick.jpg");

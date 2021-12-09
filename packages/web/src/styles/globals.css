@@ -83,8 +83,8 @@
   background-color: #4285f4;
 }
 
-.oauth-button.oauth-button-facebook {
-  background-color: rgb(32, 107, 206);
+.oauth-button.oauth-button-microsoft {
+  background-color: rgb(59, 64, 70);
 }
 
 .oauth-button.oauth-button-discord {

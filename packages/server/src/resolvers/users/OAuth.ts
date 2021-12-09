@@ -20,7 +20,7 @@ export class OAuthResolver {
   @Mutation(() => OAuthResponse)
   async googleOAuth(
     @Arg("code") code: string,
-    @Ctx() { res, req }: NetworkingContext
+    @Ctx() { req }: NetworkingContext
   ): Promise<OAuthResponse> {
     let userData: GoogleUser;
     let email = "";
@@ -42,7 +42,7 @@ export class OAuthResolver {
 
     if (user) {
       if (user.provider === "Google") {
-        return loginOAuth(user, req, res);
+        return loginOAuth(user, req);
       } else {
         throw new Error("Email already linked with another account.");
       }
@@ -60,13 +60,13 @@ export class OAuthResolver {
 
     user = await User.findOne({ where: { email } });
 
-    return loginOAuth(user!, req, res);
+    return loginOAuth(user!, req);
   }
 
   @Mutation(() => OAuthResponse)
   async discordOAuth(
     @Arg("code") code: string,
-    @Ctx() { res, req }: NetworkingContext
+    @Ctx() { req }: NetworkingContext
   ): Promise<OAuthResponse> {
     let userData: DiscordUser;
     let email = "";
@@ -91,7 +91,7 @@ export class OAuthResolver {
 
     if (user) {
       if (user.provider === "Discord") {
-        return loginOAuth(user, req, res);
+        return loginOAuth(user, req);
       } else {
         throw new Error("Email already linked with another account.");
       }
@@ -111,13 +111,13 @@ export class OAuthResolver {
 
     user = await User.findOne({ where: { email } });
 
-    return loginOAuth(user!, req, res);
+    return loginOAuth(user!, req);
   }
 
   @Mutation(() => OAuthResponse)
   async microsoftOAuth(
     @Arg("code") code: string,
-    @Ctx() { res, req }: NetworkingContext
+    @Ctx() { req }: NetworkingContext
   ): Promise<OAuthResponse> {
     const tokenRequest = {
       code,
@@ -180,11 +180,11 @@ export class OAuthResolver {
     } else {
       // if a registered user is trying to sign in
       if (user.provider === "Microsoft") {
-        return loginOAuth(user, req, res);
+        return loginOAuth(user, req);
       } else {
         throw new Error("Email already linked with another account.");
       }
     }
-    return loginOAuth(user, req, res);
+    return loginOAuth(user, req);
   }
 }

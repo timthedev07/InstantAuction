@@ -3,7 +3,7 @@ import React from "react";
 import { capitalize } from "client-controllers";
 
 interface OAuthButtonProps {
-  provider: "google" | "discord";
+  provider: "google" | "discord" | "microsoft";
   href: string | null | undefined;
   style?: React.CSSProperties;
 }

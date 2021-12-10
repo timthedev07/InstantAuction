@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { BsPersonFill } from "@react-icons/all-files/bs/BsPersonFill";
+import { FaUserAstronaut } from "@react-icons/all-files/fa/FaUserAstronaut";
 import { RiAuctionFill } from "@react-icons/all-files/ri/RiAuctionFill";
 import { AiOutlineLoading } from "@react-icons/all-files/ai/AiOutlineLoading";
 import { TiHome } from "@react-icons/all-files/ti/TiHome";
@@ -18,6 +19,11 @@ export const LINKS = [
     icon: RiAuctionFill
   },
   {
+    route: "/top-traders",
+    name: "top traders",
+    icon: FaUserAstronaut
+  },
+  {
     route: "/me",
     name: "me",
     icon: BsPersonFill
@@ -25,7 +31,7 @@ export const LINKS = [
 ];
 
 export const Nav: FC = () => {
-  const { data, loading } = useMeQuery({ client: client });
+  const { data, loading } = useMeQuery({ client: client, ssr: false });
 
   return (
     <nav className="sticky top-0 flex border-b border-opacity-30 border-neutral-1000 items-center bg-neutral-800">
@@ -44,7 +50,9 @@ export const Nav: FC = () => {
               <button className="cyan-button">Sign in</button>
             </a>
           ) : (
-            <img src={data!.me!.avatarUrl} className="w-9 h-9 rounded-full" />
+            <div className="w-14 flex justify-center items-center">
+              <img src={data!.me!.avatarUrl} className="w-9 h-9 rounded-full" />
+            </div>
           )}
         </li>
       </ul>

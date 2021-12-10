@@ -7,7 +7,7 @@ import { LogoutButton } from "../components/LogoutButton";
 
 const Landing: NextPage = () => {
   const { data: testData, loading: testLoading } = useHelloQuery();
-  const { data, loading } = useMeQuery();
+  const { data, loading } = useMeQuery({ ssr: false });
 
   return (
     <>

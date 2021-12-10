@@ -11,7 +11,7 @@ import { OAuthButton } from "../components/OAuthButton";
 import { withApollo } from "../utils/withApollo";
 
 const Login: NextPage = () => {
-  const { data } = useMeQuery();
+  const { data } = useMeQuery({ ssr: false });
   const router = useRouter();
 
   useEffect(() => {

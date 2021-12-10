@@ -7,7 +7,7 @@ import { LogoutButton } from "../components/LogoutButton";
 
 const Landing: NextPage = () => {
   const { data: testData, loading: testLoading } = useHelloQuery();
-  const { data } = useMeQuery();
+  const { data, loading } = useMeQuery();
 
   return (
     <>
@@ -15,7 +15,11 @@ const Landing: NextPage = () => {
         {testLoading ? "Loading..." : testData?.hello || "No data returned"}
       </h3>
       <pre>
-        {data && data.me ? JSON.stringify(data!.me!.email, null, 2) : ""}
+        {loading
+          ? "Loading"
+          : data && data.me
+          ? JSON.stringify(data!.me!.email, null, 2)
+          : "Unauthenticated"}
       </pre>
       <CreateAuction />
       <CreateItem />

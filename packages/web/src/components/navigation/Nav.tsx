@@ -51,9 +51,14 @@ export const Nav: FC = () => {
               <button className="cyan-button">Sign in</button>
             </Link>
           ) : (
-            <div className="w-14 flex justify-center items-center">
-              <img src={data!.me!.avatarUrl} className="w-9 h-9 rounded-full" />
-            </div>
+            <Link href="/me">
+              <div className="w-14 flex justify-center items-center">
+                <img
+                  src={data!.me!.avatarUrl}
+                  className="w-9 h-9 rounded-full"
+                />
+              </div>
+            </Link>
           )}
         </li>
       </ul>

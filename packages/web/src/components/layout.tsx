@@ -58,17 +58,8 @@ export const Layout: FC = ({ children }) => {
 
       <div id="App" className={`bg-neutral-1100 min-w-350`}>
         {windowSize > BREAK_POINT ? <Nav /> : null}
-        <main
-          className={`${
-            windowSize > BREAK_POINT ? "py-12" : ""
-          } w-full  min-h-screen text-gray-900 dark:text-white`}
-        >
+        <main className={`w-full  min-h-700 text-gray-900 dark:text-white`}>
           {children}
-          <div
-            className={`${
-              windowSize <= BREAK_POINT ? "block" : "hidden"
-            } bg-transparent h-5`}
-          />
         </main>
         {windowSize <= BREAK_POINT ? <BottomNav /> : null}
       </div>

@@ -1,6 +1,9 @@
 import Head from "next/head";
 
 interface Args {
+  /** Would be appended to "Instant Auction: "
+   *
+   * i.e. title: "404" => "Instant Auction: 404" */
   title: string;
   description: string;
   /** relative path; e.g. /login, /me, /users/him */
@@ -8,11 +11,13 @@ interface Args {
 }
 
 export const getHeadForPage = (pageData: Args) => {
+  const title = "Instant Auction: " + pageData.title;
+
   return (
     <Head>
-      <title>{pageData.title}</title>
-      <meta name="title" content={pageData.title} />
-      <meta name="description" content={pageData.title} />
+      <title>{title}</title>
+      <meta name="title" content={title} />
+      <meta name="description" content={title} />
       <meta
         name="keywords"
         content="auction, platform, trade, trending, ethical, social"
@@ -23,14 +28,14 @@ export const getHeadForPage = (pageData: Args) => {
       <meta name="revisit-after" content="0 days" />
       <meta name="author" content="Tim <timpersonal07@gmail.com>" />
       <meta property="og:type" content="website" />
-      <meta property="og:title" content={pageData.title} />
-      <meta property="og:site_name" content={pageData.title} />
+      <meta property="og:title" content={title} />
+      <meta property="og:site_name" content={title} />
       <meta
         property="og:url"
         content={`https://instantauction.vercel.app${pageData.path}`}
       />
       <meta property="og:description" content={pageData.description} />
-      <meta name="twitter:title" content={pageData.title} />
+      <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={pageData.description} />
     </Head>
   );

@@ -15,7 +15,7 @@ const NotFound: NextPage = () => {
       <div className="flex items-center justify-center md:justify-end relative h-full">
         <img
           src="/images/404-bg.jpg"
-          className="min-h-700 h-screen w-full object-cover object-left"
+          className="min-h-700 h-screen w-full object-cover object-left brightness-75"
         />
         <div className="w-4/12 min-w-[310px] h-[500px] bg-[#2e353577] z-10 absolute rounded-lg mr-[7%] shadow-lg flex flex-col items-center">
           <img

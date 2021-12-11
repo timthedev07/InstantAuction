@@ -52,7 +52,7 @@ export const Nav: FC = () => {
             </Link>
           ) : (
             <Link href="/me">
-              <div className="w-14 flex justify-center items-center">
+              <div className="w-14 flex justify-center items-center cursor-pointer">
                 <img
                   src={data!.me!.avatarUrl}
                   className="w-9 h-9 rounded-full"

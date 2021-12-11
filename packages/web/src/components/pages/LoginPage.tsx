@@ -6,6 +6,7 @@ import {
 } from "client-controllers";
 import { useRouter } from "next/router";
 import { FC, useEffect } from "react";
+import { getHeadForPage } from "../../utils/getHeadForPage";
 import { OAuthButton } from "../OAuthButton";
 
 interface LoginPageProps {}
@@ -30,6 +31,12 @@ export const LoginPage: FC<LoginPageProps> = ({}) => {
 
   return (
     <>
+      {getHeadForPage({
+        description:
+          "Login to Instant Auction with Google, Discord & Microsoft!",
+        path: "/login",
+        title: "Login"
+      })}
       <div className="flex justify-center items-center h-70vh min-h-450">
         <div className="flex bg-neutral-800 rounded-lg w-9/12 h-9/10">
           <div className="flex flex-col justify-start items-center bg-transparent w-full md:w-5/12 lg:w-2/4 h-full pt-7">

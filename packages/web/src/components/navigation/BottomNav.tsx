@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { FC } from "react";
 import { LINKS } from "./Nav";
 
@@ -9,9 +10,9 @@ export const BottomNav: FC<BottomNavProps> = ({}) => {
       <ul className="flex items-center w-full justify-center gap-5 p-2 float-right">
         {LINKS.map(each => (
           <li key={each.name} className="nav-item">
-            <a href={each.route}>
+            <Link href={each.route}>
               <each.icon />
-            </a>
+            </Link>
           </li>
         ))}
       </ul>

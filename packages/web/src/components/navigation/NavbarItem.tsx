@@ -1,5 +1,6 @@
 import { IconType } from "@react-icons/all-files/lib";
 import { capitalize } from "client-controllers";
+import Link from "next/link";
 import { FC } from "react";
 import ReactTooltip from "react-tooltip";
 
@@ -16,9 +17,9 @@ export const NavbarItem: FC<NavbarItemProps> = ({ navData }) => {
     <>
       <ReactTooltip />
       <li className="nav-item" data-tip={capitalize(navData.name)}>
-        <a href={navData.route}>
+        <Link href={navData.route}>
           <navData.icon />
-        </a>
+        </Link>
       </li>
     </>
   );

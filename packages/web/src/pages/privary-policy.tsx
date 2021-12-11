@@ -1,5 +1,6 @@
 import { NextPage } from "next";
 import Head from "next/head";
+import Link from "next/link";
 import { metadata } from "../components/layout";
 
 const PrivacyPolicy: NextPage = () => {
@@ -103,9 +104,9 @@ const PrivacyPolicy: NextPage = () => {
 
       <p>
         For more general information on cookies, please read{" "}
-        <a href="https://www.cookieconsent.com/">
+        <Link href="https://www.cookieconsent.com/">
           more on the Cookie Consent website
-        </a>
+        </Link>
         .
       </p>
 

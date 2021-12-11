@@ -6,6 +6,7 @@ import { AiOutlineLoading } from "@react-icons/all-files/ai/AiOutlineLoading";
 import { TiHome } from "@react-icons/all-files/ti/TiHome";
 import { NavbarItem } from "./NavbarItem";
 import { client, useMeQuery } from "client-controllers";
+import Link from "next/link";
 
 export const LINKS = [
   {
@@ -46,9 +47,9 @@ export const Nav: FC = () => {
           {loading || !data ? (
             <AiOutlineLoading className="animate-spin" />
           ) : !data!.me ? (
-            <a href="/login">
+            <Link href="/login">
               <button className="cyan-button">Sign in</button>
-            </a>
+            </Link>
           ) : (
             <div className="w-14 flex justify-center items-center">
               <img src={data!.me!.avatarUrl} className="w-9 h-9 rounded-full" />

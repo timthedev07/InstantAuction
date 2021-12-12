@@ -80,6 +80,7 @@ export type Mutation = {
   modifyAuction: Auction;
   modifyItem: Item;
   updateCredentials: User;
+  updateEmailVisibility: User;
 };
 
 
@@ -169,6 +170,11 @@ export type MutationModifyItemArgs = {
 
 export type MutationUpdateCredentialsArgs = {
   username?: InputMaybe<Scalars['String']>;
+};
+
+
+export type MutationUpdateEmailVisibilityArgs = {
+  newEmailPublic: Scalars['Boolean'];
 };
 
 export type OAuthResponse = {
@@ -383,6 +389,13 @@ export type UpdateCredentialsMutationVariables = Exact<{
 
 
 export type UpdateCredentialsMutation = { __typename?: 'Mutation', updateCredentials: { __typename?: 'User', id: number, email: string, username: string, provider: string, avatarUrl: string, reputation: number, emailPublic: boolean } };
+
+export type UpdateEmailVisibilityMutationVariables = Exact<{
+  newEmailPublic: Scalars['Boolean'];
+}>;
+
+
+export type UpdateEmailVisibilityMutation = { __typename?: 'Mutation', updateEmailVisibility: { __typename?: 'User', id: number, email: string, username: string, provider: string, avatarUrl: string, reputation: number, emailPublic: boolean } };
 
 
 export const AllAuctionsDocument = gql`
@@ -1357,3 +1370,42 @@ export function useUpdateCredentialsMutation(baseOptions?: Apollo.MutationHookOp
 export type UpdateCredentialsMutationHookResult = ReturnType<typeof useUpdateCredentialsMutation>;
 export type UpdateCredentialsMutationResult = Apollo.MutationResult<UpdateCredentialsMutation>;
 export type UpdateCredentialsMutationOptions = Apollo.BaseMutationOptions<UpdateCredentialsMutation, UpdateCredentialsMutationVariables>;
+export const UpdateEmailVisibilityDocument = gql`
+    mutation UpdateEmailVisibility($newEmailPublic: Boolean!) {
+  updateEmailVisibility(newEmailPublic: $newEmailPublic) {
+    id
+    email
+    username
+    provider
+    avatarUrl
+    reputation
+    emailPublic
+  }
+}
+    `;
+export type UpdateEmailVisibilityMutationFn = Apollo.MutationFunction<UpdateEmailVisibilityMutation, UpdateEmailVisibilityMutationVariables>;
+
+/**
+ * __useUpdateEmailVisibilityMutation__
+ *
+ * To run a mutation, you first call `useUpdateEmailVisibilityMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateEmailVisibilityMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateEmailVisibilityMutation, { data, loading, error }] = useUpdateEmailVisibilityMutation({
+ *   variables: {
+ *      newEmailPublic: // value for 'newEmailPublic'
+ *   },
+ * });
+ */
+export function useUpdateEmailVisibilityMutation(baseOptions?: Apollo.MutationHookOptions<UpdateEmailVisibilityMutation, UpdateEmailVisibilityMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateEmailVisibilityMutation, UpdateEmailVisibilityMutationVariables>(UpdateEmailVisibilityDocument, options);
+      }
+export type UpdateEmailVisibilityMutationHookResult = ReturnType<typeof useUpdateEmailVisibilityMutation>;
+export type UpdateEmailVisibilityMutationResult = Apollo.MutationResult<UpdateEmailVisibilityMutation>;
+export type UpdateEmailVisibilityMutationOptions = Apollo.BaseMutationOptions<UpdateEmailVisibilityMutation, UpdateEmailVisibilityMutationVariables>;

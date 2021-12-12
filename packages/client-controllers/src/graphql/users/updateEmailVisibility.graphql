@@ -1,0 +1,11 @@
+mutation UpdateEmailVisibility($newEmailPublic: Boolean!) {
+  updateEmailVisibility(newEmailPublic: $newEmailPublic) {
+    id
+    email
+    username
+    provider
+    avatarUrl
+    reputation
+    emailPublic
+  }
+}

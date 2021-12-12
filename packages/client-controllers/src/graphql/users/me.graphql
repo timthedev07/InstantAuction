@@ -6,5 +6,6 @@ query Me {
     provider
     avatarUrl
     reputation
+    emailPublic
   }
 }

@@ -57,4 +57,8 @@ export class User extends BaseEntity {
   @Field(() => [Auction])
   @OneToMany(() => Auction, auction => auction.winner)
   auctionsWon: Auction[];
+
+  @Field(() => Boolean)
+  @Column({ type: "boolean", default: false })
+  emailPublic: boolean;
 }

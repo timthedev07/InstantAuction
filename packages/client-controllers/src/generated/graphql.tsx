@@ -205,6 +205,7 @@ export type User = {
   avatarUrl: Scalars['String'];
   bids: Array<Bid>;
   email: Scalars['String'];
+  emailPublic: Scalars['Boolean'];
   id: Scalars['Int'];
   itemsOwned: Array<Item>;
   provider: Scalars['String'];
@@ -338,21 +339,21 @@ export type DiscordOAuthMutationVariables = Exact<{
 }>;
 
 
-export type DiscordOAuthMutation = { __typename?: 'Mutation', discordOAuth: { __typename?: 'OAuthResponse', user?: { __typename?: 'User', id: number, email: string, username: string, provider: string, avatarUrl: string, reputation: number } | null | undefined } };
+export type DiscordOAuthMutation = { __typename?: 'Mutation', discordOAuth: { __typename?: 'OAuthResponse', user?: { __typename?: 'User', id: number, email: string, username: string, provider: string, avatarUrl: string, reputation: number, emailPublic: boolean } | null | undefined } };
 
 export type GoogleOAuthMutationVariables = Exact<{
   code: Scalars['String'];
 }>;
 
 
-export type GoogleOAuthMutation = { __typename?: 'Mutation', googleOAuth: { __typename?: 'OAuthResponse', user?: { __typename?: 'User', id: number, email: string, username: string, provider: string, avatarUrl: string, reputation: number } | null | undefined } };
+export type GoogleOAuthMutation = { __typename?: 'Mutation', googleOAuth: { __typename?: 'OAuthResponse', user?: { __typename?: 'User', id: number, email: string, username: string, provider: string, avatarUrl: string, reputation: number, emailPublic: boolean } | null | undefined } };
 
 export type MicrosoftOAuthMutationVariables = Exact<{
   code: Scalars['String'];
 }>;
 
 
-export type MicrosoftOAuthMutation = { __typename?: 'Mutation', microsoftOAuth: { __typename?: 'OAuthResponse', user?: { __typename?: 'User', id: number, email: string, username: string, provider: string, avatarUrl: string, reputation: number } | null | undefined } };
+export type MicrosoftOAuthMutation = { __typename?: 'Mutation', microsoftOAuth: { __typename?: 'OAuthResponse', user?: { __typename?: 'User', id: number, email: string, username: string, provider: string, avatarUrl: string, reputation: number, emailPublic: boolean } | null | undefined } };
 
 export type DeleteAccountMutationVariables = Exact<{
   email: Scalars['String'];
@@ -374,14 +375,14 @@ export type LogoutMutation = { __typename?: 'Mutation', logout: boolean };
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', id: number, email: string, username: string, provider: string, avatarUrl: string, reputation: number } | null | undefined };
+export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', id: number, email: string, username: string, provider: string, avatarUrl: string, reputation: number, emailPublic: boolean } | null | undefined };
 
 export type UpdateCredentialsMutationVariables = Exact<{
   username: Scalars['String'];
 }>;
 
 
-export type UpdateCredentialsMutation = { __typename?: 'Mutation', updateCredentials: { __typename?: 'User', id: number, email: string, username: string, provider: string, avatarUrl: string, reputation: number } };
+export type UpdateCredentialsMutation = { __typename?: 'Mutation', updateCredentials: { __typename?: 'User', id: number, email: string, username: string, provider: string, avatarUrl: string, reputation: number, emailPublic: boolean } };
 
 
 export const AllAuctionsDocument = gql`
@@ -1071,6 +1072,7 @@ export const DiscordOAuthDocument = gql`
       provider
       avatarUrl
       reputation
+      emailPublic
     }
   }
 }
@@ -1111,6 +1113,7 @@ export const GoogleOAuthDocument = gql`
       provider
       avatarUrl
       reputation
+      emailPublic
     }
   }
 }
@@ -1151,6 +1154,7 @@ export const MicrosoftOAuthDocument = gql`
       provider
       avatarUrl
       reputation
+      emailPublic
     }
   }
 }
@@ -1283,6 +1287,7 @@ export const MeDocument = gql`
     provider
     avatarUrl
     reputation
+    emailPublic
   }
 }
     `;
@@ -1322,6 +1327,7 @@ export const UpdateCredentialsDocument = gql`
     provider
     avatarUrl
     reputation
+    emailPublic
   }
 }
     `;

@@ -5,11 +5,11 @@ import {
   useDeleteAuctionMutation
 } from "client-controllers";
 
-interface AuctionProps {
+export interface AuctionComponentProps {
   auction: AllAuctionsQuery["allAuctions"]["auctions"][0];
 }
 
-export const Auction: FC<AuctionProps> = ({ auction }) => {
+export const Auction: FC<AuctionComponentProps> = ({ auction }) => {
   const [deleteAuction] = useDeleteAuctionMutation();
   return (
     <li

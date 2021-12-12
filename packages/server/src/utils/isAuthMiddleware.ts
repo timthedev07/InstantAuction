@@ -1,6 +1,5 @@
 import { MiddlewareFn } from "type-graphql";
 import { notAuthenticatedErrorMessage } from "../constants/errorMessages";
-import { User } from "../entity/User";
 import { NetworkingContext } from "../types/NetworkingContext";
 
 /**
@@ -10,14 +9,10 @@ import { NetworkingContext } from "../types/NetworkingContext";
  * Tries to find the user in the database, and if there's no such user, an error is thrown.
  * @returns
  */
-export const isAuth: MiddlewareFn<NetworkingContext> = async (
-  { context },
-  next
-) => {
+export const isAuth: MiddlewareFn<NetworkingContext> = ({ context }, next) => {
   const userId = context.req.session.userId;
-  const user = await User.findOne(userId);
 
-  if (!user) {
+  if (!userId) {
     throw new Error(notAuthenticatedErrorMessage);
   }
 

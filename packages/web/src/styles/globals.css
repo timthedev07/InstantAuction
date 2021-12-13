@@ -29,6 +29,10 @@
   .nav-item {
     @apply flex items-center justify-center w-14 h-9 p-3 rounded-full transition-all duration-300 hover:bg-gray-500 hover:bg-opacity-60 cursor-pointer;
   }
+
+  .user-tab-item {
+    @apply cursor-pointer text-neutral-300 transition-all duration-200 hover:text-white w-[120px] text-center;
+  }
 }
 
 * {

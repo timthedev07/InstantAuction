@@ -90,7 +90,7 @@ const MePage: NextPage = () => {
             </Stack>
           </div>
         </section>
-        <UserTabs />
+        {isReady ? <UserTabs tab={query.t as string | undefined} /> : ""}
       </div>
     </>
   );

@@ -49,13 +49,13 @@ const ItemsTab = () => {
 export const computeTabBottomLineLeftPercentage = (tab: string) => {
   switch (tab) {
     case "items-owned": {
-      return "33.3%";
+      return "100%";
     }
     case "bids": {
-      return "66.6%";
+      return "200%";
     }
     default: {
-      return "0%";
+      return "0";
     }
   }
 };
@@ -108,7 +108,10 @@ export const UserTabs: FC<UserTabsProps> = ({ tab }) => {
           ))}
         </ul>
         <div
-          className={`absolute bottom-0 left-[${tabBottomLinePos}] h-[3px] bg-white w-[33%]`}
+          className={`transition duration-300 relative h-[3px] bg-white w-[33.3333%]`}
+          style={{
+            transform: `translateX(${tabBottomLinePos})`
+          }}
           key={tabBottomLinePos}
         />
       </div>

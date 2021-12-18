@@ -39,12 +39,6 @@ const MePage: NextPage = () => {
     });
   };
 
-  useEffect(() => {
-    if (!isReady) return;
-    const requestedTab = query.t;
-    console.log(requestedTab);
-  }, [isReady]);
-
   if (loading) {
     return <></>;
   }

@@ -15,7 +15,7 @@ export const Auction: FC<AuctionComponentProps> = ({ auction }) => {
   const { data: meData, loading: meLoading } = useMeQuery();
   return (
     <li
-      className="w-64 h-80 p-3 border border-white rounded-lg"
+      className="w-64 h-80 p-3 border border-gray-500 rounded-lg"
       key={auction.id}
     >
       <h4>{auction.title}</h4>

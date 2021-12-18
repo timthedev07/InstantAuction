@@ -35,7 +35,7 @@ export const Nav: FC = () => {
   const { data, loading } = useMeQuery({ client: client, ssr: false });
 
   return (
-    <nav className="sticky top-0 flex border-b border-opacity-30 border-neutral-1000 items-center bg-neutral-800">
+    <nav className="sticky top-0 flex border-b border-opacity-30 border-neutral-1000 items-center bg-neutral-800 z-50">
       <a href="/" className="px-6">
         <img src="/logo192.png" className="w-9 h-9" />
       </a>

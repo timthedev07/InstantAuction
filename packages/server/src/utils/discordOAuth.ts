@@ -5,7 +5,7 @@ import { DiscordUser } from "../modules/discordUser";
 import fetch from "node-fetch";
 
 const API_ENDPOINT = "https://discord.com/api/v8";
-const CLIENT_ID = process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID;
+const CLIENT_ID = process.env.DISCORD_CLIENT_ID;
 const CLIENT_SECRET = process.env.DISCORD_CLIENT_SECRET;
 
 /**

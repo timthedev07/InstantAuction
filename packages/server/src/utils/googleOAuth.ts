@@ -7,7 +7,7 @@ const getAccessTokenFromCode = async (code: string) => {
     const response = await fetch(`https://oauth2.googleapis.com/token`, {
       method: "post",
       body: JSON.stringify({
-        client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+        client_id: process.env.GOOGLE_CLIENT_ID,
         client_secret: process.env.GOOGLE_CLIENT_SECRET || "",
         redirect_uri: `${FRONTEND}/auth/google`,
         grant_type: "authorization_code",

@@ -16,11 +16,11 @@ export const NavbarItem: FC<NavbarItemProps> = ({ navData }) => {
   return (
     <>
       <ReactTooltip />
-      <li className="nav-item" data-tip={capitalize(navData.name)}>
-        <Link href={navData.route}>
+      <Link href={navData.route}>
+        <li className="nav-item" data-tip={capitalize(navData.name)}>
           <navData.icon />
-        </Link>
-      </li>
+        </li>
+      </Link>
     </>
   );
 };

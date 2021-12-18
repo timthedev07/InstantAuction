@@ -12,7 +12,7 @@ COPY . .
 
 # Bundle App Source
 RUN yarn build
-COPY .env ./dist/
+COPY .env.prod ./dist/.env
 WORKDIR /usr/app/dist
 
 

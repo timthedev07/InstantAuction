@@ -20,7 +20,7 @@
     ]
   },
   "scripts": {
-    "dev": "concurrently \"cd packages/web && yarn dev\" \"cd packages/server && yarn dev\"",
+    "dev": "concurrently \"cd packages/server && yarn dev\" \"cd packages/web && yarn dev\"",
     "dev:mobile": "concurrently \"cd packages/mobile && yarn start\" \"cd packages/server && yarn dev\"",
     "gen": "cd packages/client-controllers/ && yarn gen"
   },

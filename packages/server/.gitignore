@@ -4,7 +4,7 @@ node_modules/
 build/
 tmp/
 temp/
-.env
+.env**
 dist/
 dump.rdb
 .jest-cache

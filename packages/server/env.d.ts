@@ -6,9 +6,9 @@ declare namespace NodeJS {
     HOST: string;
     SESSION_SECRET: string;
     GOOGLE_CLIENT_SECRET: string;
+    GOOGLE_CLIENT_ID: string;
+    DISCORD_CLIENT_ID: string;
     DISCORD_CLIENT_SECRET: string;
-    NEXT_PUBLIC_GOOGLE_CLIENT_ID: string;
-    NEXT_PUBLIC_DISCORD_CLIENT_ID: string;
     IMGUR_CLIENT_ID: string;
     AZURE_CLIENT_SECRET: string;
     AZURE_CLIENT_ID: string;

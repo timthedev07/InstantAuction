@@ -34,7 +34,9 @@ export class ItemsOwned {
       where: {
         owner: { id: req.session.userId },
         // filter based on the parameter
-        participating: excludeAuctionedOff === true ? false : undefined,
+        ...(excludeAuctionedOff && {
+          participating: false,
+        }),
       },
     });
     return {

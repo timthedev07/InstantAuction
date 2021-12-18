@@ -61,7 +61,7 @@ const MePage: NextPage = () => {
         title: `user - ${data.me.username}`
       })}
       <ReactTooltip key={checked ? "dfdf" : "svsv"} />
-      <div>
+      <>
         <section className="w-11/12 flex items-start flex-col p-8">
           {/* User information component */}
           <div className="flex justify-start gap-4 items-center my-5">
@@ -91,7 +91,7 @@ const MePage: NextPage = () => {
           </div>
         </section>
         {isReady ? <UserTabs tab={query.t as string | undefined} /> : ""}
-      </div>
+      </>
     </>
   );
 };

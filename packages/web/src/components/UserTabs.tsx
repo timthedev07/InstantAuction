@@ -9,6 +9,7 @@ interface UserTabsProps {
 }
 
 type TabType = "auctions-owned" | "items-owned" | "bids";
+const TabColor = "bg-neutral-900";
 
 const AuctionsTab = () => {
   const { data, loading, error } = useAuctionsOwnedQuery();
@@ -66,9 +67,9 @@ export const UserTabs: FC<UserTabsProps> = ({ tab }) => {
   });
 
   return (
-    <section className="">
-      <div className="relative">
-        <ul className="flex items-center justify-around bg-neutral-900 py-3">
+    <section className="h-full">
+      <div className={`relative ${TabColor}`}>
+        <ul className="flex items-center justify-around py-3">
           {[
             {
               name: "Auctions",
@@ -111,7 +112,7 @@ export const UserTabs: FC<UserTabsProps> = ({ tab }) => {
           key={tabBottomLinePos}
         />
       </div>
-      <article>
+      <article className={`${TabColor} p-3 min-h-400`}>
         {(() => {
           switch (tab as TabType) {
             case "items-owned": {

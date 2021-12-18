@@ -14,15 +14,13 @@ const AuctionsTab = () => {
   const { data, loading, error } = useAuctionsOwnedQuery();
 
   return (
-    <article>
-      <ul>
-        {loading
-          ? "..."
-          : !data
-          ? JSON.stringify(error)
-          : data.auctionsOwned.auctions.map(each => <Auction auction={each} />)}
-      </ul>
-    </article>
+    <ul>
+      {loading
+        ? "..."
+        : !data
+        ? JSON.stringify(error)
+        : data.auctionsOwned.auctions.map(each => <Auction auction={each} />)}
+    </ul>
   );
 };
 
@@ -34,15 +32,13 @@ const ItemsTab = () => {
   });
 
   return (
-    <article>
-      <ul>
-        {loading
-          ? "..."
-          : !data
-          ? JSON.stringify(error)
-          : data.itemsOwned.items.map(each => <li>{each.name}</li>)}
-      </ul>
-    </article>
+    <ul>
+      {loading
+        ? "..."
+        : !data
+        ? JSON.stringify(error)
+        : data.itemsOwned.items.map(each => <li>{each.name}</li>)}
+    </ul>
   );
 };
 
@@ -115,19 +111,21 @@ export const UserTabs: FC<UserTabsProps> = ({ tab }) => {
           key={tabBottomLinePos}
         />
       </div>
-      {(() => {
-        switch (tab as TabType) {
-          case "items-owned": {
-            return <ItemsTab />;
+      <article>
+        {(() => {
+          switch (tab as TabType) {
+            case "items-owned": {
+              return <ItemsTab />;
+            }
+            case "bids": {
+              return <></>;
+            }
+            default: {
+              return <AuctionsTab />;
+            }
           }
-          case "bids": {
-            return <></>;
-          }
-          default: {
-            return <AuctionsTab />;
-          }
-        }
-      })()}
+        })()}
+      </article>
     </section>
   );
 };

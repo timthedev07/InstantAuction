@@ -8,11 +8,13 @@ import {
 
 export interface AuctionComponentProps {
   auction: AllAuctionsQuery["allAuctions"]["auctions"][0];
+  showOwner: boolean;
 }
 
-export const Auction: FC<AuctionComponentProps> = ({ auction }) => {
+export const Auction: FC<AuctionComponentProps> = ({ auction, showOwner }) => {
   const [deleteAuction] = useDeleteAuctionMutation();
   const { data: meData, loading: meLoading } = useMeQuery();
+
   return (
     <li
       className="w-64 h-80 p-3 border border-gray-500 rounded-lg"
@@ -20,12 +22,13 @@ export const Auction: FC<AuctionComponentProps> = ({ auction }) => {
     >
       <h4>{auction.title}</h4>
       <i>
-        Started by: {auction.seller.username}
-        <br />
         Status: {auction.status}
+        <br />
+        {showOwner ? <>Seller: {auction.seller.username}</> : ""}
       </i>
       <p>{auction.description}</p>
       <img src={auction.item.picture} className="w-auto h-28" />
+      {/* Conditional delete button */}
       {!meLoading &&
       meData &&
       meData.me &&
@@ -49,4 +52,8 @@ export const Auction: FC<AuctionComponentProps> = ({ auction }) => {
       )}
     </li>
   );
+};
+
+Auction.defaultProps = {
+  showOwner: true
 };

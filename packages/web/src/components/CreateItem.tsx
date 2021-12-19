@@ -1,4 +1,5 @@
 import {
+  accessErrMessage,
   createItemCreationOptions,
   createItemCreationWithPictureUrlOptions,
   useCreateItemMutation,
@@ -39,8 +40,9 @@ export const CreateItem: FC = ({}) => {
       if (file && name) {
         try {
           await createItem(createItemCreationOptions({ name, picture: file }));
+          alert("Item created.");
         } catch (err) {
-          alert((err as any).graphQLErrors[0].message);
+          alert(accessErrMessage(err));
         }
       } else {
         alert("Please make sure all information is provided.");
@@ -48,16 +50,18 @@ export const CreateItem: FC = ({}) => {
     } else {
       if (picUrl !== "" /** && check pic url validity here */) {
         try {
-          const res = await createItemWithPicUrl(
+          await createItemWithPicUrl(
             createItemCreationWithPictureUrlOptions({
               name,
               pictureUrl: picUrl
             })
           );
+          alert("Item created.");
         } catch (err) {
-          console.log(err);
+          console.log(accessErrMessage(err));
         }
       } else {
+        alert("Please make sure the picture url is valid.");
       }
     }
   };

@@ -8,10 +8,13 @@ import {
 
 export interface AuctionComponentProps {
   auction: AllAuctionsQuery["allAuctions"]["auctions"][0];
-  showOwner: boolean;
+  showOwner?: boolean;
 }
 
-export const Auction: FC<AuctionComponentProps> = ({ auction, showOwner }) => {
+export const Auction: FC<AuctionComponentProps> = ({
+  auction,
+  showOwner = true
+}) => {
   const [deleteAuction] = useDeleteAuctionMutation();
   const { data: meData, loading: meLoading } = useMeQuery();
 
@@ -52,8 +55,4 @@ export const Auction: FC<AuctionComponentProps> = ({ auction, showOwner }) => {
       )}
     </li>
   );
-};
-
-Auction.defaultProps = {
-  showOwner: true
 };

@@ -1,12 +1,12 @@
 import { FC } from "react";
 
 interface StackProps {
-  className: string;
+  className?: string;
   reversed?: boolean;
 }
 
 export const HStack: FC<StackProps> = ({
-  className,
+  className = "",
   reversed = false,
   children
 }) => {

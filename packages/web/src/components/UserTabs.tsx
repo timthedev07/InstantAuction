@@ -114,7 +114,7 @@ export const UserTabs: FC<UserTabsProps> = ({ tab }) => {
           key={tabBottomLinePos}
         />
       </div>
-      <article className={`${TabColor} p-3 min-h-400`}>
+      <article className={`${TabColor} p-5 min-h-400`}>
         {(() => {
           switch (tab as TabType) {
             case "items-owned": {

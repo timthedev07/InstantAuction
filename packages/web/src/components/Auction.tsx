@@ -21,7 +21,7 @@ export const Auction: FC<AuctionComponentProps> = ({
 
   return (
     <li
-      className="w-full h-44 p-3 border border-gray-500 border-opacity-60 rounded-lg"
+      className="w-full h-44 p-3 bg-neutral-900 border border-gray-500 border-opacity-60 cursor-pointer rounded-lg transition-all duration-300 hover:scale-[1.02] hover:bg-gray-800"
       key={auction.id}
     >
       <HStack className="items-center justify-start gap-6 h-full">
@@ -29,13 +29,14 @@ export const Auction: FC<AuctionComponentProps> = ({
           src={auction.item.picture}
           className="w-32 h-[90%] object-cover object-center rounded-lg"
         />
-        <VStack>
-          <h4>{auction.title}</h4>
-          <i className="text-neutral-500">
-            Status: {auction.status}
-            <br />
-            {showOwner ? <>Seller: {auction.seller.username}</> : ""}
-          </i>
+        <VStack className="gap-2">
+          <VStack className="rounded-lg border border-neutral-600 min-w-[200px] p-2">
+            <h4>{auction.title}</h4>
+            <span className="text-neutral-500">
+              {auction.status}
+              {showOwner ? <> | from {auction.seller.username}</> : ""}
+            </span>
+          </VStack>
 
           {/* Conditional delete button */}
           {!meLoading &&
@@ -52,7 +53,7 @@ export const Auction: FC<AuctionComponentProps> = ({
                   alert((error as any).graphQLErrors[0].message);
                 }
               }}
-              className="danger-button"
+              className="danger-button w-[170px]"
             >
               Delete Auction
             </button>

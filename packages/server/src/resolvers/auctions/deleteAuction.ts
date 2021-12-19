@@ -1,6 +1,7 @@
 import { Resolver, Mutation, UseMiddleware, Ctx, Arg, Int } from "type-graphql";
 import { unauthorizedErrorMessage } from "../../constants/errorMessages";
 import { Auction } from "../../entity/Auction";
+import { Item } from "../../entity/Item";
 import { NetworkingContext } from "../../types/NetworkingContext";
 import { isAuth } from "../../utils/isAuthMiddleware";
 
@@ -12,7 +13,9 @@ export class DeleteAuctionResolver {
     @Ctx() { req }: NetworkingContext,
     @Arg("auctionId", () => Int) auctionId: number
   ) {
-    const auction = await Auction.findOne(auctionId, { relations: ["seller"] });
+    const auction = await Auction.findOne(auctionId, {
+      relations: ["seller", "item"],
+    });
 
     if (!auction) {
       throw new Error("Invalid Auction");
@@ -23,6 +26,9 @@ export class DeleteAuctionResolver {
     }
 
     await Auction.remove(auction);
+    await Item.update(auction.item.id, {
+      participating: false,
+    });
 
     return true;
   }

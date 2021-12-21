@@ -37,8 +37,6 @@ export const createItemDeletionOptions = (
         items = cachedData.itemsOwned.items.filter(each => each.id !== itemId);
       }
 
-      console.log(items);
-
       store.writeQuery<ItemsOwnedQuery, ItemsOwnedQueryVariables>({
         query: ItemsOwnedDocument,
         data: {

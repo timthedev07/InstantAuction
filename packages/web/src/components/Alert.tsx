@@ -45,6 +45,7 @@ export const Alert: FC<AlertProps> = ({
     if (active) {
       if (!element.classList.contains("active")) {
         element.classList.add("active");
+        element.classList.add("in-active");
       }
     }
   }, [active]);

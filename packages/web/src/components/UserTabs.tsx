@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { FC } from "react";
 import { Auction } from "./Auction";
+import { Item } from "./ItemComponent";
 
 interface UserTabsProps {
   tab?: string;
@@ -35,14 +36,12 @@ const ItemsTab = () => {
   });
 
   return (
-    <ul>
+    <ul className="flex gap-5">
       {loading
         ? "..."
         : !data
         ? JSON.stringify(error)
-        : data.itemsOwned.items.map(each => (
-            <li key={each.name}>{each.name}</li>
-          ))}
+        : data.itemsOwned.items.map(each => <Item item={each} />)}
     </ul>
   );
 };

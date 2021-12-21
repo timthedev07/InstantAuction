@@ -1,11 +1,13 @@
 import { FC } from "react";
 import {
+  accessErrMessage,
   AllAuctionsQuery,
   createAuctionDeletionOptions,
   useDeleteAuctionMutation,
   useMeQuery
 } from "client-controllers";
 import { HStack, VStack } from "./utils/Stack";
+import { useAlert } from "../contexts/AlertContext";
 
 export interface AuctionComponentProps {
   auction: AllAuctionsQuery["allAuctions"]["auctions"][0];
@@ -18,6 +20,7 @@ export const Auction: FC<AuctionComponentProps> = ({
 }) => {
   const [deleteAuction] = useDeleteAuctionMutation();
   const { data: meData, loading: meLoading } = useMeQuery();
+  const alert = useAlert();
 
   return (
     <li
@@ -50,7 +53,7 @@ export const Auction: FC<AuctionComponentProps> = ({
                     createAuctionDeletionOptions({ auctionId: auction.id })
                   );
                 } catch (error) {
-                  alert((error as any).graphQLErrors[0].message);
+                  alert.triggerAlert("warning", accessErrMessage(error));
                 }
               }}
               className="danger-button w-[170px]"

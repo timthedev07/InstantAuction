@@ -15,8 +15,10 @@ import {
   TextField
 } from "@mui/material";
 import { VStack } from "./utils/Stack";
+import { useAlert } from "../contexts/AlertContext";
 
 export const CreateItem: FC = ({}) => {
+  const alert = useAlert();
   const [createItem] = useCreateItemMutation();
   const [createItemWithPicUrl] = useCreateItemWithPictureUrlMutation();
   const [file, setFile] = useState<any>(null);
@@ -40,12 +42,14 @@ export const CreateItem: FC = ({}) => {
       if (file && name) {
         try {
           await createItem(createItemCreationOptions({ name, picture: file }));
-          alert("Item created.");
         } catch (err) {
-          alert(accessErrMessage(err));
+          alert.triggerAlert("warning", accessErrMessage(err));
         }
       } else {
-        alert("Please make sure all information is provided.");
+        alert.triggerAlert(
+          "warning",
+          "Please make sure all information is provided."
+        );
       }
     } else {
       if (picUrl !== "" /** && check pic url validity here */) {
@@ -56,12 +60,15 @@ export const CreateItem: FC = ({}) => {
               pictureUrl: picUrl
             })
           );
-          alert("Item created.");
+          alert.triggerAlert("success", "Item created.");
         } catch (err) {
           console.log(accessErrMessage(err));
         }
       } else {
-        alert("Please make sure the picture url is valid.");
+        alert.triggerAlert(
+          "warning",
+          "Please make sure the picture url is valid."
+        );
       }
     }
   };

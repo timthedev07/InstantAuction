@@ -2,7 +2,9 @@ import {
   DeleteAuctionMutationOptions,
   DeleteAuctionMutationVariables,
   AllAuctionsDocument,
-  AllAuctionsQuery
+  AllAuctionsQuery,
+  AuctionsOwnedQuery,
+  AuctionsOwnedDocument
 } from "../generated/graphql";
 
 export const createAuctionDeletionOptions = (
@@ -15,31 +17,65 @@ export const createAuctionDeletionOptions = (
 
       const auctionId = variables.auctionId;
 
-      const cachedData = store.readQuery<AllAuctionsQuery>({
-        query: AllAuctionsDocument
-      });
+      const cachedData = {
+        all: store.readQuery<AllAuctionsQuery>({
+          query: AllAuctionsDocument
+        }),
+        owned: store.readQuery<AuctionsOwnedQuery>({
+          query: AuctionsOwnedDocument
+        })
+      };
 
-      let count: number = 1;
-      let auctions: any[] = [];
+      let count = {
+        all: 0,
+        owned: 0
+      };
+      let auctions = {
+        all: [] as any[],
+        owned: [] as any[]
+      };
 
       if (
-        cachedData &&
-        cachedData.allAuctions &&
-        cachedData.allAuctions.count
+        cachedData.all &&
+        cachedData.all.allAuctions &&
+        cachedData.all.allAuctions.count
       ) {
         // if there are cached Auctions
-        count = cachedData.allAuctions.count - 1;
-        auctions = cachedData.allAuctions.auctions.filter(
+        count.all = cachedData.all.allAuctions.count - 1;
+        auctions.all = cachedData.all.allAuctions.auctions.filter(
           each => each.id !== auctionId
         );
       }
 
+      if (
+        cachedData.owned &&
+        cachedData.owned.auctionsOwned &&
+        cachedData.owned.auctionsOwned.count
+      ) {
+        // if there are cached Auctions
+        count.all = cachedData.owned.auctionsOwned.count - 1;
+        auctions.all = cachedData.owned.auctionsOwned.auctions.filter(
+          each => each.id !== auctionId
+        );
+      }
+
+      store.writeQuery<AuctionsOwnedQuery>({
+        query: AllAuctionsDocument,
+        data: {
+          auctionsOwned: {
+            auctions: auctions.owned,
+            count: count.owned,
+            __typename: "AuctionsResponse"
+          },
+          __typename: "Query"
+        }
+      });
       store.writeQuery<AllAuctionsQuery>({
         query: AllAuctionsDocument,
         data: {
           allAuctions: {
-            auctions,
-            count,
+            auctions: auctions.all,
+            count: count.all,
             __typename: "AuctionsResponse"
           },
           __typename: "Query"

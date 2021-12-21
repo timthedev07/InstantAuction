@@ -2,6 +2,7 @@ import { FC, useEffect, useState } from "react";
 import Head from "next/head";
 import { Nav } from "./navigation/Nav";
 import { BottomNav } from "./navigation/BottomNav";
+import { AlertProvider } from "../contexts/AlertContext";
 
 const BREAK_POINT = 600;
 
@@ -57,11 +58,13 @@ export const Layout: FC = ({ children }) => {
       </Head>
 
       <div id="App" className={`bg-neutral-1100 min-w-350`}>
-        {windowSize > BREAK_POINT ? <Nav /> : null}
-        <main className={`w-full  min-h-700 text-gray-900 dark:text-white`}>
-          {children}
-        </main>
-        {windowSize <= BREAK_POINT ? <BottomNav /> : null}
+        <AlertProvider>
+          {windowSize > BREAK_POINT ? <Nav /> : null}
+          <main className={`w-full  min-h-700 text-gray-900 dark:text-white`}>
+            {children}
+          </main>
+          {windowSize <= BREAK_POINT ? <BottomNav /> : null}
+        </AlertProvider>
       </div>
     </>
   );

@@ -2,8 +2,8 @@ import React, { useContext, useState } from "react";
 import { Alert, AlertType } from "../components/Alert";
 
 type AlertTriggerFunctionType = (
-  alertType: AlertType,
   text: string,
+  alertType?: AlertType,
   onCloseHandler?: () => void
 ) => void;
 
@@ -22,12 +22,12 @@ export const useAlert = () => {
 export const AlertProvider: React.FC = ({ children }) => {
   const [open, setOpen] = useState<boolean>(false);
   const [alertText, setAlertText] = useState<string>("");
-  const [alertType, setAlertType] = useState<AlertType>("info");
+  const [alertType, setAlertType] = useState<AlertType>("warning");
   const [onClose, setOnClose] = useState<() => void>(() => {});
 
   const triggerAlert: AlertTriggerFunctionType = (
-    alertType,
     text,
+    alertType = "warning",
     onCloseHandler = () => {}
   ) => {
     setAlertText(text);

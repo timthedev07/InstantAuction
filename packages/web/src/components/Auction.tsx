@@ -28,10 +28,12 @@ export const Auction: FC<AuctionComponentProps> = ({
       key={auction.id}
     >
       <HStack className="items-center justify-start gap-6 h-full">
-        <img
-          src={auction.item.picture}
-          className="w-32 h-[90%] object-cover object-center rounded-lg"
-        />
+        <div className="flex items-center justify-center w-32 h-full">
+          <img
+            src={auction.item.picture}
+            className="h-auto w-full rounded-lg"
+          />
+        </div>
         <VStack className="gap-2">
           <VStack className="rounded-lg border border-neutral-600 min-w-[200px] p-2">
             <h4>{auction.title}</h4>

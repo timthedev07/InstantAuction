@@ -13,7 +13,7 @@ interface AlertProps {
 const TEXT_MAP: Record<AlertType, string> = {
   success: "Awesome, everything worked just fine!",
   warning: "Oops, something went wrong.",
-  info: "Just so you know...",
+  info: "For your information",
   danger: "Watch out!"
 };
 
@@ -22,13 +22,14 @@ export const Alert: FC<AlertProps> = ({
   setOpen: setActive,
   type,
   text,
-  open: active,
+  open: active
 }) => {
-  const element = document.querySelector("div#screen-overlay");
+  let element: Element | null;
 
   function handleClick() {
-    if (element?.classList.contains("active")) {
-      element?.classList.remove("active");
+    if (!element) return;
+    if (element.classList.contains("active")) {
+      element.classList.remove("active");
     }
 
     setActive(false);
@@ -38,11 +39,15 @@ export const Alert: FC<AlertProps> = ({
     }
   }
 
-  if (active) {
-    if (!element?.classList.contains("active")) {
-      element?.classList.add("active");
+  useEffect(() => {
+    element = document.querySelector("div#screen-overlay");
+    if (!element) return;
+    if (active) {
+      if (!element.classList.contains("active")) {
+        element.classList.add("active");
+      }
     }
-  }
+  }, [active]);
 
   useEffect(() => {
     const handleKeyUp = (e: KeyboardEvent) => {
@@ -56,7 +61,7 @@ export const Alert: FC<AlertProps> = ({
     return () => {
       window.removeEventListener("keyup", handleKeyUp);
     };
-  });
+  }, []);
 
   return (
     <div
@@ -68,7 +73,7 @@ export const Alert: FC<AlertProps> = ({
       <div className="alert-content">
         <img className="alert-sign" src={`/images/alert/${type}.svg`} alt="" />
         <div className="alert-text">
-          <h5>{TEXT_MAP[type]}</h5>
+          <h5 className="text-white">{TEXT_MAP[type]}</h5>
           <p className="alert-paragraph">{text}</p>
         </div>
       </div>
@@ -77,7 +82,7 @@ export const Alert: FC<AlertProps> = ({
           textAlign: "right",
           color: "#b3b3b3",
           marginTop: "auto",
-          marginBottom: "0",
+          marginBottom: "0"
         }}
       >
         ESC

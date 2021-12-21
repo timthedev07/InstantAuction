@@ -60,7 +60,7 @@ export const createAuctionDeletionOptions = (
       }
 
       store.writeQuery<AuctionsOwnedQuery>({
-        query: AllAuctionsDocument,
+        query: AuctionsOwnedDocument,
         data: {
           auctionsOwned: {
             auctions: auctions.owned,

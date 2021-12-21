@@ -53,7 +53,7 @@ export const Auction: FC<AuctionComponentProps> = ({
                     createAuctionDeletionOptions({ auctionId: auction.id })
                   );
                 } catch (error) {
-                  alert.triggerAlert("warning", accessErrMessage(error));
+                  alert.triggerAlert(accessErrMessage(error));
                 }
               }}
               className="danger-button w-[170px]"

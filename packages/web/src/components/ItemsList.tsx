@@ -36,7 +36,7 @@ export const ItemsList: FC = ({}) => {
                       })
                     );
                   } catch (error) {
-                    alert.triggerAlert("warning", accessErrMessage(error));
+                    alert.triggerAlert(accessErrMessage(error));
                   }
                 }}
                 className="danger-button"

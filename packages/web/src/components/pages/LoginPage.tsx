@@ -22,7 +22,7 @@ export const LoginPage: FC<LoginPageProps> = ({}) => {
     console.log(query);
     const error = query.err as string;
     if (error) {
-      alert.triggerAlert("warning", error);
+      alert.triggerAlert(error);
     }
   }, []);
 

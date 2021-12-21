@@ -43,13 +43,10 @@ export const CreateItem: FC = ({}) => {
         try {
           await createItem(createItemCreationOptions({ name, picture: file }));
         } catch (err) {
-          alert.triggerAlert("warning", accessErrMessage(err));
+          alert.triggerAlert(accessErrMessage(err));
         }
       } else {
-        alert.triggerAlert(
-          "warning",
-          "Please make sure all information is provided."
-        );
+        alert.triggerAlert("Please make sure all information is provided.");
       }
     } else {
       if (picUrl !== "" /** && check pic url validity here */) {
@@ -60,15 +57,12 @@ export const CreateItem: FC = ({}) => {
               pictureUrl: picUrl
             })
           );
-          alert.triggerAlert("success", "Item created.");
+          alert.triggerAlert("Item created.", "success");
         } catch (err) {
           console.log(accessErrMessage(err));
         }
       } else {
-        alert.triggerAlert(
-          "warning",
-          "Please make sure the picture url is valid."
-        );
+        alert.triggerAlert("Please make sure the picture url is valid.");
       }
     }
   };

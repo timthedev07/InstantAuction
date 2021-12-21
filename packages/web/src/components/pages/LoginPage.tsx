@@ -6,6 +6,7 @@ import {
 } from "client-controllers";
 import { useRouter } from "next/router";
 import { FC, useEffect } from "react";
+import { useAlert } from "../../contexts/AlertContext";
 import { getHeadForPage } from "../../utils/getHeadForPage";
 import { OAuthButton } from "../OAuthButton";
 
@@ -14,13 +15,14 @@ interface LoginPageProps {}
 export const LoginPage: FC<LoginPageProps> = ({}) => {
   const { data } = useMeQuery({ ssr: false });
   const router = useRouter();
+  const alert = useAlert();
 
   useEffect(() => {
     const query = router.query;
     console.log(query);
-    const error = query.err;
+    const error = query.err as string;
     if (error) {
-      alert(error);
+      alert.triggerAlert("warning", error);
     }
   }, []);
 

@@ -36,8 +36,9 @@
 }
 
 .alert-inactive {
-  top: -100vw;
-  transition: 0.15s;
+  top: -200vw;
+  transition: 1.5s;
+  z-index: 100000;
 }
 
 .custom-alert .alert-content .alert-sign {

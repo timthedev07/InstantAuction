@@ -133,41 +133,41 @@ export class OAuthResolver {
     const username = ccaResponse.account.name;
     const externalId = ccaResponse.account.localAccountId;
 
-    let msProfilePicResponse;
-    try {
-      msProfilePicResponse = await fetch(
-        "https://graph.microsoft.com/v1.0/me/photo/$value",
-        {
-          headers: {
-            Authorization: "Bearer " + ccaResponse.accessToken,
-            "Content-Type": "image/jpg",
-          },
-        }
-      );
-    } catch (err) {
-      console.log(err);
-      return {
-        user: undefined,
-      };
-    }
-
-    const picData = await msProfilePicResponse.buffer();
-    let avatarUrl: string;
-
-    if (msProfilePicResponse.ok) {
-      // there is a profile image
-      const tempdir = tmpdir();
-      const imageBufferPath = join(tempdir, "ms-user-profile-pick.jpg");
-      await promises.writeFile(imageBufferPath, picData);
-      avatarUrl = await uploadToImgur(imageBufferPath);
-    } else {
-      avatarUrl =
-        "https://raw.githubusercontent.com/timthedev07/InstantAuction-ExternalAsset/staging/IA-user.png";
-    }
-
     user = await User.findOne({ where: { email } });
+
     // if there's not a user with this email
     if (!user) {
+      let msProfilePicResponse;
+      try {
+        msProfilePicResponse = await fetch(
+          "https://graph.microsoft.com/v1.0/me/photo/$value",
+          {
+            headers: {
+              Authorization: "Bearer " + ccaResponse.accessToken,
+              "Content-Type": "image/jpg",
+            },
+          }
+        );
+      } catch (err) {
+        console.log(err);
+        return {
+          user: undefined,
+        };
+      }
+
+      const picData = await msProfilePicResponse.buffer();
+      let avatarUrl: string;
+
+      if (msProfilePicResponse.ok) {
+        // there is a profile image
+        const tempdir = tmpdir();
+        const imageBufferPath = join(tempdir, "ms-user-profile-pick.jpg");
+        await promises.writeFile(imageBufferPath, picData);
+        avatarUrl = await uploadToImgur(imageBufferPath);
+      } else {
+        avatarUrl =
+          "https://raw.githubusercontent.com/timthedev07/InstantAuction-ExternalAsset/staging/IA-user.png";
+      }
       // sign up
       const insertionResult = await User.insert({
         email,

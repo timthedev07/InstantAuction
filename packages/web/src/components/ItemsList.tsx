@@ -1,14 +1,17 @@
 import {
+  accessErrMessage,
   createItemDeletionOptions,
   useDeleteItemMutation,
   useItemsOwnedQuery
 } from "client-controllers";
 import { FC } from "react";
+import { useAlert } from "../contexts/AlertContext";
 
 export const ItemsList: FC = ({}) => {
   const { data, error, loading } = useItemsOwnedQuery({
     variables: { excludeAuctionedOff: false }
   });
+  const alert = useAlert();
   const [deleteItem] = useDeleteItemMutation();
 
   return (
@@ -33,7 +36,7 @@ export const ItemsList: FC = ({}) => {
                       })
                     );
                   } catch (error) {
-                    alert((error as any).graphQLErrors[0].message);
+                    alert.triggerAlert("warning", accessErrMessage(error));
                   }
                 }}
                 className="danger-button"

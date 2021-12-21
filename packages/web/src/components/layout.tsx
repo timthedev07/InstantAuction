@@ -57,6 +57,8 @@ export const Layout: FC = ({ children }) => {
         <link rel="apple-touch-icon" href="/logo192.png" />
       </Head>
 
+      <div id="screen-overlay" />
+
       <div id="App" className={`bg-neutral-1100 min-w-350`}>
         <AlertProvider>
           {windowSize > BREAK_POINT ? <Nav /> : null}

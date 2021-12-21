@@ -24,7 +24,7 @@ export const Alert: FC<AlertProps> = ({
   text,
   open: active,
 }) => {
-  const element = document.querySelector("div.screen-cover");
+  const element = document.querySelector("div#screen-overlay");
 
   function handleClick() {
     if (element?.classList.contains("active")) {

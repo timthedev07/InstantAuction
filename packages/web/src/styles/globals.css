@@ -33,6 +33,15 @@
   .user-tab-item {
     @apply cursor-pointer text-neutral-300 transition-all duration-200 hover:text-white w-[120px] text-center;
   }
+
+  #screen-overlay {
+    @apply w-full h-full fixed cursor-not-allowed z-[-10] opacity-0 transition duration-150;
+    background-color: rgba(26, 26, 26, 0.58);
+  }
+
+  #screen-overlay.active {
+    @apply opacity-100 z-[100] transition duration-150;
+  }
 }
 
 * {

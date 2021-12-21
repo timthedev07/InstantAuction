@@ -79,11 +79,6 @@
       - Show a list of auctions owned ✅
       - Show a list of auctions participated in
 
-## Client-side
-
-- Write graphqls
-- Generate hooks
-
 ## Client-side.web
 
 - Pages(do these in order)

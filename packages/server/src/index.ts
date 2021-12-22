@@ -35,11 +35,12 @@ import { msRouter } from "./routes/microsoft";
   app.use(graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }));
 
   const RedisStore = connectRedis(session);
+  await redisClient.connect();
   app.use(
     session({
       name: sessionCookieName,
       store: new RedisStore({
-        client: redisClient,
+        client: redisClient as any,
         disableTouch: true,
       }),
       cookie: {

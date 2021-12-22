@@ -11,7 +11,7 @@ interface Args {
 }
 
 export const getHeadForPage = (pageData: Args) => {
-  const title = "Instant Auction: " + pageData.title;
+  const title = `${pageData.title} - Instant Auction`;
 
   return (
     <Head>

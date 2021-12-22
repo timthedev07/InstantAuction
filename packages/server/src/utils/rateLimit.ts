@@ -5,7 +5,8 @@ import { NetworkingContext } from "../types/NetworkingContext";
 export type RateLimitingFnType = (
   publicLimit?: number,
   limitForUser?: number,
-  timeFrame?: number
+  timeFrame?: number,
+  errorMessage?: string
 ) => MiddlewareFn<NetworkingContext>;
 
 const ONE_MIN = 60;
@@ -13,7 +14,8 @@ const ONE_MIN = 60;
 export const rateLimit: RateLimitingFnType = (
   publicLimit = 12,
   limitForUser = 12,
-  timeFrame = ONE_MIN
+  timeFrame = ONE_MIN,
+  errorMessage = "Rate limit reached."
 ) => async ({ info, context: { req } }, next) => {
   const auth = req.session && req.session.userId;
   const key = `rl:${info.fieldName}:${auth ? req.session.userId : req.ip}`;
@@ -21,7 +23,7 @@ export const rateLimit: RateLimitingFnType = (
   const newCount = await redisClient.incr(key);
 
   if (newCount > (auth ? limitForUser : publicLimit)) {
-    throw new Error("Rate limit reached.");
+    throw new Error(errorMessage);
   }
 
   if (newCount === 1) {

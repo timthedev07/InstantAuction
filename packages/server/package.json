@@ -52,7 +52,6 @@
     "tsc": "tsc",
     "test:setup-db": "NODE_ENV=test ts-node --transpile-only --project tsconfig-test.json ./src/test-utils/setup.ts",
     "test": "yarn --silent test:setup-db && jest --runInBand",
-    "build:jest-sequencer": "tsc --project tsconfig.sequencer.json; clear",
     "docker:build": "docker build -t timthedev07/instant-auction-test .",
     "gen:env": "gen-env-types .env"
   }

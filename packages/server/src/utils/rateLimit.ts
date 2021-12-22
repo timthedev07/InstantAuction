@@ -3,28 +3,28 @@ import { redisClient } from "../redis";
 import { NetworkingContext } from "../types/NetworkingContext";
 
 export type RateLimitingFnType = (
-  limit?: number
+  publicLimit?: number,
+  limitForUser?: number
 ) => MiddlewareFn<NetworkingContext>;
 
-const FIVE_MIN = 60 * 5;
+const ONE_MIN = 60;
 
-export const rateLimit: RateLimitingFnType = (limit = 50) => async (
-  { info, context: { req } },
-  next
-) => {
-  const key = `rl:${info.fieldName}:${req.ip}`;
+export const rateLimit: RateLimitingFnType = (
+  publicLimit = 12,
+  limitForUser = 12,
+  timeFrame = ONE_MIN
+) => async ({ info, context: { req } }, next) => {
+  const auth = req.session && req.session.userId;
+  const key = `rl:${info.fieldName}:${auth ? req.session.userId : req.ip}`;
 
   const newCount = await redisClient.incr(key);
 
-  console.log({ newCount });
-
-  if (newCount > limit) {
-    console.log("LIMIT REACHED");
+  if (newCount > (auth ? limitForUser : publicLimit)) {
     throw new Error("Rate limit reached.");
   }
 
   if (newCount === 1) {
-    redisClient.expire(key, FIVE_MIN);
+    redisClient.expire(key, timeFrame);
   }
 
   return next();

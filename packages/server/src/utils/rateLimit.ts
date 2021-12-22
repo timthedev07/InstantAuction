@@ -11,6 +11,15 @@ export type RateLimitingFnType = (
 
 const ONE_MIN = 60;
 
+/**
+ * Rate limiting middleware for type-graphql.
+ *
+ * @param publicLimit Rate limit for anonymous users
+ * @param limitForUser Rate limit for authenticated users
+ * @param timeFrame Limit duration
+ * @param errorMessage Custom error message
+ * @returns
+ */
 export const rateLimit: RateLimitingFnType = (
   publicLimit = 12,
   limitForUser = 12,

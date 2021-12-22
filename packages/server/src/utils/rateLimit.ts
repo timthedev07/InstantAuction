@@ -4,7 +4,8 @@ import { NetworkingContext } from "../types/NetworkingContext";
 
 export type RateLimitingFnType = (
   publicLimit?: number,
-  limitForUser?: number
+  limitForUser?: number,
+  timeFrame?: number
 ) => MiddlewareFn<NetworkingContext>;
 
 const ONE_MIN = 60;

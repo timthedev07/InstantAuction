@@ -14,6 +14,8 @@ const ONE_MIN = 60;
 /**
  * Rate limiting middleware for type-graphql.
  *
+ * **Attention**: this middleware is expected to be used after the isAuth middleware
+ *
  * @param publicLimit Rate limit for anonymous users
  * @param limitForUser Rate limit for authenticated users
  * @param timeFrame Limit duration

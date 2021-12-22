@@ -1,11 +1,13 @@
 import { FileUpload, GraphQLUpload } from "graphql-upload";
-import { Arg, Query, Resolver } from "type-graphql";
+import { Arg, Query, Resolver, UseMiddleware } from "type-graphql";
 import { User } from "../entity/User";
 import { handleImageUpload } from "../utils/handleImageUpload";
+import { rateLimit } from "../utils/rateLimit";
 
 @Resolver()
 export class TmpResolvers {
   @Query(() => String)
+  @UseMiddleware(rateLimit(10))
   hello() {
     return "Hello from your backend";
   }

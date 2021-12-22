@@ -8,7 +8,11 @@ import { rateLimit } from "../../utils/rateLimit";
 export class DeleteAccountResolver {
   @Mutation(() => Boolean)
   @UseMiddleware(isAuth)
-  @UseMiddleware(rateLimit(0, 1, 60 * 3))
+  @UseMiddleware(
+    rateLimit(0, 1, {
+      timeFrame: 60 * 3,
+    })
+  )
   async deleteAccount(
     @Arg("email") email: string,
     @Ctx() { req }: NetworkingContext

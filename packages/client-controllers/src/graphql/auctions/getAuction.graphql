@@ -1,0 +1,21 @@
+query GetAuction($auctionId: Int!) {
+  getAuction(auctionId: $auctionId) {
+    id
+    title
+    description
+    seller {
+      username
+    }
+    status
+    dateCreated
+    dateUpdated
+    item {
+      id
+      picture
+      name
+    }
+    winner {
+      username
+    }
+  }
+}

@@ -187,11 +187,17 @@ export type Query = {
   allAuctions: AuctionsResponse;
   auctionsBid: AuctionsResponse;
   auctionsOwned: AuctionsResponse;
+  getAuction: Auction;
   hello: Scalars['String'];
   itemsOwned: UserItemsResponse;
   me?: Maybe<User>;
   testUpload: Scalars['Boolean'];
   users: Array<User>;
+};
+
+
+export type QueryGetAuctionArgs = {
+  auctionId: Scalars['Int'];
 };
 
 
@@ -212,7 +218,7 @@ export type User = {
   bids: Array<Bid>;
   email: Scalars['String'];
   emailPublic: Scalars['Boolean'];
-  id: Scalars['Int'];
+  id: Scalars['String'];
   itemsOwned: Array<Item>;
   provider: Scalars['String'];
   reputation: Scalars['Int'];
@@ -270,6 +276,13 @@ export type EndAuctionMutationVariables = Exact<{
 
 
 export type EndAuctionMutation = { __typename?: 'Mutation', endAuction: { __typename?: 'Auction', id: number, title: string, description: string, status: string, dateCreated: any, dateUpdated: any, seller: { __typename?: 'User', username: string }, item: { __typename?: 'Item', id: number, picture: string, name: string }, winner?: { __typename?: 'User', username: string } | null | undefined } };
+
+export type GetAuctionQueryVariables = Exact<{
+  auctionId: Scalars['Int'];
+}>;
+
+
+export type GetAuctionQuery = { __typename?: 'Query', getAuction: { __typename?: 'Auction', id: number, title: string, description: string, status: string, dateCreated: any, dateUpdated: any, seller: { __typename?: 'User', username: string }, item: { __typename?: 'Item', id: number, picture: string, name: string }, winner?: { __typename?: 'User', username: string } | null | undefined } };
 
 export type ModifyAuctionMutationVariables = Exact<{
   partialUpdate: ModifyAuctionPartialUpdate;
@@ -345,21 +358,21 @@ export type DiscordOAuthMutationVariables = Exact<{
 }>;
 
 
-export type DiscordOAuthMutation = { __typename?: 'Mutation', discordOAuth: { __typename?: 'OAuthResponse', user?: { __typename?: 'User', id: number, email: string, username: string, provider: string, avatarUrl: string, reputation: number, emailPublic: boolean } | null | undefined } };
+export type DiscordOAuthMutation = { __typename?: 'Mutation', discordOAuth: { __typename?: 'OAuthResponse', user?: { __typename?: 'User', id: string, email: string, username: string, provider: string, avatarUrl: string, reputation: number, emailPublic: boolean } | null | undefined } };
 
 export type GoogleOAuthMutationVariables = Exact<{
   code: Scalars['String'];
 }>;
 
 
-export type GoogleOAuthMutation = { __typename?: 'Mutation', googleOAuth: { __typename?: 'OAuthResponse', user?: { __typename?: 'User', id: number, email: string, username: string, provider: string, avatarUrl: string, reputation: number, emailPublic: boolean } | null | undefined } };
+export type GoogleOAuthMutation = { __typename?: 'Mutation', googleOAuth: { __typename?: 'OAuthResponse', user?: { __typename?: 'User', id: string, email: string, username: string, provider: string, avatarUrl: string, reputation: number, emailPublic: boolean } | null | undefined } };
 
 export type MicrosoftOAuthMutationVariables = Exact<{
   code: Scalars['String'];
 }>;
 
 
-export type MicrosoftOAuthMutation = { __typename?: 'Mutation', microsoftOAuth: { __typename?: 'OAuthResponse', user?: { __typename?: 'User', id: number, email: string, username: string, provider: string, avatarUrl: string, reputation: number, emailPublic: boolean } | null | undefined } };
+export type MicrosoftOAuthMutation = { __typename?: 'Mutation', microsoftOAuth: { __typename?: 'OAuthResponse', user?: { __typename?: 'User', id: string, email: string, username: string, provider: string, avatarUrl: string, reputation: number, emailPublic: boolean } | null | undefined } };
 
 export type DeleteAccountMutationVariables = Exact<{
   email: Scalars['String'];
@@ -381,21 +394,21 @@ export type LogoutMutation = { __typename?: 'Mutation', logout: boolean };
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', id: number, email: string, username: string, provider: string, avatarUrl: string, reputation: number, emailPublic: boolean } | null | undefined };
+export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', id: string, email: string, username: string, provider: string, avatarUrl: string, reputation: number, emailPublic: boolean } | null | undefined };
 
 export type UpdateCredentialsMutationVariables = Exact<{
   username: Scalars['String'];
 }>;
 
 
-export type UpdateCredentialsMutation = { __typename?: 'Mutation', updateCredentials: { __typename?: 'User', id: number, email: string, username: string, provider: string, avatarUrl: string, reputation: number, emailPublic: boolean } };
+export type UpdateCredentialsMutation = { __typename?: 'Mutation', updateCredentials: { __typename?: 'User', id: string, email: string, username: string, provider: string, avatarUrl: string, reputation: number, emailPublic: boolean } };
 
 export type UpdateEmailVisibilityMutationVariables = Exact<{
   newEmailPublic: Scalars['Boolean'];
 }>;
 
 
-export type UpdateEmailVisibilityMutation = { __typename?: 'Mutation', updateEmailVisibility: { __typename?: 'User', id: number, email: string, username: string, provider: string, avatarUrl: string, reputation: number, emailPublic: boolean } };
+export type UpdateEmailVisibilityMutation = { __typename?: 'Mutation', updateEmailVisibility: { __typename?: 'User', id: string, email: string, username: string, provider: string, avatarUrl: string, reputation: number, emailPublic: boolean } };
 
 
 export const AllAuctionsDocument = gql`
@@ -738,6 +751,57 @@ export function useEndAuctionMutation(baseOptions?: Apollo.MutationHookOptions<E
 export type EndAuctionMutationHookResult = ReturnType<typeof useEndAuctionMutation>;
 export type EndAuctionMutationResult = Apollo.MutationResult<EndAuctionMutation>;
 export type EndAuctionMutationOptions = Apollo.BaseMutationOptions<EndAuctionMutation, EndAuctionMutationVariables>;
+export const GetAuctionDocument = gql`
+    query GetAuction($auctionId: Int!) {
+  getAuction(auctionId: $auctionId) {
+    id
+    title
+    description
+    seller {
+      username
+    }
+    status
+    dateCreated
+    dateUpdated
+    item {
+      id
+      picture
+      name
+    }
+    winner {
+      username
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetAuctionQuery__
+ *
+ * To run a query within a React component, call `useGetAuctionQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAuctionQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAuctionQuery({
+ *   variables: {
+ *      auctionId: // value for 'auctionId'
+ *   },
+ * });
+ */
+export function useGetAuctionQuery(baseOptions: Apollo.QueryHookOptions<GetAuctionQuery, GetAuctionQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAuctionQuery, GetAuctionQueryVariables>(GetAuctionDocument, options);
+      }
+export function useGetAuctionLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAuctionQuery, GetAuctionQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAuctionQuery, GetAuctionQueryVariables>(GetAuctionDocument, options);
+        }
+export type GetAuctionQueryHookResult = ReturnType<typeof useGetAuctionQuery>;
+export type GetAuctionLazyQueryHookResult = ReturnType<typeof useGetAuctionLazyQuery>;
+export type GetAuctionQueryResult = Apollo.QueryResult<GetAuctionQuery, GetAuctionQueryVariables>;
 export const ModifyAuctionDocument = gql`
     mutation ModifyAuction($partialUpdate: ModifyAuctionPartialUpdate!, $auctionId: Int!) {
   modifyAuction(partialUpdate: $partialUpdate, auctionId: $auctionId) {

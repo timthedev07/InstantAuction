@@ -74,7 +74,10 @@ export class OAuthResolver {
     try {
       userData = await getDiscordUserInfo(code);
       if (!userData.email) {
-        throw new Error("No Email is linked with this discord account");
+        throw new Error("No Email is linked with this discord account.");
+      }
+      if (!userData.verified) {
+        throw new Error("Currently not accepting unverified emails.");
       }
       email = userData.email;
     } catch (err) {

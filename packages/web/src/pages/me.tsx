@@ -1,4 +1,5 @@
 import {
+  accessErrMessage,
   useMeQuery,
   useUpdateEmailVisibilityMutation
 } from "client-controllers";
@@ -8,18 +9,20 @@ import { useEffect, useState } from "react";
 import { LoginPage } from "../components/pages/LoginPage";
 import { getHeadForPage } from "../utils/getHeadForPage";
 import { withApollo } from "../utils/withApollo";
-import Switch from "@mui/material/Switch";
+import { Switch } from "@chakra-ui/react";
 import ReactTooltip from "react-tooltip";
-import { Stack, Typography } from "@mui/material";
 import { AiFillEye } from "@react-icons/all-files/ai/AiFillEye";
 import { AiFillLock } from "@react-icons/all-files/ai/AiFillLock";
 import { UserTabs } from "../components/UserTabs";
+import { HStack } from "../components/utils/Stack";
+import { useAlert } from "../contexts/AlertContext";
 
 const MePage: NextPage = () => {
   const { query, isReady, asPath } = useRouter();
   const { data, loading } = useMeQuery({
     ssr: false
   });
+  const { triggerAlert } = useAlert();
   const [checked, setChecked] = useState(false);
   const [updateEmailVisibility] = useUpdateEmailVisibilityMutation();
 
@@ -32,11 +35,15 @@ const MePage: NextPage = () => {
     const newVal = event.target.checked;
     setChecked(newVal);
 
-    await updateEmailVisibility({
-      variables: {
-        newEmailPublic: newVal
-      }
-    });
+    try {
+      await updateEmailVisibility({
+        variables: {
+          newEmailPublic: newVal
+        }
+      });
+    } catch (err) {
+      triggerAlert(accessErrMessage(err), "warning");
+    }
   };
 
   if (loading) {
@@ -67,21 +74,16 @@ const MePage: NextPage = () => {
           </div>
           <div className="rounded-md border border-gray-500 p-3 flex justify-around gap-8 items-center bg-neutral-800">
             <h5>{data.me.email}</h5>
-            <Stack direction="row" alignItems="center">
-              <Typography>
-                <AiFillLock />
-              </Typography>
+            <HStack className="items-center gap-2 justify-center">
+              <AiFillLock />
               <Switch
                 key={checked ? "PublicSwitch" : "PrivateSwitch"}
                 data-tip={checked ? "Public" : "Private"}
                 checked={checked}
                 onChange={handleChange}
-                color="info"
               />
-              <Typography>
-                <AiFillEye />
-              </Typography>
-            </Stack>
+              <AiFillEye />
+            </HStack>
           </div>
         </section>
         {isReady ? <UserTabs tab={query.t as string | undefined} /> : ""}

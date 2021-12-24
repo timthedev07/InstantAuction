@@ -187,7 +187,7 @@ export type Query = {
   allAuctions: AuctionsResponse;
   auctionsBid: AuctionsResponse;
   auctionsOwned: AuctionsResponse;
-  getAuction: Auction;
+  getAuction?: Maybe<Auction>;
   hello: Scalars['String'];
   itemsOwned: UserItemsResponse;
   me?: Maybe<User>;
@@ -282,7 +282,7 @@ export type GetAuctionQueryVariables = Exact<{
 }>;
 
 
-export type GetAuctionQuery = { __typename?: 'Query', getAuction: { __typename?: 'Auction', id: number, title: string, description: string, status: string, dateCreated: any, dateUpdated: any, seller: { __typename?: 'User', username: string }, item: { __typename?: 'Item', id: number, picture: string, name: string }, winner?: { __typename?: 'User', username: string } | null | undefined } };
+export type GetAuctionQuery = { __typename?: 'Query', getAuction?: { __typename?: 'Auction', id: number, title: string, description: string, status: string, dateCreated: any, dateUpdated: any, seller: { __typename?: 'User', username: string }, item: { __typename?: 'Item', id: number, picture: string, name: string }, winner?: { __typename?: 'User', username: string } | null | undefined } | null | undefined };
 
 export type ModifyAuctionMutationVariables = Exact<{
   partialUpdate: ModifyAuctionPartialUpdate;

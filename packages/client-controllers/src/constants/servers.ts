@@ -6,4 +6,4 @@ export const PLAYGROUND = "https://studio.apollographql.com";
 export const BACKEND =
   process.env.NODE_ENV === "production"
     ? "https://instantauction.herokuapp.com"
-    : "http://localhost:4000";
+    : "http://0.0.0.0:4000";

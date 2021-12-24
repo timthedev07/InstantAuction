@@ -13,11 +13,12 @@ if (__prod__) {
   }
 }
 
-export const redisClient = createClient(
-  __prod__
+export const redisClient = createClient({
+  ...(__prod__
     ? {
         url: REDIS_URL,
         password: REDIS_PASSWORD,
       }
-    : undefined
-);
+    : undefined),
+  legacyMode: true,
+});

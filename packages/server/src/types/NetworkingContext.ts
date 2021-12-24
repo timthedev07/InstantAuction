@@ -7,6 +7,6 @@ export interface NetworkingContext {
 
 declare module "express-session" {
   interface SessionData {
-    userId: number;
+    userId: string;
   }
 }

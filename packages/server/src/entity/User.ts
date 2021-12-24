@@ -16,8 +16,8 @@ type ProviderType = "Google" | "Discord" | "Microsoft";
 @Entity("users")
 export class User extends BaseEntity {
   @Field(() => Int)
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
 
   @Field(() => String)
   @Column({ type: "text", unique: true })

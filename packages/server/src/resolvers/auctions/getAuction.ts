@@ -4,7 +4,7 @@ import { Auction } from "../../entity/Auction";
 
 @Resolver()
 export class GetAuctionResolver {
-  @Query(() => Auction)
+  @Query(() => Auction, { nullable: true })
   async getAuction(@Arg("auctionId", () => Int) auctionId: number) {
     return await Auction.findOne(auctionId, {
       relations: auctionExposedRelations,

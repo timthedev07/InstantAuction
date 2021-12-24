@@ -1,6 +1,7 @@
 import { MiddlewareFn } from "type-graphql";
 import { redisClient } from "../redis";
 import { NetworkingContext } from "../types/NetworkingContext";
+import { promisifyRedis } from "./promisifyRedis";
 
 export type RateLimitingFnType = (
   publicLimit?: number,
@@ -32,7 +33,9 @@ export const rateLimit: RateLimitingFnType = (
   const auth = req.session && req.session.userId;
   const key = `rl:${info.fieldName}:${auth ? req.session.userId : req.ip}`;
 
-  const newCount = await redisClient.incr(key);
+  const incr = promisifyRedis(redisClient.incr);
+
+  const newCount = await incr(key);
 
   if (newCount > (auth ? limitForUser : publicLimit)) {
     throw new Error(errorMessage);

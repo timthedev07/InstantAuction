@@ -19,13 +19,13 @@
 }
 
 .custom-alert .alert-content .alert-paragraph {
-  font-size: 7px;
+  font-size: 7px !important;
   color: rgb(212, 212, 212);
   text-align: left;
 }
 @media screen and (max-width: 800px) {
   .custom-alert .alert-content .alert-paragraph {
-    font-size: 1rem;
+    font-size: 1rem !important;
   }
 }
 

@@ -36,9 +36,11 @@ export const Nav: FC = () => {
 
   return (
     <nav className="sticky top-0 flex border-b border-opacity-30 border-neutral-1000 items-center bg-neutral-800 z-50">
-      <a href="/" className="px-6">
-        <img src="/logo192.png" className="w-9 h-9" />
-      </a>
+      <Link href="/">
+        <div className="px-6">
+          <img src="/logo192.png" className="w-9 h-9" />
+        </div>
+      </Link>
       <ul className="flex items-center w-full justify-end gap-5 p-3 float-right pr-10">
         {LINKS.slice(1, -1).map(each => (
           <NavbarItem key={each.name} navData={each} />

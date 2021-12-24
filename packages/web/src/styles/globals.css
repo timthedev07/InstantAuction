@@ -10,6 +10,10 @@
   src: url("../../public/fonts/roboto/Roboto-Regular.ttf");
 }
 
+* {
+  font-family: "Roboto";
+}
+
 @layer components {
   .cyan-button {
     @apply bg-cyan-600 text-white rounded px-4 py-1;
@@ -43,26 +47,6 @@
   #screen-overlay.active {
     @apply opacity-100 z-[100] transition duration-150;
   }
-}
-
-* {
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-neutral-400) rgba(0, 0, 0, 0);
-  font-family: "Roboto";
-}
-
-::-webkit-scrollbar {
-  overflow: overlay;
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  display: initial;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: var(--color-neutral-400);
-  border-radius: 5px;
 }
 
 .oauth-buttons-wrapper {
@@ -111,27 +95,28 @@
   margin-left: auto;
 }
 
+/* setting heading sizes */
 h1 {
-  font-size: 4rem;
+  font-size: 4rem !important;
 }
 
 h2 {
-  font-size: 2.8rem;
+  font-size: 2.8rem !important;
 }
 
 h3 {
-  font-size: 2rem;
+  font-size: 2rem !important;
 }
 
 h4 {
-  font-size: 1.4rem;
+  font-size: 1.4rem !important;
 }
 
 p {
-  font-size: 1rem;
-  font-weight: 500;
+  font-size: 1rem !important;
+  font-weight: 500 !important;
 }
 
 p.small {
-  font-size: 0.85rem;
+  font-size: 0.85rem !important;
 }

@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { LoginPage } from "../components/pages/LoginPage";
 import { getHeadForPage } from "../utils/getHeadForPage";
 import { withApollo } from "../utils/withApollo";
-import { Switch } from "@chakra-ui/react";
+import { FormLabel, Switch } from "@chakra-ui/react";
 import ReactTooltip from "react-tooltip";
 import { AiFillEye } from "@react-icons/all-files/ai/AiFillEye";
 import { AiFillLock } from "@react-icons/all-files/ai/AiFillLock";
@@ -31,8 +31,14 @@ const MePage: NextPage = () => {
     setChecked(data.me.emailPublic);
   }, [data]);
 
-  const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newVal = event.target.checked;
+  useEffect(() => {
+    console.log(
+      "State update, it's now " + (checked ? "checked" : "not checked")
+    );
+  }, [checked]);
+
+  const handleChange = async () => {
+    const newVal = !checked;
     setChecked(newVal);
 
     try {
@@ -42,6 +48,7 @@ const MePage: NextPage = () => {
         }
       });
     } catch (err) {
+      setChecked(!newVal);
       triggerAlert(accessErrMessage(err), "warning");
     }
   };
@@ -75,14 +82,18 @@ const MePage: NextPage = () => {
           <div className="rounded-md border border-gray-500 p-3 flex justify-around gap-8 items-center bg-neutral-800">
             <h5>{data.me.email}</h5>
             <HStack className="items-center gap-2 justify-center">
-              <AiFillLock />
+              <FormLabel m={0} htmlFor="visibility-switch">
+                <AiFillLock />
+              </FormLabel>
               <Switch
-                key={checked ? "PublicSwitch" : "PrivateSwitch"}
+                id="visibility-switch"
                 data-tip={checked ? "Public" : "Private"}
-                checked={checked}
+                isChecked={checked}
                 onChange={handleChange}
               />
-              <AiFillEye />
+              <FormLabel m={0} htmlFor="visibility-switch">
+                <AiFillEye />
+              </FormLabel>
             </HStack>
           </div>
         </section>

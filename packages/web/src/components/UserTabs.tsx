@@ -22,7 +22,7 @@ const AuctionsTab = () => {
         : !data
         ? JSON.stringify(error)
         : data.auctionsOwned.auctions.map(each => (
-            <Auction auction={each} showOwner={false} />
+            <Auction key={each.id} auction={each} showOwner={false} />
           ))}
     </ul>
   );

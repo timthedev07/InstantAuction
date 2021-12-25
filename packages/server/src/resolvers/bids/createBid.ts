@@ -20,7 +20,7 @@ export class CreateBidResolver {
   @Mutation(() => Bid)
   @UseMiddleware(isAuth)
   async createBid(
-    @Arg("auctionId", () => Int) auctionId: number,
+    @Arg("auctionId", () => String) auctionId: string,
     @Arg("itemId", () => Int) itemId: number,
     @Ctx() { req }: NetworkingContext
   ) {

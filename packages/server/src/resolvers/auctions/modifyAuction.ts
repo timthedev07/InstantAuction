@@ -1,4 +1,4 @@
-import { Resolver, Mutation, Int, UseMiddleware, Arg, Ctx } from "type-graphql";
+import { Resolver, Mutation, UseMiddleware, Arg, Ctx } from "type-graphql";
 import { Auction } from "../../entity/Auction";
 import { isAuth } from "../../utils/isAuthMiddleware";
 import { NetworkingContext } from "../../types/NetworkingContext";
@@ -15,7 +15,7 @@ export class ModifyAuctionResolver {
   @Mutation(() => Auction)
   @UseMiddleware(isAuth)
   async modifyAuction(
-    @Arg("auctionId", () => Int) auctionId: number,
+    @Arg("auctionId", () => String) auctionId: string,
     @Arg("partialUpdate") partialUpdate: ModifyAuctionPartialUpdate,
     @Ctx() { req }: NetworkingContext
   ) {

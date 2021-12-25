@@ -1,4 +1,4 @@
-import { Resolver, Mutation, UseMiddleware, Ctx, Arg, Int } from "type-graphql";
+import { Resolver, Mutation, UseMiddleware, Ctx, Arg } from "type-graphql";
 import {
   invalidAuction,
   unauthorizedErrorMessage,
@@ -14,7 +14,7 @@ export class CloseAuctionResolver {
   @UseMiddleware(isAuth)
   async closeAuction(
     @Ctx() { req }: NetworkingContext,
-    @Arg("auctionId", () => Int) auctionId: number
+    @Arg("auctionId", () => String) auctionId: string
   ): Promise<Auction> {
     const auction = await Auction.findOne(auctionId, { relations: ["seller"] });
 

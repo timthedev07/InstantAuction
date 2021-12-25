@@ -16,7 +16,7 @@ export class EndAuctionResolver {
   @Mutation(() => Auction)
   @UseMiddleware(isAuth)
   async endAuction(
-    @Arg("auctionId", () => Int) auctionId: number,
+    @Arg("auctionId", () => String) auctionId: string,
     @Arg("winningBidId", () => Int) winningBidId: number,
     @Ctx() { req }: NetworkingContext
   ) {

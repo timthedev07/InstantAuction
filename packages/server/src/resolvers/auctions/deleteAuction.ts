@@ -1,4 +1,4 @@
-import { Resolver, Mutation, UseMiddleware, Ctx, Arg, Int } from "type-graphql";
+import { Resolver, Mutation, UseMiddleware, Ctx, Arg } from "type-graphql";
 import { unauthorizedErrorMessage } from "../../constants/errorMessages";
 import { Auction } from "../../entity/Auction";
 import { Item } from "../../entity/Item";
@@ -11,7 +11,7 @@ export class DeleteAuctionResolver {
   @UseMiddleware(isAuth)
   async deleteAuction(
     @Ctx() { req }: NetworkingContext,
-    @Arg("auctionId", () => Int) auctionId: number
+    @Arg("auctionId", () => String) auctionId: string
   ) {
     const auction = await Auction.findOne(auctionId, {
       relations: ["seller", "item"],

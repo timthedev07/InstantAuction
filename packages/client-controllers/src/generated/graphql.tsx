@@ -25,7 +25,7 @@ export type Auction = {
   dateCreated: Scalars['DateTime'];
   dateUpdated: Scalars['DateTime'];
   description: Scalars['String'];
-  id: Scalars['Int'];
+  id: Scalars['String'];
   item: Item;
   seller: User;
   status: Scalars['String'];
@@ -85,7 +85,7 @@ export type Mutation = {
 
 
 export type MutationCloseAuctionArgs = {
-  auctionId: Scalars['Int'];
+  auctionId: Scalars['String'];
 };
 
 
@@ -97,7 +97,7 @@ export type MutationCreateAuctionArgs = {
 
 
 export type MutationCreateBidArgs = {
-  auctionId: Scalars['Int'];
+  auctionId: Scalars['String'];
   itemId: Scalars['Int'];
 };
 
@@ -120,7 +120,7 @@ export type MutationDeleteAccountArgs = {
 
 
 export type MutationDeleteAuctionArgs = {
-  auctionId: Scalars['Int'];
+  auctionId: Scalars['String'];
 };
 
 
@@ -140,7 +140,7 @@ export type MutationDiscordOAuthArgs = {
 
 
 export type MutationEndAuctionArgs = {
-  auctionId: Scalars['Int'];
+  auctionId: Scalars['String'];
   winningBidId: Scalars['Int'];
 };
 
@@ -156,7 +156,7 @@ export type MutationMicrosoftOAuthArgs = {
 
 
 export type MutationModifyAuctionArgs = {
-  auctionId: Scalars['Int'];
+  auctionId: Scalars['String'];
   partialUpdate: ModifyAuctionPartialUpdate;
 };
 
@@ -197,7 +197,7 @@ export type Query = {
 
 
 export type QueryGetAuctionArgs = {
-  auctionId: Scalars['Int'];
+  auctionId: Scalars['String'];
 };
 
 
@@ -234,24 +234,24 @@ export type UserItemsResponse = {
 export type AllAuctionsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type AllAuctionsQuery = { __typename?: 'Query', allAuctions: { __typename?: 'AuctionsResponse', count: number, auctions: Array<{ __typename?: 'Auction', id: number, title: string, description: string, status: string, dateCreated: any, dateUpdated: any, seller: { __typename?: 'User', username: string }, item: { __typename?: 'Item', id: number, picture: string, name: string }, winner?: { __typename?: 'User', username: string } | null | undefined }> } };
+export type AllAuctionsQuery = { __typename?: 'Query', allAuctions: { __typename?: 'AuctionsResponse', count: number, auctions: Array<{ __typename?: 'Auction', id: string, title: string, description: string, status: string, dateCreated: any, dateUpdated: any, seller: { __typename?: 'User', username: string }, item: { __typename?: 'Item', id: number, picture: string, name: string }, winner?: { __typename?: 'User', username: string } | null | undefined }> } };
 
 export type AuctionsBidAtQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type AuctionsBidAtQuery = { __typename?: 'Query', auctionsBid: { __typename?: 'AuctionsResponse', count: number, auctions: Array<{ __typename?: 'Auction', id: number, title: string, description: string, status: string, dateCreated: any, dateUpdated: any, seller: { __typename?: 'User', username: string }, item: { __typename?: 'Item', id: number, picture: string, name: string }, winner?: { __typename?: 'User', username: string } | null | undefined }> } };
+export type AuctionsBidAtQuery = { __typename?: 'Query', auctionsBid: { __typename?: 'AuctionsResponse', count: number, auctions: Array<{ __typename?: 'Auction', id: string, title: string, description: string, status: string, dateCreated: any, dateUpdated: any, seller: { __typename?: 'User', username: string }, item: { __typename?: 'Item', id: number, picture: string, name: string }, winner?: { __typename?: 'User', username: string } | null | undefined }> } };
 
 export type AuctionsOwnedQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type AuctionsOwnedQuery = { __typename?: 'Query', auctionsOwned: { __typename?: 'AuctionsResponse', count: number, auctions: Array<{ __typename?: 'Auction', id: number, title: string, description: string, status: string, dateCreated: any, dateUpdated: any, seller: { __typename?: 'User', username: string }, item: { __typename?: 'Item', id: number, picture: string, name: string }, winner?: { __typename?: 'User', username: string } | null | undefined }> } };
+export type AuctionsOwnedQuery = { __typename?: 'Query', auctionsOwned: { __typename?: 'AuctionsResponse', count: number, auctions: Array<{ __typename?: 'Auction', id: string, title: string, description: string, status: string, dateCreated: any, dateUpdated: any, seller: { __typename?: 'User', username: string }, item: { __typename?: 'Item', id: number, picture: string, name: string }, winner?: { __typename?: 'User', username: string } | null | undefined }> } };
 
 export type CloseAuctionMutationVariables = Exact<{
-  auctionId: Scalars['Int'];
+  auctionId: Scalars['String'];
 }>;
 
 
-export type CloseAuctionMutation = { __typename?: 'Mutation', closeAuction: { __typename?: 'Auction', id: number, title: string, description: string, status: string, dateCreated: any, dateUpdated: any, seller: { __typename?: 'User', username: string }, item: { __typename?: 'Item', id: number, picture: string, name: string }, winner?: { __typename?: 'User', username: string } | null | undefined } };
+export type CloseAuctionMutation = { __typename?: 'Mutation', closeAuction: { __typename?: 'Auction', id: string, title: string, description: string, status: string, dateCreated: any, dateUpdated: any, seller: { __typename?: 'User', username: string }, item: { __typename?: 'Item', id: number, picture: string, name: string }, winner?: { __typename?: 'User', username: string } | null | undefined } };
 
 export type CreateAuctionMutationVariables = Exact<{
   title: Scalars['String'];
@@ -260,41 +260,41 @@ export type CreateAuctionMutationVariables = Exact<{
 }>;
 
 
-export type CreateAuctionMutation = { __typename?: 'Mutation', createAuction: { __typename?: 'Auction', id: number, title: string, description: string, status: string, dateCreated: any, dateUpdated: any, seller: { __typename?: 'User', username: string }, item: { __typename?: 'Item', id: number, picture: string, name: string }, winner?: { __typename?: 'User', username: string } | null | undefined } };
+export type CreateAuctionMutation = { __typename?: 'Mutation', createAuction: { __typename?: 'Auction', id: string, title: string, description: string, status: string, dateCreated: any, dateUpdated: any, seller: { __typename?: 'User', username: string }, item: { __typename?: 'Item', id: number, picture: string, name: string }, winner?: { __typename?: 'User', username: string } | null | undefined } };
 
 export type DeleteAuctionMutationVariables = Exact<{
-  auctionId: Scalars['Int'];
+  auctionId: Scalars['String'];
 }>;
 
 
 export type DeleteAuctionMutation = { __typename?: 'Mutation', deleteAuction: boolean };
 
 export type EndAuctionMutationVariables = Exact<{
-  auctionId: Scalars['Int'];
+  auctionId: Scalars['String'];
   winningBidId: Scalars['Int'];
 }>;
 
 
-export type EndAuctionMutation = { __typename?: 'Mutation', endAuction: { __typename?: 'Auction', id: number, title: string, description: string, status: string, dateCreated: any, dateUpdated: any, seller: { __typename?: 'User', username: string }, item: { __typename?: 'Item', id: number, picture: string, name: string }, winner?: { __typename?: 'User', username: string } | null | undefined } };
+export type EndAuctionMutation = { __typename?: 'Mutation', endAuction: { __typename?: 'Auction', id: string, title: string, description: string, status: string, dateCreated: any, dateUpdated: any, seller: { __typename?: 'User', username: string }, item: { __typename?: 'Item', id: number, picture: string, name: string }, winner?: { __typename?: 'User', username: string } | null | undefined } };
 
 export type GetAuctionQueryVariables = Exact<{
-  auctionId: Scalars['Int'];
+  auctionId: Scalars['String'];
 }>;
 
 
-export type GetAuctionQuery = { __typename?: 'Query', getAuction?: { __typename?: 'Auction', id: number, title: string, description: string, status: string, dateCreated: any, dateUpdated: any, seller: { __typename?: 'User', username: string }, item: { __typename?: 'Item', id: number, picture: string, name: string }, winner?: { __typename?: 'User', username: string } | null | undefined } | null | undefined };
+export type GetAuctionQuery = { __typename?: 'Query', getAuction?: { __typename?: 'Auction', id: string, title: string, description: string, status: string, dateCreated: any, dateUpdated: any, seller: { __typename?: 'User', username: string }, item: { __typename?: 'Item', id: number, picture: string, name: string }, winner?: { __typename?: 'User', username: string } | null | undefined } | null | undefined };
 
 export type ModifyAuctionMutationVariables = Exact<{
   partialUpdate: ModifyAuctionPartialUpdate;
-  auctionId: Scalars['Int'];
+  auctionId: Scalars['String'];
 }>;
 
 
-export type ModifyAuctionMutation = { __typename?: 'Mutation', modifyAuction: { __typename?: 'Auction', id: number, title: string, description: string, status: string, dateCreated: any, dateUpdated: any, seller: { __typename?: 'User', username: string }, item: { __typename?: 'Item', id: number, picture: string, name: string }, winner?: { __typename?: 'User', username: string } | null | undefined } };
+export type ModifyAuctionMutation = { __typename?: 'Mutation', modifyAuction: { __typename?: 'Auction', id: string, title: string, description: string, status: string, dateCreated: any, dateUpdated: any, seller: { __typename?: 'User', username: string }, item: { __typename?: 'Item', id: number, picture: string, name: string }, winner?: { __typename?: 'User', username: string } | null | undefined } };
 
 export type CreateBidMutationVariables = Exact<{
   itemId: Scalars['Int'];
-  auctionId: Scalars['Int'];
+  auctionId: Scalars['String'];
 }>;
 
 
@@ -571,7 +571,7 @@ export type AuctionsOwnedQueryHookResult = ReturnType<typeof useAuctionsOwnedQue
 export type AuctionsOwnedLazyQueryHookResult = ReturnType<typeof useAuctionsOwnedLazyQuery>;
 export type AuctionsOwnedQueryResult = Apollo.QueryResult<AuctionsOwnedQuery, AuctionsOwnedQueryVariables>;
 export const CloseAuctionDocument = gql`
-    mutation CloseAuction($auctionId: Int!) {
+    mutation CloseAuction($auctionId: String!) {
   closeAuction(auctionId: $auctionId) {
     id
     title
@@ -671,7 +671,7 @@ export type CreateAuctionMutationHookResult = ReturnType<typeof useCreateAuction
 export type CreateAuctionMutationResult = Apollo.MutationResult<CreateAuctionMutation>;
 export type CreateAuctionMutationOptions = Apollo.BaseMutationOptions<CreateAuctionMutation, CreateAuctionMutationVariables>;
 export const DeleteAuctionDocument = gql`
-    mutation DeleteAuction($auctionId: Int!) {
+    mutation DeleteAuction($auctionId: String!) {
   deleteAuction(auctionId: $auctionId)
 }
     `;
@@ -702,7 +702,7 @@ export type DeleteAuctionMutationHookResult = ReturnType<typeof useDeleteAuction
 export type DeleteAuctionMutationResult = Apollo.MutationResult<DeleteAuctionMutation>;
 export type DeleteAuctionMutationOptions = Apollo.BaseMutationOptions<DeleteAuctionMutation, DeleteAuctionMutationVariables>;
 export const EndAuctionDocument = gql`
-    mutation EndAuction($auctionId: Int!, $winningBidId: Int!) {
+    mutation EndAuction($auctionId: String!, $winningBidId: Int!) {
   endAuction(auctionId: $auctionId, winningBidId: $winningBidId) {
     id
     title
@@ -752,7 +752,7 @@ export type EndAuctionMutationHookResult = ReturnType<typeof useEndAuctionMutati
 export type EndAuctionMutationResult = Apollo.MutationResult<EndAuctionMutation>;
 export type EndAuctionMutationOptions = Apollo.BaseMutationOptions<EndAuctionMutation, EndAuctionMutationVariables>;
 export const GetAuctionDocument = gql`
-    query GetAuction($auctionId: Int!) {
+    query GetAuction($auctionId: String!) {
   getAuction(auctionId: $auctionId) {
     id
     title
@@ -803,7 +803,7 @@ export type GetAuctionQueryHookResult = ReturnType<typeof useGetAuctionQuery>;
 export type GetAuctionLazyQueryHookResult = ReturnType<typeof useGetAuctionLazyQuery>;
 export type GetAuctionQueryResult = Apollo.QueryResult<GetAuctionQuery, GetAuctionQueryVariables>;
 export const ModifyAuctionDocument = gql`
-    mutation ModifyAuction($partialUpdate: ModifyAuctionPartialUpdate!, $auctionId: Int!) {
+    mutation ModifyAuction($partialUpdate: ModifyAuctionPartialUpdate!, $auctionId: String!) {
   modifyAuction(partialUpdate: $partialUpdate, auctionId: $auctionId) {
     id
     title
@@ -853,7 +853,7 @@ export type ModifyAuctionMutationHookResult = ReturnType<typeof useModifyAuction
 export type ModifyAuctionMutationResult = Apollo.MutationResult<ModifyAuctionMutation>;
 export type ModifyAuctionMutationOptions = Apollo.BaseMutationOptions<ModifyAuctionMutation, ModifyAuctionMutationVariables>;
 export const CreateBidDocument = gql`
-    mutation CreateBid($itemId: Int!, $auctionId: Int!) {
+    mutation CreateBid($itemId: Int!, $auctionId: String!) {
   createBid(itemId: $itemId, auctionId: $auctionId) {
     id
     bidder {

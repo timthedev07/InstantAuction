@@ -69,7 +69,7 @@ export const CreateItem: FC = ({}) => {
         <Input
           value={name}
           onChange={e => setName(e.target.value)}
-          label="Item name"
+          placeholder="Item name"
         />
         <RadioGroup onChange={val => setMode(val as any)} value={mode}>
           <HStack className="gap-6">
@@ -87,11 +87,11 @@ export const CreateItem: FC = ({}) => {
           <input accept="image/*" {...getInputProps()} />
         </div>
         <Input
-          label="Image Url"
+          placeholder="Image Url"
           value={picUrl}
           onChange={e => setPicUrl(e.target.value)}
           className={mode === "url" ? "block" : "hidden"}
-          variant="filled"
+          variant={"outline"}
         />
       </VStack>
 

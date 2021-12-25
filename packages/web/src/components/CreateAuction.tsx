@@ -1,10 +1,12 @@
 import {
+  accessErrMessage,
   createAuctionCreationOptions,
   useCreateAuctionMutation,
   useItemsOwnedQuery
 } from "client-controllers";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { FC } from "react";
+import { useAlert } from "../contexts/AlertContext";
 import { clearValuesOnUndefined } from "../utils/processFormikValidatorReturn";
 
 export const CreateAuction: FC = ({}) => {
@@ -12,6 +14,7 @@ export const CreateAuction: FC = ({}) => {
   const { data } = useItemsOwnedQuery({
     variables: { excludeAuctionedOff: true }
   });
+  const { triggerAlert } = useAlert();
 
   return (
     <div className="m-6 border-white border rounded p-5">
@@ -40,13 +43,18 @@ export const CreateAuction: FC = ({}) => {
             return;
           }
 
-          await createAuction(
-            createAuctionCreationOptions({
-              description,
-              title,
-              itemId: itemIdNum
-            })
-          );
+          try {
+            await createAuction(
+              createAuctionCreationOptions({
+                description,
+                title,
+                itemId: itemIdNum
+              })
+            );
+            triggerAlert("Auction created!", "success");
+          } catch (err) {
+            triggerAlert(accessErrMessage(err));
+          }
         }}
       >
         {({ errors }) => (

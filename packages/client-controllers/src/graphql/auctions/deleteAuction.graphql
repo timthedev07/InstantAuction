@@ -1,3 +1,3 @@
-mutation DeleteAuction($auctionId: Int!) {
+mutation DeleteAuction($auctionId: String!) {
   deleteAuction(auctionId: $auctionId)
 }

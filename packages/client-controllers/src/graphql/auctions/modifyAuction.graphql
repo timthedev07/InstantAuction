@@ -1,6 +1,6 @@
 mutation ModifyAuction(
   $partialUpdate: ModifyAuctionPartialUpdate!
-  $auctionId: Int!
+  $auctionId: String!
 ) {
   modifyAuction(partialUpdate: $partialUpdate, auctionId: $auctionId) {
     id

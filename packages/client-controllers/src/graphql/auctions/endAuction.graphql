@@ -1,4 +1,4 @@
-mutation EndAuction($auctionId: Int!, $winningBidId: Int!) {
+mutation EndAuction($auctionId: String!, $winningBidId: Int!) {
   endAuction(auctionId: $auctionId, winningBidId: $winningBidId) {
     id
     title

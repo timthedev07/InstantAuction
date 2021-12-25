@@ -1,4 +1,4 @@
-query GetAuction($auctionId: Int!) {
+query GetAuction($auctionId: String!) {
   getAuction(auctionId: $auctionId) {
     id
     title

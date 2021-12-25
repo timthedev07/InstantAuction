@@ -41,7 +41,7 @@ const ItemsTab = () => {
         ? "..."
         : !data
         ? JSON.stringify(error)
-        : data.itemsOwned.items.map(each => <Item item={each} />)}
+        : data.itemsOwned.items.map(each => <Item key={each.id} item={each} />)}
     </ul>
   );
 };

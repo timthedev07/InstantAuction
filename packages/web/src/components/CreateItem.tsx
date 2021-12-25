@@ -7,14 +7,8 @@ import {
 } from "client-controllers";
 import { FC, FormEventHandler, useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import {
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField
-} from "@mui/material";
-import { VStack } from "./utils/Stack";
+import { Input, RadioGroup, Radio } from "@chakra-ui/react";
+import { HStack, VStack } from "./utils/Stack";
 import { useAlert } from "../contexts/AlertContext";
 
 export const CreateItem: FC = ({}) => {
@@ -72,26 +66,17 @@ export const CreateItem: FC = ({}) => {
       <h3>Add Item</h3>
 
       <VStack className="max-w-[400px] gap-4 mb-4">
-        <TextField
+        <Input
           value={name}
           onChange={e => setName(e.target.value)}
           label="Item name"
         />
-        <FormControl variant="filled">
-          <InputLabel>Image Format</InputLabel>
-          <Select
-            id="demo-simple-select"
-            value={mode}
-            label="Image Format"
-            onChange={e => {
-              setMode(e.target.value as any);
-            }}
-          >
-            <MenuItem value="url">URL</MenuItem>
-            <MenuItem value="file">File Upload</MenuItem>
-          </Select>
-        </FormControl>
-
+        <RadioGroup onChange={val => setMode(val as any)} value={mode}>
+          <HStack className="gap-6">
+            <Radio value="url">URL</Radio>
+            <Radio value="file">File Upload</Radio>
+          </HStack>
+        </RadioGroup>
         <div
           {...getRootProps()}
           className={`border-2 rounded p-8 ${
@@ -101,7 +86,7 @@ export const CreateItem: FC = ({}) => {
           <h4>{file ? file.path : "Drop your file here"}</h4>
           <input accept="image/*" {...getInputProps()} />
         </div>
-        <TextField
+        <Input
           label="Image Url"
           value={picUrl}
           onChange={e => setPicUrl(e.target.value)}

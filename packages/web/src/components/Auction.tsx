@@ -14,10 +14,12 @@ import { RiShareBoxFill } from "@react-icons/all-files/ri/RiShareBoxFill";
 export interface AuctionComponentProps {
   auction: AllAuctionsQuery["allAuctions"]["auctions"][0];
   showOwner?: boolean;
+  className?: string;
 }
 
 export const Auction: FC<AuctionComponentProps> = ({
   auction,
+  className = "",
   showOwner = true
 }) => {
   const [deleteAuction] = useDeleteAuctionMutation();
@@ -26,7 +28,7 @@ export const Auction: FC<AuctionComponentProps> = ({
 
   return (
     <li
-      className="w-full h-44 p-3 bg-neutral-900 border border-gray-500 border-opacity-60 rounded-lg transition-all duration-300 hover:scale-[1.02] hover:bg-gray-800"
+      className={`${className} w-full h-44 p-3 bg-neutral-900 border border-gray-500 border-opacity-60 rounded-lg transition-all duration-300 hover:scale-[1.02] hover:bg-gray-800`}
       key={auction.id}
     >
       <HStack className="items-center justify-start gap-6 h-full">

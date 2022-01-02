@@ -72,7 +72,20 @@ export const Auction: FC<AuctionComponentProps> = ({
               Delete Auction
             </button>
           ) : (
-            ""
+            <button
+              onClick={async () => {
+                try {
+                  await deleteAuction(
+                    createAuctionDeletionOptions({ auctionId: auction.id })
+                  );
+                } catch (error) {
+                  alert.triggerAlert(accessErrMessage(error));
+                }
+              }}
+              className="green-button w-[170px]"
+            >
+              Bid
+            </button>
           )}
         </VStack>
       </HStack>

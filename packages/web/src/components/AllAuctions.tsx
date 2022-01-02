@@ -17,9 +17,11 @@ export const AllAuctions: FC = () => {
             return (
               <>
                 <h4>{auctionsData!.count} Auctions</h4>
-                {auctionsData!.auctions.map(each => (
-                  <Auction auction={each} />
-                ))}
+                <ul className="list-none">
+                  {auctionsData!.auctions.map(each => (
+                    <Auction auction={each} />
+                  ))}
+                </ul>
               </>
             );
           })()}

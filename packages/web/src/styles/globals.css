@@ -24,6 +24,10 @@ h6 {
     @apply bg-cyan-600 text-white rounded px-4 py-1;
   }
 
+  .green-button {
+    @apply bg-emerald-600 text-white rounded px-4 py-1;
+  }
+
   .secondary-button {
     @apply bg-secondary-600 text-white rounded px-4 py-1;
   }

@@ -1,12 +1,13 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { BsPersonFill } from "@react-icons/all-files/bs/BsPersonFill";
 import { FaUserAstronaut } from "@react-icons/all-files/fa/FaUserAstronaut";
 import { RiAuctionFill } from "@react-icons/all-files/ri/RiAuctionFill";
 import { AiOutlineLoading } from "@react-icons/all-files/ai/AiOutlineLoading";
 import { TiHome } from "@react-icons/all-files/ti/TiHome";
 import { NavbarItem } from "./NavbarItem";
-import { client, useMeQuery } from "client-controllers";
+import { client, isServerDown, useMeQuery } from "client-controllers";
 import Link from "next/link";
+import { useAlert } from "../../contexts/AlertContext";
 
 export const LINKS = [
   {
@@ -32,7 +33,14 @@ export const LINKS = [
 ];
 
 export const Nav: FC = () => {
-  const { data, loading } = useMeQuery({ client: client, ssr: false });
+  const { data, loading, error } = useMeQuery({ client: client, ssr: false });
+  const { triggerServerLostError } = useAlert();
+
+  useEffect(() => {
+    if (isServerDown(error)) {
+      triggerServerLostError();
+    }
+  }, [error]);
 
   return (
     <nav className="sticky top-0 flex border-b border-opacity-30 border-neutral-1000 items-center bg-neutral-800 z-50">

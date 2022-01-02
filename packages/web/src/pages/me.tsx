@@ -16,6 +16,7 @@ import { AiFillLock } from "@react-icons/all-files/ai/AiFillLock";
 import { UserTabs } from "../components/UserTabs";
 import { HStack } from "../components/utils/Stack";
 import { useAlert } from "../contexts/AlertContext";
+import { LogoutButton } from "../components/LogoutButton";
 
 const MePage: NextPage = () => {
   const { query, isReady, asPath } = useRouter();
@@ -96,6 +97,7 @@ const MePage: NextPage = () => {
               </FormLabel>
             </HStack>
           </div>
+          <LogoutButton className="mt-4 ml-2" />
         </section>
         {isReady ? <UserTabs tab={query.t as string | undefined} /> : ""}
       </>

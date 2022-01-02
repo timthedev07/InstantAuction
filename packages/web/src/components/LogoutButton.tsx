@@ -1,15 +1,19 @@
 import { FC } from "react";
+import { Button } from "@chakra-ui/react";
 import { useLogoutMutation, logoutOptions } from "client-controllers";
 
-export const LogoutButton: FC = ({}) => {
+export const LogoutButton: FC<{ className?: string }> = ({
+  className = ""
+}) => {
   const [logout] = useLogoutMutation();
 
   return (
-    <button
-      className="border rounded p-2 px-4 text-center"
+    <Button
+      variant={"link"}
+      className={className}
       onClick={() => logout(logoutOptions)}
     >
       Logout
-    </button>
+    </Button>
   );
 };

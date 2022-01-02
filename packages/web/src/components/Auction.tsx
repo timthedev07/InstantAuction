@@ -42,7 +42,7 @@ export const Auction: FC<AuctionComponentProps> = ({
           <VStack className="rounded-lg border border-neutral-600 min-w-[200px] p-2">
             <HStack className="items-start">
               <h4>{auction.title}</h4>
-              <Link href={`/auction/${auction.id}`}>
+              <Link href={`/auctions/${auction.id}`}>
                 <RiShareBoxFill className="w-6 h-auto mt-1 ml-2 cursor-pointer bg-slate-500 bg-opacity-70 rounded-2xl p-1" />
               </Link>
             </HStack>

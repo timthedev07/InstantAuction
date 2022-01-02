@@ -63,7 +63,7 @@ export const CreateAuction: FC = ({}) => {
         }
 
         triggerAlert("Auction created!", "success", () => {
-          router.push(`/auction/${result.data!.createAuction.id}`);
+          router.push(`/auctions/${result.data!.createAuction.id}`);
         });
       } catch (err) {
         triggerAlert(accessErrMessage(err));

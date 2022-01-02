@@ -11,7 +11,7 @@
   <img src="https://img.shields.io/badge/status-development-green?style=for-the-badge" alt="status" />
   <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/w/timthedev07/InstantAuction?logo=github&style=for-the-badge">
   <a href="https://github.com/timthedev07/InstantAuction/tree/staging">
-    <img alt="last-commit" src="https://img.shields.io/github/last-commit/timthedev07/Your-Doge/staging?logo=github&logoColor=cyan&style=for-the-badge">
+    <img alt="last-commit" src="https://img.shields.io/github/last-commit/timthedev07/InstantAuction/staging?logo=github&logoColor=cyan&style=for-the-badge">
   </a>
 </p>
 <p align="center">

@@ -53,7 +53,7 @@ export const AlertProvider: React.FC = ({ children }) => {
     if (serverErrorOpen) {
       setTimeout(() => {
         setServerErrorOpen(false);
-      }, 3000);
+      }, 5000);
     }
   }, [serverErrorOpen]);
 

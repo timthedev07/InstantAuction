@@ -45,7 +45,7 @@ export const Nav: FC = () => {
   return (
     <nav className="sticky top-0 flex border-b border-opacity-30 border-neutral-1000 items-center bg-neutral-800 z-50">
       <Link href="/">
-        <div className="px-6">
+        <div className="px-6 cursor-pointer">
           <img src="/logo192.png" className="w-9 h-9" />
         </div>
       </Link>

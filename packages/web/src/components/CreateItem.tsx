@@ -65,7 +65,7 @@ export const CreateItem: FC = ({}) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="border-2 rounded p-8">
+    <form onSubmit={handleSubmit} className="border-2 rounded p-8 m-6">
       <h3>Add Item</h3>
 
       <VStack className="max-w-[400px] gap-4 mb-4">

@@ -1,10 +1,12 @@
 import { FC } from "react";
 import {
   createItemDeletionOptions,
+  isServerDown,
   ItemsOwnedQuery,
   useDeleteItemMutation
 } from "client-controllers";
 import { VStack } from "./utils/Stack";
+import { useAlert } from "../contexts/AlertContext";
 
 export interface ItemComponentProps {
   item: ItemsOwnedQuery["itemsOwned"]["items"][0];
@@ -12,6 +14,7 @@ export interface ItemComponentProps {
 
 export const Item: FC<ItemComponentProps> = ({ item }) => {
   const [deleteItem] = useDeleteItemMutation();
+  const { triggerServerLostError } = useAlert();
 
   return (
     <li
@@ -26,11 +29,17 @@ export const Item: FC<ItemComponentProps> = ({ item }) => {
         <button
           className="danger-button"
           onClick={async () => {
-            await deleteItem(
-              createItemDeletionOptions({
-                itemId: item.id
-              })
-            );
+            try {
+              await deleteItem(
+                createItemDeletionOptions({
+                  itemId: item.id
+                })
+              );
+            } catch (err) {
+              if (isServerDown(err)) {
+                triggerServerLostError();
+              }
+            }
           }}
         >
           Delete

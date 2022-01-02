@@ -43,7 +43,10 @@ export const CreateItem: FC = ({}) => {
         alert.triggerAlert("Please make sure all information is provided.");
       }
     } else {
-      if (picUrl !== "" /** && check pic url validity here */) {
+      if (
+        picUrl !== "" &&
+        picUrl.length < 200 /** && check pic url validity here */
+      ) {
         try {
           await createItemWithPicUrl(
             createItemCreationWithPictureUrlOptions({

@@ -75,7 +75,7 @@ export const CreateAuction: FC = ({}) => {
     <div className="m-6 border rounded p-5">
       <h3>Create Auction</h3>
 
-      <form className="flex flex-col gap-3 m-3">
+      <form className="flex flex-col gap-3 m-3" onSubmit={formik.handleSubmit}>
         <FormControl isRequired isInvalid={!!formik.errors.title}>
           <FormLabel as="legend" htmlFor="title-input">
             Auction Title
@@ -85,6 +85,7 @@ export const CreateAuction: FC = ({}) => {
             value={formik.values.title}
             id="title-input"
             name="title"
+            onBlur={formik.handleBlur}
           />
           <FormErrorMessage>{formik.errors.title}</FormErrorMessage>
         </FormControl>
@@ -98,6 +99,7 @@ export const CreateAuction: FC = ({}) => {
             onChange={formik.handleChange}
             id="item-id-select"
             name="itemId"
+            onBlur={formik.handleBlur}
           >
             <option disabled value="-1">
               -Select Item-
@@ -120,6 +122,7 @@ export const CreateAuction: FC = ({}) => {
             value={formik.values.description}
             onChange={formik.handleChange}
             name="description"
+            onBlur={formik.handleBlur}
           />
           <FormErrorMessage name="description">
             {formik.errors.description}

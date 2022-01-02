@@ -1,5 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Alert, AlertType } from "../components/Alert";
+import { CannotReachServer } from "../components/BottomAlert";
 
 type AlertTriggerFunctionType = (
   text: string,
@@ -9,10 +10,12 @@ type AlertTriggerFunctionType = (
 
 interface AlertContextType {
   triggerAlert: AlertTriggerFunctionType;
+  triggerServerLostError: () => void;
 }
 
 export const AlertContext = React.createContext<AlertContextType>({
-  triggerAlert: () => {}
+  triggerAlert: () => {},
+  triggerServerLostError: () => {}
 });
 
 export const useAlert = () => {
@@ -24,6 +27,7 @@ export const AlertProvider: React.FC = ({ children }) => {
   const [alertText, setAlertText] = useState<string>("");
   const [alertType, setAlertType] = useState<AlertType>("warning");
   const [onClose, setOnClose] = useState<() => void>(() => {});
+  const [serverErrorOpen, setServerErrorOpen] = useState<boolean>(false);
 
   const triggerAlert: AlertTriggerFunctionType = (
     text,
@@ -36,9 +40,22 @@ export const AlertProvider: React.FC = ({ children }) => {
     setOpen(true);
   };
 
-  const value: AlertContextType = {
-    triggerAlert
+  const triggerServerLostError = () => {
+    setServerErrorOpen(true);
   };
+
+  const value: AlertContextType = {
+    triggerAlert,
+    triggerServerLostError
+  };
+
+  useEffect(() => {
+    if (serverErrorOpen) {
+      setTimeout(() => {
+        setServerErrorOpen(false);
+      }, 3000);
+    }
+  }, [serverErrorOpen]);
 
   return (
     <AlertContext.Provider value={value}>
@@ -50,6 +67,7 @@ export const AlertProvider: React.FC = ({ children }) => {
         onClose={onClose}
       />
       {children}
+      <CannotReachServer open={serverErrorOpen} />
     </AlertContext.Provider>
   );
 };

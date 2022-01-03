@@ -203,7 +203,7 @@ export type QueryGetAuctionArgs = {
 
 
 export type QueryGetBidArgs = {
-  auctionId: Scalars['Float'];
+  auctionId: Scalars['String'];
 };
 
 
@@ -314,7 +314,7 @@ export type DeleteBidMutationVariables = Exact<{
 export type DeleteBidMutation = { __typename?: 'Mutation', deleteBid: boolean };
 
 export type GetBidQueryVariables = Exact<{
-  auctionId: Scalars['Float'];
+  auctionId: Scalars['String'];
 }>;
 
 
@@ -940,7 +940,7 @@ export type DeleteBidMutationHookResult = ReturnType<typeof useDeleteBidMutation
 export type DeleteBidMutationResult = Apollo.MutationResult<DeleteBidMutation>;
 export type DeleteBidMutationOptions = Apollo.BaseMutationOptions<DeleteBidMutation, DeleteBidMutationVariables>;
 export const GetBidDocument = gql`
-    query GetBid($auctionId: Float!) {
+    query GetBid($auctionId: String!) {
   getBid(auctionId: $auctionId) {
     item {
       id

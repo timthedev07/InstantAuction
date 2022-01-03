@@ -1,4 +1,4 @@
-query GetBid($auctionId: Float!) {
+query GetBid($auctionId: String!) {
   getBid(auctionId: $auctionId) {
     item {
       id

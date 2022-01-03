@@ -18,6 +18,7 @@ import {
   createDeleteAccountOptions,
   useDeleteAccountMutation
 } from "client-controllers";
+import { useAlert } from "../contexts/AlertContext";
 
 interface AccountDeletionModalProps {
   isOpen: boolean;
@@ -35,6 +36,7 @@ export const AccountDeletionModal: FC<AccountDeletionModalProps> = ({
   const [emailInput, setEmailInput] = useState<string>("");
   const [checked, setChecked] = useState<boolean>(false);
   const [deleteAccount] = useDeleteAccountMutation();
+  const { triggerAlert } = useAlert();
 
   return (
     <>
@@ -90,9 +92,13 @@ export const AccountDeletionModal: FC<AccountDeletionModalProps> = ({
 
           <ModalFooter>
             <button
-              data-tip="dfd"
               className="danger-button"
               onClick={() => {
+                if (!checked) {
+                  triggerAlert("Please check the checkbox to proceed.");
+                  return;
+                }
+
                 deleteAccount(
                   createDeleteAccountOptions({
                     email: emailInput

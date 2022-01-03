@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { LoginPage } from "../components/pages/LoginPage";
 import { getHeadForPage } from "../utils/getHeadForPage";
 import { withApollo } from "../utils/withApollo";
-import { FormLabel, Switch } from "@chakra-ui/react";
+import { FormLabel, Switch, useDisclosure } from "@chakra-ui/react";
 import ReactTooltip from "react-tooltip";
 import { AiFillEye } from "@react-icons/all-files/ai/AiFillEye";
 import { AiFillLock } from "@react-icons/all-files/ai/AiFillLock";
@@ -17,6 +17,7 @@ import { UserTabs } from "../components/UserTabs";
 import { HStack } from "../components/utils/Stack";
 import { useAlert } from "../contexts/AlertContext";
 import { LogoutButton } from "../components/LogoutButton";
+import { AccountDeletionModal } from "../components/AccountDeletionModal";
 
 const MePage: NextPage = () => {
   const { query, isReady, asPath } = useRouter();
@@ -26,6 +27,7 @@ const MePage: NextPage = () => {
   const { triggerAlert } = useAlert();
   const [checked, setChecked] = useState(false);
   const [updateEmailVisibility] = useUpdateEmailVisibilityMutation();
+  const modalDisclosure = useDisclosure();
 
   useEffect(() => {
     if (!data || !data.me) return;
@@ -97,6 +99,7 @@ const MePage: NextPage = () => {
               </FormLabel>
             </HStack>
           </div>
+          <AccountDeletionModal className="mt-4 ml-2" {...modalDisclosure} />
           <LogoutButton className="mt-4 ml-2" />
         </section>
         {isReady ? <UserTabs tab={query.t as string | undefined} /> : ""}

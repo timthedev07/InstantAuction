@@ -12,6 +12,7 @@ export const createBidCreationOptions = (
     variables,
     update: (store, { data }) => {
       if (!data || !data.createBid) return;
+      store;
       // store.writeQuery<AllAuctionsQuery>({
       //   query: AllAuctionsDocument,
       //   data: {

@@ -7,16 +7,16 @@ import { withApollo } from "../../utils/withApollo";
 const AuctionInfo: NextPage = () => {
   const { query } = useRouter();
   const id = query.id as string;
-  const { data } = useGetAuctionQuery({
+  const { data, loading, error } = useGetAuctionQuery({
     variables: { auctionId: id }
   });
 
   return (
     <>
-      {!data ? (
-        <>loading</>
-      ) : !data.getAuction ? (
+      {!data || error || !data.getAuction ? (
         <NotFoundPage />
+      ) : loading ? (
+        <></>
       ) : (
         <div className="flex justify-center items-center w-full h-full p-6">
           <div className="border rounded-lg w-full p-8 max-w-4xl border-gray-500 bg-neutral-800">

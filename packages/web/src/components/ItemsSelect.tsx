@@ -16,6 +16,14 @@ interface ItemsSelectProps {
   name: string;
 }
 
+/**
+ *  Returns a chakra FormControl structured as:
+ *  <FormControl>
+ *    <FormLabel></FormLabel>
+ *    <Select></Select>
+ *    <FormErrorMessage></FormErrorMessage>
+ *  </FormControl>
+ */
 export const ItemsSelect: FC<ItemsSelectProps> = ({
   isInvalid = false,
   isRequired = true,

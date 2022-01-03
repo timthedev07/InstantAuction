@@ -13,7 +13,8 @@ interface ItemsSelectProps {
   value: string;
   onChange: ChangeEventHandler<HTMLSelectElement>;
   onBlur: any;
-  name: string;
+  /** Required if using formik. */
+  name?: string;
 }
 
 /**

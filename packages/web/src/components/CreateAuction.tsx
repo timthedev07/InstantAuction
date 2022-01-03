@@ -3,26 +3,22 @@ import {
   FormErrorMessage,
   FormLabel,
   Input,
-  Select,
   Textarea
 } from "@chakra-ui/react";
 import {
   accessErrMessage,
   createAuctionCreationOptions,
-  useCreateAuctionMutation,
-  useItemsOwnedQuery
+  useCreateAuctionMutation
 } from "client-controllers";
 import { useFormik } from "formik";
 import { useRouter } from "next/router";
 import { FC } from "react";
 import { useAlert } from "../contexts/AlertContext";
 import { clearValuesOnUndefined } from "../utils/processFormikValidatorReturn";
+import { ItemsSelect } from "./ItemsSelect";
 
 export const CreateAuction: FC = ({}) => {
   const [createAuction] = useCreateAuctionMutation();
-  const { data } = useItemsOwnedQuery({
-    variables: { excludeAuctionedOff: true }
-  });
   const router = useRouter();
   const { triggerAlert } = useAlert();
   const formik = useFormik({
@@ -90,29 +86,14 @@ export const CreateAuction: FC = ({}) => {
           <FormErrorMessage>{formik.errors.title}</FormErrorMessage>
         </FormControl>
 
-        <FormControl isRequired isInvalid={!!formik.errors.itemId}>
-          <FormLabel as="legend" htmlFor={"item-id-select"}>
-            Item
-          </FormLabel>
-          <Select
-            value={formik.values.itemId}
-            onChange={formik.handleChange}
-            id="item-id-select"
-            name="itemId"
-            onBlur={formik.handleBlur}
-          >
-            <option disabled value="-1">
-              -Select Item-
-            </option>
-            {data &&
-              data.itemsOwned.items.map(each => (
-                <option key={each.name} value={each.id}>
-                  {each.name}
-                </option>
-              ))}
-          </Select>
-          <FormErrorMessage>Please select an item to sell.</FormErrorMessage>
-        </FormControl>
+        <ItemsSelect
+          isRequired
+          isInvalid={!!formik.errors.itemId}
+          name="itemId"
+          value={formik.values.itemId}
+          onBlur={formik.handleBlur}
+          onChange={formik.handleChange}
+        />
 
         <FormControl isRequired isInvalid={!!formik.errors.description}>
           <FormLabel htmlFor="description-textarea" as="legend">

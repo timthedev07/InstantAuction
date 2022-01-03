@@ -19,7 +19,7 @@ export const AllAuctions: FC = () => {
                 <h4>{auctionsData!.count} Auctions</h4>
                 <ul className="list-none">
                   {auctionsData!.auctions.map(each => (
-                    <Auction auction={each} />
+                    <Auction key={each.id} auction={each} />
                   ))}
                 </ul>
               </>

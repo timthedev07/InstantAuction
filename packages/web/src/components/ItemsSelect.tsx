@@ -5,13 +5,13 @@ import {
   FormErrorMessage
 } from "@chakra-ui/react";
 import { useItemsOwnedQuery } from "client-controllers";
-import { FC } from "react";
+import { ChangeEventHandler, FC } from "react";
 
 interface ItemsSelectProps {
   isInvalid?: boolean;
   isRequired?: boolean;
   value: string;
-  onChange: any;
+  onChange: ChangeEventHandler<HTMLSelectElement>;
   onBlur: any;
   name: string;
 }

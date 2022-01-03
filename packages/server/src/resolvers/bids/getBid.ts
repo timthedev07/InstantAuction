@@ -11,7 +11,7 @@ export class GetBidResolver {
   @UseMiddleware(isAuthStrict)
   async getBid(
     @Ctx() { req }: NetworkingContext,
-    @Arg("auctionId") auctionId: number
+    @Arg("auctionId") auctionId: string
   ) {
     const auction = await Auction.findOne(auctionId, {
       relations: ["bids", ...bidExposedRelations.map(each => "bids." + each)],

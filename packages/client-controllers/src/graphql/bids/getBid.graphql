@@ -1,0 +1,12 @@
+query GetBid($auctionId: Float!) {
+  getBid(auctionId: $auctionId) {
+    item {
+      id
+      name
+      owner {
+        username
+      }
+      picture
+    }
+  }
+}

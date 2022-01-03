@@ -188,6 +188,7 @@ export type Query = {
   auctionsBid: AuctionsResponse;
   auctionsOwned: AuctionsResponse;
   getAuction?: Maybe<Auction>;
+  getBid?: Maybe<Bid>;
   hello: Scalars['String'];
   itemsOwned: UserItemsResponse;
   me?: Maybe<User>;
@@ -198,6 +199,11 @@ export type Query = {
 
 export type QueryGetAuctionArgs = {
   auctionId: Scalars['String'];
+};
+
+
+export type QueryGetBidArgs = {
+  auctionId: Scalars['Float'];
 };
 
 
@@ -306,6 +312,13 @@ export type DeleteBidMutationVariables = Exact<{
 
 
 export type DeleteBidMutation = { __typename?: 'Mutation', deleteBid: boolean };
+
+export type GetBidQueryVariables = Exact<{
+  auctionId: Scalars['Float'];
+}>;
+
+
+export type GetBidQuery = { __typename?: 'Query', getBid?: { __typename?: 'Bid', item: { __typename?: 'Item', id: number, name: string, picture: string, owner: { __typename?: 'User', username: string } } } | null | undefined };
 
 export type CreateItemMutationVariables = Exact<{
   name: Scalars['String'];
@@ -926,6 +939,48 @@ export function useDeleteBidMutation(baseOptions?: Apollo.MutationHookOptions<De
 export type DeleteBidMutationHookResult = ReturnType<typeof useDeleteBidMutation>;
 export type DeleteBidMutationResult = Apollo.MutationResult<DeleteBidMutation>;
 export type DeleteBidMutationOptions = Apollo.BaseMutationOptions<DeleteBidMutation, DeleteBidMutationVariables>;
+export const GetBidDocument = gql`
+    query GetBid($auctionId: Float!) {
+  getBid(auctionId: $auctionId) {
+    item {
+      id
+      name
+      owner {
+        username
+      }
+      picture
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetBidQuery__
+ *
+ * To run a query within a React component, call `useGetBidQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetBidQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetBidQuery({
+ *   variables: {
+ *      auctionId: // value for 'auctionId'
+ *   },
+ * });
+ */
+export function useGetBidQuery(baseOptions: Apollo.QueryHookOptions<GetBidQuery, GetBidQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetBidQuery, GetBidQueryVariables>(GetBidDocument, options);
+      }
+export function useGetBidLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetBidQuery, GetBidQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetBidQuery, GetBidQueryVariables>(GetBidDocument, options);
+        }
+export type GetBidQueryHookResult = ReturnType<typeof useGetBidQuery>;
+export type GetBidLazyQueryHookResult = ReturnType<typeof useGetBidLazyQuery>;
+export type GetBidQueryResult = Apollo.QueryResult<GetBidQuery, GetBidQueryVariables>;
 export const CreateItemDocument = gql`
     mutation CreateItem($name: String!, $picture: Upload!) {
   createItem(name: $name, picture: $picture) {

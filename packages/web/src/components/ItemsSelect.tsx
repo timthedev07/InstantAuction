@@ -12,7 +12,8 @@ interface ItemsSelectProps {
   isRequired?: boolean;
   value: string;
   onChange: ChangeEventHandler<HTMLSelectElement>;
-  onBlur: any;
+  /** Required if using formik. */
+  onBlur?: any;
   /** Required if using formik. */
   name?: string;
 }

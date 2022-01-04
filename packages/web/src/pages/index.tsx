@@ -1,26 +1,20 @@
 import { NextPage } from "next";
-import { useHelloQuery, useMeQuery } from "client-controllers";
+import { useHelloQuery } from "client-controllers";
 import { CreateAuction } from "../components/CreateAuction";
 import { withApollo } from "../utils/withApollo";
 import { CreateItem } from "../components/CreateItem";
 import { LogoutButton } from "../components/LogoutButton";
+import { PageLoading } from "../components/PageLoading";
 
 const Landing: NextPage = () => {
   const { data: testData, loading: testLoading } = useHelloQuery();
-  const { data, loading } = useMeQuery({ ssr: false });
 
   return (
     <>
       <h3>
         {testLoading ? "Loading..." : testData?.hello || "No data returned"}
       </h3>
-      <pre>
-        {loading
-          ? "Loading"
-          : data && data.me
-          ? JSON.stringify(data!.me!.email, null, 2)
-          : "Unauthenticated"}
-      </pre>
+      <PageLoading />
       <CreateAuction />
       <CreateItem />
       <LogoutButton />

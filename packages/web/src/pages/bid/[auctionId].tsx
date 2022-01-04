@@ -19,13 +19,17 @@ import { withApollo } from "../../utils/withApollo";
 const Bid: NextPage = () => {
   const { query } = useRouter();
   const auctionId = query.auctionId as string;
-  const { data: meData } = useMeQuery();
+  const { data: meData, loading: meLoading } = useMeQuery();
 
   const { data, loading } = useGetBidQuery({
     variables: {
       auctionId
     }
   });
+
+  if (loading || meLoading) {
+    return <>loading</>;
+  }
 
   if (!meData || !meData.me) {
     return <NotFoundPage />;
@@ -39,7 +43,7 @@ const Bid: NextPage = () => {
     );
   }
 
-  return <pre>{JSON.stringify(data)}</pre>;
+  return <pre>{JSON.stringify(data, null, 2)}</pre>;
 };
 
-export default withApollo({ ssr: true })(Bid);
+export default withApollo({ ssr: false })(Bid);

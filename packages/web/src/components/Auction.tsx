@@ -10,6 +10,7 @@ import { HStack, VStack } from "./utils/Stack";
 import { useAlert } from "../contexts/AlertContext";
 import Link from "next/link";
 import { RiShareBoxFill } from "@react-icons/all-files/ri/RiShareBoxFill";
+import { useRouter } from "next/router";
 
 export interface AuctionComponentProps {
   auction: AllAuctionsQuery["allAuctions"]["auctions"][0];
@@ -25,6 +26,7 @@ export const Auction: FC<AuctionComponentProps> = ({
   const [deleteAuction] = useDeleteAuctionMutation();
   const { data: meData, loading: meLoading } = useMeQuery();
   const alert = useAlert();
+  const { push } = useRouter();
 
   return (
     <li
@@ -71,13 +73,7 @@ export const Auction: FC<AuctionComponentProps> = ({
             ) : (
               <button
                 onClick={async () => {
-                  try {
-                    await deleteAuction(
-                      createAuctionDeletionOptions({ auctionId: auction.id })
-                    );
-                  } catch (error) {
-                    alert.triggerAlert(accessErrMessage(error));
-                  }
+                  push(`/bid/${auction.id}`);
                 }}
                 className="green-button w-[170px]"
               >

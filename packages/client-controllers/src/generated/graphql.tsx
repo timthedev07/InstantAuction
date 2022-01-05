@@ -323,14 +323,14 @@ export type DeleteBidMutation = { __typename?: 'Mutation', deleteBid: boolean };
 export type UserBidsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type UserBidsQuery = { __typename?: 'Query', getUserBids: { __typename?: 'BidsResponse', count: number, bids: Array<{ __typename?: 'Bid', id: number, won: boolean, item: { __typename?: 'Item', id: number, name: string, picture: string }, bidder: { __typename?: 'User', username: string } }> } };
+export type UserBidsQuery = { __typename?: 'Query', getUserBids: { __typename?: 'BidsResponse', count: number, bids: Array<{ __typename?: 'Bid', id: number, won: boolean, item: { __typename?: 'Item', id: number, name: string, picture: string }, bidder: { __typename?: 'User', username: string }, auction: { __typename?: 'Auction', id: string } }> } };
 
 export type GetBidQueryVariables = Exact<{
   auctionId: Scalars['String'];
 }>;
 
 
-export type GetBidQuery = { __typename?: 'Query', getBid?: { __typename?: 'Bid', id: number, won: boolean, item: { __typename?: 'Item', id: number, name: string, picture: string }, bidder: { __typename?: 'User', username: string } } | null | undefined };
+export type GetBidQuery = { __typename?: 'Query', getBid?: { __typename?: 'Bid', id: number, won: boolean, item: { __typename?: 'Item', id: number, name: string, picture: string }, bidder: { __typename?: 'User', username: string }, auction: { __typename?: 'Auction', id: string } } | null | undefined };
 
 export type CreateItemMutationVariables = Exact<{
   name: Scalars['String'];
@@ -965,6 +965,9 @@ export const UserBidsDocument = gql`
       bidder {
         username
       }
+      auction {
+        id
+      }
       won
     }
   }
@@ -1008,6 +1011,9 @@ export const GetBidDocument = gql`
     }
     bidder {
       username
+    }
+    auction {
+      id
     }
     won
   }

@@ -2,6 +2,7 @@ import { useMeQuery, useGetBidQuery } from "client-controllers";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { BidForm } from "../../components/BidForm";
+import { PageLoading } from "../../components/PageLoading";
 import { NotFoundPage } from "../../components/pages/404";
 import { withApollo } from "../../utils/withApollo";
 
@@ -28,7 +29,7 @@ const Bid: NextPage = () => {
   });
 
   if (loading || meLoading) {
-    return <>loading</>;
+    return <PageLoading />;
   }
 
   if (!meData || !meData.me) {

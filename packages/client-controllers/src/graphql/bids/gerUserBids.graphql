@@ -2,14 +2,16 @@ query UserBids {
   getUserBids {
     count
     bids {
+      id
       item {
         id
         name
-        owner {
-          username
-        }
         picture
       }
+      bidder {
+        username
+      }
+      won
     }
   }
 }

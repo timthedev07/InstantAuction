@@ -1,12 +1,14 @@
 query GetBid($auctionId: String!) {
   getBid(auctionId: $auctionId) {
+    id
     item {
       id
       name
-      owner {
-        username
-      }
       picture
     }
+    bidder {
+      username
+    }
+    won
   }
 }

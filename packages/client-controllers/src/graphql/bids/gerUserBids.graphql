@@ -11,6 +11,9 @@ query UserBids {
       bidder {
         username
       }
+      auction {
+        id
+      }
       won
     }
   }

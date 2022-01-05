@@ -9,6 +9,9 @@ query GetBid($auctionId: String!) {
     bidder {
       username
     }
+    auction {
+      id
+    }
     won
   }
 }

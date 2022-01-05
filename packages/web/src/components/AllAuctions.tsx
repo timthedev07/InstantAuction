@@ -1,6 +1,6 @@
 import { useAllAuctionsQuery } from "client-controllers";
 import { FC } from "react";
-import { Auction } from "./Auction";
+import { Auction } from "./AuctionComponent";
 
 export const AllAuctions: FC = () => {
   const { data, loading, error } = useAllAuctionsQuery();

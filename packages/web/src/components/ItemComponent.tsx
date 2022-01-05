@@ -22,8 +22,8 @@ export const Item: FC<ItemComponentProps> = ({ item }) => {
       key={item.id}
     >
       <VStack className="items-center gap-4">
-        <div className="bg-slate-700 p-4 h-36 flex justify-center items-center">
-          <img src={item.picture} className="w-auto max-h-48 rounded-lg" />
+        <div className="bg-slate-700 p-4 h-36 w-full flex justify-center items-center">
+          <img src={item.picture} className="w-auto max-h-32 rounded-lg" />
         </div>
         <h4>{item.name}</h4>
         <button

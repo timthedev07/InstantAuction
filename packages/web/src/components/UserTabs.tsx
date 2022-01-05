@@ -1,9 +1,15 @@
-import { useAuctionsOwnedQuery, useItemsOwnedQuery } from "client-controllers";
+import {
+  useAuctionsOwnedQuery,
+  useItemsOwnedQuery,
+  useUserBidsQuery
+} from "client-controllers";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { FC } from "react";
-import { Auction } from "./Auction";
+import { Auction } from "./AuctionComponent";
+import { Bid } from "./BidComponent";
 import { Item } from "./ItemComponent";
+import { PageLoading } from "./PageLoading";
 
 interface UserTabsProps {
   tab?: string;
@@ -17,18 +23,20 @@ const AuctionsTab = () => {
 
   return (
     <ul>
-      {loading
-        ? "..."
-        : !data
-        ? JSON.stringify(error)
-        : data.auctionsOwned.auctions.map(each => (
-            <Auction
-              className="my-3"
-              key={each.id}
-              auction={each}
-              showOwner={false}
-            />
-          ))}
+      {loading ? (
+        <PageLoading />
+      ) : !data ? (
+        JSON.stringify(error)
+      ) : (
+        data.auctionsOwned.auctions.map(each => (
+          <Auction
+            className="my-3"
+            key={each.id}
+            auction={each}
+            showOwner={false}
+          />
+        ))
+      )}
     </ul>
   );
 };
@@ -42,11 +50,31 @@ const ItemsTab = () => {
 
   return (
     <ul className="flex gap-5">
-      {loading
-        ? "..."
-        : !data
-        ? JSON.stringify(error)
-        : data.itemsOwned.items.map(each => <Item key={each.id} item={each} />)}
+      {loading ? (
+        <PageLoading />
+      ) : !data ? (
+        JSON.stringify(error)
+      ) : (
+        data.itemsOwned.items.map(each => <Item key={each.id} item={each} />)
+      )}
+    </ul>
+  );
+};
+
+const BidsTab = () => {
+  const { data, loading, error } = useUserBidsQuery();
+
+  return (
+    <ul className="flex gap-5">
+      {loading ? (
+        <PageLoading />
+      ) : !data ? (
+        JSON.stringify(error)
+      ) : (
+        data.getUserBids.bids.map(each => (
+          <Bid key={JSON.stringify(each)} bid={each} />
+        ))
+      )}
     </ul>
   );
 };
@@ -127,7 +155,7 @@ export const UserTabs: FC<UserTabsProps> = ({ tab }) => {
               return <ItemsTab />;
             }
             case "bids": {
-              return <></>;
+              return <BidsTab />;
             }
             default: {
               return <AuctionsTab />;

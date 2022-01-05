@@ -27,7 +27,9 @@ export const Alert: FC<AlertProps> = ({
   let element: Element | null;
 
   function handleClick() {
+    element = document.querySelector("div#screen-overlay");
     if (!element) return;
+
     if (element.classList.contains("active")) {
       element.classList.remove("active");
       element.classList.add("inactive");

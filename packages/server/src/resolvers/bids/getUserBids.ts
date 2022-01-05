@@ -26,7 +26,6 @@ export class GetUserBidsResolver {
   @Query(() => BidsResponse)
   @UseMiddleware(isAuthStrict)
   async getUserBids(@Ctx() { req }: NetworkingContext): Promise<BidsResponse> {
-    req;
     const [bids, count] = await Bid.findAndCount({
       where: {
         bidder: {
@@ -35,7 +34,6 @@ export class GetUserBidsResolver {
       },
       relations: bidExposedRelations,
     });
-    // bids[0].bidder.id
 
     return {
       bids,

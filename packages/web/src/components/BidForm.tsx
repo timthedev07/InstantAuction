@@ -28,7 +28,7 @@ export const BidForm: FC<BidFormProps> = ({ auctionId }) => {
   });
   auctionId;
   const [itemId, setItemId] = useState<string>("-1");
-  const { back } = useRouter();
+  const { back, reload } = useRouter();
   const { triggerAlert } = useAlert();
 
   return (
@@ -56,14 +56,15 @@ export const BidForm: FC<BidFormProps> = ({ auctionId }) => {
           <ModalFooter>
             <button
               className="green-button"
-              onClick={() => {
+              onClick={async () => {
                 try {
-                  bid(
+                  await bid(
                     createBidCreationOptions({
                       auctionId,
                       itemId: parseInt(itemId)
                     })
                   );
+                  reload();
                 } catch (err) {
                   triggerAlert(accessErrMessage(err));
                 }

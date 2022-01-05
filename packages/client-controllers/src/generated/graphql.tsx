@@ -48,6 +48,12 @@ export type Bid = {
   won: Scalars['Boolean'];
 };
 
+export type BidsResponse = {
+  __typename?: 'BidsResponse';
+  bids: Array<Bid>;
+  count: Scalars['Int'];
+};
+
 export type Item = {
   __typename?: 'Item';
   id: Scalars['Int'];
@@ -189,7 +195,7 @@ export type Query = {
   auctionsOwned: AuctionsResponse;
   getAuction?: Maybe<Auction>;
   getBid?: Maybe<Bid>;
-  getUserBids: Array<Bid>;
+  getUserBids: BidsResponse;
   hello: Scalars['String'];
   itemsOwned: UserItemsResponse;
   me?: Maybe<User>;
@@ -317,7 +323,7 @@ export type DeleteBidMutation = { __typename?: 'Mutation', deleteBid: boolean };
 export type UserBidsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type UserBidsQuery = { __typename?: 'Query', getUserBids: Array<{ __typename?: 'Bid', item: { __typename?: 'Item', id: number, name: string, picture: string, owner: { __typename?: 'User', username: string } } }> };
+export type UserBidsQuery = { __typename?: 'Query', getUserBids: { __typename?: 'BidsResponse', count: number, bids: Array<{ __typename?: 'Bid', item: { __typename?: 'Item', id: number, name: string, picture: string, owner: { __typename?: 'User', username: string } } }> } };
 
 export type GetBidQueryVariables = Exact<{
   auctionId: Scalars['String'];
@@ -948,13 +954,16 @@ export type DeleteBidMutationOptions = Apollo.BaseMutationOptions<DeleteBidMutat
 export const UserBidsDocument = gql`
     query UserBids {
   getUserBids {
-    item {
-      id
-      name
-      owner {
-        username
+    count
+    bids {
+      item {
+        id
+        name
+        owner {
+          username
+        }
+        picture
       }
-      picture
     }
   }
 }

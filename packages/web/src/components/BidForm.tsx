@@ -28,7 +28,7 @@ export const BidForm: FC<BidFormProps> = ({ auctionId }) => {
   });
   auctionId;
   const [itemId, setItemId] = useState<string>("-1");
-  const { push } = useRouter();
+  const { back } = useRouter();
   const { triggerAlert } = useAlert();
 
   return (
@@ -37,7 +37,7 @@ export const BidForm: FC<BidFormProps> = ({ auctionId }) => {
         isOpen={isOpen}
         onClose={() => {
           onClose();
-          push(`/auctions/${auctionId}`);
+          back();
         }}
       >
         <ModalOverlay />

@@ -18,6 +18,21 @@ module.exports = {
       mono: ["Menlo", "Monaco", "Courier New", "monospace"]
     },
     extend: {
+      keyframes: {
+        "grow-horizontal": {
+          from: {
+            width: "10px",
+            left: "calc(50%-5px)"
+          },
+          to: {
+            width: "100%",
+            left: "0"
+          }
+        }
+      },
+      animation: {
+        "grow-horizontal": "grow-horizontal 3s ease-in-out forwards"
+      },
       screens: {
         md2: "868px"
       },

@@ -108,4 +108,4 @@ const MePage: NextPage = () => {
   );
 };
 
-export default withApollo({ ssr: true })(MePage);
+export default withApollo({ ssr: false })(MePage);

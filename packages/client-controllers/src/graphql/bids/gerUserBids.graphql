@@ -1,0 +1,12 @@
+query UserBids {
+  getUserBids {
+    item {
+      id
+      name
+      owner {
+        username
+      }
+      picture
+    }
+  }
+}

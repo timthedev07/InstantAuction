@@ -59,12 +59,10 @@ export const Layout: FC = ({ children }) => {
 
       <div id="screen-overlay" />
 
-      <div id="App" className={`bg-neutral-1100 min-w-350`}>
+      <div id="App" className={`bg-[#efefef] min-w-350`}>
         <AlertProvider>
           {windowSize > BREAK_POINT ? <Nav /> : null}
-          <main className={`w-full  min-h-700 text-gray-900 dark:text-white`}>
-            {children}
-          </main>
+          <main className={`w-full  min-h-700 text-gray-900`}>{children}</main>
           {windowSize <= BREAK_POINT ? <BottomNav /> : null}
         </AlertProvider>
       </div>

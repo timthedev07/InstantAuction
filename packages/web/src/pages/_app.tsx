@@ -8,7 +8,7 @@ import { chakraTheme } from "../utils/chakraTheme";
 const App = ({ Component, pageProps }: AppProps) => {
   return (
     <ChakraProvider theme={chakraTheme}>
-      <IconContext.Provider value={{ color: "white", size: "30px" }}>
+      <IconContext.Provider value={{ color: "", size: "30px" }}>
         <Layout>
           <Component {...pageProps} />
         </Layout>

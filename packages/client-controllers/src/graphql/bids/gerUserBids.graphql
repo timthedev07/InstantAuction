@@ -13,6 +13,9 @@ query UserBids {
       }
       auction {
         id
+        item {
+          picture
+        }
       }
       won
     }

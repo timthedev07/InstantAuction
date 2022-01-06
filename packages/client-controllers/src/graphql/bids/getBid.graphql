@@ -11,6 +11,9 @@ query GetBid($auctionId: String!) {
     }
     auction {
       id
+      item {
+        picture
+      }
     }
     won
   }

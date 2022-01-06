@@ -16,7 +16,7 @@ interface UserTabsProps {
 }
 
 type TabType = "auctions-owned" | "items-owned" | "bids";
-const TabColor = "bg-neutral-900";
+const TabColor = "bg-neutral-100";
 
 const AuctionsTab = () => {
   const { data, loading, error } = useAuctionsOwnedQuery();
@@ -141,7 +141,7 @@ export const UserTabs: FC<UserTabsProps> = ({ tab }) => {
           ))}
         </ul>
         <div
-          className={`transition duration-300 relative h-[3px] bg-white w-[33.3333%]`}
+          className={`transition duration-300 relative h-[3px] bg-slate-700 w-[33.3333%]`}
           style={{
             transform: `translateX(${tabBottomLinePos})`
           }}

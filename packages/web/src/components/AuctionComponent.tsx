@@ -18,6 +18,8 @@ export interface AuctionComponentProps {
   className?: string;
 }
 
+export const dataItemBg = "bg-neutral-100";
+
 export const Auction: FC<AuctionComponentProps> = ({
   auction,
   className = "",
@@ -30,7 +32,7 @@ export const Auction: FC<AuctionComponentProps> = ({
 
   return (
     <li
-      className={`${className} w-full h-44 p-3 bg-neutral-900 border border-gray-500 border-opacity-60 rounded-lg transition-all duration-300 hover:scale-[1.02] hover:bg-gray-800`}
+      className={`${className} w-full h-44 p-3 ${dataItemBg} border border-gray-500 border-opacity-60 rounded-lg transition-all duration-300 hover:scale-[1.02] hover:bg-gray-300`}
     >
       <HStack className="items-center justify-start gap-6 h-full">
         <div className="flex items-center justify-center w-32 h-full">
@@ -44,7 +46,7 @@ export const Auction: FC<AuctionComponentProps> = ({
             <HStack className="items-start">
               <h4>{auction.title}</h4>
               <Link href={`/auctions/${auction.id}`}>
-                <RiShareBoxFill className="w-6 h-auto mt-1 ml-2 cursor-pointer bg-slate-500 bg-opacity-70 rounded-2xl p-1" />
+                <RiShareBoxFill className="w-6 h-auto mt-1 ml-2 cursor-pointer transition duration-200 hover:bg-gray-400 bg-opacity-70 rounded-2xl p-1" />
               </Link>
             </HStack>
             <span className="text-neutral-500">

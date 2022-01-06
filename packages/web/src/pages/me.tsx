@@ -82,7 +82,7 @@ const MePage: NextPage = () => {
             />
             <h2>{data.me.username}</h2>
           </div>
-          <div className="rounded-md border border-gray-500 p-3 flex justify-around gap-8 items-center bg-neutral-800">
+          <div className="rounded-md border border-gray-500 p-3 flex justify-around gap-8 items-center bg-neutral-100">
             <h5>{data.me.email}</h5>
             <HStack className="items-center gap-2 justify-center">
               <FormLabel m={0} htmlFor="visibility-switch">

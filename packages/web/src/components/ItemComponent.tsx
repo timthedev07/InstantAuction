@@ -7,6 +7,7 @@ import {
 } from "client-controllers";
 import { VStack } from "./utils/Stack";
 import { useAlert } from "../contexts/AlertContext";
+import { dataItemBg } from "./AuctionComponent";
 
 export interface ItemComponentProps {
   item: ItemsOwnedQuery["itemsOwned"]["items"][0];
@@ -18,7 +19,7 @@ export const Item: FC<ItemComponentProps> = ({ item }) => {
 
   return (
     <li
-      className="w-60 h-72 bg-neutral-900 border border-gray-500 border-opacity-60 cursor-pointer rounded-lg transition-all duration-300 hover:scale-[1.02] hover:bg-gray-800"
+      className={`w-60 h-72 ${dataItemBg} border border-gray-500 border-opacity-60 cursor-pointer rounded-lg transition-all duration-300 hover:scale-[1.02] hover:bg-neutral-200`}
       key={item.id}
     >
       <VStack className="items-center gap-4">

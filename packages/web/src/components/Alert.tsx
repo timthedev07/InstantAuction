@@ -1,4 +1,8 @@
 import { FC, useEffect } from "react";
+import { DangerIcon } from "../icons/alert/DangerIcon";
+import SuccessIcon from "../icons/alert/SuccessIcon";
+import WarningIcon from "../icons/alert/WarningIcon";
+import { InfoIcon } from "../icons/InfoIcon";
 
 export type AlertType = "warning" | "success" | "info" | "danger";
 
@@ -9,6 +13,13 @@ interface AlertProps {
   type: AlertType;
   onClose?: () => void;
 }
+
+const ICON_MAP = {
+  danger: DangerIcon,
+  info: InfoIcon,
+  success: SuccessIcon,
+  warning: WarningIcon
+};
 
 const TEXT_MAP: Record<AlertType, string> = {
   success: "Awesome, everything worked just fine!",
@@ -67,6 +78,8 @@ export const Alert: FC<AlertProps> = ({
     };
   }, []);
 
+  const Icon = ICON_MAP[type];
+
   return (
     <div
       className={`custom-alert custom-alert ${
@@ -75,7 +88,7 @@ export const Alert: FC<AlertProps> = ({
       onClick={handleClick}
     >
       <div className="alert-content">
-        <img className="alert-sign" src={`/images/alert/${type}.svg`} alt="" />
+        <Icon className="alert-sign" />
         <div className="alert-text">
           <h5 className="text-white">{TEXT_MAP[type]}</h5>
           <p className="alert-paragraph">{text}</p>

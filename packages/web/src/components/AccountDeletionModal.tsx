@@ -19,6 +19,7 @@ import {
   useDeleteAccountMutation
 } from "client-controllers";
 import { useAlert } from "../contexts/AlertContext";
+import { InfoIcon } from "../icons/InfoIcon";
 
 interface AccountDeletionModalProps {
   isOpen: boolean;
@@ -55,11 +56,7 @@ export const AccountDeletionModal: FC<AccountDeletionModalProps> = ({
               This action is irreversible."
               hasArrow
             >
-              <img
-                className="w-4 h-4"
-                src="/images/icons/info.svg"
-                alt="infoIcon"
-              />
+              <InfoIcon className="w-4 h-4" />
             </Tooltip>
           </ModalHeader>
 

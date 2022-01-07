@@ -43,7 +43,7 @@ export const Nav: FC = () => {
   }, [error]);
 
   return (
-    <nav className="sticky top-0 flex border-b border-opacity-30 border-neutral-200 items-center bg-app z-50">
+    <nav className="sticky top-0 flex border-b border-opacity-30 border-neutral-200 items-center bg-neutral-900 text-white z-50">
       <Link href="/">
         <div className="px-6 cursor-pointer">
           <img src="/logo192.png" className="w-9 h-9" />

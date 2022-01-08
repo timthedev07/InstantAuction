@@ -1,4 +1,5 @@
 import {
+  accessErrMessage,
   createMicrosoftOAuthOptions,
   useMicrosoftOAuthMutation
 } from "client-controllers";
@@ -22,14 +23,11 @@ const Google: NextPage = () => {
         push("/login");
       }
 
-      const response = await microsoftOAuth(
-        createMicrosoftOAuthOptions({ code })
-      );
-
-      if (!response.errors || !response.errors.length) {
+      try {
+        await microsoftOAuth(createMicrosoftOAuthOptions({ code }));
         return true;
-      } else {
-        return response.errors[0].message;
+      } catch (err) {
+        return accessErrMessage(err);
       }
     })().then(result => {
       if (result) {

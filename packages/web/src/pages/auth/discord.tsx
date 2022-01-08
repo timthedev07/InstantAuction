@@ -1,4 +1,5 @@
 import {
+  accessErrMessage,
   createDiscordOAuthOptions,
   useDiscordOAuthMutation
 } from "client-controllers";
@@ -22,12 +23,11 @@ const Discord: NextPage = () => {
         push("/login");
       }
 
-      const response = await discordOAuth(createDiscordOAuthOptions({ code }));
-
-      if (!response.errors || !response.errors.length) {
+      try {
+        await discordOAuth(createDiscordOAuthOptions({ code }));
         return true;
-      } else {
-        return response.errors[0].message;
+      } catch (err) {
+        return accessErrMessage(err);
       }
     })().then(result => {
       if (result === true) {

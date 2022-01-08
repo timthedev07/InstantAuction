@@ -1,4 +1,5 @@
 import {
+  accessErrMessage,
   createGoogleOAuthOptions,
   useGoogleOAuthMutation
 } from "client-controllers";
@@ -22,15 +23,14 @@ const Google: NextPage = () => {
         push("/login");
       }
 
-      const response = await googleOAuth(createGoogleOAuthOptions({ code }));
-
-      if (!response.errors || !response.errors.length) {
+      try {
+        await googleOAuth(createGoogleOAuthOptions({ code }));
         return true;
-      } else {
-        return response.errors[0].message;
+      } catch (err) {
+        return accessErrMessage(err);
       }
     })().then(result => {
-      if (result) {
+      if (result === true) {
         push("/");
       } else {
         push(`/login?err=${encodeURI(result)}`);

@@ -19,7 +19,7 @@ export const LoginPage: FC<LoginPageProps> = ({}) => {
 
   useEffect(() => {
     const query = router.query;
-    const error = query.err as string;
+    const error = decodeURI(query.err as string);
     if (error) {
       alert.triggerAlert(error, "warning", () => {
         router.reload();

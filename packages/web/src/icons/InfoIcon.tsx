@@ -7,7 +7,7 @@ export const InfoIcon: FC<SVGProps<SVGSVGElement>> = props => {
       height="24"
       {...props}
       stroke="currentColor"
-      stroke-linecap="round"
+      strokeLinecap="round"
       stroke-linejoin="round"
       stroke-width="2"
       viewBox="0 0 24 24"

@@ -69,7 +69,7 @@ const MePage: NextPage = () => {
       {getHeadForPage({
         description: `User: ${data.me.username}`,
         path: asPath,
-        title: `user - ${data.me.username}`
+        title: `My Account`
       })}
       <ReactTooltip key={checked ? "dfdf" : "svsv"} />
       <>

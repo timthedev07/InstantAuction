@@ -1,46 +1,48 @@
-import { createDiscordOAuthOptions, useDiscordOAuthMutation } from "client-controllers";
+import {
+  createDiscordOAuthOptions,
+  useDiscordOAuthMutation
+} from "client-controllers";
 import { NextPage } from "next";
 import { useRouter } from "next/dist/client/router";
 import queryString from "query-string";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { PageLoading } from "../../components/PageLoading";
 import { withApollo } from "../../utils/withApollo";
 
 const Discord: NextPage = () => {
-  const [state, setState] = useState<{}>();
   const [discordOAuth] = useDiscordOAuthMutation();
-  const {push} = useRouter();
+  const { push } = useRouter();
 
   useEffect(() => {
     (async () => {
       const urlParams = queryString.parse(window.location.search);
       let code = urlParams.code as string;
-      let success = false;
 
       if (!code) {
-        // TODO: handle error here
+        push("/login");
       }
 
-      const response = await discordOAuth(createDiscordOAuthOptions({code}));
+      const response = await discordOAuth(createDiscordOAuthOptions({ code }));
 
       if (!response.errors || !response.errors.length) {
-        success = true;
+        return true;
+      } else {
+        return response.errors[0].message;
       }
-
-      setState(response.data?.discordOAuth || {})
-
-      return success;
-    })().then((result) => {
-      if (result) {
+    })().then(result => {
+      if (result === true) {
         push("/");
+      } else {
+        push(`/login?err=${encodeURI(result)}`);
       }
     });
   }, []);
 
   return (
     <>
-      <pre>{JSON.stringify(state, null, 2)}</pre>
+      <PageLoading />
     </>
   );
 };
 
-export default withApollo({ssr: false})(Discord);
+export default withApollo({ ssr: false })(Discord);

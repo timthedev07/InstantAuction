@@ -295,7 +295,7 @@ export type GetAuctionQueryVariables = Exact<{
 }>;
 
 
-export type GetAuctionQuery = { __typename?: 'Query', getAuction?: { __typename?: 'Auction', id: string, title: string, description: string, status: string, dateCreated: any, dateUpdated: any, seller: { __typename?: 'User', username: string }, item: { __typename?: 'Item', id: number, picture: string, name: string }, winner?: { __typename?: 'User', username: string } | null | undefined } | null | undefined };
+export type GetAuctionQuery = { __typename?: 'Query', getAuction?: { __typename?: 'Auction', id: string, title: string, description: string, status: string, dateCreated: any, dateUpdated: any, seller: { __typename?: 'User', username: string }, item: { __typename?: 'Item', id: number, picture: string, name: string }, winner?: { __typename?: 'User', username: string } | null | undefined, bids: Array<{ __typename?: 'Bid', id: number, won: boolean, item: { __typename?: 'Item', id: number, name: string, picture: string }, bidder: { __typename?: 'User', username: string } }> } | null | undefined };
 
 export type ModifyAuctionMutationVariables = Exact<{
   partialUpdate: ModifyAuctionPartialUpdate;
@@ -795,6 +795,18 @@ export const GetAuctionDocument = gql`
     }
     winner {
       username
+    }
+    bids {
+      id
+      item {
+        id
+        name
+        picture
+      }
+      bidder {
+        username
+      }
+      won
     }
   }
 }

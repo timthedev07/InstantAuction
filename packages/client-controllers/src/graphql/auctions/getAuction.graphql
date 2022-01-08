@@ -17,5 +17,17 @@ query GetAuction($auctionId: String!) {
     winner {
       username
     }
+    bids {
+      id
+      item {
+        id
+        name
+        picture
+      }
+      bidder {
+        username
+      }
+      won
+    }
   }
 }

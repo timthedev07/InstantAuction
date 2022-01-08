@@ -21,7 +21,9 @@ export const LoginPage: FC<LoginPageProps> = ({}) => {
     const query = router.query;
     const error = query.err as string;
     if (error) {
-      alert.triggerAlert(error);
+      alert.triggerAlert(error, "warning", () => {
+        router.reload();
+      });
     }
   }, []);
 

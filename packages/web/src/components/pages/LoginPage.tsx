@@ -21,7 +21,7 @@ export const LoginPage: FC<LoginPageProps> = ({}) => {
     const query = router.query;
     const error = query.err as string | undefined;
     if (error) {
-      alert.triggerAlert(encodeURI(error), "warning", () => {
+      alert.triggerAlert(decodeURI(error), "warning", () => {
         router.push("/login");
       });
     }

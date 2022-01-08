@@ -22,7 +22,7 @@ export const LoginPage: FC<LoginPageProps> = ({}) => {
     const error = query.err as string | undefined;
     if (error) {
       alert.triggerAlert(encodeURI(error), "warning", () => {
-        router.reload();
+        router.push("/login");
       });
     }
   }, []);

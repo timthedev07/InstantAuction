@@ -1,45 +1,44 @@
-import { createGoogleOAuthOptions, useGoogleOAuthMutation } from "client-controllers";
+import {
+  createGoogleOAuthOptions,
+  useGoogleOAuthMutation
+} from "client-controllers";
 import { NextPage } from "next";
 import { useRouter } from "next/dist/client/router";
 import queryString from "query-string";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { PageLoading } from "../../components/PageLoading";
 import { withApollo } from "../../utils/withApollo";
 
 const Google: NextPage = () => {
-  const [state, setState] = useState<{}>();
   const [googleOAuth] = useGoogleOAuthMutation();
-  const {push} = useRouter();
+  const { push } = useRouter();
 
   useEffect(() => {
     (async () => {
       const urlParams = queryString.parse(window.location.search);
       let code = urlParams.code as string;
-      let success = false;
 
       if (!code) {
-        // TODO: handle error here
+        push("/login");
       }
 
-      const response = await googleOAuth(createGoogleOAuthOptions({code}));
+      const response = await googleOAuth(createGoogleOAuthOptions({ code }));
 
       if (!response.errors || !response.errors.length) {
-        success = true;
+        return true;
+      } else {
+        return response.errors[0].message;
       }
-      setState(response.data?.googleOAuth || {})
-
-      return success
-    })().then((result) => {
+    })().then(result => {
       if (result) {
         push("/");
+      } else {
+        push(`/login?err=${encodeURI(result)}`);
       }
     });
   }, []);
 
-  return (
-    <>
-      <pre>{JSON.stringify(state, null, 2)}</pre>
-    </>
-  );
+  return <PageLoading />;
 };
 
-export default withApollo({ssr: false})(Google);
+export default withApollo({ ssr: false })(Google);

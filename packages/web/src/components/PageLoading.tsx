@@ -1,11 +1,16 @@
 import { FC } from "react";
 
-interface PageLoadingProps {}
+interface PageLoadingProps {
+  fullScreen?: boolean;
+}
 
-export const PageLoading: FC<PageLoadingProps> = () => {
+export const PageLoading: FC<PageLoadingProps> = ({ fullScreen = true }) => {
   return (
     <div
-      className={`
+      className={fullScreen ? "h-[80vh] flex justify-center items-center" : ""}
+    >
+      <div
+        className={`
   w-11/12 rounded-full bg-neutral-800 h-2 m-auto relative
   before:absolute
   before:content-['']
@@ -17,6 +22,7 @@ export const PageLoading: FC<PageLoadingProps> = () => {
   before:bg-neutral-600
   before:animate-grow-horizontal
   `}
-    />
+      />
+    </div>
   );
 };

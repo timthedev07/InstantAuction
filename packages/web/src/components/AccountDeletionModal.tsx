@@ -55,6 +55,7 @@ export const AccountDeletionModal: FC<AccountDeletionModalProps> = ({
               including items and auctions would be permanently erased.
               This action is irreversible."
               hasArrow
+              shouldWrapChildren
             >
               <InfoIcon className="w-4 h-4" />
             </Tooltip>

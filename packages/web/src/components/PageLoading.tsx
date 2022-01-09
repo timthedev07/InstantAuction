@@ -11,7 +11,7 @@ export const PageLoading: FC<PageLoadingProps> = ({ fullScreen = true }) => {
     >
       <div
         className={`
-  w-11/12 rounded-full bg-neutral-800 h-2 m-auto relative
+  w-11/12 rounded-full bg-neutral-300 h-2 m-auto relative
   before:absolute
   before:content-['']
   before:top-0

@@ -1,6 +1,7 @@
-import { FC } from "react";
+import { DetailedHTMLProps, FC, HTMLAttributes } from "react";
 
-interface StackProps {
+interface StackProps
+  extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   className?: string;
   reversed?: boolean;
 }

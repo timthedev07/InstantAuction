@@ -81,6 +81,7 @@ export const EndAuctionModal: FC<EndAuctionModal> = ({
                   leftIcon={<MdCancel />}
                   colorScheme="orange"
                   variant="solid"
+                  disabled={chosenBidId === -1}
                   size="md"
                   w="full"
                   onClick={() => {

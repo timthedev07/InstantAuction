@@ -55,12 +55,17 @@ const AuctionInfo: NextPage = () => {
                   )}{" "}
                   Status: {data.getAuction.status}
                 </HStack>
-                {data.getAuction.status === "closed" && data.getAuction.winner && (
-                  <HStack className={AUCTION_INFO_ROW_CLASS}>
-                    <FaMoneyCheckAlt /> Winner:{" "}
-                    {data.getAuction.winner.username}
-                  </HStack>
-                )}
+                {data.getAuction.status === "closed" &&
+                  (data.getAuction.winner ? (
+                    <HStack className={AUCTION_INFO_ROW_CLASS}>
+                      <FaMoneyCheckAlt /> Winner:{" "}
+                      {data.getAuction.winner.username}
+                    </HStack>
+                  ) : (
+                    <HStack className={AUCTION_INFO_ROW_CLASS}>
+                      <FaMoneyCheckAlt /> No Winner
+                    </HStack>
+                  ))}
               </VStack>
               <hr className="m-auto w-[90%]" />
             </div>

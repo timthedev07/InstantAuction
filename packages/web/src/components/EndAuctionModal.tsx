@@ -10,7 +10,7 @@ import {
   Button,
   Tooltip
 } from "@chakra-ui/react";
-import { GetAuctionQuery } from "client-controllers";
+import { GetAuctionQuery, useEndAuctionMutation } from "client-controllers";
 import { InfoIcon } from "../icons/InfoIcon";
 import { HStack, VStack } from "./utils/Stack";
 import { MdCancel } from "@react-icons/all-files/md/MdCancel";
@@ -31,6 +31,8 @@ export const EndAuctionModal: FC<EndAuctionModal> = ({
   auction
 }) => {
   const [chosenBidId, setChosenBidId] = useState<number>(-1);
+  const [showTooltip, setShowTooltip] = useState<boolean>(false);
+  const [endAuction] = useEndAuctionMutation();
 
   return (
     <>
@@ -50,12 +52,23 @@ export const EndAuctionModal: FC<EndAuctionModal> = ({
           <ModalHeader className="flex gap-2">
             Close Auction / Declare Winner
             <Tooltip
+              defaultIsOpen={false}
+              defaultChecked={false}
+              isOpen={showTooltip}
               shouldWrapChildren
               zIndex={1401}
               label="Caveat. This is irreversible - once you close the auction either with or without declaring a winner, it would be the final result and the auction cannnot be reopnened."
               hasArrow
             >
-              <InfoIcon className="w-4 h-4" />
+              <InfoIcon
+                className="w-4 h-4"
+                onMouseEnter={() => {
+                  setShowTooltip(true);
+                }}
+                onMouseLeave={() => {
+                  setShowTooltip(false);
+                }}
+              />
             </Tooltip>
           </ModalHeader>
 
@@ -70,7 +83,7 @@ export const EndAuctionModal: FC<EndAuctionModal> = ({
                   variant="solid"
                   size="md"
                   w="full"
-                  onClick={event => {
+                  onClick={() => {
                     // un select handler
                     setChosenBidId(-1);
                   }}
@@ -89,7 +102,7 @@ export const EndAuctionModal: FC<EndAuctionModal> = ({
                         }}
                         className={`border min-w-[250px] cursor-pointer transition duration-500 w-40 rounded p-4 ${
                           each.id === chosenBidId
-                            ? "transform scale-105 shadow-xl bg-primary-300"
+                            ? "transform -translate-y-1 shadow-xl bg-slate-300"
                             : ""
                         }`}
                       >
@@ -105,7 +118,19 @@ export const EndAuctionModal: FC<EndAuctionModal> = ({
           </ModalBody>
 
           <ModalFooter>
-            <button className="cyan-button" onClick={() => {}}>
+            <button
+              className="cyan-button"
+              onClick={async () => {
+                if (!auction) return;
+
+                await endAuction({
+                  variables: {
+                    auctionId: auction.id,
+                    winningBidId: chosenBidId
+                  }
+                });
+              }}
+            >
               {chosenBidId === -1
                 ? "Close Auction"
                 : "Close Auction & Declare Winner"}

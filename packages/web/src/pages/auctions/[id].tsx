@@ -2,10 +2,10 @@ import { useDisclosure } from "@chakra-ui/react";
 import { useGetAuctionQuery, useMeQuery } from "client-controllers";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
+import { BidListItem } from "../../components/BidComponent";
 import { EndAuctionModal } from "../../components/EndAuctionModal";
 import { PageLoading } from "../../components/PageLoading";
 import { NotFoundPage } from "../../components/pages/404";
-import { VStack } from "../../components/utils/Stack";
 import { withApollo } from "../../utils/withApollo";
 
 const AuctionInfo: NextPage = () => {
@@ -44,14 +44,11 @@ const AuctionInfo: NextPage = () => {
             )}
             <div>
               <h3>Bids</h3>
-              {data.getAuction.bids.map(each => (
-                <VStack className="w-40">
-                  <h4>
-                    {each.item.name} from {each.bidder.username}
-                  </h4>
-                  <img src={each.item.picture} className="w-full" />
-                </VStack>
-              ))}
+              <div className="p-3">
+                {data.getAuction.bids.map(each => (
+                  <BidListItem bid={each} />
+                ))}
+              </div>
             </div>
           </div>
         </div>

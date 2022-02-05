@@ -128,9 +128,11 @@ export const EndAuctionModal: FC<EndAuctionModal> = ({
               className="cyan-button"
               onClick={async () => {
                 if (!auction) return;
+                if (!confirm("Are you sure to proceed?")) return;
+                console.log(chosenBidId);
 
                 try {
-                  if (chosenBidId !== -1) {
+                  if (chosenBidId === -1) {
                     await closeAuction({
                       variables: {
                         auctionId: auction.id

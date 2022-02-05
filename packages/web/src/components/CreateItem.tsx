@@ -23,7 +23,7 @@ export const CreateItem: FC = ({}) => {
     },
     [setFile]
   );
-  const [mode, setMode] = useState<"file" | "url">("file");
+  const [mode, setMode] = useState<"file" | "url">("url");
   const [picUrl, setPicUrl] = useState<string>("");
 
   const { getRootProps, getInputProps } = useDropzone({

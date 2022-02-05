@@ -10,6 +10,7 @@ import { useDropzone } from "react-dropzone";
 import { Input, RadioGroup, Radio } from "@chakra-ui/react";
 import { HStack, VStack } from "./utils/Stack";
 import { useAlert } from "../contexts/AlertContext";
+import { useRouter } from "next/router";
 
 export const CreateItem: FC = ({}) => {
   const alert = useAlert();
@@ -17,6 +18,7 @@ export const CreateItem: FC = ({}) => {
   const [createItemWithPicUrl] = useCreateItemWithPictureUrlMutation();
   const [file, setFile] = useState<any>(null);
   const [name, setName] = useState<string>("");
+  const { push } = useRouter();
   const onDrop = useCallback(
     ([file]) => {
       setFile(file);
@@ -54,7 +56,9 @@ export const CreateItem: FC = ({}) => {
               pictureUrl: picUrl
             })
           );
-          alert.triggerAlert("Item created.", "success");
+          alert.triggerAlert("Item created", "success", () => {
+            push("/me?t=items-owned");
+          });
         } catch (err) {
           console.log(accessErrMessage(err));
         }

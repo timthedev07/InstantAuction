@@ -2,16 +2,17 @@
   width: 45vw;
   min-width: 300px;
   max-width: 600px;
-  background: var(--color-neutral-800);
+  background: var(--color-neutral-100);
   padding: 20px;
   min-height: max-content;
   cursor: pointer;
   top: -100vw;
   max-height: 190px;
-  border-radius: 5px 5px 5px 5px;
+  border-radius: 0 0 5px 5px;
   position: fixed;
   margin-left: auto;
   margin-right: auto;
+  border: none;
   left: 0;
   right: 0;
   display: block;
@@ -20,7 +21,7 @@
 
 .custom-alert .alert-content .alert-paragraph {
   font-size: 13px !important;
-  color: rgb(212, 212, 212);
+  color: rgb(54, 54, 54);
   text-align: left;
 }
 @media screen and (max-width: 800px) {
@@ -30,7 +31,7 @@
 }
 
 .custom-alert.alert-active {
-  top: 20px;
+  top: 0px;
   transition: 0.15s;
   z-index: 100000000000001;
 }

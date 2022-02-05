@@ -90,20 +90,11 @@ export const Alert: FC<AlertProps> = ({
       <div className="alert-content">
         <Icon className="alert-sign" />
         <div className="alert-text">
-          <h5 className="text-white">{TEXT_MAP[type]}</h5>
+          <h5>{TEXT_MAP[type]}</h5>
           <p className="alert-paragraph">{text}</p>
         </div>
       </div>
-      <pre
-        style={{
-          textAlign: "right",
-          color: "#b3b3b3",
-          marginTop: "auto",
-          marginBottom: "0"
-        }}
-      >
-        ESC
-      </pre>
+      <pre className="text-right mt-auto mb-0">ESC</pre>
     </div>
   );
 };

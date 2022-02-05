@@ -34,12 +34,6 @@ const MePage: NextPage = () => {
     setChecked(data.me.emailPublic);
   }, [data]);
 
-  useEffect(() => {
-    console.log(
-      "State update, it's now " + (checked ? "checked" : "not checked")
-    );
-  }, [checked]);
-
   const handleChange = async () => {
     const newVal = !checked;
     setChecked(newVal);
@@ -102,7 +96,14 @@ const MePage: NextPage = () => {
           <AccountDeletionModal className="mt-4 ml-2" {...modalDisclosure} />
           <LogoutButton className="mt-4 ml-2" />
         </section>
-        {isReady ? <UserTabs tab={query.t as string | undefined} /> : ""}
+        {isReady ? (
+          <UserTabs
+            action={query.action as string | undefined}
+            tab={query.t as string | undefined}
+          />
+        ) : (
+          ""
+        )}
       </>
     </>
   );

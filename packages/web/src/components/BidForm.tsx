@@ -13,11 +13,11 @@ import {
   createBidCreationOptions,
   useCreateBidMutation
 } from "client-controllers";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { FC, useState } from "react";
 import { useAlert } from "../contexts/AlertContext";
 import { ItemsSelect } from "./ItemsSelect";
+import { ItemUploadRedirectButton } from "./ItemUploadRedirectButton";
 
 interface BidFormProps {
   auctionId: string;
@@ -53,11 +53,7 @@ export const BidForm: FC<BidFormProps> = ({ auctionId }) => {
                 setItemId(e.target.value);
               }}
             />
-            <Link href="/me?t=items-owned&action=new">
-              <Button variant="link" fontSize={"sm"}>
-                Upload more items here
-              </Button>
-            </Link>
+            <ItemUploadRedirectButton />
           </ModalBody>
 
           <ModalFooter>

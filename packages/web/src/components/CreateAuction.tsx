@@ -95,7 +95,9 @@ export const CreateAuction: FC = ({}) => {
           onBlur={formik.handleBlur}
           onChange={formik.handleChange}
         />
-        <ItemUploadRedirectButton />
+        <div className="w-full">
+          <ItemUploadRedirectButton />
+        </div>
 
         <FormControl isRequired isInvalid={!!formik.errors.description}>
           <FormLabel htmlFor="description-textarea" as="legend">

@@ -53,9 +53,9 @@ export const CreateAuctionModal: FC<CreateAuctionModalProps> = ({
           <Divider />
 
           <ModalFooter>
-            <button className="orange-button" onClick={onClose}>
+            <Button colorScheme="orange" onClick={onClose}>
               Cancel
-            </button>
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

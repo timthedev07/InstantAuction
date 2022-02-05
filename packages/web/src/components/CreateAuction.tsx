@@ -16,6 +16,7 @@ import { FC } from "react";
 import { useAlert } from "../contexts/AlertContext";
 import { clearValuesOnUndefined } from "../utils/processFormikValidatorReturn";
 import { ItemsSelect } from "./ItemsSelect";
+import { ItemUploadRedirectButton } from "./ItemUploadRedirectButton";
 
 export const CreateAuction: FC = ({}) => {
   const [createAuction] = useCreateAuctionMutation();
@@ -94,6 +95,7 @@ export const CreateAuction: FC = ({}) => {
           onBlur={formik.handleBlur}
           onChange={formik.handleChange}
         />
+        <ItemUploadRedirectButton />
 
         <FormControl isRequired isInvalid={!!formik.errors.description}>
           <FormLabel htmlFor="description-textarea" as="legend">

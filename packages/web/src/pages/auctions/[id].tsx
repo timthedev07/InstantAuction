@@ -7,6 +7,13 @@ import { EndAuctionModal } from "../../components/EndAuctionModal";
 import { PageLoading } from "../../components/PageLoading";
 import { NotFoundPage } from "../../components/pages/404";
 import { withApollo } from "../../utils/withApollo";
+import { FaLockOpen } from "@react-icons/all-files/fa/FaLockOpen";
+import { FaUserTie } from "@react-icons/all-files/fa/FaUserTie";
+import { FaLock } from "@react-icons/all-files/fa/FaLock";
+import { FaMoneyCheckAlt } from "@react-icons/all-files/fa/FaMoneyCheckAlt";
+import { HStack, VStack } from "../../components/utils/Stack";
+
+const AUCTION_INFO_ROW_CLASS = "justify-start items-center gap-2";
 
 const AuctionInfo: NextPage = () => {
   const { query } = useRouter();
@@ -30,13 +37,34 @@ const AuctionInfo: NextPage = () => {
               src={data.getAuction.item.picture}
               className="w-full h-auto max-w-none md:max-w-md md:rounded-lg"
             />
+
             <div className="p-6 md:p-0">
               <h2>{data.getAuction.title}</h2>
-              <h4>
+              {/* <h4>
                 {data.getAuction.status} | {data.getAuction.seller.username}
-              </h4>
+              </h4> */}
+              <VStack className="bg-gray-600 text-white p-11 rounded-md gap-10">
+                <HStack className={AUCTION_INFO_ROW_CLASS}>
+                  {<FaUserTie />} Seller: {data.getAuction.seller.username}
+                </HStack>
+                <HStack className={AUCTION_INFO_ROW_CLASS}>
+                  {data.getAuction.status === "closed" ? (
+                    <FaLock />
+                  ) : (
+                    <FaLockOpen />
+                  )}{" "}
+                  Status: {data.getAuction.status}
+                </HStack>
+                {data.getAuction.status === "closed" && data.getAuction.winner && (
+                  <HStack className={AUCTION_INFO_ROW_CLASS}>
+                    <FaMoneyCheckAlt /> Winner:{" "}
+                    {data.getAuction.winner.username}
+                  </HStack>
+                )}
+              </VStack>
               <hr className="m-auto w-[90%]" />
             </div>
+
             {meData && meData.me && data.getAuction.status === "open" ? (
               <EndAuctionModal {...modalDisclosure} auction={data.getAuction} />
             ) : (
@@ -57,4 +85,4 @@ const AuctionInfo: NextPage = () => {
   );
 };
 
-export default withApollo({ ssr: true })(AuctionInfo);
+export default withApollo({ ssr: false })(AuctionInfo);

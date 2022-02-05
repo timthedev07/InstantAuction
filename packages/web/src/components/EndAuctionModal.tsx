@@ -18,6 +18,7 @@ import {
 import { InfoIcon } from "../icons/InfoIcon";
 import { HStack, VStack } from "./utils/Stack";
 import { MdCancel } from "@react-icons/all-files/md/MdCancel";
+import { BidListItem } from "./BidComponent";
 
 interface EndAuctionModal {
   isOpen: boolean;
@@ -99,26 +100,16 @@ export const EndAuctionModal: FC<EndAuctionModal> = ({
               </div>
               <HStack className="w-full">
                 {auction &&
-                  auction.bids.map(each => {
-                    return (
-                      <div
-                        key={each.id}
-                        onClick={() => {
-                          setChosenBidId(each.id);
-                        }}
-                        className={`border min-w-[250px] cursor-pointer transition duration-500 w-40 rounded p-4 ${
-                          each.id === chosenBidId
-                            ? "transform -translate-y-1 shadow-xl bg-slate-300"
-                            : ""
-                        }`}
-                      >
-                        <h3>
-                          {each.item.name} from {each.bidder.username}
-                        </h3>
-                        <img src={each.item.picture} />
-                      </div>
-                    );
-                  })}
+                  auction.bids.map(each => (
+                    <BidListItem
+                      bid={each}
+                      onClick={() => {
+                        setChosenBidId(each.id);
+                      }}
+                      isSelectable
+                      isChosen={chosenBidId === each.id}
+                    />
+                  ))}
               </HStack>
             </VStack>
           </ModalBody>

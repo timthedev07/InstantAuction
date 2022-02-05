@@ -39,7 +39,7 @@ export const BidListItem: FC<BidListItemProps> = ({
     <div
       key={bid.id}
       {...rest}
-      className={`border min-w-[250px] cursor-pointer transition duration-500 w-40 rounded p-4 ${
+      className={`bg-slate-100 border min-w-[250px] cursor-pointer transition duration-500 w-40 rounded p-4 ${
         isChosen && isSelectable
           ? "transform -translate-y-1 shadow-xl bg-slate-300"
           : ""

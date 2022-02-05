@@ -42,7 +42,12 @@ export const EndAuctionModal: FC<EndAuctionModal> = ({
 
   return (
     <>
-      <Button className={className} variant={"link"} onClick={onOpen}>
+      <Button
+        className={className}
+        colorScheme="blue"
+        variant="solid"
+        onClick={onOpen}
+      >
         End Auction
       </Button>
 

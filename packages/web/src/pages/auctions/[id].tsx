@@ -66,15 +66,21 @@ const AuctionInfo: NextPage = () => {
                       <FaMoneyCheckAlt /> No Winner
                     </HStack>
                   ))}
+                <div className="w-full">
+                  {meData &&
+                    meData.me &&
+                    meData.me.username === data.getAuction.seller.username &&
+                    data.getAuction.status === "open" && (
+                      <EndAuctionModal
+                        {...modalDisclosure}
+                        auction={data.getAuction}
+                      />
+                    )}
+                </div>
               </VStack>
               <hr className="m-auto w-[90%]" />
             </div>
 
-            {meData && meData.me && data.getAuction.status === "open" ? (
-              <EndAuctionModal {...modalDisclosure} auction={data.getAuction} />
-            ) : (
-              ""
-            )}
             <div>
               <h3>Bids</h3>
               <div className="p-3">

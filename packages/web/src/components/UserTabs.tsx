@@ -1,63 +1,79 @@
+import { useDisclosure } from "@chakra-ui/react";
 import {
   useAuctionsOwnedQuery,
   useItemsOwnedQuery,
   useUserBidsQuery
 } from "client-controllers";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FC } from "react";
 import { Auction } from "./AuctionComponent";
 import { Bid } from "./BidComponent";
+import { CreateAuctionModal } from "./CreateAuctionModal";
+import { CreateItemModal } from "./CreateItemModal";
 import { Item } from "./ItemComponent";
 import { PageLoading } from "./PageLoading";
 
 interface UserTabsProps {
   tab?: string;
+  action?: string;
 }
 
 type TabType = "auctions-owned" | "items-owned" | "bids";
 const TabColor = "bg-neutral-100";
 
 const AuctionsTab = () => {
-  const { data, loading, error } = useAuctionsOwnedQuery();
+  const { data, loading } = useAuctionsOwnedQuery();
+  const modalDisclosure = useDisclosure();
 
   return (
-    <ul>
-      {loading ? (
-        <PageLoading />
-      ) : !data ? (
-        JSON.stringify(error)
-      ) : (
-        data.auctionsOwned.auctions.map(each => (
-          <Auction
-            className="my-3"
-            key={each.id}
-            auction={each}
-            showOwner={false}
-          />
-        ))
-      )}
-    </ul>
+    <>
+      <CreateAuctionModal {...modalDisclosure} />
+      <ul>
+        {loading || !data ? (
+          <PageLoading />
+        ) : (
+          data.auctionsOwned.auctions.map(each => (
+            <Auction
+              className="my-3"
+              key={each.id}
+              auction={each}
+              showOwner={false}
+            />
+          ))
+        )}
+      </ul>
+    </>
   );
 };
 
-const ItemsTab = () => {
+const ItemsTab: FC<{ action?: string }> = ({ action }) => {
   const { data, loading, error } = useItemsOwnedQuery({
     variables: {
       excludeAuctionedOff: false
     }
   });
+  const modalDisclosure = useDisclosure();
+
+  useEffect(() => {
+    if (action === "new") {
+      modalDisclosure.onOpen();
+    }
+  }, []);
 
   return (
-    <ul className="flex gap-5">
-      {loading ? (
-        <PageLoading />
-      ) : !data ? (
-        JSON.stringify(error)
-      ) : (
-        data.itemsOwned.items.map(each => <Item key={each.id} item={each} />)
-      )}
-    </ul>
+    <>
+      <CreateItemModal {...modalDisclosure} />
+      <ul className="flex gap-5">
+        {loading ? (
+          <PageLoading />
+        ) : !data ? (
+          JSON.stringify(error)
+        ) : (
+          data.itemsOwned.items.map(each => <Item key={each.id} item={each} />)
+        )}
+      </ul>
+    </>
   );
 };
 
@@ -93,7 +109,7 @@ export const computeTabBottomLineLeftPercentage = (tab: string) => {
   }
 };
 
-export const UserTabs: FC<UserTabsProps> = ({ tab }) => {
+export const UserTabs: FC<UserTabsProps> = ({ tab, action }) => {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<string>(
     tab ? tab : "auctions-owned"
@@ -152,7 +168,7 @@ export const UserTabs: FC<UserTabsProps> = ({ tab }) => {
         {(() => {
           switch (tab as TabType) {
             case "items-owned": {
-              return <ItemsTab />;
+              return <ItemsTab action={action} />;
             }
             case "bids": {
               return <BidsTab />;

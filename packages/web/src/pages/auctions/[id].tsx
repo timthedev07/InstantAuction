@@ -37,7 +37,7 @@ const AuctionInfo: NextPage = () => {
               </h4>
               <hr className="m-auto w-[90%]" />
             </div>
-            {meData && meData.me ? (
+            {meData && meData.me && data.getAuction.status === "open" ? (
               <EndAuctionModal {...modalDisclosure} auction={data.getAuction} />
             ) : (
               ""

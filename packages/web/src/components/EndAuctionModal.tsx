@@ -10,7 +10,11 @@ import {
   Button,
   Tooltip
 } from "@chakra-ui/react";
-import { GetAuctionQuery, useEndAuctionMutation } from "client-controllers";
+import {
+  GetAuctionQuery,
+  useCloseAuctionMutation,
+  useEndAuctionMutation
+} from "client-controllers";
 import { InfoIcon } from "../icons/InfoIcon";
 import { HStack, VStack } from "./utils/Stack";
 import { MdCancel } from "@react-icons/all-files/md/MdCancel";
@@ -33,6 +37,7 @@ export const EndAuctionModal: FC<EndAuctionModal> = ({
   const [chosenBidId, setChosenBidId] = useState<number>(-1);
   const [showTooltip, setShowTooltip] = useState<boolean>(false);
   const [endAuction] = useEndAuctionMutation();
+  const [closeAuction] = useCloseAuctionMutation();
 
   return (
     <>
@@ -124,12 +129,22 @@ export const EndAuctionModal: FC<EndAuctionModal> = ({
               onClick={async () => {
                 if (!auction) return;
 
-                await endAuction({
-                  variables: {
-                    auctionId: auction.id,
-                    winningBidId: chosenBidId
+                try {
+                  if (chosenBidId !== -1) {
+                    await closeAuction({
+                      variables: {
+                        auctionId: auction.id
+                      }
+                    });
+                  } else {
+                    await endAuction({
+                      variables: {
+                        auctionId: auction.id,
+                        winningBidId: chosenBidId
+                      }
+                    });
                   }
-                });
+                } catch (err) {}
               }}
             >
               {chosenBidId === -1

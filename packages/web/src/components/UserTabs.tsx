@@ -63,7 +63,7 @@ const ItemsTab: FC<{ action?: string }> = ({ action }) => {
 
   return (
     <>
-      <CreateItemModal {...modalDisclosure} />
+      <CreateItemModal {...modalDisclosure} className="my-4" />
       <ul className="flex gap-5">
         {loading ? (
           <PageLoading />

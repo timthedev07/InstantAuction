@@ -1,4 +1,5 @@
 import {
+  Button,
   Modal,
   ModalBody,
   ModalContent,
@@ -12,6 +13,7 @@ import {
   createBidCreationOptions,
   useCreateBidMutation
 } from "client-controllers";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { FC, useState } from "react";
 import { useAlert } from "../contexts/AlertContext";
@@ -51,11 +53,16 @@ export const BidForm: FC<BidFormProps> = ({ auctionId }) => {
                 setItemId(e.target.value);
               }}
             />
+            <Link href="/me?t=items-owned&action=new">
+              <Button variant="link" fontSize={"sm"}>
+                Upload more items here
+              </Button>
+            </Link>
           </ModalBody>
 
           <ModalFooter>
-            <button
-              className="green-button"
+            <Button
+              colorScheme={"teal"}
               onClick={async () => {
                 try {
                   await bid(
@@ -71,7 +78,7 @@ export const BidForm: FC<BidFormProps> = ({ auctionId }) => {
               }}
             >
               Bid
-            </button>
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

@@ -19,6 +19,31 @@ h6 {
   font-weight: 400 !important;
 }
 
+@keyframes grow-horizontal-kf {
+  from {
+    width: 10px;
+    left: calc(50%-5px);
+    background-color: theme("colors.emerald.700");
+  }
+  to {
+    width: 100%;
+    left: 0;
+    background-color: theme("colors.emerald.500");
+  }
+}
+.load-animate-normal {
+  animation: grow-horizontal-kf 1.7s ease-in-out forwards;
+}
+.load-animate-fast {
+  animation: grow-horizontal-kf 1.3s ease-in-out forwards;
+}
+.load-animate-faster {
+  animation: grow-horizontal-kf 1s ease-in-out forwards;
+}
+.load-animate-very-fast {
+  animation: grow-horizontal-kf 0.5s ease-in-out forwards;
+}
+
 @layer components {
   .cyan-button {
     @apply bg-cyan-600 text-white rounded px-4 py-1;
